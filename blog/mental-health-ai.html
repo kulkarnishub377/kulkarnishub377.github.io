@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO -->
+    <title>Mental Health AI: Fitness Tracker for Minds | Shubham Kulkarni</title>
+    <meta name="description" content="My IBM Internship Project: Using NLP and VADER Sentiment Analysis to detect behavioral micro-anomalies and predict user burnout.">
+    <meta name="author" content="Shubham Kulkarni">
+    <link rel="canonical" href="https://kulkarnishub377.github.io/sk/blog/mental-health-ai.html">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="shortcut icon" href="../favicon/favicon.ico">
+    <meta property="og:title" content="Mental Health AI: NLP for Well-being">
+    <meta property="og:description" content="Using Python, Flask, and Scikit-learn to build a proactive mental health tracker.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:url" content="https://kulkarnishub377.github.io/sk/blog/mental-health-ai.html">
+    <meta property="og:type" content="article">
+
+    <!-- Schema.org Authority -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://kulkarnishub377.github.io/sk/blog/mental-health-ai.html"
+      },
+      "headline": "Mental Health AI: Fitness Tracker for Minds",
+      "description": "Using NLP and VADER Sentiment Analysis to detect behavioral micro-anomalies and predict user burnout.",
+      "image": "https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&w=1200&q=80",
+      "author": {
+        "@type": "Person",
+        "name": "Shubham Kulkarni",
+        "url": "https://kulkarnishub377.github.io/sk/",
+        "image": "https://kulkarnishub377.github.io/sk/photo_sk.jpg",
+        "jobTitle": "AI Engineer"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Shubham Kulkarni"
+      },
+      "datePublished": "2026-01-28",
+      "dateModified": "2026-02-18"
+    }
+    </script>
+
+    <!-- Fonts & CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* --------------------------------------------------------------------------
+           INTERNAL MAGAZINE STYLES
+           -------------------------------------------------------------------------- */
+        
+        .article-content-wrapper {
+            font-family: 'Inter', sans-serif;
+            color: #2c3e50;
+        }
+
+        .article-content-wrapper p {
+            font-size: 1.25rem;
+            line-height: 1.85;
+            margin-bottom: 2rem;
+            color: #374151;
+        }
+
+        .article-content-wrapper h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 2.25rem;
+            margin-top: 4rem;
+            margin-bottom: 1.5rem;
+            color: #111827;
+            position: relative;
+            letter-spacing: -0.02em;
+        }
+
+        .article-content-wrapper h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 6px;
+            background: linear-gradient(90deg, #8B5CF6, transparent); /* Purple for AI/Mind */
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+
+        .article-content-wrapper h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.75rem;
+            margin-top: 3rem;
+            margin-bottom: 1.25rem;
+            color: #5B21B6; /* Darker Purple */
+        }
+
+        .dropcap::first-letter {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 4.5rem;
+            float: left;
+            line-height: 0.85;
+            margin-right: 1.25rem;
+            margin-top: 0.2rem;
+            color: #8B5CF6;
+            font-weight: 700;
+        }
+
+        .highlight-box {
+            background: #F5F3FF;
+            border-left: 6px solid #8B5CF6;
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 3.5rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .highlight-box::before {
+            content: '\f0e0'; /* FontAwesome Brain */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 8rem;
+            color: rgba(139, 92, 246, 0.05);
+            transform: rotate(30deg);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 3.5rem 0;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: rgba(139, 92, 246, 0.2);
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+            -webkit-background-clip: text;
+            background-clip: text; /* Standard property */
+            -webkit-text-fill-color: transparent;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #6B7280;
+            font-weight: 700;
+        }
+        
+        .toc-wrapper {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+            border: 1px solid #E5E7EB;
+        }
+
+        .toc-list { list-style: none; padding: 0; margin: 0; }
+        .toc-list li { margin-bottom: 1rem; }
+        .toc-list a { text-decoration: none; color: #4B5563; font-weight: 500; transition: color 0.2s ease; }
+        .toc-list a:hover { color: #8B5CF6; }
+
+        @media (max-width: 992px) {
+            .hero-title { font-size: 2.75rem; }
+            .stat-grid { grid-template-columns: 1fr; }
+            .toc-wrapper { display: none; }
+            .article-content-wrapper { padding: 0 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-premium">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html">
+                <i class="fas fa-arrow-left text-secondary" style="font-size: 0.9rem;"></i>
+                <span style="font-family: var(--font-mono); color: var(--text-primary);">Back to Blog</span>
+            </a>
+            
+             <div class="ms-auto d-none d-md-block">
+                <span class="badge bg-light text-dark border fw-medium px-3 py-2">
+                    <i class="fas fa-clock me-2"></i> 7 min read
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="article-header pt-5 mt-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                     <span class="hero-tag mb-3 d-inline-block text-white bg-primary border-primary" style="background-color: #8B5CF6 !important; border-color: #8B5CF6 !important;">AI for Good</span>
+                    <h1 class="hero-title display-4 fw-bolder mb-4">Mental Health AI: A Fitness Tracker for the Mind</h1>
+                    <p class="lead text-secondary mb-4 mx-auto" style="max-width: 800px; font-size: 1.35rem; line-height: 1.6;">
+                        How we used NLP and VADER Sentiment Analysis to detect behavioral micro-anomalies and predict burnout before it happens.
+                    </p>
+                    
+                    <div class="d-flex justify-content-center align-items-center gap-4 mt-5 text-muted">
+                        <div class="d-flex align-items-center gap-2">
+                            <img src="../photo_sk.jpg" alt="Shubham" class="rounded-circle shadow-sm" width="56" height="56">
+                            <div class="text-start">
+                                <span class="d-block fw-bold text-dark">Shubham Kulkarni</span>
+                                <span class="small text-secondary">IBM Project Lead</span>
+                            </div>
+                        </div>
+                        <div class="vr opacity-25"></div>
+                        <div class="text-start">
+                            <span class="d-block fw-bold text-dark">Updated</span>
+                            <time class="small text-secondary" datetime="2026-01-28">Jan 28, 2026</time>
+                        </div>
+                    </div>
+
+                    <!-- Share Buttons -->
+                    <div class="share-buttons-container justify-content-center mt-4">
+                        <span class="text-muted small fw-bold me-2">SHARE:</span>
+                        <a href="#" class="share-btn linkedin" data-platform="linkedin" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="share-btn twitter" data-platform="twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="share-btn whatsapp" data-platform="whatsapp" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <button class="share-btn copy-link-btn" aria-label="Copy Link"><i class="fas fa-link"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Body -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                
+                <!-- Sidebar TOC -->
+                <div class="col-lg-3 d-none d-lg-block">
+                    <div class="sticky-top" style="top: 120px;">
+                        <div class="toc-wrapper">
+                            <h6 class="text-uppercase text-muted fw-bold mb-4 small" style="letter-spacing: 1px;">Contents</h6>
+                            <ul class="toc-list">
+                                <li><a href="#the-challenge">1. The Problem</a></li>
+                                <li><a href="#nlp-pipeline">2. NLP Pipeline</a></li>
+                                <li><a href="#sentiment-scoring">3. Why VADER?</a></li>
+                                <li><a href="#anomaly-detection">4. Burnout Detection</a></li>
+                                <li><a href="#privacy">5. Ethics & Privacy</a></li>
+                                <li><a href="#results">6. Real Impact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Content -->
+                <div class="col-lg-8 article-content-wrapper">
+                    <img src="https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&w=1200&q=80" 
+                         alt="Mental Health Data Visualization" class="img-fluid rounded-4 mb-5 shadow-sm w-100">
+
+                    <p class="dropcap">
+                        During my internship at IBM, I stared at my Apple Watch one morning and had a thought that wouldn't leave me alone: "We track steps, calories, sleep cycles, and heart rate variability with obsessive precision. A smartwatch can detect an irregular heartbeat. But when it comes to the mind — the thing that actually determines our quality of life — we're basically flying blind."
+                    </p>
+                    
+                    <p>
+                        This question consumed my entire internship. The result was a <strong>Proactive Mental Health Tracker</strong> — a system that doesn't ask "How are you feeling?" (because people lie, even to apps). Instead, it analyzes the <em>passive digital exhaust</em> of daily communication — journal entries, Slack messages (with explicit consent), and voice notes — to detect the invisible, early-stage signals of burnout before the person even realizes they're burning out.
+                    </p>
+
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <span class="stat-value">90%</span>
+                            <span class="stat-label">Mood Accuracy</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">45%</span>
+                            <span class="stat-label">Intervention Rate</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">200+</span>
+                            <span class="stat-label">Beta Users</span>
+                        </div>
+                    </div>
+
+                    <h2 id="the-challenge">1. The Quantified Self Problem</h2>
+                    <p>
+                        Why is mental health tracking so hard compared to physical fitness? The answer is <strong>subjectivity</strong>. A resting heart rate of 72 BPM is an objective, measurable fact. But "anxiety" exists on a spectrum — what's crippling for one person is Tuesday morning for another.
+                    </p>
+                    <p>
+                        Traditional mental health apps rely on self-reporting: "Rate your mood from 1-5." This approach has three fatal flaws:
+                    </p>
+                    <ul>
+                        <li><strong>Recall Bias:</strong> People rate their mood based on the last hour, not the entire day.</li>
+                        <li><strong>Social Desirability:</strong> Even anonymously, people report feeling "better" than they do.</li>
+                        <li><strong>Survey Fatigue:</strong> After 2 weeks, most users stop logging entirely (we measured a 73% drop-off rate in competing apps).</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <h4 class="h5 fw-bold mb-3"><i class="fas fa-microscope text-primary me-2" style="color: #8B5CF6 !important;"></i>Micro-Anomalies: A New Mental Health Biomarker</h4>
+                        <p class="mb-0">
+                            A single angry Slack message isn't a problem — everyone has bad days. But a <strong>15% drop in vocabulary richness</strong> combined with a <strong>20% increase in negative sentiment</strong> over a rolling 7-day window? That's a <em>digital biomarker</em> for stress. We don't diagnose — we detect patterns and nudge the user to self-reflect.</p>
+                    </div>
+
+                    <h2 id="nlp-pipeline">2. The NLP Pipeline</h2>
+                    <p>
+                        We built the backend using <strong>Python and Flask</strong>, utilizing NLTK for the linguistic heavy lifting. The pipeline transforms raw text into a "Mental Health Score" through five stages:
+                    </p>
+
+                    <div class="mermaid my-4">
+flowchart LR
+    Input["User Text Input"] --> Tokenize["Tokenization NLTK"]
+    Tokenize --> Clean["Remove Stopwords and Normalize"]
+    Clean --> Features["Feature Extraction"]
+    Features --> VADER["VADER Sentiment"]
+    Features --> Lex["Lexical Diversity"]
+    Features --> Tone["Writing Tone Analysis"]
+    VADER --> Compound{"Compound Score"}
+    Lex --> Complexity["Vocabulary Richness"]
+    Tone --> Emotion["Emotional Markers"]
+
+    Compound --> Rolling["7-Day Moving Avg"]
+    Complexity --> Rolling
+    Emotion --> Rolling
+    Rolling --> Alert{"Score < Threshold?"}
+    Alert -->|Yes| Trigger["🔔 Trigger Gentle Nudge"]
+    Alert -->|No| Store["📊 Store and Display"]
+                    </div>
+
+                    <p>
+                        What makes our pipeline different from a simple "positive/negative" classifier is the <strong>multi-signal approach</strong>. We don't just measure sentiment — we also track:
+                    </p>
+                    <ul>
+                        <li><strong>Lexical Diversity (TTR):</strong> The ratio of unique words to total words. When stressed, people's vocabulary shrinks — they use the same words repeatedly.</li>
+                        <li><strong>Sentence Length Variance:</strong> Burnout correlates with shorter, choppier sentences. Compare: "I had a productive day working on the project" vs "Fine. Done. Whatever."</li>
+                        <li><strong>First-Person Pronoun Density:</strong> Increased use of "I", "me", "my" correlates with rumination and depressive patterns (Rude et al., 2004).</li>
+                    </ul>
+
+                    <h2 id="sentiment-scoring">3. Why VADER Over Transformers?</h2>
+                    <p>
+                        This was our most controversial technical decision. In 2026, why use a rule-based model when BERT exists? Three reasons:
+                    </p>
+
+                    <div class="highlight-box">
+                        <h5 class="fw-bold mb-3"><i class="fas fa-balance-scale text-primary me-2" style="color: #8B5CF6 !important;"></i>Model Comparison</h5>
+                        <div class="table-responsive">
+                            <table class="table table-sm mb-0" style="font-size: 0.9rem;">
+                                <thead>
+                                    <tr><th>Metric</th><th>VADER</th><th>DistilBERT</th><th>RoBERTa</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td><strong>Accuracy</strong></td><td>87%</td><td>93%</td><td>95%</td></tr>
+                                    <tr><td><strong>Latency</strong></td><td>0.2ms</td><td>45ms</td><td>120ms</td></tr>
+                                    <tr><td><strong>Explainability</strong></td><td>✅ Full</td><td>⚠️ Partial</td><td>❌ Black box</td></tr>
+                                    <tr><td><strong>Understands Slang</strong></td><td>✅ Yes</td><td>⚠️ Depends</td><td>⚠️ Depends</td></tr>
+                                    <tr><td><strong>Model Size</strong></td><td>0.5MB</td><td>250MB</td><td>500MB</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <p>
+                        <strong>VADER (Valence Aware Dictionary and sEntiment Reasoner)</strong> won because of <em>explainability</em>. In a mental health context, we needed to explain <em>why</em> the system flagged a user. "Your compound sentiment score dropped to -0.4 because of words like 'exhausted', 'stuck', and 'pointless'" is actionable. A black-box neural network saying "negative sentiment detected" is not.
+                    </p>
+                    <p>
+                        Crucially, VADER also handles informal text brilliantly — ALL CAPS, multiple exclamation marks, emojis, and slang. Our users write journal entries, not academic papers.
+                    </p>
+
+                    <div class="code-block-wrapper my-4">
+                        <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-2 mb-3">
+                            <span class="font-monospace small text-muted">analyzer.py</span>
+                            <i class="fas fa-code text-muted"></i>
+                        </div>
+<pre><code class="language-python">from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from collections import Counter
+import re
+
+def analyze_entry(text_entry):
+    """Multi-signal analysis of a single text entry."""
+    analyzer = SentimentIntensityAnalyzer()
+    
+    # Signal 1: Sentiment Scores
+    scores = analyzer.polarity_scores(text_entry)
+    
+    # Signal 2: Lexical Diversity (Type-Token Ratio)
+    words = re.findall(r'\b\w+\b', text_entry.lower())
+    ttr = len(set(words)) / max(len(words), 1)
+    
+    # Signal 3: First-Person Pronoun Density
+    first_person = {'i', 'me', 'my', 'myself', 'mine'}
+    fp_count = sum(1 for w in words if w in first_person)
+    fp_density = fp_count / max(len(words), 1)
+    
+    # Signal 4: Average Sentence Length
+    sentences = text_entry.split('.')
+    avg_sentence_len = sum(len(s.split()) for s in sentences) / max(len(sentences), 1)
+    
+    return {
+        "compound": scores['compound'],         # -1.0 to +1.0
+        "lexical_diversity": round(ttr, 3),      # 0.0 to 1.0
+        "pronoun_density": round(fp_density, 3), # 0.0 to 1.0
+        "avg_sentence_len": round(avg_sentence_len, 1),
+        "word_count": len(words)
+    }</code></pre>
+                    </div>
+
+                    <h2 id="anomaly-detection">4. Detecting the Burnout Pattern</h2>
+                    <p>
+                        A single data point is noise. A <em>trend</em> is a signal. We used a <strong>Rolling 7-Day Window</strong> to smooth out daily fluctuations and identify sustained negative patterns.
+                    </p>
+                    <p>
+                        The algorithm isn't complicated — that's by design. Complex ML models would add latency and opacity without meaningful accuracy gains for this use case:
+                    </p>
+
+                    <div class="code-block-wrapper my-4">
+                        <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-2 mb-3">
+                            <span class="font-monospace small text-muted">anomaly_detector.py</span>
+                            <i class="fas fa-code text-muted"></i>
+                        </div>
+<pre><code class="language-python">import numpy as np
+from datetime import timedelta
+
+def detect_burnout_pattern(entries, window=7, threshold=-0.3):
+    """
+    Uses rolling average to detect sustained negative trends.
+    
+    Args:
+        entries: List of dicts with 'date', 'compound', 'lexical_diversity'
+        window: Days for rolling average (default: 7)
+        threshold: Compound score below which we alert (default: -0.3)
+    
+    Returns:
+        alert: bool, should_nudge: bool, context: dict
+    """
+    if len(entries) < window:
+        return False, False, {"reason": "Insufficient data"}
+    
+    recent = entries[-window:]
+    
+    # Rolling averages
+    avg_sentiment = np.mean([e['compound'] for e in recent])
+    avg_diversity = np.mean([e['lexical_diversity'] for e in recent])
+    
+    # Week-over-week comparison
+    if len(entries) >= window * 2:
+        prev_week = entries[-(window*2):-window]
+        prev_sentiment = np.mean([e['compound'] for e in prev_week])
+        sentiment_delta = avg_sentiment - prev_sentiment
+    else:
+        sentiment_delta = 0
+    
+    # Multi-signal alert condition
+    is_alert = (
+        avg_sentiment < threshold or          # Sustained negativity
+        sentiment_delta < -0.2 or             # Sharp decline
+        (avg_diversity < 0.4 and avg_sentiment < 0)  # Low vocab + negative
+    )
+    
+    return is_alert, is_alert, {
+        "avg_sentiment": round(avg_sentiment, 3),
+        "avg_diversity": round(avg_diversity, 3),
+        "sentiment_delta": round(sentiment_delta, 3),
+        "trigger": "sustained_negative" if avg_sentiment < threshold 
+                   else "sharp_decline" if sentiment_delta < -0.2 
+                   else "vocabulary_collapse"
+    }</code></pre>
+                    </div>
+
+                    <p>When the system detects a pattern, the intervention is <strong>gentle and non-prescriptive</strong>:</p>
+                    <ul>
+                        <li><strong>The Dip Alert:</strong> If the 7-day average drops below -0.3, the user receives: <em>"You seem to have a lot on your mind this week. Want to try a 2-minute breathing exercise?"</em></li>
+                        <li><strong>The Vocabulary Alert:</strong> If lexical diversity drops below 0.4: <em>"Your writing patterns have changed recently. Sometimes journaling about what's on your mind can help."</em></li>
+                        <li><strong>Never Diagnostic:</strong> We never say "You might be depressed." We're not clinicians, and the system is designed as a wellness tool, not a medical device.</li>
+                    </ul>
+
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80" 
+                         alt="Analytics Dashboard" class="img-fluid rounded-4 my-5 shadow-sm w-100">
+
+                    <h2 id="privacy">5. Ethics & Privacy: The Hardest Problem</h2>
+                    <p>
+                        Building a system that reads people's messages requires an <strong>ethics-first approach</strong>. Here's how we handled it:
+                    </p>
+
+                    <div class="row g-4 mb-5">
+                        <div class="col-md-6">
+                            <div class="highlight-box mt-0 h-100 py-4">
+                                <h5 class="fw-bold"><i class="fas fa-shield-alt me-2" style="color: #8B5CF6;"></i>Privacy Guarantees</h5>
+                                <ul class="small mb-0 list-unstyled">
+                                    <li class="mb-2">• <strong>On-device processing</strong> — raw text never leaves the phone</li>
+                                    <li class="mb-2">• <strong>Only scores are stored</strong>, not original text</li>
+                                    <li class="mb-2">• <strong>Explicit opt-in</strong> for Slack integration</li>
+                                    <li>• <strong>Data deletion</strong> — one-tap permanent wipe</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="highlight-box mt-0 h-100 py-4" style="border-left-color: #7C3AED;">
+                                <h5 class="fw-bold"><i class="fas fa-gavel me-2" style="color: #7C3AED;"></i>Ethical Boundaries</h5>
+                                <ul class="small mb-0 list-unstyled">
+                                    <li class="mb-2">• <strong>No diagnosis</strong> — this is wellness, not medicine</li>
+                                    <li class="mb-2">• <strong>No employer access</strong> — data belongs to the user only</li>
+                                    <li class="mb-2">• <strong>Crisis response</strong> — if severe distress is detected, show helpline numbers</li>
+                                    <li>• <strong>IRB reviewed</strong> — approved by the institutional review board</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 id="results">6. Real World Impact</h2>
+                    <p>
+                        We ran a 4-week beta with 200+ IBM interns. The results were humbling: 
+                    </p>
+                    <p>
+                        The <strong>"Gentle Nudge"</strong> intervention had a <strong>45% engagement rate</strong> — meaning nearly half of the users who received an alert actually clicked through and did the suggested breathing exercise or journaling prompt. For context, typical push notification engagement is 3-5%.
+                    </p>
+                    <p>
+                        Even more encouraging: users reported that simply being made aware of their negative trend helped them <strong>self-correct before hitting crisis mode</strong>. One user told us: "I didn't realize my messages had gotten so negative until the app showed me the weekly graph. That visualization was the wake-up call."
+                    </p>
+
+                    <div class="highlight-box">
+                        <h4 class="h5 fw-bold mb-3"><i class="fas fa-brain text-primary me-2" style="color: #8B5CF6 !important;"></i>Key Takeaways</h4>
+                        <ul class="mb-0">
+                            <li><strong>Passive monitoring > Active reporting:</strong> People don't log their mood truthfully or consistently. Analyzing existing text is far more reliable.</li>
+                            <li><strong>Explainability is non-negotiable:</strong> In health contexts, users must understand <em>why</em> the system flagged them. VADER's rule-based approach makes this possible.</li>
+                            <li><strong>The nudge is the product:</strong> We don't need to be 99% accurate. We need to be accurate <em>enough</em> to start a conversation with the user about their own well-being.</li>
+                            <li><strong>Ethics must be designed in, not bolted on:</strong> Every architectural decision — on-device processing, score-only storage, no employer access — was driven by privacy-first thinking.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--bg-surface); border-top: 1px solid var(--border-light);" class="py-5">
+        <div class="container text-center">
+            <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
+            <div class="d-flex justify-content-center gap-3 mb-4">
+                <a href="#" class="text-secondary"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="text-secondary"><i class="fab fa-github fa-lg"></i></a>
+                <a href="#" class="text-secondary"><i class="fab fa-linkedin fa-lg"></i></a>
+            </div>
+            <p class="text-secondary small mb-4">Engineering AI for Humans.</p>
+            <a href="index.html" class="btn btn-outline-dark rounded-pill px-4 hover-lift">Back to Blog</a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>

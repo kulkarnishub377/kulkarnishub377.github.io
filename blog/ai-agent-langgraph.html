@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Masterclass -->
+    <title>Building Your First AI Agent with LangGraph | Shubham Kulkarni</title>
+    <meta name="description" content="A step-by-step tutorial on building stateful AI Agents using LangGraph. Learn how to implement tool calling, cyclic graphs, memory, and Human-in-the-Loop.">
+    <meta name="keywords" content="LangGraph, AI Agents, LangChain, Python, LLM, Agentic Workflow, Tool Calling, Human-in-the-Loop">
+    <meta name="author" content="Shubham Kulkarni">
+    <link rel="canonical" href="https://kulkarnishub377.github.io/sk/blog/ai-agent-langgraph.html">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="shortcut icon" href="../favicon/favicon.ico">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://kulkarnishub377.github.io/sk/blog/ai-agent-langgraph.html">
+    <meta property="og:title" content="Building Your First AI Agent with LangGraph">
+    <meta property="og:description" content="Move beyond simple chains. Build autonomous agents that can plan, loop, and execute tools using LangGraph.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://kulkarnishub377.github.io/sk/blog/ai-agent-langgraph.html">
+    <meta name="twitter:title" content="Building Your First AI Agent with LangGraph">
+    <meta name="twitter:description" content="Move beyond simple chains. Build autonomous agents that can plan, loop, and execute tools using LangGraph.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Building Your First AI Agent with LangGraph",
+      "description": "A tutorial on building autonomous AI agents with cyclic graphs.",
+      "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80",
+      "author": {
+        "@type": "Person",
+        "name": "Shubham Kulkarni",
+        "url": "https://kulkarnishub377.github.io/sk/"
+      },
+      "datePublished": "2026-02-12",
+      "dateModified": "2026-02-12",
+      "proficiencyLevel": "Advanced"
+    }
+    </script>
+
+    <!-- Fonts & CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;700;800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* Internal Magazine Styles (Matched to ai-ml-trends.html) */
+        .article-content-wrapper { font-family: 'Inter', sans-serif; color: #2c3e50; }
+        .article-content-wrapper p { font-size: 1.25rem; line-height: 1.85; margin-bottom: 2rem; color: #374151; }
+        
+        .article-content-wrapper h2 {
+            font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 2.25rem;
+            margin-top: 4rem; margin-bottom: 1.5rem; color: #111827; position: relative; letter-spacing: -0.02em;
+        }
+        .article-content-wrapper h2::after {
+            content: ''; display: block; width: 80px; height: 6px;
+            background: linear-gradient(90deg, #EC4899, transparent);
+            margin-top: 15px; border-radius: 4px;
+        }
+
+        /* Stat Grid */
+        .stat-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem; margin: 3.5rem 0;
+        }
+        .stat-card {
+            background: #ffffff; padding: 2rem; border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); text-align: center;
+            border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease;
+        }
+        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(236, 72, 153, 0.1); }
+        .stat-value {
+            font-size: 2.5rem; font-weight: 800;
+            background: linear-gradient(135deg, #EC4899 0%, #DB2777 100%);
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            display: block; margin-bottom: 0.5rem;
+        }
+        .stat-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: #6B7280; font-weight: 700; }
+
+        .highlight-box { background: #FDF2F8; border-left: 6px solid #EC4899; padding: 2.5rem; border-radius: 16px; margin: 3.5rem 0; position: relative; overflow: hidden; }
+        .highlight-box::before { content: '\f544'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; top: -20px; right: -20px; font-size: 8rem; color: rgba(236, 72, 153, 0.05); transform: rotate(30deg); }
+        
+        /* TOC Wrapper */
+        .toc-wrapper {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+            border: 1px solid #E5E7EB;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list li {
+            margin-bottom: 1rem;
+        }
+
+        .toc-list a {
+            text-decoration: none;
+            color: #4B5563;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            transition: color 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: #2563EB;
+        }
+
+        .toc-list a.active {
+            color: #2563EB;
+            font-weight: 700;
+        }
+        
+        /* Code Blocks */
+        pre { background: #0F172A; color: #F8FAFC; padding: 1.5rem; border-radius: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; overflow-x: auto; margin-bottom: 2rem; border: 1px solid #334155; }
+        
+        @media (max-width: 992px) {
+            .hero-title { font-size: 2.5rem; }
+            .toc-wrapper { display: none; }
+            .article-content-wrapper { padding: 0 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Nav -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-premium">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../index.html">
+                <i class="fas fa-arrow-left text-secondary" style="font-size: 0.9rem;"></i>
+                <span style="font-family: var(--font-mono); color: var(--text-primary);">Back to Blog</span>
+            </a>
+            <div class="ms-auto d-none d-md-block">
+                <span class="badge bg-light text-dark border fw-medium px-3 py-2">
+                    <i class="fas fa-clock me-2"></i> 12 min read
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="article-header pt-5 mt-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <span class="hero-tag mb-3 d-inline-block text-white bg-danger border-danger" style="background-color: #EC4899 !important; border-color: #EC4899 !important;">Agentic AI</span>
+                    <h1 class="hero-title display-4 fw-bolder mb-4">Building Your First AI Agent with LangGraph</h1>
+                    <p class="lead text-secondary mb-4 mx-auto" style="max-width: 800px; font-size: 1.35rem; line-height: 1.6;">
+                        Linear chains are dead. The future is <strong>Cyclic Graphs</strong>. Learn how to build an autonomous agent that can check its own work, loop, and require human approval.
+                    </p>
+                    
+                    <div class="d-flex justify-content-center align-items-center gap-4 mt-5 text-muted">
+                        <div class="d-flex align-items-center gap-2">
+                            <img src="../photo_sk.jpg" alt="Shubham Kulkarni" class="rounded-circle shadow-sm" width="56" height="56">
+                            <div class="text-start">
+                                <span class="d-block fw-bold text-dark">Shubham Kulkarni</span>
+                                <span class="small text-secondary">AI Engineer</span>
+                            </div>
+                        </div>
+                        <div class="vr opacity-25"></div>
+                        <div class="text-start">
+                            <span class="d-block fw-bold text-dark">Published</span>
+                            <time class="small text-secondary" datetime="2026-02-12">Feb 12, 2026</time>
+                        </div>
+                    </div>
+
+                    <!-- Share Buttons (Header) -->
+                    <div class="share-buttons-container justify-content-center mt-4">
+                        <span class="text-muted small fw-bold me-2">SHARE:</span>
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://kulkarnishub377.github.io/sk/blog/ai-agent-langgraph.html" target="_blank" class="share-btn linkedin" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://twitter.com/intent/tweet?text=Building AI Agents with LangGraph&url=https://kulkarnishub377.github.io/sk/blog/ai-agent-langgraph.html" target="_blank" class="share-btn twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                        <button class="share-btn copy-link-btn" aria-label="Copy Link"><i class="fas fa-link"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                
+                <!-- Sidebar TOC -->
+                <div class="col-lg-3 d-none d-lg-block">
+                    <div class="sticky-top" style="top: 120px;">
+                        <div class="toc-wrapper">
+                            <h6 class="text-uppercase text-muted fw-bold mb-4 small" style="letter-spacing: 1px;">Contents</h6>
+                            <ul class="toc-list">
+                                <li><a href="#chains-vs-agents">1. Chains vs Agents</a></li>
+                                <li><a href="#langgraph-basics">2. Primitives</a></li>
+                                <li><a href="#state">3. Agent State</a></li>
+                                <li><a href="#nodes">4. Coding Nodes</a></li>
+                                <li><a href="#edges">5. Conditional Edges</a></li>
+                                <li><a href="#human-loop">6. Human-in-the-Loop</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="col-lg-8 article-content-wrapper">
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80" class="img-fluid rounded-4 mb-5 shadow-sm w-100" alt="LangGraph Architecture">
+
+                    <p class="dropcap" style="font-family: 'Libre Baskerville', serif; font-size: 1.25rem;">
+                        Most LLM tutorials teach you how to build a <strong>Chain</strong>: A -> B -> C. But real-world problems aren't linear. Think of a Chain like a train track — it goes one way. An <strong>Agent</strong> is more like a Roomba: it moves, bumps into a wall (error), turns around (corrects), and keeps going.
+                    </p>
+
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <span class="stat-value">3.5x</span>
+                            <span class="stat-label">Higher Success Rate</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">60%</span>
+                            <span class="stat-label">Code Reduction</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">Zero</span>
+                            <span class="stat-label">Infinite Loops</span>
+                        </div>
+                    </div>
+
+                    <h2 id="chains-vs-agents">1. Chains vs. Agents</h2>
+                    <!-- ... Rest ... -->
+                    <p>
+                        A <strong>Chain</strong> is hardcoded. <br>
+                        An <strong>Agent</strong> uses an LLM as a reasoning engine to decide <em>what</em> to do next. It controls the flow.
+                    </p>
+
+                    <h2 id="langgraph-basics">2. LangGraph Primitives</h2>
+                    <p>
+                        LangGraph extends LangChain by adding the ability to create cyclic graphs.
+                    </p>
+                    <div class="mermaid bg-light p-4 rounded-4 mb-4 text-center">
+                    graph TD
+                        Start --> Agent
+                        Agent --> Decision{Tools?}
+                        Decision -- Yes --> ToolNode
+                        ToolNode --> Agent
+                        Decision -- No --> End
+                        style Agent fill:#f9f,stroke:#333,stroke-width:2px
+                        style ToolNode fill:#bbf,stroke:#333,stroke-width:2px
+                    </div>
+                    <div class="highlight-box">
+                        <h5 class="fw-bold">The Core Triad</h5>
+                        <ul>
+                            <li><strong>State:</strong> A shared dictionary (like a blackboard) that persists data across steps.</li>
+                            <li><strong>Nodes:</strong> Python functions that perform work (e.g., call LLM, run tool).</li>
+                            <li><strong>Edges:</strong> Control flow rules (e.g., "If tool called, go to ToolNode, else End").</li>
+                        </ul>
+                    </div>
+
+                    <h2 id="state">3. Defining the Agent State</h2>
+                    <p>
+                        The state schema defines what data our graph keeps track of. We use `TypedDict` for type safety.
+                    </p>
+                    <pre><code>from typing import TypedDict, Annotated, List, Union
+from langgraph.graph import StateGraph, END
+from langchain_core.messages import BaseMessage
+import operator
+
+class AgentState(TypedDict):
+    # 'operator.add' ensures new messages are appended, not overwritten
+    messages: Annotated[List[BaseMessage], operator.add]
+    user_email: str</code></pre>
+
+                    <h2 id="nodes">4. Coding the Nodes (The Researcher Agent)</h2>
+                    <p>
+                        Let's build a "Researcher" that can search the web using Tavily.
+                    </p>
+                    <pre><code>from langchain_openai import ChatOpenAI
+from langchain_community.tools.tavily_search import TavilySearchResults
+
+# 1. Bind Tools to Model
+tools = [TavilySearchResults(max_results=1)]
+model = ChatOpenAI(model="gpt-4o")
+model_with_tools = model.bind_tools(tools)
+
+# 2. Define the Agent Node
+def call_model(state: AgentState):
+    messages = state['messages']
+    response = model_with_tools.invoke(messages)
+    return {"messages": [response]}</code></pre>
+
+                    <h2 id="edges">5. Conditional Edges (The "Brain")</h2>
+                    <p>
+                        This function checks if the LLM wants to call a tool or if it's done. This enables the <strong>Cycle</strong>.
+                    </p>
+                    <pre><code>def should_continue(state: AgentState):
+    last_message = state['messages'][-1]
+    if last_message.tool_calls:
+        return "tools"  # Go to tool node
+    return END          # Finish execution</code></pre>
+
+                    <h2 id="human-loop">6. Human-in-the-Loop Implementation</h2>
+                    <p>
+                        What if the agent wants to delete a file or send an email? You don't want that happening automatically. LangGraph allows us to add a <strong>break point</strong> before a specific node.
+                    </p>
+                    <pre><code>from langgraph.checkpoint.sqlite import SqliteSaver
+
+# Setup Persistence
+memory = SqliteSaver.from_conn_string(":memory:")
+
+# Define Graph
+workflow = StateGraph(AgentState)
+workflow.add_node("agent", call_model)
+workflow.add_node("action", tool_node)
+
+workflow.set_entry_point("agent")
+workflow.add_conditional_edges("agent", should_continue)
+workflow.add_edge("action", "agent")
+
+# Compile with Interrupt
+app = workflow.compile(
+    checkpointer=memory, 
+    interrupt_before=["action"]  # STOP before running a tool!
+)</code></pre>
+                    <p>
+                        Now, when you run this, the graph will pause exactly before executing the tool, giving you a chance to inspect the state and approve (or modify) the action. This is critical for enterprise safety.
+                    </p>
+
+                    <h3>Error Handling & Retry Logic</h3>
+                    <p>
+                        In production, tools fail. APIs time out. LLMs hallucinate tool names. You need robust error handling baked into your agent loop, not bolted on as an afterthought.
+                    </p>
+                    <pre><code>from langgraph.prebuilt import ToolNode
+from langchain_core.runnables import RunnableConfig
+
+class ResilientToolNode(ToolNode):
+    """A tool node that retries on transient failures."""
+    
+    def invoke(self, state, config: RunnableConfig):
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                return super().invoke(state, config)
+            except TimeoutError:
+                if attempt == max_retries - 1:
+                    # Return error message instead of crashing
+                    return {"messages": [
+                        AIMessage(content=f"Tool timed out after {max_retries} attempts.")
+                    ]}
+            except Exception as e:
+                return {"messages": [
+                    AIMessage(content=f"Tool error: {str(e)}. Trying alternative approach.")
+                ]}</code></pre>
+                    <div class="pro-tip">
+                        <i class="fas fa-lightbulb"></i>
+                        <div>
+                            <strong>Pro Tip:</strong> Never let a tool error crash your agent. Return the error as a message back to the LLM — it can often self-correct by choosing a different tool or rephrasing the query.
+                        </div>
+                    </div>
+
+                    <h3>Deploying with LangServe</h3>
+                    <p>
+                        Once your agent works locally, you need to ship it. <strong>LangServe</strong> turns any LangChain/LangGraph runnable into a production API with streaming support, batch processing, and built-in playground.
+                    </p>
+                    <pre><code>from fastapi import FastAPI
+from langserve import add_routes
+
+app = FastAPI(title="Research Agent API")
+
+# Your compiled graph from above
+add_routes(
+    app,
+    compiled_graph,
+    path="/research",
+    enable_feedback_endpoint=True,  # Collect user feedback
+    playground_type="chat",
+)
+
+# Now accessible at:
+# POST /research/invoke   (single run)
+# POST /research/stream    (streaming)
+# GET  /research/playground (interactive UI)</code></pre>
+
+                    <h2 id="comparison">7. Agent Framework Comparison</h2>
+                    <p>
+                        LangGraph is not the only game in town. Here's how it stacks up against other popular agent frameworks in 2026.
+                    </p>
+                    <div class="table-responsive my-4">
+                        <table class="table table-bordered table-premium">
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>LangGraph</th>
+                                    <th>AutoGen</th>
+                                    <th>CrewAI</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Graph Type</strong></td>
+                                    <td class="bg-primary-subtle fw-bold">Cyclic (loops allowed)</td>
+                                    <td>Multi-agent chat</td>
+                                    <td>Sequential / Hierarchical</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>State Management</strong></td>
+                                    <td class="bg-primary-subtle fw-bold">Built-in TypedDict</td>
+                                    <td>Shared context</td>
+                                    <td>Task-based</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Human-in-Loop</strong></td>
+                                    <td class="bg-primary-subtle fw-bold">Native breakpoints</td>
+                                    <td>Custom callbacks</td>
+                                    <td>Limited</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Persistence</strong></td>
+                                    <td>SQLite / Postgres checkpointer</td>
+                                    <td>Custom implementation</td>
+                                    <td>File-based</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Best For</strong></td>
+                                    <td class="bg-primary-subtle fw-bold">Complex tool-using agents</td>
+                                    <td>Multi-agent conversations</td>
+                                    <td>Role-playing workflows</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Key Takeaways -->
+                    <hr class="my-5">
+                    <div class="highlight-box" style="border-left-color: #F59E0B;">
+                        <h4 class="fw-bold mb-3"><i class="fas fa-graduation-cap me-2" style="color: #F59E0B;"></i>Key Takeaways</h4>
+                        <ul class="mb-0">
+                            <li><strong>Chains are linear; Agents are graphs.</strong> LangGraph's cyclic architecture lets your agent check its own work, retry, and self-correct — something linear chains fundamentally cannot do.</li>
+                            <li><strong>State is everything.</strong> The TypedDict state schema is the "shared blackboard" that makes multi-step reasoning possible. Design it carefully.</li>
+                            <li><strong>Human-in-the-Loop is non-negotiable.</strong> For any agent that can take destructive actions (delete files, send emails, execute code), always add <code>interrupt_before</code> breakpoints.</li>
+                            <li><strong>Error handling > happy path.</strong> Production agents need resilient tool nodes that return errors as messages, not crashes.</li>
+                            <li><strong>LangServe for deployment.</strong> Turn your graph into a streaming API with zero extra infrastructure code.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Share Section -->
+                    <div class="share-section my-5 p-4 bg-light rounded-4 text-center">
+                        <h5 class="fw-bold mb-3">Share this Tutorial</h5>
+                        <div class="d-flex gap-3 justify-content-center">
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://kulkarnishub377.github.io/sk/blog/ai-agent-langgraph.html" target="_blank" class="btn btn-primary rounded-pill px-4">
+                                <i class="fab fa-linkedin me-2"></i> LinkedIn
+                            </a>
+                            <a href="https://twitter.com/intent/tweet?text=Building AI Agents with LangGraph&url=https://kulkarnishub377.github.io/sk/blog/ai-agent-langgraph.html" target="_blank" class="btn btn-dark rounded-pill px-4">
+                                <i class="fab fa-twitter me-2"></i> X (Twitter)
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-5">
+                       <a href="../index.html" class="btn btn-outline-primary btn-lg rounded-pill px-5 shadow-sm">Back to Portfolio</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--bg-surface); border-top: 1px solid var(--border-light);" class="py-5">
+        <div class="container text-center">
+            <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
+            <div class="d-flex justify-content-center gap-3 mb-4">
+                <a href="#" class="text-secondary"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="text-secondary"><i class="fab fa-github fa-lg"></i></a>
+                <a href="#" class="text-secondary"><i class="fab fa-linkedin fa-lg"></i></a>
+            </div>
+            <p class="text-secondary small mb-4">Engineering the future, one agent at a time.</p>
+            <a href="index.html" class="btn btn-outline-dark rounded-pill px-4 hover-lift">Back to Blog</a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Mermaid JS -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>

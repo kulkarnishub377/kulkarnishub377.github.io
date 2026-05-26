@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO -->
+    <title>Scalable Alumni Portal Architecture | Shubham Kulkarni</title>
+    <meta name="description" content="A deep dive into architecting a scalable Alumni Portal using a Hybrid Monolith approach (Django + Flask), handling 50k+ users and real-time events.">
+    <meta name="author" content="Shubham Kulkarni">
+    <link rel="canonical" href="https://kulkarnishub377.github.io/sk/blog/alumni-portal.html">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="shortcut icon" href="../favicon/favicon.ico">
+    <meta property="og:title" content="Alumni Portal: Scalable System Design">
+    <meta property="og:description" content="Handling concurrent users and database optimization with Django & Flask.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:url" content="https://kulkarnishub377.github.io/sk/blog/alumni-portal.html">
+    <meta property="og:type" content="article">
+
+    <!-- Schema.org Authority -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://kulkarnishub377.github.io/sk/blog/alumni-portal.html"
+      },
+      "headline": "Scalable Alumni Portal Architecture",
+      "description": "A deep dive into architecting a scalable Alumni Portal using a Hybrid Monolith approach (Django + Flask).",
+      "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80",
+      "author": {
+        "@type": "Person",
+        "name": "Shubham Kulkarni",
+        "url": "https://kulkarnishub377.github.io/sk/",
+        "image": "https://kulkarnishub377.github.io/sk/photo_sk.jpg",
+        "jobTitle": "Software Engineer"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Shubham Kulkarni"
+      },
+      "datePublished": "2026-02-05",
+      "dateModified": "2026-02-18"
+    }
+    </script>
+
+    <!-- Fonts & CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* --------------------------------------------------------------------------
+           INTERNAL MAGAZINE STYLES (Page-Specific Overrides)
+           -------------------------------------------------------------------------- */
+        
+        /* Typography Container */
+        .article-content-wrapper {
+            font-family: 'Inter', sans-serif;
+            color: #2c3e50;
+        }
+
+        .article-content-wrapper p {
+            font-size: 1.25rem;
+            line-height: 1.85;
+            margin-bottom: 2rem;
+            color: #374151;
+        }
+
+        .article-content-wrapper h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 2.25rem;
+            margin-top: 4rem;
+            margin-bottom: 1.5rem;
+            color: #111827;
+            position: relative;
+            letter-spacing: -0.02em;
+        }
+
+        .article-content-wrapper h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 6px;
+            background: linear-gradient(90deg, #059669, transparent); /* Emerald Green for "Growth/Alumni" */
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+
+        .article-content-wrapper h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.75rem;
+            margin-top: 3rem;
+            margin-bottom: 1.25rem;
+            color: #065F46; /* Datker Green */
+        }
+
+        /* Feature: Dropcap */
+        .dropcap::first-letter {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 4.5rem;
+            float: left;
+            line-height: 0.85;
+            margin-right: 1.25rem;
+            margin-top: 0.2rem;
+            color: #059669;
+            font-weight: 700;
+        }
+
+        /* Feature: Highlight Box */
+        .highlight-box {
+            background: #ECFDF5;
+            border-left: 6px solid #059669;
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 3.5rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .highlight-box::before {
+            content: '\f19c'; /* FontAwesome University/Bank */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 8rem;
+            color: rgba(5, 150, 105, 0.05);
+            transform: rotate(30deg);
+        }
+
+        /* Feature: Stat Grid */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 3.5rem 0;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: rgba(5, 150, 105, 0.2);
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #6B7280;
+            font-weight: 700;
+        }
+
+        /* Feature: Sticky TOC */
+        .toc-wrapper {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+            border: 1px solid #E5E7EB;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list li {
+            margin-bottom: 1rem;
+        }
+
+        .toc-list a {
+            text-decoration: none;
+            color: #4B5563;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            transition: color 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: #059669;
+        }
+        
+        /* Mobile Optimization */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.75rem;
+            }
+            .article-content-wrapper h2 {
+                font-size: 1.85rem;
+                margin-top: 3rem;
+            }
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+            .toc-wrapper {
+                display: none;
+            }
+            .highlight-box {
+                padding: 1.5rem;
+            }
+            .article-content-wrapper {
+                padding: 0 0.5rem; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-premium">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html">
+                <i class="fas fa-arrow-left text-secondary" style="font-size: 0.9rem;"></i>
+                <span style="font-family: var(--font-mono); color: var(--text-primary);">Back to Blog</span>
+            </a>
+            
+            <div class="ms-auto d-none d-md-block">
+                <span class="badge bg-light text-dark border fw-medium px-3 py-2">
+                    <i class="fas fa-clock me-2"></i> 12 min read
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="article-header pt-5 mt-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <span class="hero-tag mb-3 d-inline-block text-success bg-success-subtle border-success">System Design</span>
+                    <h1 class="hero-title display-4 fw-bolder mb-4">Scalable Alumni Portal: A Hybrid Monolith Strategy</h1>
+                    <p class="lead text-secondary mb-4 mx-auto" style="max-width: 800px; font-size: 1.35rem; line-height: 1.6;">
+                        How we architected a platform for 50,000+ alumni using a Hybrid Monolith approach (Django + Flask), handling real-time events and complex data relationships.
+                    </p>
+                    
+                    <div class="d-flex justify-content-center align-items-center gap-4 mt-5 text-muted">
+                        <div class="d-flex align-items-center gap-2">
+                            <img src="../photo_sk.jpg" alt="Shubham" class="rounded-circle shadow-sm" width="56" height="56">
+                            <div class="text-start">
+                                <span class="d-block fw-bold text-dark">Shubham Kulkarni</span>
+                                <span class="small text-secondary">Software Engineer</span>
+                            </div>
+                        </div>
+                        <div class="vr opacity-25"></div>
+                        <div class="text-start">
+                            <span class="d-block fw-bold text-dark">Published</span>
+                            <time class="small text-secondary" datetime="2026-02-05">Feb 05, 2026</time>
+                        </div>
+                    </div>
+
+                    <!-- Share Buttons -->
+                    <div class="share-buttons-container justify-content-center mt-4">
+                        <span class="text-muted small fw-bold me-2">SHARE:</span>
+                        <a href="#" class="share-btn linkedin" data-platform="linkedin" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="share-btn twitter" data-platform="twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="share-btn whatsapp" data-platform="whatsapp" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <button class="share-btn copy-link-btn" aria-label="Copy Link"><i class="fas fa-link"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Body Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                
+                <!-- Sidebar TOC -->
+                <div class="col-lg-3 d-none d-lg-block">
+                    <div class="sticky-top" style="top: 120px;">
+                        <div class="toc-wrapper">
+                            <h6 class="text-uppercase text-muted fw-bold mb-4 small" style="letter-spacing: 1px;">Contents</h6>
+                            <ul class="toc-list">
+                                <li><a href="#the-scale-problem">1. The Scale Problem</a></li>
+                                <li><a href="#architecture-overview">2. Hybrid Architecture</a></li>
+                                <li><a href="#database-optimization">3. Database & Indexing</a></li>
+                                <li><a href="#caching-strategy">4. Redis Caching</a></li>
+                                <li><a href="#donation-system">5. Donation Logic (ACID)</a></li>
+                                <li><a href="#realtime-events">6. WebSocket Events</a></li>
+                                <li><a href="#frontend-architecture">7. Frontend & UX</a></li>
+                                <li><a href="#deployment">8. Deploy & Load Test</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="col-lg-8 article-content-wrapper">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80" 
+                         alt="System Architecture Diagram" class="img-fluid rounded-4 mb-5 shadow-sm w-100">
+
+                    <p class="dropcap">
+                        Building a social platform for University Alumni sounds simple on paper: "Just a CRUD app for profiles." But when you factor in 50 years of batch data, real-time reunions, job boards, and donation tracking, it quickly becomes a complex distributed system challenge. The naive version worked in testing. Then alumni reunion week hit, and 8,000 concurrent users melted the database.
+                    </p>
+                    
+                    <p>
+                        In this deep dive, I will walk you through how we moved from a basic monolithic design to a robust <strong>Hybrid Architecture</strong> that separates high-throughput event streaming from the core relational data, achieving sub-20ms response times — and how we survived our first viral load test.
+                    </p>
+
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <span class="stat-value">50k+</span>
+                            <span class="stat-label">Active Alumni</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">12ms</span>
+                            <span class="stat-label">Query Latency</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">99.9%</span>
+                            <span class="stat-label">Uptime</span>
+                        </div>
+                    </div>
+
+                    <!-- Section 1 -->
+                    <h2 id="the-scale-problem">1. The Scale Problem: "It's Just a CRUD App, Right?"</h2>
+                    <p>
+                        The most dangerous assumption in software engineering is assuming "Internal Tools" don't need scale. The Alumni Portal wasn't just a directory; it was a <strong>multi-tenant social platform</strong> with three fundamentally different user types, each demanding conflicting database access patterns.
+                    </p>
+                    <ul>
+                        <li><strong>The Alumni (Read-Heavy):</strong> Browsing yearbooks, searching for batchmates by company, city, or graduation year. Requires <em>low latency</em> full-text search across 50,000+ profiles.</li>
+                        <li><strong>The Student (Write-Heavy):</strong> Posting questions on the mentorship forum, applying for referrals, RSVPing for events. High write concurrency during placement season.</li>
+                        <li><strong>The Admin (Compute-Heavy):</strong> Generating annual donation reports, running degree verification against university databases, bulk-emailing 10,000+ alumni. Long-running background tasks.</li>
+                    </ul>
+
+                    <div class="row g-4 mb-5">
+                        <div class="col-md-6">
+                            <div class="highlight-box mt-0 h-100 py-4">
+                                <h5 class="fw-bold"><i class="fas fa-users-cog text-success me-2"></i>RBAC Logic</h5>
+                                <p class="small text-muted mb-2">Complex permission gates were required:</p>
+                                <ul class="list-unstyled small mb-0">
+                                    <li class="mb-1"><i class="fas fa-check-circle text-success me-2"></i><strong>Verified Alumni:</strong> Full Access (Profile, Jobs, Events, Donations)</li>
+                                    <li class="mb-1"><i class="fas fa-minus-circle text-warning me-2"></i><strong>Unverified:</strong> Read-Only Profile (can request verification)</li>
+                                    <li class="mb-1"><i class="fas fa-times-circle text-danger me-2"></i><strong>Banned:</strong> Hard Block at Middleware (no API access)</li>
+                                    <li><i class="fas fa-shield-alt text-primary me-2"></i><strong>Super Admin:</strong> Audit logs + Impersonation for debugging</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="highlight-box mt-0 h-100 py-4" style="border-left-color: #047857;">
+                                <h5 class="fw-bold"><i class="fas fa-project-diagram text-success me-2" style="color: #047857 !important;"></i>Data Integrity Rules</h5>
+                                <p class="small text-muted mb-2">Zero-tolerance data conditions:</p>
+                                <ul class="list-unstyled small mb-0">
+                                    <li class="mb-1"><strong>Unique BatchID:</strong> Preventing duplicate graduating classes</li>
+                                    <li class="mb-1"><strong>Donation ACIDity:</strong> Zero-tolerance for lost transaction data</li>
+                                    <li class="mb-1"><strong>Audit Logs:</strong> Immutable history of all Admin actions</li>
+                                    <li><strong>Soft Deletes:</strong> No hard deletes — every record keeps a <code>deleted_at</code> timestamp</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2 -->
+                    <h2 id="architecture-overview">2. The Hybrid Architecture</h2>
+                    <p>
+                        After the reunion week crash, we redesigned the system. We adopted a <strong>Hybrid Monolith-Microservice</strong> pattern — keeping the core business logic in Django for stability and developer velocity, while spinning off the real-time "Event Service" into a lightweight Flask microservice with WebSocket support.
+                    </p>
+
+                    <!-- System Architecture Diagram -->
+                    <div class="mermaid my-4">
+flowchart TD
+    subgraph Client ["🖥️ Frontend - React + Redux"]
+        UI["React SPA"] --> RTK["RTK Query Cache"]
+        UI --> WS["WebSocket Client"]
+    end
+
+    subgraph Gateway ["🔒 API Gateway - Nginx"]
+        LB["Load Balancer\n Round Robin"]
+        Rate["Rate Limiter\n 100 req/min"]
+        LB --> Rate
+    end
+
+    subgraph Core ["🏛️ Core Service - Django"]
+        Auth["JWT Auth\nMiddleware"]
+        API["REST API\n DRF"]
+        Celery["Celery Workers\n Background Tasks"]
+        Auth --> API
+    end
+
+    subgraph Events ["⚡ Event Service - Flask"]
+        WSGI["Flask API"]
+        Socket["Socket.IO\nServer"]
+    end
+
+    subgraph Data ["🗄️ Data Layer"]
+        PG[("PostgreSQL\n Primary")]
+        Redis[("Redis\n Cache + Queue")]
+        S3[("S3\n Profile Pics")]
+    end
+
+    UI -->|REST API| LB
+    WS -->|WebSocket| Socket
+    Rate --> Auth
+    Rate --> WSGI
+    API --> PG
+    API --> Redis
+    Celery --> PG
+    Celery --> Redis
+    WSGI --> PG
+    Socket --> Redis
+                    </div>
+
+                    <h3 class="mt-4 mb-3">Authentication Flow (JWT + OAuth)</h3>
+                    <p>
+                        Handling session state across two different frameworks (Django & Flask) is tricky. We solved this using <strong>Stateless JWTs</strong> signed by a shared <code>HMAC-SHA256</code> secret key, stored in environment variables. The JWT payload carries the user's role, so both Django and Flask can enforce RBAC without hitting the database on every request.
+                    </p>
+
+                    <div class="mermaid my-4">
+sequenceDiagram
+    participant User
+    participant Nginx as 🔒 API Gateway
+    participant Django as 🏛️ Auth Service
+    participant Flask as ⚡ Event Service
+    participant DB as 🗄️ Redis/PostgreSQL
+
+    User->>Nginx: POST /login Credentials
+    Nginx->>Django: Proxy Request
+    Django->>DB: Validate User and Role
+    DB-->>Django: User Valid role alumni_verified
+    Django->>Django: Generate JWT Exp 15min Role verified
+    Django-->>User: Return Access + Refresh Tokens
+
+    Note over User, Flask: Subsequent Request Cross-Service Auth
+    
+    User->>Nginx: GET /api/events Bearer Token
+    Nginx->>Flask: Proxy with Auth Headers
+    Flask->>Flask: Verify JWT Signature Shared Secret
+    Flask->>DB: Check Token Blacklist Redis O1
+    DB-->>Flask: Token Valid
+    Flask-->>User: Return Event Data 200 OK
+                    </div>
+
+                    <!-- Section 3 -->
+                    <h2 id="database-optimization">3. Database Optimization & Indexing</h2>
+                    <p>
+                        The "Directory Search" was our biggest performance bottleneck. Alumni wanted to find batchmates based on extremely specific criteria: <em>"All 2018 batch CSE alumni working at Microsoft in Bangalore."</em> A naive <code>SELECT * FROM alumni WHERE...</code> was acceptable for 100 users, but at 50,000 users, page load hit 3.2 seconds.
+                    </p>
+                    
+                    <h3>The Solution: Partial & Composite Indexes</h3>
+                    <p>
+                        We analysed 30 days of query logs and found that <strong>90% of searches</strong> filtered by <code>batch_year</code> AND <code>company</code>. Instead of blindly indexing every column, we created targeted indexes for the actual query patterns.
+                    </p>
+
+                    <div class="code-block-wrapper my-4">
+                        <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-2 mb-3">
+                            <span class="font-monospace small text-muted">models.py</span>
+                            <i class="fas fa-code text-muted"></i>
+                        </div>
+<pre><code class="language-python">from django.db.models import Q
+
+class AlumniProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    batch_year = models.IntegerField(db_index=True)
+    department = models.CharField(max_length=50)
+    company = models.CharField(max_length=100, blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    industry = models.CharField(max_length=100)
+    is_verified = models.BooleanField(default=False)
+    deleted_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        indexes = [
+            # Composite: "Find alumni from 2020 at Google"
+            models.Index(
+                fields=['batch_year', 'company'],
+                name='batch_company_idx'
+            ),
+            # Partial: Only index verified, non-deleted users
+            # Saves ~35% index storage
+            models.Index(
+                fields=['batch_year', 'department'],
+                name='verified_active_idx',
+                condition=Q(is_verified=True, deleted_at__isnull=True)
+            ),
+        ]
+        ordering = ['-batch_year']</code></pre>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h5 class="fw-bold mb-3"><i class="fas fa-chart-line me-2" style="color: #2563EB;"></i>Query Performance Results</h5>
+                        <div class="table-responsive">
+                            <table class="table table-sm mb-0" style="font-size: 0.9rem;">
+                                <thead>
+                                    <tr><th>Query Pattern</th><th>Before</th><th>After</th><th>Improvement</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Search by batch + company</td><td>3200ms</td><td>12ms</td><td><strong>266×</strong></td></tr>
+                                    <tr><td>Browse verified alumni</td><td>1800ms</td><td>8ms</td><td><strong>225×</strong></td></tr>
+                                    <tr><td>Full-text profile search</td><td>4500ms</td><td>45ms</td><td><strong>100×</strong></td></tr>
+                                    <tr><td>Donation report (aggregate)</td><td>12000ms</td><td>350ms</td><td><strong>34×</strong></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Section 4 -->
+                    <h2 id="caching-strategy">4. Caching Strategy: Redis as the Secret Weapon</h2>
+                    <p>
+                        Indexes solved the cold-start problem, but for the most popular queries (like "Browse all alumni"), we still hit PostgreSQL on every request. The solution was a <strong>write-through cache</strong> using Redis with smart invalidation.
+                    </p>
+
+                    <div class="code-block-wrapper my-4">
+                        <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-2 mb-3">
+                            <span class="font-monospace small text-muted">cache_layer.py</span>
+                            <i class="fas fa-code text-muted"></i>
+                        </div>
+<pre><code class="language-python">import redis
+import json
+from functools import wraps
+
+r = redis.Redis(host='localhost', port=6379, db=0)
+CACHE_TTL = 300  # 5-minute expiry
+
+def cache_query(key_prefix, ttl=CACHE_TTL):
+    """Decorator: Cache database queries in Redis with auto-invalidation."""
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            # Build cache key from function args
+            cache_key = f"{key_prefix}:{hash(str(args) + str(kwargs))}"
+            
+            # Try cache first
+            cached = r.get(cache_key)
+            if cached:
+                return json.loads(cached)  # Cache HIT → skip DB
+            
+            # Cache MISS → query DB and store result
+            result = func(*args, **kwargs)
+            r.setex(cache_key, ttl, json.dumps(result))
+            return result
+        return wrapper
+    return decorator
+
+# Usage: Cache alumni search for 5 minutes
+@cache_query(key_prefix="alumni_search")
+def search_alumni(batch_year, company=None):
+    qs = AlumniProfile.objects.filter(
+        batch_year=batch_year,
+        is_verified=True,
+        deleted_at__isnull=True
+    )
+    if company:
+        qs = qs.filter(company__icontains=company)
+    return list(qs.values('user__first_name', 'company', 'city'))
+
+# Invalidate on profile update (Signal)
+@receiver(post_save, sender=AlumniProfile)
+def invalidate_cache(sender, instance, **kwargs):
+    pattern = f"alumni_search:*"
+    for key in r.scan_iter(match=pattern):
+        r.delete(key)  # Purge stale cache entries</code></pre>
+                    </div>
+
+                    <p>
+                        The result: <strong>cache hit rate of 87%</strong> during normal operation. During reunion week, it peaked at 94% — meaning only 6% of requests actually touched PostgreSQL. This is what allowed us to survive 8,000 concurrent users on a single $40/month DigitalOcean Droplet.
+                    </p>
+
+                    <!-- Section 5 -->
+                    <h2 id="donation-system">5. The Donation System (ACID Transactions)</h2>
+                    <p>
+                        Handling money requires zero tolerance for error. We integrated with <strong>Razorpay</strong> as the payment gateway and used Django's <code>transaction.atomic()</code> to ensure that money is never deducted without a corresponding database record. If <em>any</em> step in the chain fails, everything rolls back.
+                    </p>
+
+                    <div class="mermaid my-4">
+flowchart TD
+    A["💳 User Initiates Donation"] --> B{"🏦 Payment Gateway\nRazorpay"}
+    B -->|✅ Success| C["🔔 Webhook Triggered"]
+    B -->|❌ Failed| Z["Show Error and Retry"]
+    
+    subgraph ACID ["🔒 Django Transaction Atomic"]
+        E["📝 Create Donation Record"]
+        F["📊 Update Total Fund Counter"]
+        G["📄 Generate Tax Receipt PDF"]
+    end
+    
+    C --> ACID
+    ACID --> H{"All Operations\nSucceeded?"}
+    H -->|Yes| I["✅ Commit Transaction\nSend Confirmation Email"]
+    H -->|No| J["⚠️ Rollback Everything"]
+    J --> K["🚨 Log Critical Error\nAlert Admin"]
+                    </div>
+
+                    <div class="code-block-wrapper my-4">
+                        <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-2 mb-3">
+                            <span class="font-monospace small text-muted">donations/views.py</span>
+                            <i class="fas fa-code text-muted"></i>
+                        </div>
+<pre><code class="language-python">from django.db import transaction
+from django.core.exceptions import ValidationError
+
+@csrf_exempt
+def razorpay_webhook(request):
+    """Handle Razorpay payment success webhook with ACID guarantees."""
+    payload = json.loads(request.body)
+    payment_id = payload['payload']['payment']['entity']['id']
+    amount = payload['payload']['payment']['entity']['amount'] / 100
+    
+    try:
+        with transaction.atomic():
+            # Step 1: Create immutable donation record
+            donation = Donation.objects.create(
+                alumni=get_alumni_from_payment(payment_id),
+                amount=amount,
+                payment_id=payment_id,
+                status='confirmed'
+            )
+            
+            # Step 2: Update running total (SELECT FOR UPDATE prevents race)
+            fund = Fund.objects.select_for_update().get(id=1)
+            fund.total += amount
+            fund.save()
+            
+            # Step 3: Generate PDF receipt (Celery async)
+            generate_receipt.delay(donation.id)
+            
+        # All 3 steps succeeded → committed
+        return JsonResponse({'status': 'ok'}, status=200)
+        
+    except Exception as e:
+        # ANY failure → entire transaction rolled back
+        logger.critical(f"Donation failed: {e}", exc_info=True)
+        alert_admin_slack(f"🚨 Donation rollback: {payment_id}")
+        return JsonResponse({'status': 'error'}, status=500)</code></pre>
+                    </div>
+
+                    <!-- Section 6 -->
+                    <h2 id="realtime-events">6. Real-Time Events with WebSockets</h2>
+                    <p>
+                        The Flask Event Service handles the real-time features: live event RSVP counts, chat during virtual reunions, and instant notifications. We used <strong>Socket.IO</strong> on the server and the React client, with Redis as the pub/sub message broker.
+                    </p>
+
+                    <div class="code-block-wrapper my-4">
+                        <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-2 mb-3">
+                            <span class="font-monospace small text-muted">event_service.py</span>
+                            <i class="fas fa-code text-muted"></i>
+                        </div>
+<pre><code class="language-python">from flask import Flask
+from flask_socketio import SocketIO, emit, join_room
+
+app = Flask(__name__)
+socketio = SocketIO(app, cors_allowed_origins="*",
+                    message_queue='redis://localhost:6379/1')
+
+@socketio.on('join_event')
+def handle_join(data):
+    """Alumni joins an event room for live updates."""
+    event_id = data['event_id']
+    user = get_user_from_jwt(data['token'])
+    
+    join_room(f"event_{event_id}")
+    
+    # Broadcast updated attendee count to all in room
+    count = get_attendee_count(event_id)
+    emit('attendee_update', {
+        'event_id': event_id,
+        'count': count,
+        'latest_join': user.name
+    }, room=f"event_{event_id}")
+
+@socketio.on('send_message')
+def handle_message(data):
+    """Real-time chat during virtual reunions."""
+    msg = sanitize_input(data['message'])  # XSS prevention
+    emit('new_message', {
+        'user': data['user_name'],
+        'message': msg,
+        'timestamp': datetime.utcnow().isoformat()
+    }, room=f"event_{data['event_id']}")</code></pre>
+                    </div>
+
+                    <!-- Section 7 -->
+                    <h2 id="frontend-architecture">7. Frontend Architecture & UX</h2>
+                    <p>
+                        The frontend required a seamless experience across a complex feature set. We chose <strong>React</strong> with <strong>Redux Toolkit</strong> for its component reusability and predictable state management, critical for the dynamic Job Board and Event Calendar.
+                    </p>
+                    
+                    <div class="row g-4 my-4">
+                         <div class="col-md-6">
+                            <div class="highlight-box mt-0 h-100 py-4">
+                                <h5 class="fw-bold"><i class="fas fa-layer-group me-2" style="color: #7C3AED;"></i>RTK Query Caching</h5>
+                                <p class="small mb-0">Managing 500+ job listings client-side required a robust cache. <strong>RTK Query</strong> automatically caches API responses with tag-based invalidation — reducing server load by <strong>40%</strong> on repeat visits. When a new job is posted, only the <code>Jobs</code> tag invalidates.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="highlight-box mt-0 h-100 py-4" style="border-left-color: #059669;">
+                                <h5 class="fw-bold"><i class="fas fa-bolt me-2" style="color: #059669;"></i>Optimistic Updates</h5>
+                                <p class="small mb-0">When a user clicks "Connect" or "RSVP", the UI updates <strong>instantly</strong> while the POST processes in the background. On failure, we rollback the UI state and show a toast notification. Users perceive zero latency.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 8 -->
+                    <h2 id="deployment">8. Deployment & Load Testing</h2>
+                    <p>
+                        We deployed on a <strong>DigitalOcean Droplet</strong> ($40/month, 4 vCPU, 8 GB RAM) using <strong>Docker Compose</strong> with Nginx as the reverse proxy. We chose Docker Compose over Kubernetes because at our scale, orchestration complexity wasn't justified — premature optimization is the root of all evil.
+                    </p>
+
+                    <h3>CI/CD Pipeline (GitHub Actions)</h3>
+                    <ul>
+                        <li><strong>Lint:</strong> <code>Black</code> (Python) + <code>ESLint</code> (JS) on every commit</li>
+                        <li><strong>Test:</strong> <code>pytest</code> with 92% coverage — payment logic covers negative amounts, double-charging, webhook replay attacks</li>
+                        <li><strong>Build:</strong> Docker image built and pushed to GHCR (GitHub Container Registry)</li>
+                        <li><strong>Deploy:</strong> Automated SSH to production via <code>fabric</code> — zero-downtime blue-green deploy</li>
+                    </ul>
+
+                    <h3>Load Test Results (Locust)</h3>
+                    <p>
+                        Before launch, we ran a <strong>Locust</strong> load test simulating Alumni Reunion Day traffic patterns. Here's what the single Droplet handled:
+                    </p>
+
+                    <div class="highlight-box">
+                        <h5 class="fw-bold mb-3"><i class="fas fa-server me-2" style="color: #DC2626;"></i>Locust Stress Test Results</h5>
+                        <div class="table-responsive">
+                            <table class="table table-sm mb-0" style="font-size: 0.9rem;">
+                                <thead>
+                                    <tr><th>Metric</th><th>Target</th><th>Actual</th><th>Status</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Concurrent Users</td><td>5,000</td><td>8,200</td><td>✅ Exceeded</td></tr>
+                                    <tr><td>P50 Latency</td><td>&lt;100ms</td><td>18ms</td><td>✅ 5.5× better</td></tr>
+                                    <tr><td>P99 Latency</td><td>&lt;500ms</td><td>210ms</td><td>✅ Pass</td></tr>
+                                    <tr><td>Error Rate</td><td>&lt;0.1%</td><td>0.02%</td><td>✅ Pass</td></tr>
+                                    <tr><td>Cache Hit Rate</td><td>&gt;80%</td><td>94%</td><td>✅ Exceeded</td></tr>
+                                    <tr><td>DB Connections (Peak)</td><td>&lt;100</td><td>67</td><td>✅ Pass</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Key Takeaways -->
+                    <hr class="my-5">
+                    <div class="highlight-box" style="border-left-color: #F59E0B;">
+                        <h4 class="fw-bold mb-3"><i class="fas fa-graduation-cap me-2" style="color: #F59E0B;"></i>Key Takeaways</h4>
+                        <ul class="mb-0">
+                            <li><strong>Index what you query, not what you store.</strong> Analysing 30 days of query logs saved us from blindly indexing every column.</li>
+                            <li><strong>Cache aggressively, invalidate precisely.</strong> Redis with pattern-based invalidation gave us 94% cache hit rate on a $40/month server.</li>
+                            <li><strong>Hybrid > Monolith > Microservices</strong> (at this scale). Django handles 80% of the logic; Flask handles the 20% that needs WebSockets.</li>
+                            <li><strong>ACID is non-negotiable for money.</strong> <code>select_for_update()</code> prevents race conditions in donation counters.</li>
+                            <li><strong>Load test before you ship.</strong> Locust found 3 connection pool leaks we would have missed in manual QA.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--bg-surface); border-top: 1px solid var(--border-light);" class="py-5">
+        <div class="container text-center">
+            <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
+            <div class="d-flex justify-content-center gap-3 mb-4">
+                <a href="#" class="text-secondary"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="text-secondary"><i class="fab fa-github fa-lg"></i></a>
+                <a href="#" class="text-secondary"><i class="fab fa-linkedin fa-lg"></i></a>
+            </div>
+            <p class="text-secondary small mb-4">Building Scalable Systems.</p>
+            <a href="index.html" class="btn btn-outline-dark rounded-pill px-4 hover-lift">Back to Blog</a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>

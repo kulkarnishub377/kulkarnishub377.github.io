@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Page Not Found | Shubham Kulkarni</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="The page you're looking for doesn't exist. Return to Shubham Kulkarni's portfolio.">
+    
+    <!-- Tailwind CSS for layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Three.js for 3D AI Core rendering -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- GSAP for smooth UI animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- Google Fonts: Space Mono for AI/Tech vibe -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #030712; /* Very dark gray/black */
+            --text-primary: #f3f4f6;
+            --accent-cyan: #06b6d4;
+            --accent-glow: rgba(6, 182, 212, 0.4);
+            --accent-violet: #8e7dff; /* From old design */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .font-mono {
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* Full screen WebGL canvas */
+        #webgl-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none; /* Let clicks pass through to UI */
+        }
+
+        /* CRT Scanline / Noise Overlay for cyber feel */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 50;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+            background-size: 100% 4px;
+            opacity: 0.15;
+        }
+
+        /* Main UI Container */
+        .ui-layer {
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 2rem 5%;
+            pointer-events: none;
+        }
+
+        .interactive {
+            pointer-events: auto;
+        }
+
+        /* Tech Button Styling */
+        .tech-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(6, 182, 212, 0.05);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            color: var(--accent-cyan);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            text-transform: uppercase;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            white-space: nowrap;
+        }
+
+        .tech-btn.secondary {
+            background: rgba(142, 125, 255, 0.05);
+            border-color: rgba(142, 125, 255, 0.3);
+            color: var(--accent-violet);
+        }
+
+        .tech-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .tech-btn.secondary::before {
+            background: linear-gradient(90deg, transparent, rgba(142, 125, 255, 0.2), transparent);
+        }
+
+        .tech-btn:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px var(--accent-glow);
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        .tech-btn.secondary:hover {
+            border-color: var(--accent-violet);
+            box-shadow: 0 0 15px rgba(142, 125, 255, 0.4);
+            background: rgba(142, 125, 255, 0.1);
+        }
+
+        .tech-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Small Text Links */
+        .text-link {
+            color: rgba(243, 244, 246, 0.5); /* text-gray-400 equivalent */
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .text-link:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* Massive 404 Typography */
+        .huge-text {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(5rem, 12vw, 10rem);
+            line-height: 1;
+            letter-spacing: -0.05em;
+            font-weight: 700;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--text-primary);
+            position: relative;
+            text-shadow: 0 0 40px rgba(255,255,255,0.1);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Glowing dot animation */
+        .pulsing-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-cyan);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.5; }
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* Ensure content doesn't overflow */
+        .content-scroll {
+            max-height: 70vh;
+            overflow-y: auto;
+            padding-right: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(6, 182, 212, 0.3) transparent;
+        }
+
+        .content-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .content-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .content-scroll::-webkit-scrollbar-thumb {
+            background-color: rgba(6, 182, 212, 0.3);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Aesthetic Scanlines overlay -->
+    <div class="scanlines"></div>
+
+    <!-- WebGL Canvas Container -->
+    <div id="webgl-container"></div>
+
+    <!-- UI Overlay -->
+    <div class="ui-layer">
+        
+        <!-- Header -->
+        <header class="flex justify-between items-center interactive fade-in-up" id="header">
+            <div class="text-sm md:text-base tracking-widest uppercase text-gray-300 font-mono font-bold flex items-center gap-3">
+                <span>Shubham Kulkarni</span>
+                <span class="text-cyan-500">///</span>
+                <span class="text-gray-500 font-normal">AI Developer</span>
+            </div>
+            <div class="text-xs md:text-sm text-cyan-500/70 font-mono flex items-center gap-2 border border-cyan-500/30 px-3 py-1 rounded-sm bg-cyan-900/20">
+                <span class="pulsing-dot w-2 h-2"></span>
+                SYS_ERR_404
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex flex-col justify-center flex-grow">
+            <div class="max-w-2xl interactive content-scroll">
+                <h1 class="huge-text fade-in-up" id="title-1">404</h1>
+                
+                <div class="mt-4 md:mt-6 flex flex-col items-start fade-in-up" id="title-2">
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-100 mb-2">Page Not Found</h2>
+                    <div class="font-mono text-cyan-400 text-sm mb-3 uppercase tracking-widest">> Exception Caught</div>
+                    <p class="text-gray-400 text-base font-light leading-relaxed mb-8 border-l-2 border-cyan-900 pl-4">
+                        The neural pathway you're looking for doesn't exist or has been moved. Let's get you back on track.
+                    </p>
+                    
+                    <!-- Action Buttons from old design -->
+                    <div class="flex flex-wrap gap-4 mb-10">
+                        <a href="/sk/" class="tech-btn">
+                            <i class="fas fa-home"></i>
+                            <span>Back to Portfolio</span>
+                        </a>
+                        <a href="/sk/blog/" class="tech-btn secondary">
+                            <i class="fas fa-blog"></i>
+                            <span>Read Blog</span>
+                        </a>
+                        <a href="/sk/#projects" class="tech-btn secondary">
+                            <i class="fas fa-code"></i>
+                            <span>View Projects</span>
+                        </a>
+                    </div>
+
+                    <!-- Footer Links from old design moved to body for better visibility on mobile -->
+                    <div class="flex flex-wrap gap-6 border-t border-gray-800 pt-6 w-full">
+                        <a href="/sk/#about" class="text-link"><i class="fas fa-user"></i> About</a>
+                        <a href="/sk/#experience" class="text-link"><i class="fas fa-briefcase"></i> Experience</a>
+                        <a href="/sk/#skills" class="text-link"><i class="fas fa-cogs"></i> Skills</a>
+                        <a href="/sk/#contact" class="text-link"><i class="fas fa-envelope"></i> Contact</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="flex justify-between items-end text-xs text-gray-500 font-mono interactive fade-in-up" id="footer">
+            <div class="uppercase tracking-widest">
+                Latency: <span class="text-cyan-400">12ms</span> | Status: <span class="text-red-400">Orphaned Node</span>
+            </div>
+            <div class="hidden sm:block text-cyan-500/50">
+                [ USE MOUSE TO INTERACT WITH NEURAL CORE ]
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // --- UI ANIMATION (GSAP) ---
+        window.addEventListener('DOMContentLoaded', () => {
+            gsap.to('.fade-in-up', {
+                y: 0,
+                opacity: 1,
+                duration: 1.2,
+                stagger: 0.15,
+                ease: "power3.out",
+                delay: 0.3
+            });
+        });
+
+        // --- THREE.JS NEURAL CORE SETUP ---
+        const container = document.getElementById('webgl-container');
+        const scene = new THREE.Scene();
+        // Add subtle dark blue fog to fade particles into the background
+        scene.fog = new THREE.FogExp2(0x030712, 0.02);
+
+        // Camera
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 30;
+
+        // Renderer
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
+
+        // --- BUILD THE AI CORE ---
+        const coreGroup = new THREE.Group();
+        
+        // 1. Inner Wireframe Brain (Icosahedron)
+        const geometryCore = new THREE.IcosahedronGeometry(8, 2);
+        const materialCore = new THREE.MeshBasicMaterial({
+            color: 0x06b6d4, // Tailwind Cyan-500
+            wireframe: true,
+            transparent: true,
+            opacity: 0.15
+        });
+        const aiBrain = new THREE.Mesh(geometryCore, materialCore);
+        coreGroup.add(aiBrain);
+
+        // 2. Outer Node Constellation (Particles)
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 1500;
+        const posArray = new Float32Array(particlesCount * 3);
+        
+        // Distribute particles in a spherical cloud
+        for(let i = 0; i < particlesCount * 3; i+=3) {
+            // Spherical distribution formula
+            const r = 10 + Math.random() * 15; 
+            const theta = 2 * Math.PI * Math.random();
+            const phi = Math.acos(2 * Math.random() - 1);
+            
+            posArray[i] = r * Math.sin(phi) * Math.cos(theta);     // x
+            posArray[i+1] = r * Math.sin(phi) * Math.sin(theta);   // y
+            posArray[i+2] = r * Math.cos(phi);                     // z
+        }
+        
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        
+        // Custom texture for soft glowing nodes
+        const particleMaterial = new THREE.PointsMaterial({
+            size: 0.15,
+            color: 0x22d3ee, // Lighter cyan
+            transparent: true,
+            opacity: 0.6,
+            blending: THREE.AdditiveBlending
+        });
+        
+        const particleNetwork = new THREE.Points(particlesGeometry, particleMaterial);
+        coreGroup.add(particleNetwork);
+
+        // Position the entire group to the right on desktop, center on mobile
+        scene.add(coreGroup);
+        if (window.innerWidth > 768) {
+            coreGroup.position.x = 12;
+        }
+
+        // --- MOUSE PARALLAX INTERACTION ---
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+
+        const windowHalfX = window.innerWidth / 2;
+        const windowHalfY = window.innerHeight / 2;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX - windowHalfX) * 0.001;
+            mouseY = (event.clientY - windowHalfY) * 0.001;
+        });
+
+        document.addEventListener('touchmove', (event) => {
+            if(event.touches.length > 0) {
+                mouseX = (event.touches[0].clientX - windowHalfX) * 0.002;
+                mouseY = (event.touches[0].clientY - windowHalfY) * 0.002;
+            }
+        });
+
+        // --- RESPONSIVE RESIZE ---
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            
+            if (window.innerWidth <= 768) {
+                coreGroup.position.x = 0;
+                coreGroup.position.y = 5; // Move up slightly on mobile
+                aiBrain.scale.set(0.8, 0.8, 0.8);
+                particleNetwork.scale.set(0.8, 0.8, 0.8);
+            } else {
+                coreGroup.position.x = 12;
+                coreGroup.position.y = 0;
+                aiBrain.scale.set(1, 1, 1);
+                particleNetwork.scale.set(1, 1, 1);
+            }
+        });
+        
+        // Trigger resize once to set initial scale based on device
+        window.dispatchEvent(new Event('resize'));
+
+        // --- ANIMATION ENGINE ---
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const elapsedTime = clock.getElapsedTime();
+
+            // 1. Auto-rotation of the core components
+            aiBrain.rotation.y = elapsedTime * 0.1;
+            aiBrain.rotation.x = elapsedTime * 0.05;
+            
+            particleNetwork.rotation.y = elapsedTime * -0.05; // Counter-rotate nodes
+            particleNetwork.rotation.z = elapsedTime * 0.02;
+
+            // 2. Breathing / Pulsing effect for the AI brain
+            const scale = 1 + Math.sin(elapsedTime * 2) * 0.02;
+            aiBrain.scale.set(scale, scale, scale);
+
+            // 3. Smooth Mouse Parallax (easing)
+            targetX = mouseX * 2;
+            targetY = mouseY * 2;
+            
+            coreGroup.rotation.x += 0.05 * (targetY - coreGroup.rotation.x);
+            coreGroup.rotation.y += 0.05 * (targetX - coreGroup.rotation.y);
+
+            // Subtle floating up and down
+            coreGroup.position.y += Math.sin(elapsedTime * 1) * 0.01;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+</html>

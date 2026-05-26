@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocuAI Studio v3.1: Production Document AI + RAG | Shubham Kulkarni</title>
+    <meta name="description" content="Deep technical case study of DocuAI Studio v3.1, a production Document AI + RAG platform with FastAPI, FAISS + BM25 + RRF, analytics, async ingestion, and Ollama/OpenAI support.">
+    <meta name="author" content="Shubham Kulkarni">
+    <meta name="keywords" content="DocuAI Studio, Document AI, RAG Pipeline, FastAPI, FAISS, BM25, RRF, Ollama, OpenAI, LangChain">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://kulkarnishub377.github.io/sk/blog/docuai-studio-v3-1.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://kulkarnishub377.github.io/sk/blog/docuai-studio-v3-1.html">
+    <meta property="og:title" content="DocuAI Studio v3.1: Production Document AI + RAG">
+    <meta property="og:description" content="Architecture, retrieval pipeline, frontend demo, and engineering decisions behind DocuAI Studio v3.1.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/kulkarnishub377/Document-AI---RAG-Pipeline/main/Frontend_imges/home.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://kulkarnishub377.github.io/sk/blog/docuai-studio-v3-1.html">
+        <meta name="twitter:title" content="DocuAI Studio v3.1: Production Document AI + RAG">
+        <meta name="twitter:description" content="Technical walkthrough of a production Document AI + RAG platform with hybrid retrieval and provider flexibility.">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/kulkarnishub377/Document-AI---RAG-Pipeline/main/Frontend_imges/home.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://kulkarnishub377.github.io/sk/blog/docuai-studio-v3-1.html"
+            },
+            "headline": "DocuAI Studio v3.1: Production Document AI + RAG",
+            "description": "Dedicated project case study for DocuAI Studio v3.1 with architecture, retrieval, and frontend design breakdown.",
+            "image": "https://raw.githubusercontent.com/kulkarnishub377/Document-AI---RAG-Pipeline/main/Frontend_imges/home.png",
+      "author": {
+        "@type": "Person",
+        "name": "Shubham Kulkarni",
+                "url": "https://kulkarnishub377.github.io/sk/",
+                "sameAs": [
+                    "https://github.com/kulkarnishub377",
+                    "https://www.linkedin.com/in/shubhkulk21"
+                ]
+            },
+            "publisher": {
+                "@type": "Person",
+                "name": "Shubham Kulkarni",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://kulkarnishub377.github.io/sk/photo_sk.jpg"
+                }
+      },
+      "datePublished": "2026-03-30",
+      "dateModified": "2026-03-30",
+      "url": "https://kulkarnishub377.github.io/sk/blog/docuai-studio-v3-1.html"
+    }
+    </script>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="shortcut icon" href="../favicon/favicon.ico">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .article-content-wrapper {
+            font-family: 'Inter', sans-serif;
+            color: #2c3e50;
+        }
+
+        .article-content-wrapper p {
+            font-size: 1.25rem;
+            line-height: 1.85;
+            margin-bottom: 2rem;
+            color: #374151;
+        }
+
+        .article-content-wrapper h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 2.25rem;
+            margin-top: 4rem;
+            margin-bottom: 1.5rem;
+            color: #111827;
+            position: relative;
+            letter-spacing: -0.02em;
+        }
+
+        .article-content-wrapper h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 6px;
+            background: linear-gradient(90deg, #7c3aed, transparent);
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+
+        .dropcap::first-letter {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 4.5rem;
+            float: left;
+            line-height: 0.85;
+            margin-right: 1.25rem;
+            margin-top: 0.2rem;
+            color: #7c3aed;
+            font-weight: 700;
+        }
+
+        .highlight-box {
+            background: #f5f3ff;
+            border-left: 6px solid #7c3aed;
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 3.5rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .highlight-box::before {
+            content: '\f0c0';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 8rem;
+            color: rgba(124, 58, 237, 0.06);
+            transform: rotate(30deg);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 3.5rem 0;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.15);
+            border-color: rgba(124, 58, 237, 0.2);
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #6b7280;
+            font-weight: 700;
+        }
+
+        .toc-wrapper {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+            border: 1px solid #e5e7eb;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list li {
+            margin-bottom: 1rem;
+        }
+
+        .toc-list a {
+            text-decoration: none;
+            color: #4b5563;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: #7c3aed;
+        }
+
+        .shot-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .shot-card {
+            background: #fff;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .shot-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .shot-card .caption {
+            padding: 0.75rem 1rem;
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+        }
+
+        .pill {
+            display: inline-block;
+            border: 1px solid var(--border-light);
+            background: #fff;
+            border-radius: 999px;
+            padding: 0.3rem 0.7rem;
+            font-size: 0.82rem;
+            margin: 0.2rem;
+        }
+
+        @media (max-width: 992px) {
+            .hero-title { font-size: 2.75rem; }
+            .stat-grid { grid-template-columns: 1fr; }
+            .toc-wrapper { display: none; }
+            .article-content-wrapper { padding: 0 0.5rem; }
+            .shot-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-premium">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html">
+                <i class="fas fa-arrow-left text-secondary" style="font-size: 0.9rem;"></i>
+                <span style="font-family: var(--font-mono); color: var(--text-primary);">Back to Blog</span>
+            </a>
+            <div class="ms-auto d-none d-md-block">
+                <span class="badge bg-light text-dark border fw-medium px-3 py-2">
+                    <i class="fas fa-clock me-2"></i> 12 min read
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="article-header pt-5 mt-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <span class="hero-tag mb-3 d-inline-block text-white bg-primary border-primary" style="background-color: #7c3aed !important; border-color: #7c3aed !important;">Document AI Engineering</span>
+                    <h1 class="hero-title display-4 fw-bolder mb-4">DocuAI Studio v3.1: Production Document AI + RAG</h1>
+                    <p class="lead text-secondary mb-4 mx-auto" style="max-width: 800px; font-size: 1.35rem; line-height: 1.6;">
+                        End-to-end engineering case study covering ingestion, retrieval, reranking, analytics, and frontend experience in a local-first AI product.
+                    </p>
+
+                    <div class="d-flex justify-content-center align-items-center gap-4 mt-5 text-muted">
+                        <div class="d-flex align-items-center gap-2">
+                            <img src="../photo_sk.jpg" alt="Shubham Kulkarni" class="rounded-circle shadow-sm" width="56" height="56">
+                            <div class="text-start">
+                                <span class="d-block fw-bold text-dark">Shubham Kulkarni</span>
+                                <span class="small text-secondary">AI Engineer</span>
+                            </div>
+                        </div>
+                        <div class="vr opacity-25"></div>
+                        <div class="text-start">
+                            <span class="d-block fw-bold text-dark">Updated</span>
+                            <time class="small text-secondary" datetime="2026-03-30">Mar 30, 2026</time>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center flex-wrap mt-4 mb-2">
+                        <span class="pill">FastAPI</span>
+                        <span class="pill">LangChain</span>
+                        <span class="pill">FAISS + BM25 + RRF</span>
+                        <span class="pill">Ollama / OpenAI</span>
+                        <span class="pill">WebSocket</span>
+                        <span class="pill">Docker</span>
+                    </div>
+
+                    <div class="share-buttons-container justify-content-center mt-3">
+                        <span class="text-muted small fw-bold me-2">SHARE:</span>
+                        <a href="#" class="share-btn linkedin" data-platform="linkedin" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="share-btn twitter" data-platform="twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="share-btn whatsapp" data-platform="whatsapp" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <button class="share-btn copy-link-btn" aria-label="Copy Link"><i class="fas fa-link"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+
+                <div class="col-lg-3 d-none d-lg-block">
+                    <div class="sticky-top" style="top: 120px;">
+                        <div class="toc-wrapper">
+                            <h6 class="text-uppercase text-muted fw-bold mb-4 small" style="letter-spacing: 1px;">Contents</h6>
+                            <ul class="toc-list">
+                                <li><a href="#intro">1. Product Vision</a></li>
+                                <li><a href="#architecture">2. Architecture</a></li>
+                                <li><a href="#screens">3. Frontend Showcase</a></li>
+                                <li><a href="#pipeline">4. Retrieval Pipeline</a></li>
+                                <li><a href="#api">5. API Surface</a></li>
+                                <li><a href="#ops">6. DevOps & Reliability</a></li>
+                                <li><a href="#results">7. Why It Matters</a></li>
+                                <li><a href="#future">8. Future Scope</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 article-content-wrapper">
+                    <img src="https://raw.githubusercontent.com/kulkarnishub377/Document-AI---RAG-Pipeline/main/Frontend_imges/home.png" alt="DocuAI Studio home interface" class="img-fluid rounded-4 mb-5 shadow-sm w-100">
+
+                    <p class="dropcap" id="intro">
+                        Most RAG demos stop at "upload file, ask question." Production systems fail there: weak retrieval, no observability, and fragile ingestion. <strong>DocuAI Studio v3.1</strong> was designed to solve those real-world gaps with a layered architecture, hybrid search quality, and operational controls that teams can run locally or extend to cloud workflows.
+                    </p>
+
+                    <p>
+                        The platform supports multi-format document ingestion, semantic and keyword retrieval fusion, reranking, streaming responses, and feature modules like knowledge graph visualization and query analytics. It is engineered as a practical product architecture, not only a proof of concept.
+                    </p>
+
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <span class="stat-value">40+</span>
+                            <span class="stat-label">FastAPI Endpoints</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">3</span>
+                            <span class="stat-label">Answer Modes</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">v3.1</span>
+                            <span class="stat-label">Release Track</span>
+                        </div>
+                    </div>
+
+                    <h2 id="architecture">2. System Architecture</h2>
+                    <div class="mermaid bg-light p-4 rounded-4 mb-4 text-center">
+                    flowchart TD
+                        A[Document Inputs: PDF DOCX XLSX PPTX CSV Image Web URL] --> B[Ingestion + OCR Parse]
+                        B --> C[Semantic Chunking]
+                        C --> D[Embeddings MiniLM 384D]
+                        D --> E[Vector Index FAISS]
+                        Q[User Query] --> QE[Embedding]
+                        QE --> E
+                        E --> R1[Top-K Retrieval]
+                        R1 --> R2[BM25 + RRF Fusion]
+                        R2 --> R3[Cross-Encoder Rerank]
+                        R3 --> LLM[LLM Layer: Ollama or OpenAI or Local Analysis]
+                        LLM --> OUT[Grounded Answer + Citations]
+                        OUT --> S[Sessions + Cache + Analytics + WebSocket]
+                    </div>
+
+                    <div class="highlight-box">
+                        <h5 class="fw-bold mb-3"><i class="fas fa-layer-group me-2" style="color: #7c3aed;"></i>Architecture Rationale</h5>
+                        <ul>
+                            <li><strong>Separation of concerns:</strong> Ingestion, retrieval, reranking, and answer generation remain modular.</li>
+                            <li><strong>Quality-first retrieval:</strong> FAISS + BM25 + RRF improves recall and ranking confidence.</li>
+                            <li><strong>Operational support:</strong> Sessions, cache, analytics, and async tasks reduce production friction.</li>
+                        </ul>
+                    </div>
+
+                    <h2 id="screens">3. Frontend Demo Showcase</h2>
+                    <p>
+                        The UI is structured around practical workflows: ask questions, ingest data, compare documents, inspect graph entities, and manage indexed assets. These screenshots are directly from the repository assets.
+                    </p>
+                    <div class="shot-grid mb-4">
+                        <figure class="shot-card mb-0">
+                            <img src="https://raw.githubusercontent.com/kulkarnishub377/Document-AI---RAG-Pipeline/main/Frontend_imges/home.png" alt="DocuAI chat interface screenshot" loading="lazy">
+                            <figcaption class="caption">Chat Q&A interface with streaming and markdown rendering.</figcaption>
+                        </figure>
+                        <figure class="shot-card mb-0">
+                            <img src="https://raw.githubusercontent.com/kulkarnishub377/Document-AI---RAG-Pipeline/main/Frontend_imges/data_uplods.png" alt="DocuAI data lake and ingestion screenshot" loading="lazy">
+                            <figcaption class="caption">Data lake ingestion for files and web URLs with indexing.</figcaption>
+                        </figure>
+                        <figure class="shot-card mb-0">
+                            <img src="https://raw.githubusercontent.com/kulkarnishub377/Document-AI---RAG-Pipeline/main/Frontend_imges/doc_compare.png" alt="DocuAI document comparator screenshot" loading="lazy">
+                            <figcaption class="caption">Document comparator for side-by-side semantic analysis.</figcaption>
+                        </figure>
+                        <figure class="shot-card mb-0">
+                            <img src="https://raw.githubusercontent.com/kulkarnishub377/Document-AI---RAG-Pipeline/main/Frontend_imges/screenshot-1774864155482.png" alt="DocuAI knowledge graph screenshot" loading="lazy">
+                            <figcaption class="caption">Knowledge graph explorer with entities and relationships.</figcaption>
+                        </figure>
+                    </div>
+                    <figure class="shot-card mb-4">
+                        <img src="https://raw.githubusercontent.com/kulkarnishub377/Document-AI---RAG-Pipeline/main/Frontend_imges/screenshot-1774864171806.png" alt="DocuAI active vector index screenshot" loading="lazy">
+                        <figcaption class="caption">Active vector index view with document management and metadata.</figcaption>
+                    </figure>
+
+                    <h2 id="pipeline">4. Retrieval and Answer Pipeline</h2>
+                    <p>
+                        Retrieval quality comes from combining complementary signals. Dense embeddings capture semantic intent, BM25 catches lexical precision, RRF merges both rankings, and a reranker improves final context quality before generation.
+                    </p>
+                    <div class="highlight-box">
+                        <h5 class="fw-bold mb-3"><i class="fas fa-magnifying-glass-chart me-2" style="color: #7c3aed;"></i>Pipeline Stages</h5>
+                        <ol>
+                            <li>Document parsing and chunk creation</li>
+                            <li>Embedding generation and FAISS indexing</li>
+                            <li>Hybrid retrieval with BM25 + RRF</li>
+                            <li>Cross-encoder reranking</li>
+                            <li>Grounded LLM response with source citations</li>
+                        </ol>
+                    </div>
+
+                    <h2 id="api">5. API and Feature Surface</h2>
+                    <p>
+                        The backend exposes a broad API surface for end-user features and operations: ingestion, synchronous and streaming query, batch Q&A, semantic search, sessions, graph exploration, index export/import, crawl scheduling, analytics, and evaluation.
+                    </p>
+                    <ul>
+                        <li>40+ API endpoints covering ingestion, query, semantic search, sessions, analytics, and index lifecycle.</li>
+                        <li>Hybrid retrieval stack: FAISS + BM25 with Reciprocal Rank Fusion and reranking.</li>
+                        <li>Async ingestion with task tracking, scheduled crawling, and document versioning.</li>
+                        <li>Flexible LLM provider switch using environment config: Ollama (default) or OpenAI.</li>
+                        <li>Production-ready controls: rate limiting, cache stats, export/import backup, and tests.</li>
+                    </ul>
+
+                    <h2 id="ops">6. DevOps and Reliability</h2>
+                    <p>
+                        The project includes production-minded reliability features: Docker and Compose startup paths, CI-ready test structure, environment-driven configuration, and explicit controls for caching, rate limits, and crawl scheduling. This keeps both local development and deployment workflows predictable.
+                    </p>
+
+                    <h2 id="results">7. Why This Design Works</h2>
+                    <div class="highlight-box" style="border-left-color: #f59e0b;">
+                        <h4 class="fw-bold mb-3"><i class="fas fa-award me-2" style="color: #f59e0b;"></i>Key Outcomes</h4>
+                        <ul class="mb-0">
+                            <li><strong>Not a toy app:</strong> clear separation between data, retrieval, and generation stages.</li>
+                            <li><strong>Stronger answers:</strong> hybrid ranking plus reranking improves context relevance.</li>
+                            <li><strong>Ops-ready:</strong> async ingestion, analytics, and index backup simplify production support.</li>
+                            <li><strong>Flexible deployment:</strong> local-first with Ollama, plus OpenAI provider switch when needed.</li>
+                        </ul>
+                    </div>
+
+                    <h2 id="future">8. Future Scope</h2>
+                    <p>
+                        Next high-impact improvements include multi-user authentication, webhook-based source refresh, confidence scoring dashboards, and tenant-level governance controls for enterprise rollouts.
+                    </p>
+
+                    <hr class="my-5">
+
+                    <div class="card bg-light border-0 p-4">
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="../photo_sk.jpg" class="rounded-circle" width="60" alt="Shubham Kulkarni">
+                            <div>
+                                <h5 class="fw-bold mb-1">About Shubham Kulkarni</h5>
+                                <p class="mb-0 small text-secondary">
+                                    I build production AI systems across computer vision, retrieval, and full-stack deployment.
+                                    <a href="../index.html" class="fw-bold text-decoration-none" style="color: #7c3aed;">View my Portfolio.</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="share-section my-5 p-4 bg-light rounded-4 text-center">
+                        <h5 class="fw-bold mb-3">Explore Project</h5>
+                        <div class="d-flex gap-3 justify-content-center flex-wrap">
+                            <a href="https://github.com/kulkarnishub377/Document-AI---RAG-Pipeline" target="_blank" rel="noopener noreferrer" class="btn btn-dark rounded-pill px-4">
+                                <i class="fab fa-github me-2"></i>Open Repository
+                            </a>
+                            <a href="https://github.com/kulkarnishub377/Document-AI---RAG-Pipeline/blob/main/README.md" target="_blank" rel="noopener noreferrer" class="btn btn-primary rounded-pill px-4">
+                                <i class="fas fa-book-open me-2"></i>Read Full README
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-4">
+                        <a href="../index.html" class="btn btn-outline-primary btn-lg rounded-pill px-5 shadow-sm">Back to Portfolio</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: var(--bg-surface); border-top: 1px solid var(--border-light);" class="py-5">
+        <div class="container text-center">
+            <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
+            <div class="d-flex justify-content-center gap-3 mb-4">
+                <a href="#" class="text-secondary"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="https://github.com/kulkarnishub377" class="text-secondary"><i class="fab fa-github fa-lg"></i></a>
+                <a href="https://www.linkedin.com/in/shubhkulk21" class="text-secondary"><i class="fab fa-linkedin fa-lg"></i></a>
+            </div>
+            <p class="text-secondary small mb-4">Engineering practical AI systems with strong production fundamentals.</p>
+            <a href="index.html" class="btn btn-outline-dark rounded-pill px-4 hover-lift">Back to Blog</a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>

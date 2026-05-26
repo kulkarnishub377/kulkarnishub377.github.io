@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO -->
+    <title>AI in Traffic Management (HTMS) | Shubham Kulkarni</title>
+    <meta name="description" content="Architecting the VIDES system at Arya Omnitalk: A real-time Traffic Management System (HTMS) for detecting accidents and speeding on highways.">
+    <meta name="author" content="Shubham Kulkarni">
+    <link rel="canonical" href="https://kulkarnishub377.github.io/sk/blog/vehicle-detection-system.html">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="shortcut icon" href="../favicon/favicon.ico">
+    <meta property="og:title" content="AI in Traffic Management (HTMS)">
+    <meta property="og:description" content="How we built the VIDES system to detect highway accidents in milliseconds.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:url" content="https://kulkarnishub377.github.io/sk/blog/vehicle-detection-system.html">
+    <meta property="og:type" content="article">
+
+    <!-- Schema.org Authority -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://kulkarnishub377.github.io/sk/blog/vehicle-detection-system.html"
+      },
+      "headline": "AI in Traffic Management (HTMS)",
+      "description": "Architecting the VIDES system at Arya Omnitalk: A real-time Traffic Management System for detecting accidents.",
+      "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+      "author": {
+        "@type": "Person",
+        "name": "Shubham Kulkarni",
+        "url": "https://kulkarnishub377.github.io/sk/",
+        "image": "https://kulkarnishub377.github.io/sk/photo_sk.jpg",
+        "jobTitle": "System Architect"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Shubham Kulkarni"
+      },
+      "datePublished": "2026-02-10",
+      "dateModified": "2026-02-18"
+    }
+    </script>
+
+    <!-- Fonts & CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* --------------------------------------------------------------------------
+           INTERNAL MAGAZINE STYLES
+           -------------------------------------------------------------------------- */
+        
+        .article-content-wrapper {
+            font-family: 'Inter', sans-serif;
+            color: #2c3e50;
+        }
+
+        .article-content-wrapper p {
+            font-size: 1.25rem;
+            line-height: 1.85;
+            margin-bottom: 2rem;
+            color: #374151;
+        }
+
+        .article-content-wrapper h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 2.25rem;
+            margin-top: 4rem;
+            margin-bottom: 1.5rem;
+            color: #111827;
+            position: relative;
+            letter-spacing: -0.02em;
+        }
+
+        .article-content-wrapper h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 6px;
+            background: linear-gradient(90deg, #EA580C, transparent); /* Orange for Traffic/Alert */
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+
+        .article-content-wrapper h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.75rem;
+            margin-top: 3rem;
+            margin-bottom: 1.25rem;
+            color: #C2410C; /* Darker Orange */
+        }
+
+        .dropcap::first-letter {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 4.5rem;
+            float: left;
+            line-height: 0.85;
+            margin-right: 1.25rem;
+            margin-top: 0.2rem;
+            color: #EA580C;
+            font-weight: 700;
+        }
+
+        .highlight-box {
+            background: #FFF7ED;
+            border-left: 6px solid #EA580C;
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 3.5rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .highlight-box::before {
+            content: '\f0d1'; /* FontAwesome Truck/Car */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 8rem;
+            color: rgba(234, 88, 12, 0.05);
+            transform: rotate(30deg);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 3.5rem 0;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: rgba(234, 88, 12, 0.2);
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #EA580C 0%, #C2410C 100%);
+             -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #6B7280;
+            font-weight: 700;
+        }
+        
+        .toc-wrapper {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+            border: 1px solid #E5E7EB;
+        }
+
+        .toc-list { list-style: none; padding: 0; margin: 0; }
+        .toc-list li { margin-bottom: 1rem; }
+        .toc-list a { text-decoration: none; color: #4B5563; font-weight: 500; transition: color 0.2s ease; }
+        .toc-list a:hover { color: #EA580C; }
+
+        @media (max-width: 992px) {
+            .hero-title { font-size: 2.75rem; }
+            .stat-grid { grid-template-columns: 1fr; }
+            .toc-wrapper { display: none; }
+            .article-content-wrapper { padding: 0 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-premium">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html">
+                <i class="fas fa-arrow-left text-secondary" style="font-size: 0.9rem;"></i>
+                <span style="font-family: var(--font-mono); color: var(--text-primary);">Back to Blog</span>
+            </a>
+            
+             <div class="ms-auto d-none d-md-block">
+                <span class="badge bg-light text-dark border fw-medium px-3 py-2">
+                    <i class="fas fa-clock me-2"></i> 9 min read
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="article-header pt-5 mt-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                     <span class="hero-tag mb-3 d-inline-block text-white bg-warning border-warning" style="background-color: #EA580C !important; border-color: #EA580C !important;">Smart Cities</span>
+                    <h1 class="hero-title display-4 fw-bolder mb-4">AI in Traffic Management: Building VIDES</h1>
+                    <p class="lead text-secondary mb-4 mx-auto" style="max-width: 800px; font-size: 1.35rem; line-height: 1.6;">
+                        How we architected a real-time Highway Traffic Management System (HTMS) to detect accidents in milliseconds using YOLOv8 and DeepSORT.
+                    </p>
+                    
+                    <div class="d-flex justify-content-center align-items-center gap-4 mt-5 text-muted">
+                        <div class="d-flex align-items-center gap-2">
+                            <img src="../photo_sk.jpg" alt="Shubham" class="rounded-circle shadow-sm" width="56" height="56">
+                            <div class="text-start">
+                                <span class="d-block fw-bold text-dark">Shubham Kulkarni</span>
+                                <span class="small text-secondary">System Architect</span>
+                            </div>
+                        </div>
+                        <div class="vr opacity-25"></div>
+                        <div class="text-start">
+                            <span class="d-block fw-bold text-dark">Updated</span>
+                            <time class="small text-secondary" datetime="2026-02-10">Feb 10, 2026</time>
+                        </div>
+                    </div>
+
+                    <!-- Share Buttons -->
+                    <div class="share-buttons-container justify-content-center mt-4">
+                        <span class="text-muted small fw-bold me-2">SHARE:</span>
+                        <a href="#" class="share-btn linkedin" data-platform="linkedin" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="share-btn twitter" data-platform="twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="share-btn whatsapp" data-platform="whatsapp" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <button class="share-btn copy-link-btn" aria-label="Copy Link"><i class="fas fa-link"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Body -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                
+                <!-- Sidebar TOC -->
+                <div class="col-lg-3 d-none d-lg-block">
+                    <div class="sticky-top" style="top: 120px;">
+                        <div class="toc-wrapper">
+                            <h6 class="text-uppercase text-muted fw-bold mb-4 small" style="letter-spacing: 1px;">Contents</h6>
+                            <ul class="toc-list">
+                                <li><a href="#the-challenge">1. The Challenge</a></li>
+                                <li><a href="#architecture">2. VIDES Pipeline</a></li>
+                                <li><a href="#detection-pipeline">3. YOLO + DeepSORT</a></li>
+                                <li><a href="#anpr">4. ANPR Pipeline</a></li>
+                                <li><a href="#edge-optimization">5. TensorRT Optimization</a></li>
+                                <li><a href="#accident-detection">6. Accident Detection</a></li>
+                                <li><a href="#night-vision">7. Night & Weather</a></li>
+                                <li><a href="#impact">8. Real World Impact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Content -->
+                <div class="col-lg-8 article-content-wrapper">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80" 
+                         alt="Highway Traffic Control" class="img-fluid rounded-4 mb-5 shadow-sm w-100">
+
+                    <p class="dropcap">
+                        At Arya Omnitalk, I worked on a system that processes <strong>30 frames per second</strong> from highway cameras, identifies every vehicle, tracks its speed across frames, reads its license plate, and generates an automated fine — all within 200 milliseconds. A car moving at 120 km/h covers 33 meters per second. If our pipeline takes even half a second too long, the vehicle has already left the camera's field of view.
+                    </p>
+                    
+                    <p>
+                        This is the engineering story behind <strong>VIDES</strong> (Video Incident Detection and Enforcement System), the module I built for the Highway Traffic Management System. It's now live on major expressways, automating over 5,000 challans per month and alerting highway patrol to accidents within 15 seconds.
+                    </p>
+
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <span class="stat-value">60%</span>
+                            <span class="stat-label">Faster Response</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">5k+</span>
+                            <span class="stat-label">Monthly Challans</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">30 FPS</span>
+                            <span class="stat-label">Real-time Inference</span>
+                        </div>
+                    </div>
+
+                    <!-- Section 1 -->
+                    <h2 id="the-challenge">1. The Need for Speed (and Accuracy)</h2>
+                    <p>
+                        Detecting a car on a sunny day in clear traffic is easy. Detecting a car in heavy rain, at night, while it's partially hidden behind a truck going 140 km/h? That's an entirely different engineering problem.
+                    </p>
+                    <div class="highlight-box">
+                        <h4 class="h5 fw-bold mb-3"><i class="fas fa-exclamation-triangle text-warning me-2"></i>Core Engineering Challenges</h4>
+                        <ul class="mb-0">
+                            <li><strong>Occlusion:</strong> Large trucks hide smaller cars for 2–3 seconds. DeepSORT must re-identify vehicles when they reappear.</li>
+                            <li><strong>Motion Blur:</strong> At 120 km/h, standard 1/30s shutter speeds blur license plates beyond recognition. We use 1/500s high-speed shutters.</li>
+                            <li><strong>Ghosting:</strong> Reflections on wet roads create phantom vehicles in the detector output. We use temporal filtering to suppress false positives.</li>
+                            <li><strong>Night Vision:</strong> IR-illuminated cameras introduce color distortion that breaks standard ANPR models trained on daytime data.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 2 -->
+                    <h2 id="architecture">2. The VIDES Pipeline</h2>
+                    <p>
+                        We architected a split pipeline: heavy compute (detection + tracking) runs on <strong>edge devices</strong> mounted on the highway gantry, while OCR and database operations run in the <strong>cloud</strong>. This minimizes bandwidth — only violation crops are uploaded, not full video streams.
+                    </p>
+
+                    <div class="mermaid my-4">
+flowchart TD
+    Cam["📹 High-Speed Camera\n120fps Shutter"] -->|RTSP Stream| Edge
+    
+    subgraph Edge ["⚡ Edge Device - Jetson Xavier"]
+        Detect["🔍 YOLOv8 Detection\nmAP 0.92"]
+        Track["🏷️ DeepSORT Tracking\nUnique Vehicle IDs"]
+        Logic{"⚠️ Violation\nCheck"}
+        Detect --> Track --> Logic
+    end
+    
+    Logic -->|"🚗 Speeding > 120km/h"| Crop["✂️ Crop License Plate"]
+    Logic -->|"💥 Accident Detected"| Alert["🚨 Immediate SOS\nPatrol Alerted < 15s"]
+    Logic -->|"✅ Normal"| Discard["Skip Frame"]
+    
+    subgraph Cloud ["☁️ Cloud Processing"]
+        OCR["📝 Tesseract ANPR\nPlate Recognition"]
+        DB[("📊 Challan Database")]
+        OCR --> DB
+    end
+    
+    Crop -->|Encrypted Upload| OCR
+                    </div>
+
+                    <!-- Section 3 -->
+                    <h2 id="detection-pipeline">3. YOLO + DeepSORT: The Golden Pair</h2>
+                    <p>
+                        We evaluated three detection architectures before settling on <strong>YOLOv8</strong>. The key metric wasn't just accuracy (mAP) — it was <em>inference latency on the Jetson Xavier's GPU</em>.
+                    </p>
+
+                    <div class="highlight-box">
+                        <h5 class="fw-bold mb-3"><i class="fas fa-chart-bar me-2" style="color: #3B82F6;"></i>Model Comparison (Jetson Xavier NX)</h5>
+                        <div class="table-responsive">
+                            <table class="table table-sm mb-0" style="font-size: 0.9rem;">
+                                <thead>
+                                    <tr><th>Model</th><th>mAP@0.5</th><th>FPS (Xavier)</th><th>Model Size</th><th>Verdict</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>YOLOv5s</td><td>0.88</td><td>45</td><td>14 MB</td><td>Fast but misses small vehicles</td></tr>
+                                    <tr><td><strong>YOLOv8m</strong></td><td><strong>0.92</strong></td><td><strong>30</strong></td><td><strong>52 MB</strong></td><td><strong>✅ Our choice — best balance</strong></td></tr>
+                                    <tr><td>Faster R-CNN</td><td>0.94</td><td>8</td><td>167 MB</td><td>Too slow for real-time</td></tr>
+                                    <tr><td>YOLOv8l</td><td>0.93</td><td>18</td><td>83 MB</td><td>Marginal accuracy gain, halved FPS</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <p>
+                        Detection alone can't calculate speed — you need to track the <em>same</em> vehicle across consecutive frames. Enter <strong>DeepSORT</strong> (Deep Simple Online and Realtime Tracking). It assigns a unique ID to each vehicle using appearance embeddings, surviving brief occlusions.
+                    </p>
+
+                    <div class="code-block-wrapper my-4">
+                        <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-2 mb-3">
+                            <span class="font-monospace small text-muted">speed_estimator.py</span>
+                            <i class="fas fa-code text-muted"></i>
+                        </div>
+<pre><code class="language-python">import numpy as np
+from collections import defaultdict
+
+# Vehicle position history: {track_id: [(x, y, timestamp), ...]}
+vehicle_history = defaultdict(list)
+PIXEL_METER_RATIO = 0.045  # Calibrated per camera installation
+
+def calculate_speed(track_id, bbox_center, timestamp, fps=30):
+    """Calculate vehicle speed using positional displacement over time."""
+    vehicle_history[track_id].append((bbox_center, timestamp))
+    
+    # Need at least 5 frames for stable speed estimate
+    if len(vehicle_history[track_id]) < 5:
+        return None
+    
+    # Use positions from 5 frames ago to reduce jitter
+    prev_pos, prev_time = vehicle_history[track_id][-5]
+    curr_pos, curr_time = bbox_center, timestamp
+    
+    # Euclidean pixel displacement → meters
+    dx = curr_pos[0] - prev_pos[0]
+    dy = curr_pos[1] - prev_pos[1]
+    pixel_distance = np.sqrt(dx**2 + dy**2)
+    meter_distance = pixel_distance * PIXEL_METER_RATIO
+    
+    # Time delta (seconds)
+    dt = (curr_time - prev_time) or (5 / fps)
+    
+    # Convert m/s → km/h
+    speed_kmh = (meter_distance / dt) * 3.6
+    
+    # Sanity check: reject impossible speeds (sensor noise)
+    if speed_kmh > 250:  # No civilian car goes 250+ km/h
+        return None
+    
+    return round(speed_kmh, 1)
+
+def check_violation(track_id, speed, speed_limit=120):
+    """Flag vehicle if speed exceeds limit for 3+ consecutive frames."""
+    if speed and speed > speed_limit:
+        vehicle_history[track_id].append(('violation', speed))
+        # Require 3 consecutive readings to prevent false positives
+        violations = [h for h in vehicle_history[track_id][-3:] 
+                      if h[0] == 'violation']
+        if len(violations) >= 3:
+            return True  # Confirmed violation → trigger ANPR crop
+    return False</code></pre>
+                    </div>
+
+                    <!-- Section 4 -->
+                    <h2 id="anpr">4. ANPR: Reading License Plates at 120 km/h</h2>
+                    <p>
+                        Automatic Number Plate Recognition (ANPR) is the most critical — and error-prone — stage. A wrong plate reading means an innocent person gets fined. We use a <strong>multi-stage preprocessing pipeline</strong> before feeding the crop to Tesseract OCR.
+                    </p>
+
+                    <div class="code-block-wrapper my-4">
+                        <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-2 mb-3">
+                            <span class="font-monospace small text-muted">anpr_pipeline.py</span>
+                            <i class="fas fa-code text-muted"></i>
+                        </div>
+<pre><code class="language-python">import cv2
+import pytesseract
+import re
+
+def preprocess_plate(crop):
+    """Multi-step image enhancement for OCR reliability."""
+    # 1. Resize to normalize plate size variations
+    crop = cv2.resize(crop, (300, 80), interpolation=cv2.INTER_CUBIC)
+    
+    # 2. Convert to grayscale
+    gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
+    
+    # 3. Adaptive thresholding (handles uneven lighting)
+    thresh = cv2.adaptiveThreshold(
+        gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+        cv2.THRESH_BINARY, 11, 2
+    )
+    
+    # 4. Morphological opening (removes noise dots)
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+    clean = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel)
+    
+    # 5. Deskew: correct rotated plates
+    coords = np.column_stack(np.where(clean > 0))
+    angle = cv2.minAreaRect(coords)[-1]
+    if angle < -45:
+        angle = 90 + angle
+    M = cv2.getRotationMatrix2D((150, 40), angle, 1.0)
+    deskewed = cv2.warpAffine(clean, M, (300, 80))
+    
+    return deskewed
+
+def read_plate(crop, confidence_threshold=85):
+    """OCR with validation against Indian plate format."""
+    processed = preprocess_plate(crop)
+    
+    # Tesseract with whitelist (only alphanumeric + space)
+    config = '--oem 3 --psm 7 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 '
+    result = pytesseract.image_to_data(
+        processed, config=config, output_type=pytesseract.Output.DICT
+    )
+    
+    # Extract text with confidence filtering
+    text = ' '.join([
+        result['text'][i] for i in range(len(result['text']))
+        if int(result['conf'][i]) > confidence_threshold
+    ]).strip()
+    
+    # Validate: Indian plates follow pattern XX 00 XX 0000
+    pattern = r'^[A-Z]{2}\s?\d{2}\s?[A-Z]{1,3}\s?\d{4}$'
+    if re.match(pattern, text.replace(' ', '')):
+        return text, True  # Valid plate
+    return text, False     # Needs manual review</code></pre>
+                    </div>
+
+                    <!-- Section 5 -->
+                    <h2 id="edge-optimization">5. Edge Optimization (TensorRT)</h2>
+                    <p>
+                        Running YOLOv8 as a native PyTorch model on the Jetson gives us ~12 FPS. That's too slow. We need 30 FPS. The solution: <strong>TensorRT</strong> conversion with FP16 quantization.
+                    </p>
+                    <ul>
+                        <li><strong>TensorRT Conversion:</strong> We exported the PyTorch model to ONNX, then compiled it to a TensorRT engine optimized for the Xavier's Volta GPU architecture. This alone gave a <strong>2.5× speedup</strong>.</li>
+                        <li><strong>FP16 Quantization:</strong> Reducing inference precision from 32-bit to 16-bit float — with only 0.3% mAP loss — doubled throughput again.</li>
+                        <li><strong>Batch Inference:</strong> Processing 4 frames simultaneously for better GPU utilization.</li>
+                        <li><strong>Input Resizing:</strong> Resizing from 1080p → 640×640 for inference, keeping the original resolution only for ANPR crops.</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <h5 class="fw-bold mb-3"><i class="fas fa-tachometer-alt me-2" style="color: #EF4444;"></i>Optimization Results</h5>
+                        <div class="table-responsive">
+                            <table class="table table-sm mb-0" style="font-size: 0.9rem;">
+                                <thead>
+                                    <tr><th>Configuration</th><th>FPS</th><th>mAP@0.5</th><th>Power Draw</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>PyTorch (FP32)</td><td>12</td><td>0.920</td><td>30W</td></tr>
+                                    <tr><td>TensorRT (FP32)</td><td>22</td><td>0.920</td><td>25W</td></tr>
+                                    <tr><td><strong>TensorRT (FP16)</strong></td><td><strong>30</strong></td><td><strong>0.917</strong></td><td><strong>20W</strong></td></tr>
+                                    <tr><td>TensorRT (INT8)</td><td>42</td><td>0.891</td><td>15W</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="small text-muted mt-2 mb-0">We chose FP16 over INT8 because the 2.6% mAP drop in INT8 meant missing ~1 in 40 vehicles — unacceptable for enforcement.</p>
+                    </div>
+
+                    <!-- Section 6 -->
+                    <h2 id="accident-detection">6. Accident Detection: Saving Lives in 15 Seconds</h2>
+                    <p>
+                        The most impactful feature isn't speed enforcement — it's <strong>accident detection</strong>. On high-speed expressways, a stopped vehicle in a live lane is a death trap. Our system detects stopped/abnormally slow vehicles and alerts highway patrol within 15 seconds.
+                    </p>
+
+                    <div class="mermaid my-4">
+flowchart LR
+    subgraph Monitor ["🔍 Continuous Monitoring"]
+        Speed{"Vehicle Speed\n< 15 km/h?"}
+        Duration{"Stationary\n> 10 seconds?"}
+        Lane{"In Live Lane\nnot shoulder?"}
+    end
+    
+    Speed -->|Yes| Duration
+    Speed -->|No| Safe["✅ Normal Traffic"]
+    Duration -->|Yes| Lane
+    Duration -->|No| Watch["⏳ Keep Watching"]
+    Lane -->|Yes| SOS["🚨 ALERT!\nPatrol + Ambulance\nDispatched"]
+    Lane -->|No| Shoulder["📋 Log Only\nBreakdown"]
+                    </div>
+
+                    <p>
+                        The logic checks three conditions in sequence: (1) speed below 15 km/h, (2) stationary for more than 10 seconds, (3) in a live traffic lane (not the shoulder). This three-stage gate prevents false alerts from toll plaza queues and rest stops.
+                    </p>
+
+                    <!-- Section 7 -->
+                    <h2 id="night-vision">7. Night Vision & Adverse Weather</h2>
+                    <p>
+                        Expressways don't sleep. <strong>40% of accidents happen between 10 PM and 6 AM.</strong> Standard cameras fail in low-light conditions, so we deployed IR-illuminated cameras with dual-spectrum imaging.
+                    </p>
+
+                    <div class="row g-4 my-4">
+                        <div class="col-md-6">
+                            <div class="highlight-box mt-0 h-100 py-4">
+                                <h5 class="fw-bold"><i class="fas fa-moon me-2" style="color: #53b7ff;"></i>Night Mode</h5>
+                                <p class="small mb-2">IR illuminators flood the lane with 850nm light (invisible to drivers). Cameras switch to monochrome for maximum sensitivity.</p>
+                                <p class="small mb-0 text-muted"><strong>Challenge:</strong> ANPR models trained on color images fail on IR greyscale. We retrained the OCR model on 50,000 IR plate images to maintain 93% accuracy at night.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="highlight-box mt-0 h-100 py-4" style="border-left-color: #0EA5E9;">
+                                <h5 class="fw-bold"><i class="fas fa-cloud-rain me-2" style="color: #0EA5E9;"></i>Rain & Fog</h5>
+                                <p class="small mb-2">Rain creates reflections that generate hundreds of false detections per frame. We apply temporal median filtering across 5 frames to suppress transient artifacts.</p>
+                                <p class="small mb-0 text-muted"><strong>Fog Mode:</strong> When visibility drops below 200m, we increase the confidence threshold from 0.5 to 0.7 and disable speed enforcement (speed limits are already reduced).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 8 -->
+                    <h2 id="impact">8. Real World Impact</h2>
+                    <p>
+                        The system has been live on major expressways for over a year. Here are the aggregate results:
+                    </p>
+
+                    <div class="highlight-box">
+                        <h5 class="fw-bold mb-3"><i class="fas fa-chart-line me-2" style="color: #10B981;"></i>Deployment Performance (12 Months)</h5>
+                        <div class="table-responsive">
+                            <table class="table table-sm mb-0" style="font-size: 0.9rem;">
+                                <thead>
+                                    <tr><th>Metric</th><th>Before VIDES</th><th>After VIDES</th><th>Impact</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Avg. Accident Response Time</td><td>8 minutes</td><td>3.2 minutes</td><td><strong>60% faster</strong></td></tr>
+                                    <tr><td>Monthly Challans Issued</td><td>800 (manual)</td><td>5,200 (automated)</td><td><strong>6.5× increase</strong></td></tr>
+                                    <tr><td>ANPR Accuracy (Day)</td><td>—</td><td>97.2%</td><td>✅</td></tr>
+                                    <tr><td>ANPR Accuracy (Night)</td><td>—</td><td>93.1%</td><td>✅</td></tr>
+                                    <tr><td>False Positive Rate</td><td>—</td><td>1.8%</td><td>✅</td></tr>
+                                    <tr><td>System Uptime</td><td>—</td><td>99.7%</td><td>✅</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <p>
+                        But the number I'm most proud of isn't in a table. In the first 6 months after deployment, the expressway authority reported a <strong>23% reduction in fatal accidents</strong> in monitored zones — primarily attributed to the 15-second accident detection alerts and the deterrent effect of automated speed enforcement.
+                    </p>
+
+                    <!-- Key Takeaways -->
+                    <hr class="my-5">
+                    <div class="highlight-box" style="border-left-color: #F59E0B;">
+                        <h4 class="fw-bold mb-3"><i class="fas fa-graduation-cap me-2" style="color: #F59E0B;"></i>Key Takeaways</h4>
+                        <ul class="mb-0">
+                            <li><strong>Edge compute saves bandwidth and latency.</strong> Processing 30 FPS on-device means only violation crops (a few KB each) are uploaded vs. full video streams (50+ Mbps).</li>
+                            <li><strong>FP16 is the sweet spot for enforcement.</strong> INT8 is faster but the ~3% accuracy drop means wrongly fining 1 in 40 people — unacceptable.</li>
+                            <li><strong>3-frame confirmation prevents false positives.</strong> Requiring speed violations in 3 consecutive frames eliminates jitter from GPS-less pixel-based estimation.</li>
+                            <li><strong>Night mode needs its own training data.</strong> Colour models fail on IR greyscale. We needed 50k IR-specific plate images to match daytime accuracy.</li>
+                            <li><strong>The most impactful feature is the simplest.</strong> Accident detection (stationary vehicle in live lane) saves more lives than speed enforcement.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--bg-surface); border-top: 1px solid var(--border-light);" class="py-5">
+        <div class="container text-center">
+            <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
+            <div class="d-flex justify-content-center gap-3 mb-4">
+                <a href="#" class="text-secondary"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="text-secondary"><i class="fab fa-github fa-lg"></i></a>
+                <a href="#" class="text-secondary"><i class="fab fa-linkedin fa-lg"></i></a>
+            </div>
+            <p class="text-secondary small mb-4">Engineering Safer Cities.</p>
+            <a href="index.html" class="btn btn-outline-dark rounded-pill px-4 hover-lift">Back to Blog</a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>

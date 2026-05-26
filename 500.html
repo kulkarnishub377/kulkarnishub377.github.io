@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500 | System Overload</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --brand-red: #ff3333;
+            --brand-orange: #ff6b00;
+            --bg-color: #050505;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; /* Prevent scrolling, contain within viewport */
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, .display-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* SVG Noise Texture Overlay for premium feel */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.04;
+        }
+
+        /* Ambient glowing orbs in the background */
+        .ambient-light {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.5;
+            animation: pulse-light 8s infinite alternate ease-in-out;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .light-1 {
+            top: -10%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(255,51,51,0.2) 0%, rgba(0,0,0,0) 70%);
+        }
+
+        .light-2 {
+            bottom: -20%;
+            right: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(255,107,0,0.15) 0%, rgba(0,0,0,0) 70%);
+            animation-delay: -4s;
+        }
+
+        @keyframes pulse-light {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.3; }
+            100% { transform: scale(1.2) translate(5%, 5%); opacity: 0.6; }
+        }
+
+        /* Massive Background Typography */
+        .bg-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: clamp(15rem, 40vw, 30rem);
+            font-weight: 900;
+            color: transparent;
+            -webkit-text-stroke: 2px rgba(255, 255, 255, 0.03);
+            z-index: 0;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(20, 20, 22, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Glitch Animation */
+        .glitch-text {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--brand-red);
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim 3s infinite linear alternate-reverse;
+        }
+
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -2px 0 #00ffff;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(11px, 9999px, 86px, 0); }
+            5% { clip: rect(65px, 9999px, 10px, 0); }
+            10% { clip: rect(138px, 9999px, 51px, 0); }
+            15% { clip: rect(31px, 9999px, 105px, 0); }
+            20% { clip: rect(100px, 9999px, 18px, 0); }
+            25% { clip: rect(144px, 9999px, 45px, 0); }
+            30% { clip: rect(4px, 9999px, 98px, 0); }
+            35% { clip: rect(111px, 9999px, 131px, 0); }
+            40% { clip: rect(88px, 9999px, 12px, 0); }
+            45% { clip: rect(35px, 9999px, 84px, 0); }
+            50% { clip: rect(114px, 9999px, 144px, 0); }
+            55% { clip: rect(1px, 9999px, 106px, 0); }
+            60% { clip: rect(72px, 9999px, 20px, 0); }
+            65% { clip: rect(140px, 9999px, 67px, 0); }
+            70% { clip: rect(16px, 9999px, 118px, 0); }
+            75% { clip: rect(94px, 9999px, 33px, 0); }
+            80% { clip: rect(149px, 9999px, 59px, 0); }
+            85% { clip: rect(22px, 9999px, 102px, 0); }
+            90% { clip: rect(110px, 9999px, 148px, 0); }
+            95% { clip: rect(55px, 9999px, 25px, 0); }
+            100% { clip: rect(130px, 9999px, 78px, 0); }
+        }
+
+        /* Interactive Button Styling */
+        .btn-glow {
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .btn-glow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-glow:hover::before {
+            left: 100%;
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px var(--brand-red);
+        }
+
+        /* Custom Scrollbar for terminal output */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.02);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="relative flex items-center justify-center min-h-screen">
+
+    <!-- SVG Noise Overlay -->
+    <svg class="noise-overlay" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <filter id="noiseFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
+        </filter>
+        <rect width="100%" height="100%" filter="url(#noiseFilter)"/>
+    </svg>
+
+    <!-- Background Ambient Lights -->
+    <div class="ambient-light light-1"></div>
+    <div class="ambient-light light-2"></div>
+
+    <!-- HTML5 Canvas for Interactive Particle Engine -->
+    <canvas id="particleCanvas" class="absolute inset-0 z-0"></canvas>
+
+    <!-- Massive Background Typography -->
+    <div class="bg-text display-font">500</div>
+
+    <!-- Main Content Container -->
+    <main class="relative z-10 w-full max-w-2xl p-6 sm:p-8 mx-4">
+        
+        <div class="glass-card rounded-3xl p-8 sm:p-12 transition-transform duration-500 hover:scale-[1.01]">
+            
+            <!-- Terminal Header -->
+            <div class="flex items-center justify-between mb-8 border-b border-white/10 pb-4">
+                <div class="flex space-x-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></div>
+                    <div class="w-3 h-3 rounded-full bg-orange-500 opacity-50"></div>
+                    <div class="w-3 h-3 rounded-full bg-gray-600 opacity-50"></div>
+                </div>
+                <div class="text-xs font-mono text-gray-500 tracking-wider uppercase">System Error Log</div>
+            </div>
+
+            <!-- Error Content -->
+            <div class="space-y-6">
+                <div>
+                    <h2 class="text-red-500 font-mono text-sm tracking-[0.2em] uppercase mb-2">Error 500</h2>
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold display-font text-white leading-tight glitch-text" data-text="Core Destabilized.">
+                        Core Destabilized.
+                    </h1>
+                </div>
+                
+                <p class="text-gray-400 text-base sm:text-lg leading-relaxed max-w-lg">
+                    A catastrophic failure has occurred in the primary server core. Data streams are severing and our neural pathways are currently unspooling. 
+                </p>
+
+                <!-- Technical Jargon Box -->
+                <div class="bg-black/40 rounded-xl p-4 font-mono text-xs sm:text-sm text-red-400/80 border border-red-500/10 overflow-x-auto">
+                    <p class="mb-1">> SEVERE: Fatal exception 0x00000008 at 0x00424541.</p>
+                    <p class="mb-1">> Analyzing network integrity... <span class="text-white animate-pulse">FAILED</span></p>
+                    <p>> Attempting emergency containment protocols...</p>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex flex-col sm:flex-row items-center gap-4 pt-6">
+                    <button onclick="goBack()" class="btn-glow w-full sm:w-auto px-8 py-4 bg-white text-black font-semibold rounded-full display-font tracking-wide flex items-center justify-center gap-2 group">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Evacuate Zone
+                    </button>
+                    
+                    <button id="rebootBtn" onclick="initiateReboot()" class="w-full sm:w-auto px-8 py-4 bg-transparent text-white font-semibold rounded-full display-font tracking-wide border border-white/20 hover:border-white/50 hover:bg-white/5 transition-all flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        Force Reboot
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Bottom Status -->
+            <div class="mt-8 flex items-center justify-between text-xs font-mono text-gray-500 pt-4 border-t border-white/5">
+                <span>STATUS: OFFLINE</span>
+                <span id="coordinates">X: 000 Y: 000</span>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        /**
+         * Canvas Chaos Particle Engine
+         * Simulates a "severed network" where particles try to connect but
+         * behave chaotically due to the 500 server error.
+         */
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        const coordsDisplay = document.getElementById('coordinates');
+
+        let particlesArray = [];
+        let mouse = {
+            x: null,
+            y: null,
+            radius: 150 // Interaction radius
+        };
+
+        // Handle resizing for high-DPI displays
+        function resizeCanvas() {
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            ctx.scale(dpr, dpr);
+            canvas.style.width = `${window.innerWidth}px`;
+            canvas.style.height = `${window.innerHeight}px`;
+            initParticles();
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+
+        // Track Mouse
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+            // Update coordinates in UI
+            coordsDisplay.innerText = `X: ${String(event.x).padStart(3, '0')} Y: ${String(event.y).padStart(3, '0')}`;
+        });
+
+        // Add Chaos on click
+        window.addEventListener('click', (event) => {
+            // Send a shockwave
+            particlesArray.forEach(particle => {
+                const dx = particle.x - event.x;
+                const dy = particle.y - event.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 300) {
+                    particle.vx += (dx / distance) * 15;
+                    particle.vy += (dy / distance) * 15;
+                }
+            });
+        });
+
+        // Mouse out event
+        window.addEventListener('mouseout', () => {
+            mouse.x = undefined;
+            mouse.y = undefined;
+        });
+
+        // Particle Class
+        class Particle {
+            constructor(x, y, vx, vy, size) {
+                this.x = x;
+                this.y = y;
+                this.vx = vx;
+                this.vy = vy;
+                this.size = size;
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.density = (Math.random() * 30) + 1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 51, 51, 0.8)'; // Brand Red
+                ctx.fill();
+            }
+
+            update() {
+                // Handle canvas boundaries
+                if (this.x > window.innerWidth || this.x < 0) this.vx = -this.vx;
+                if (this.y > window.innerHeight || this.y < 0) this.vy = -this.vy;
+
+                // Move particle
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Slowly return to normal speed (friction)
+                if (Math.abs(this.vx) > 1.5) this.vx *= 0.95;
+                if (Math.abs(this.vy) > 1.5) this.vy *= 0.95;
+
+                // Mouse interactivity (Chaos mode: particles repel wildly instead of smoothly)
+                if (mouse.x && mouse.y) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    let forceDirectionX = dx / distance;
+                    let forceDirectionY = dy / distance;
+                    let maxDistance = mouse.radius;
+                    let force = (maxDistance - distance) / maxDistance;
+                    let directionX = forceDirectionX * force * this.density;
+                    let directionY = forceDirectionY * force * this.density;
+
+                    if (distance < mouse.radius) {
+                        this.x -= directionX;
+                        this.y -= directionY;
+                    }
+                }
+
+                this.draw();
+            }
+        }
+
+        // Initialize particle network
+        function initParticles() {
+            particlesArray = [];
+            // Amount of particles changes based on screen size
+            let numberOfParticles = (window.innerWidth * window.innerHeight) / 9000;
+            // Cap at 150 for performance
+            if(numberOfParticles > 150) numberOfParticles = 150; 
+
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = (Math.random() * ((window.innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((window.innerHeight - size * 2) - (size * 2)) + size * 2);
+                // Faster default velocity to simulate "error" state
+                let vx = (Math.random() * 3) - 1.5;
+                let vy = (Math.random() * 3) - 1.5;
+                particlesArray.push(new Particle(x, y, vx, vy, size));
+            }
+        }
+
+        // Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connectParticles();
+        }
+
+        // Draw lines between close particles (The "Network")
+        function connectParticles() {
+            let opacityValue = 1;
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x))
+                        + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    
+                    if (distance < (window.innerWidth / 10) * (window.innerHeight / 10)) {
+                        opacityValue = 1 - (distance / 20000);
+                        
+                        // Jitter lines randomly to simulate "broken" connection
+                        let isBroken = Math.random() > 0.95; 
+                        
+                        ctx.strokeStyle = isBroken ? `rgba(255, 107, 0, ${opacityValue})` : `rgba(255, 51, 51, ${opacityValue * 0.5})`;
+                        ctx.lineWidth = isBroken ? 2 : 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        
+                        // Add a slight bend/glitch to the line occasionally
+                        if(isBroken) {
+                            ctx.lineTo(particlesArray[b].x + (Math.random() * 10 - 5), particlesArray[b].y + (Math.random() * 10 - 5));
+                        } else {
+                            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        }
+                        
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // Initial Start
+        resizeCanvas();
+        animate();
+
+        // UI Interactions
+        function goBack() {
+            // Normally this would be history.back(), but for preview we simulate it
+            const btn = document.querySelector('button[onclick="goBack()"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Rerouting...`;
+            
+            setTimeout(() => {
+                window.location.href = '/sk/';
+            }, 1500);
+        }
+
+        function initiateReboot() {
+            const btn = document.getElementById('rebootBtn');
+            const originalText = btn.innerHTML;
+            
+            // Visual feedback
+            btn.innerHTML = `
+                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Rebooting...
+            `;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+            
+            // Trigger a massive particle chaos shockwave
+            particlesArray.forEach(particle => {
+                particle.vx = (Math.random() * 20) - 10;
+                particle.vy = (Math.random() * 20) - 10;
+            });
+
+            // Simulate failure
+            setTimeout(() => {
+                btn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Reboot Failed
+                `;
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                btn.classList.add('border-red-500', 'text-red-500');
+                
+                // Reset button after a few seconds
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('border-red-500', 'text-red-500');
+                }, 3000);
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

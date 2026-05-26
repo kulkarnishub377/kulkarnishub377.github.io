@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO -->
+    <title>Demystifying Transformers & LLMs | Shubham Kulkarni</title>
+    <meta name="description" content="A technical deep dive into the Self-Attention mechanism. Understanding Query, Key, and Value vectors in modern Large Language Models.">
+    <meta name="author" content="Shubham Kulkarni">
+    <link rel="canonical" href="https://kulkarnishub377.github.io/sk/blog/generative-ai.html">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="shortcut icon" href="../favicon/favicon.ico">
+    <meta property="og:title" content="Demystifying Transformers: How LLMs Think">
+    <meta property="og:description" content="The math behind the magic: Self-Attention explained.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:url" content="https://kulkarnishub377.github.io/sk/blog/generative-ai.html">
+    <meta property="og:type" content="article">
+
+    <!-- Schema.org Authority -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://kulkarnishub377.github.io/sk/blog/generative-ai.html"
+      },
+      "headline": "Demystifying Transformers & LLMs",
+      "description": "A technical breakdown of the Self-Attention mechanism, Positional Encodings, and why 'Attention is All You Need'.",
+      "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80",
+      "author": {
+        "@type": "Person",
+        "name": "Shubham Kulkarni",
+        "url": "https://kulkarnishub377.github.io/sk/",
+        "image": "https://kulkarnishub377.github.io/sk/photo_sk.jpg",
+        "jobTitle": "AI Researcher"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Shubham Kulkarni"
+      },
+      "datePublished": "2026-02-18",
+      "dateModified": "2026-02-18"
+    }
+    </script>
+
+    <!-- Fonts & CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* --------------------------------------------------------------------------
+           INTERNAL MAGAZINE STYLES
+           -------------------------------------------------------------------------- */
+        
+        .article-content-wrapper {
+            font-family: 'Inter', sans-serif;
+            color: #2c3e50;
+        }
+
+        .article-content-wrapper p {
+            font-size: 1.25rem;
+            line-height: 1.85;
+            margin-bottom: 2rem;
+            color: #374151;
+        }
+
+        .article-content-wrapper h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 2.25rem;
+            margin-top: 4rem;
+            margin-bottom: 1.5rem;
+            color: #111827;
+            position: relative;
+            letter-spacing: -0.02em;
+        }
+
+        .article-content-wrapper h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 6px;
+            background: linear-gradient(90deg, #DB2777, transparent); /* Pink for Neural Nets */
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+
+        .article-content-wrapper h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.75rem;
+            margin-top: 3rem;
+            margin-bottom: 1.25rem;
+            color: #BE185D; /* Darker Pink */
+        }
+
+        .dropcap::first-letter {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 4.5rem;
+            float: left;
+            line-height: 0.85;
+            margin-right: 1.25rem;
+            margin-top: 0.2rem;
+            color: #DB2777;
+            font-weight: 700;
+        }
+
+        .highlight-box {
+            background: #FDF2F8;
+            border-left: 6px solid #DB2777;
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 3.5rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .highlight-box::before {
+            content: '\f2db'; /* FontAwesome Microchip/Brain */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 8rem;
+            color: rgba(219, 39, 119, 0.05);
+            transform: rotate(30deg);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 3.5rem 0;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: rgba(219, 39, 119, 0.2);
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #DB2777 0%, #BE185D 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #6B7280;
+            font-weight: 700;
+        }
+        
+        .toc-wrapper {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+            border: 1px solid #E5E7EB;
+        }
+
+        .toc-list { list-style: none; padding: 0; margin: 0; }
+        .toc-list li { margin-bottom: 1rem; }
+        .toc-list a { text-decoration: none; color: #4B5563; font-weight: 500; transition: color 0.2s ease; }
+        .toc-list a:hover { color: #DB2777; }
+
+        @media (max-width: 992px) {
+            .hero-title { font-size: 2.75rem; }
+            .stat-grid { grid-template-columns: 1fr; }
+            .toc-wrapper { display: none; }
+            .article-content-wrapper { padding: 0 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-premium">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html">
+                <i class="fas fa-arrow-left text-secondary" style="font-size: 0.9rem;"></i>
+                <span style="font-family: var(--font-mono); color: var(--text-primary);">Back to Blog</span>
+            </a>
+            
+             <div class="ms-auto d-none d-md-block">
+                <span class="badge bg-light text-dark border fw-medium px-3 py-2">
+                    <i class="fas fa-clock me-2"></i> 11 min read
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="article-header pt-5 mt-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                     <span class="hero-tag mb-3 d-inline-block text-white bg-danger border-danger" style="background-color: #DB2777 !important; border-color: #DB2777 !important;">Deep Learning</span>
+                    <h1 class="hero-title display-4 fw-bolder mb-4">Demystifying Transformers: How LLMs Think</h1>
+                    <p class="lead text-secondary mb-4 mx-auto" style="max-width: 800px; font-size: 1.35rem; line-height: 1.6;">
+                        Beyond the hype: A technical breakdown of the Self-Attention mechanism, Positional Encodings, and why "Attention is All You Need".
+                    </p>
+                    
+                    <div class="d-flex justify-content-center align-items-center gap-4 mt-5 text-muted">
+                        <div class="d-flex align-items-center gap-2">
+                            <img src="../photo_sk.jpg" alt="Shubham" class="rounded-circle shadow-sm" width="56" height="56">
+                            <div class="text-start">
+                                <span class="d-block fw-bold text-dark">Shubham Kulkarni</span>
+                                <span class="small text-secondary">AI Researcher</span>
+                            </div>
+                        </div>
+                        <div class="vr opacity-25"></div>
+                        <div class="text-start">
+                            <span class="d-block fw-bold text-dark">Published</span>
+                            <time class="small text-secondary" datetime="2026-02-18">Feb 18, 2026</time>
+                        </div>
+                    </div>
+
+                    <!-- Share Buttons -->
+                    <div class="share-buttons-container justify-content-center mt-4">
+                        <span class="text-muted small fw-bold me-2">SHARE:</span>
+                        <a href="#" class="share-btn linkedin" data-platform="linkedin" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="share-btn twitter" data-platform="twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="share-btn whatsapp" data-platform="whatsapp" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <button class="share-btn copy-link-btn" aria-label="Copy Link"><i class="fas fa-link"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Body -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                
+                <!-- Sidebar TOC -->
+                <div class="col-lg-3 d-none d-lg-block">
+                    <div class="sticky-top" style="top: 120px;">
+                        <div class="toc-wrapper">
+                            <h6 class="text-uppercase text-muted fw-bold mb-4 small" style="letter-spacing: 1px;">Contents</h6>
+                            <ul class="toc-list">
+                                <li><a href="#the-bottleneck">1. The RNN Bottleneck</a></li>
+                                <li><a href="#self-attention">2. Self-Attention</a></li>
+                                <li><a href="#qkv-analogy">3. Q, K, V Deep Dive</a></li>
+                                <li><a href="#multi-head">4. Multi-Head Attention</a></li>
+                                <li><a href="#positional">5. Positional Encoding</a></li>
+                                <li><a href="#architecture">6. Full Architecture</a></li>
+                                <li><a href="#training">7. Training vs Inference</a></li>
+                                <li><a href="#future">8. Beyond Transformers</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Content -->
+                <div class="col-lg-8 article-content-wrapper">
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80" 
+                         alt="Abstract AI Neural Network Visualization" class="img-fluid rounded-4 mb-5 shadow-sm w-100">
+
+                    <p class="dropcap">
+                        I remember the exact moment I realized everything had changed. It was late 2022, and I asked ChatGPT to explain a piece of PyTorch code I'd been struggling with. It didn't just explain it — it rewrote it, added comments, and suggested an optimization I hadn't considered. The model behind that moment? A <strong>Transformer</strong>. And understanding how it works — truly understanding it — is, I believe, the most valuable thing an engineer can invest time in right now.
+                    </p>
+                    
+                    <p>
+                        This article isn't a surface-level overview. I'm going to walk you through the Transformer architecture from first principles, starting with why we needed it, all the way to modern variants like Mamba that might <em>replace</em> it. I'll include the actual PyTorch code you can run yourself.
+                    </p>
+
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <span class="stat-value">175B</span>
+                            <span class="stat-label">Parameters (GPT-3)</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">128K</span>
+                            <span class="stat-label">Context (GPT-4)</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">O(N²)</span>
+                            <span class="stat-label">Attention Complexity</span>
+                        </div>
+                    </div>
+
+                    <h2 id="the-bottleneck">1. The RNN Bottleneck: Why Transformers Were Inevitable</h2>
+                    <p>
+                        Before 2017, the dominant architecture for language tasks was the <strong>Recurrent Neural Network (RNN)</strong> and its more sophisticated cousin, the <strong>LSTM (Long Short-Term Memory)</strong>. These models had a fatal flaw: they processed text <em>sequentially</em>, one word at a time, like reading a book character by character.
+                    </p>
+                    <p>
+                        This creates two problems:
+                    </p>
+                    <ul>
+                        <li><strong>Vanishing Gradients:</strong> In the sentence "The <strong>cat</strong>, which was already full from eating three cans of sardines and a bowl of cream while lounging on the windowsill... <strong>slept</strong>.", an RNN effectively "forgets" the word "cat" by the time it reaches "slept". The gradient signal decays exponentially with distance.</li>
+                        <li><strong>No Parallelism:</strong> You can't process word 100 until you've processed words 1–99. This makes training on large datasets agonizingly slow, because you can't leverage GPU parallelism.</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <h4 class="h5 fw-bold mb-3"><i class="fas fa-bolt text-primary me-2" style="color: #DB2777 !important;"></i>The Key Insight</h4>
+                        <p class="mb-0">
+                            What if, instead of reading sequentially, a model could look at <strong>every word simultaneously</strong> and dynamically decide which words are important for understanding each other word? This is the core idea behind <strong>Self-Attention</strong>, and it's what makes Transformers fundamentally different from everything that came before.
+                        </p>
+                    </div>
+
+                    <h2 id="self-attention">2. Self-Attention: The Core Mechanism</h2>
+                    <p>
+                        Self-attention allows the model to look at <em>every</em> other position in the input sequence when encoding a particular word. It doesn't just look at neighbors — it looks at everything, in parallel.
+                    </p>
+                    <p>
+                        Consider the sentence: <em>"The <strong>animal</strong> didn't cross the street because <strong>it</strong> was too tired."</em>
+                    </p>
+                    <p>
+                        What does "it" refer to? As a human, you instantly know: the animal. But this requires understanding long-range context. Self-attention handles this by computing an <strong>attention weight</strong> between every pair of words. For the word "it", the model assigns high attention to "animal" and low attention to "street" — exactly the right behavior.
+                    </p>
+
+                    <h2 id="qkv-analogy">3. Query, Key, Value: The Database Analogy</h2>
+                    <p>
+                        The math of self-attention revolves around three learned projections: <strong>Query (Q)</strong>, <strong>Key (K)</strong>, and <strong>Value (V)</strong>. The best analogy is a search engine:
+                    </p>
+                    <ul>
+                        <li><strong>Query (Q):</strong> "What am I looking for?" — Each word asks a question about what context it needs.</li>
+                        <li><strong>Key (K):</strong> "What do I contain?" — Each word advertises what information it carries.</li>
+                        <li><strong>Value (V):</strong> "Here's my actual content." — The information that gets retrieved when a match is found.</li>
+                    </ul>
+                    <p>
+                        The attention score between two words is the <strong>dot product</strong> of QueryA and KeyB. If this score is high, word A will "pay attention to" word B, pulling in more of its Value. The formula:
+                    </p>
+                    <p class="text-center my-4">
+                        <code class="fs-5">Attention(Q, K, V) = softmax(QK<sup>T</sup> / √d<sub>k</sub>) · V</code>
+                    </p>
+                    <p>
+                        The <code>√d<sub>k</sub></code> scaling factor prevents the dot products from growing too large (which would push the softmax into regions with tiny gradients). This is often overlooked, but it's critical for stable training.
+                    </p>
+
+                    <div class="code-block-wrapper my-4">
+                        <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-2 mb-3">
+                            <span class="font-monospace small text-muted">attention.py</span>
+                            <i class="fas fa-code text-muted"></i>
+                        </div>
+<pre><code class="language-python">import torch
+import torch.nn.functional as F
+import math
+
+def scaled_dot_product_attention(query, key, value, mask=None):
+    """
+    Computes Scaled Dot-Product Attention.
+    Args:
+        query: (batch, heads, seq_len, d_k)
+        key:   (batch, heads, seq_len, d_k)
+        value: (batch, heads, seq_len, d_v)
+        mask:  Optional causal mask for autoregressive decoding
+    """
+    d_k = query.size(-1)
+    
+    # Step 1: Compute raw attention scores
+    scores = torch.matmul(query, key.transpose(-2, -1))  # (batch, heads, seq, seq)
+    
+    # Step 2: Scale to prevent gradient vanishing
+    scores = scores / math.sqrt(d_k)
+    
+    # Step 3: Apply causal mask (for GPT-style models)
+    if mask is not None:
+        scores = scores.masked_fill(mask == 0, float('-inf'))
+    
+    # Step 4: Softmax normalizes scores to probabilities
+    attention_weights = F.softmax(scores, dim=-1)
+    
+    # Step 5: Weighted sum of values
+    output = torch.matmul(attention_weights, value)
+    
+    return output, attention_weights  # Return weights for visualization</code></pre>
+                    </div>
+
+                    <h2 id="multi-head">4. Multi-Head Attention: Seeing Multiple Perspectives</h2>
+                    <p>
+                        A single attention head can only capture one type of relationship. But language is multi-dimensional — you might need one head to track <em>syntactic</em> structure (subject-verb agreement) and another to track <em>semantic</em> meaning (coreference resolution).
+                    </p>
+                    <p>
+                        <strong>Multi-Head Attention</strong> solves this by running <em>h</em> parallel attention heads, each with their own Q, K, V projections. The outputs are concatenated and projected back to the model dimension:
+                    </p>
+
+                    <div class="code-block-wrapper my-4">
+                        <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-2 mb-3">
+                            <span class="font-monospace small text-muted">multi_head_attention.py</span>
+                            <i class="fas fa-code text-muted"></i>
+                        </div>
+<pre><code class="language-python">import torch.nn as nn
+
+class MultiHeadAttention(nn.Module):
+    def __init__(self, d_model=512, num_heads=8):
+        super().__init__()
+        self.num_heads = num_heads
+        self.d_k = d_model // num_heads  # 64 per head
+        
+        # Learned projections for Q, K, V
+        self.W_q = nn.Linear(d_model, d_model)
+        self.W_k = nn.Linear(d_model, d_model)
+        self.W_v = nn.Linear(d_model, d_model)
+        self.W_o = nn.Linear(d_model, d_model)  # Output projection
+    
+    def forward(self, x, mask=None):
+        batch_size, seq_len, _ = x.shape
+        
+        # Project and reshape into multiple heads
+        Q = self.W_q(x).view(batch_size, seq_len, self.num_heads, self.d_k).transpose(1, 2)
+        K = self.W_k(x).view(batch_size, seq_len, self.num_heads, self.d_k).transpose(1, 2)
+        V = self.W_v(x).view(batch_size, seq_len, self.num_heads, self.d_k).transpose(1, 2)
+        
+        # Run attention on all heads in parallel
+        attn_output, weights = scaled_dot_product_attention(Q, K, V, mask)
+        
+        # Concatenate heads and project
+        attn_output = attn_output.transpose(1, 2).contiguous().view(batch_size, seq_len, -1)
+        return self.W_o(attn_output)</code></pre>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4 class="h5 fw-bold mb-3"><i class="fas fa-search text-primary me-2" style="color: #DB2777 !important;"></i>What Do Different Heads Learn?</h4>
+                        <p class="mb-0">
+                            Research has shown that different attention heads specialize naturally during training. In GPT-2, certain heads consistently track <strong>positional patterns</strong> ("attend to the previous word"), while others track <strong>semantic relationships</strong> ("attend to the subject of this verb"). This emergent specialization is one of the most fascinating properties of multi-head attention.
+                        </p>
+                    </div>
+
+                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&q=80" 
+                         alt="AI Brain Visualization" class="img-fluid rounded-4 my-5 shadow-sm w-100">
+
+                    <h2 id="positional">5. Positional Encoding: Teaching Order to a Parallel Model</h2>
+                    <p>
+                        Here's a subtle but critical problem: since attention processes all words simultaneously, it has <strong>no inherent sense of word order</strong>. "The cat sat on the mat" and "The mat sat on the cat" would produce identical attention patterns!
+                    </p>
+                    <p>
+                        The solution is <strong>Positional Encoding</strong> — injecting a unique "position signal" into each word embedding before it enters the Transformer. The original paper uses sinusoidal functions at different frequencies:
+                    </p>
+
+                    <div class="code-block-wrapper my-4">
+                        <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-2 mb-3">
+                            <span class="font-monospace small text-muted">positional_encoding.py</span>
+                            <i class="fas fa-code text-muted"></i>
+                        </div>
+<pre><code class="language-python">import numpy as np
+
+def positional_encoding(max_seq_len, d_model):
+    """
+    Generates sinusoidal positional encoding.
+    Each position gets a unique pattern across dimensions,
+    similar to how binary numbers encode position.
+    """
+    pe = np.zeros((max_seq_len, d_model))
+    
+    for pos in range(max_seq_len):
+        for i in range(0, d_model, 2):
+            wavelength = 10000 ** (i / d_model)
+            pe[pos, i]     = np.sin(pos / wavelength)  # Even dimensions
+            pe[pos, i + 1] = np.cos(pos / wavelength)  # Odd dimensions
+    
+    return pe  # Shape: (max_seq_len, d_model)
+
+# Why sinusoidal? Because PE[pos+k] can be expressed as a
+# linear function of PE[pos], letting the model learn
+# RELATIVE positions, not just absolute ones.</code></pre>
+                    </div>
+
+                    <h2 id="architecture">6. The Full Architecture: Encoder vs Decoder</h2>
+                    <p>
+                        The original 2017 Transformer has both an <strong>Encoder</strong> (processes input) and a <strong>Decoder</strong> (generates output). But the models you use daily have diverged:
+                    </p>
+                    <ul>
+                        <li><strong>BERT</strong> = Encoder only — reads the entire input bidirectionally. Great for understanding tasks (classification, NER).</li>
+                        <li><strong>GPT</strong> = Decoder only — generates text left-to-right, one token at a time. Great for generation.</li>
+                        <li><strong>T5 / BART</strong> = Full Encoder-Decoder — maps input sequence to output sequence. Great for translation, summarization.</li>
+                    </ul>
+
+                    <div class="mermaid my-4">
+flowchart TD
+    Input["📝 Input Tokens"] --> Embed["Token Embedding\nd_model = 512"]
+    Embed --> PE["➕ Positional Encoding\nsin/cos waves"]
+
+    subgraph Block ["🔁 Transformer Block × N"]
+        MHA["🧠 Multi-Head\nSelf-Attention\nh=8 heads"]
+        AN1["Add and LayerNorm"]
+        FFN["⚡ Feed-Forward\n2048 → 512"]
+        AN2["Add and LayerNorm"]
+        MHA --> AN1 --> FFN --> AN2
+    end
+
+    PE --> Block
+    AN2 --> LN["Final LayerNorm"]
+    LN --> Linear["Linear Projection\nvocab_size"]
+    Linear --> SM["Softmax"]
+    SM --> Output["🎯 Next Token\nProbabilities"]
+                    </div>
+
+                    <h2 id="training">7. Training vs Inference: Two Very Different Games</h2>
+                    <p>
+                        One thing that tripped me up initially: training and inference work <em>completely differently</em> in Transformers.
+                    </p>
+
+                    <div class="row g-4 mb-5">
+                        <div class="col-md-6">
+                            <div class="highlight-box mt-0 h-100 py-4">
+                                <h5 class="fw-bold"><i class="fas fa-graduation-cap me-2" style="color: #DB2777;"></i>Training</h5>
+                                <ul class="small mb-0 list-unstyled">
+                                    <li class="mb-2">• Process <strong>entire sequence</strong> in parallel</li>
+                                    <li class="mb-2">• Use <strong>teacher forcing</strong>: feed the real answer</li>
+                                    <li class="mb-2">• Loss on <strong>all tokens simultaneously</strong></li>
+                                    <li>• GPU utilization: <strong>~95%</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="highlight-box mt-0 h-100 py-4" style="border-left-color: #7C3AED;">
+                                <h5 class="fw-bold"><i class="fas fa-play me-2" style="color: #7C3AED;"></i>Inference</h5>
+                                <ul class="small mb-0 list-unstyled">
+                                    <li class="mb-2">• Generate <strong>one token at a time</strong></li>
+                                    <li class="mb-2">• Use <strong>KV Cache</strong> to avoid recomputation</li>
+                                    <li class="mb-2">• <strong>Autoregressive</strong>: each token depends on all previous</li>
+                                    <li>• GPU utilization: <strong>~30%</strong> (memory-bound)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <p>
+                        This efficiency gap is why inference optimization (quantization, speculative decoding, KV-cache compression) is one of the hottest research areas in 2026. Training a model is expensive, but <em>serving</em> it to millions of users is where the real cost lives.
+                    </p>
+
+                    <h2 id="future">8. Beyond Transformers: What Comes Next?</h2>
+                    <p>
+                        The elephant in the room is <strong>O(N²) complexity</strong>. Doubling the context window quadruples the compute. This is why GPT-4's 128K context is incredibly expensive to run. Several approaches are competing to solve this:
+                    </p>
+                    <ul>
+                        <li><strong>Mamba (State Space Models):</strong> Instead of computing attention between all pairs of tokens, SSMs process sequences in linear time using a learned state transition. Mamba has shown GPT-3 level performance at a fraction of the compute.</li>
+                        <li><strong>Ring Attention:</strong> Distributes the attention computation across multiple GPUs in a ring topology, enabling 1M+ token context windows on existing hardware.</li>
+                        <li><strong>Mixture of Experts (MoE):</strong> Models like Mixtral activate only a subset of parameters per token, achieving massive model capacity with manageable compute budgets.</li>
+                        <li><strong>RWKV:</strong> A hybrid RNN-Transformer that can be trained like a Transformer (parallelized) but runs inference like an RNN (linear time). Best of both worlds.</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <h4 class="h5 fw-bold mb-3"><i class="fas fa-brain text-primary me-2" style="color: #DB2777 !important;"></i>Key Takeaways</h4>
+                        <ul class="mb-0">
+                            <li><strong>Attention is not magic</strong> — it's a weighted average with learned projections. Once you internalize Q, K, V, everything else follows.</li>
+                            <li><strong>Multi-head attention is embarrassingly parallel</strong> — this is why GPUs are perfect for Transformers, and why NVIDIA's stock price 10x'd.</li>
+                            <li><strong>Positional encoding is the unsung hero</strong> — without it, your model literally can't distinguish "dog bites man" from "man bites dog".</li>
+                            <li><strong>The future is hybrid</strong> — pure Transformers will likely be replaced by architectures that combine attention with linear-time SSMs.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--bg-surface); border-top: 1px solid var(--border-light);" class="py-5">
+        <div class="container text-center">
+            <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
+            <div class="d-flex justify-content-center gap-3 mb-4">
+                <a href="#" class="text-secondary"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="text-secondary"><i class="fab fa-github fa-lg"></i></a>
+                <a href="#" class="text-secondary"><i class="fab fa-linkedin fa-lg"></i></a>
+            </div>
+            <p class="text-secondary small mb-4">Deciphering Intelligence.</p>
+            <a href="index.html" class="btn btn-outline-dark rounded-pill px-4 hover-lift">Back to Blog</a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>

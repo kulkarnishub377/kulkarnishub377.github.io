@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO: Primary Keywords & Description -->
+    <title>Line Follower Robot: PID Control & Arduino | Shubham Kulkarni - Robotics Engineer</title>
+    <meta name="description" content="A comprehensive guide to building a Line Follower Robot using PID control, Arduino Mega, and IR Sensors. Engineered by Shubham Kulkarni.">
+    <meta name="author" content="Shubham Kulkarni">
+    <meta name="keywords" content="Line Follower Robot, PID Control, Arduino Mega, IR Sensors, L293D, Robotics Project, Shubham Kulkarni, Embedded Systems">
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://kulkarnishub377.github.io/sk/blog/line-follower.html">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="shortcut icon" href="../favicon/favicon.ico">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://kulkarnishub377.github.io/sk/blog/line-follower.html">
+    <meta property="og:title" content="Line Follower Robot: PID Control Deep Dive | Shubham Kulkarni">
+    <meta property="og:description" content="How to build a precision autonomous robot using PID logic and IR arrays. Technical walkthrough by Shubham Kulkarni.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/kulkarnishub377/Line-Following-Robot/refs/heads/main/3-Media/Line-Following-img.png">
+    
+    <!-- Schema.org Structured Data: Crucial for "Person" Rank -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://kulkarnishub377.github.io/sk/blog/line-follower.html"
+      },
+      "headline": "Line Follower Robot: PID Control & Arduino Guide",
+      "description": "A deep dive into building an autonomous line follower robot using PID algorithms, Arduino Mega, and IR sensors.",
+      "image": "https://raw.githubusercontent.com/kulkarnishub377/Line-Following-Robot/refs/heads/main/3-Media/Line-Following-img.png",
+      "author": {
+        "@type": "Person",
+        "name": "Shubham Kulkarni",
+        "url": "https://kulkarnishub377.github.io/sk/",
+        "jobTitle": "Robotics Engineer",
+        "sameAs": [
+          "https://github.com/kulkarnishub377",
+          "https://linkedin.com/in/shubhamkulkarni"
+        ]
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Shubham Kulkarni",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://kulkarnishub377.github.io/sk/photo_sk.jpg"
+        }
+      },
+      "datePublished": "2026-02-08",
+      "dateModified": "2026-02-08"
+    }
+    </script>
+    
+    <!-- Fonts & CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* --------------------------------------------------------------------------
+           INTERNAL MAGAZINE STYLES
+           -------------------------------------------------------------------------- */
+        
+        .article-content-wrapper {
+            font-family: 'Inter', sans-serif;
+            color: #2c3e50;
+        }
+
+        .article-content-wrapper p {
+            font-size: 1.25rem;
+            line-height: 1.85;
+            margin-bottom: 2rem;
+            color: #374151;
+        }
+
+        .article-content-wrapper h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 2.25rem;
+            margin-top: 4rem;
+            margin-bottom: 1.5rem;
+            color: #111827;
+            position: relative;
+            letter-spacing: -0.02em;
+        }
+
+        .article-content-wrapper h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 6px;
+            background: linear-gradient(90deg, #DC2626, transparent); /* Red for Robotics */
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+
+        .article-content-wrapper h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.75rem;
+            margin-top: 3rem;
+            margin-bottom: 1.25rem;
+            color: #991B1B;
+        }
+
+        .dropcap::first-letter {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 4.5rem;
+            float: left;
+            line-height: 0.85;
+            margin-right: 1.25rem;
+            margin-top: 0.2rem;
+            color: #DC2626;
+            font-weight: 700;
+        }
+
+        .highlight-box {
+            background: #FEF2F2;
+            border-left: 6px solid #DC2626;
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 3.5rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .highlight-box::before {
+            content: '\f544'; /* FontAwesome Robot */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 8rem;
+            color: rgba(220, 38, 38, 0.05);
+            transform: rotate(30deg);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 3.5rem 0;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: rgba(220, 38, 38, 0.2);
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #6B7280;
+            font-weight: 700;
+        }
+        
+        .toc-wrapper {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+            border: 1px solid #E5E7EB;
+        }
+
+        .toc-list { list-style: none; padding: 0; margin: 0; }
+        .toc-list li { margin-bottom: 1rem; }
+        .toc-list a { text-decoration: none; color: #4B5563; font-weight: 500; transition: color 0.2s ease; }
+        .toc-list a:hover { color: #DC2626; }
+
+        @media (max-width: 992px) {
+            .hero-title { font-size: 2.75rem; }
+            .stat-grid { grid-template-columns: 1fr; }
+            .toc-wrapper { display: none; }
+            .article-content-wrapper { padding: 0 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-premium">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html">
+                <i class="fas fa-arrow-left text-secondary" style="font-size: 0.9rem;"></i>
+                <span style="font-family: var(--font-mono); color: var(--text-primary);">Back to Blog</span>
+            </a>
+            
+             <div class="ms-auto d-none d-md-block">
+                <span class="badge bg-light text-dark border fw-medium px-3 py-2">
+                    <i class="fas fa-clock me-2"></i> 10 min read
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="article-header pt-5 mt-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                     <span class="hero-tag mb-3 d-inline-block text-white bg-danger border-danger" style="background-color: #DC2626 !important; border-color: #DC2626 !important;">Robotics & IoT</span>
+                    <h1 class="hero-title display-4 fw-bolder mb-4">Line Follower Robot: PID Control & Arduino</h1>
+                    <p class="lead text-secondary mb-4 mx-auto" style="max-width: 800px; font-size: 1.35rem; line-height: 1.6;">
+                        A detailed engineering guide to building a precision autonomous robot using PID logic, Arduino Mega, and IR sensor arrays.
+                    </p>
+                    
+                    <div class="d-flex justify-content-center align-items-center gap-4 mt-5 text-muted">
+                        <div class="d-flex align-items-center gap-2">
+                            <img src="../photo_sk.jpg" alt="Shubham Kulkarni" class="rounded-circle shadow-sm" width="56" height="56">
+                            <div class="text-start">
+                                <span class="d-block fw-bold text-dark">Shubham Kulkarni</span>
+                                <span class="small text-secondary">Robotics Engineer</span>
+                            </div>
+                        </div>
+                        <div class="vr opacity-25"></div>
+                        <div class="text-start">
+                            <span class="d-block fw-bold text-dark">Updated</span>
+                            <time class="small text-secondary" datetime="2026-02-08">Feb 08, 2026</time>
+                        </div>
+                    </div>
+
+                    <!-- Share Buttons -->
+                    <div class="share-buttons-container justify-content-center mt-4">
+                        <span class="text-muted small fw-bold me-2">SHARE:</span>
+                        <a href="#" class="share-btn linkedin" data-platform="linkedin" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="share-btn twitter" data-platform="twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="share-btn whatsapp" data-platform="whatsapp" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <button class="share-btn copy-link-btn" aria-label="Copy Link"><i class="fas fa-link"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Body -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                
+                <!-- Sidebar TOC -->
+                <div class="col-lg-3 d-none d-lg-block">
+                    <div class="sticky-top" style="top: 120px;">
+                        <div class="toc-wrapper">
+                            <h6 class="text-uppercase text-muted fw-bold mb-4 small" style="letter-spacing: 1px;">Contents</h6>
+                            <ul class="toc-list">
+                                <li><a href="#intro">1. The If-Else Trap</a></li>
+                                <li><a href="#hardware">2. Hardware Stack</a></li>
+                                <li><a href="#calibration">3. Sensor Calibration</a></li>
+                                <li><a href="#theory">4. PID Control Theory</a></li>
+                                <li><a href="#code">5. Arduino Code</a></li>
+                                <li><a href="#tuning">6. Tuning (Ziegler-Nichols)</a></li>
+                                <li><a href="#results">7. Competition Results</a></li>
+                                <li><a href="#future">8. Future Scope</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Content -->
+                <div class="col-lg-8 article-content-wrapper">
+                    <img src="https://raw.githubusercontent.com/kulkarnishub377/Line-Following-Robot/refs/heads/main/3-Media/Line-Following-img.png" 
+                         alt="Line Follower Robot" class="img-fluid rounded-4 mb-5 shadow-sm w-100">
+
+                    <p class="dropcap">
+                        Building a robot that can follow a line is the "Hello World" of robotics — every tutorial makes it look trivial. But building one that navigates a competition track at <strong>1.2 m/s</strong> without oscillating off sharp corners? That's a control systems problem. The difference between a ₹500 science fair toy and a competition-winning machine isn't the hardware — it's the algorithm.
+                    </p>
+                    
+                    <p>
+                        This article goes beyond simple "if-else" logic. By implementing a <strong>Proportional-Integral-Derivative (PID) controller</strong> with proper sensor calibration and Ziegler-Nichols tuning, we eliminated the "jerky wobbling" typical of amateur robots and achieved <em>smooth, railing-like cornering performance</em> that won 2nd place in the Tech Fest Robotics competition.
+                    </p>
+
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <span class="stat-value">5ms</span>
+                            <span class="stat-label">Control Loop Time</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">1.2 m/s</span>
+                            <span class="stat-label">Max Speed</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">2nd</span>
+                            <span class="stat-label">Competition Rank</span>
+                        </div>
+                    </div>
+
+                    <!-- Section 1 -->
+                    <h2 id="intro">1. Why PID Matters: The If-Else Trap</h2>
+                    <div class="highlight-box">
+                        <h4 class="h5 fw-bold mb-3"><i class="fas fa-exclamation-triangle text-warning me-2"></i>The Naive Approach (Don't Do This)</h4>
+                        <p class="mb-3">
+                            Every beginner's first instinct is: <em>"If left sensor sees line → turn left. If right sensor → turn right."</em> This causes violent oscillation because the robot overcorrects on every cycle, creating a zig-zag path.
+                        </p>
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <div class="text-center p-3 rounded" style="background: rgba(239,68,68,0.1);">
+                                    <strong style="color: #EF4444;">❌ If-Else</strong>
+                                    <p class="small mb-0 mt-1">Binary ON/OFF steering</p>
+                                    <p class="small mb-0">Oscillation, lost on corners</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-center p-3 rounded" style="background: rgba(16,185,129,0.1);">
+                                    <strong style="color: #10B981;">✅ PID</strong>
+                                    <p class="small mb-0 mt-1">Proportional correction</p>
+                                    <p class="small mb-0">Smooth, predictive steering</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2 -->
+                    <h2 id="hardware">2. Hardware Stack</h2>
+                    <p>
+                        The brain of the operation is the <strong>Arduino Mega 2560</strong> — chosen not because of its processing power, but because of its <strong>6 hardware interrupt pins</strong> and multiple ADC channels, which are critical for time-sensitive sensor reads. The motors are driven by an L293D H-Bridge driver with PWM speed control.
+                    </p>
+                    <ul>
+                        <li><strong>Microcontroller:</strong> Arduino Mega 2560 — 16 MHz ATmega2560, 8KB SRAM, 6 hardware interrupts</li>
+                        <li><strong>Sensors:</strong> 5-Channel IR Array (TCRT5000 reflective sensors, analog output)</li>
+                        <li><strong>Motor Driver:</strong> L293D Dual H-Bridge (600mA per channel, PWM-controlled)</li>
+                        <li><strong>Motors:</strong> N20 300 RPM Bo Motors (3V–12V, high torque gearbox)</li>
+                        <li><strong>Power:</strong> 12V 2200mAh Li-Po battery (runtime: ~45 minutes at full load)</li>
+                        <li><strong>Chassis:</strong> Custom laser-cut 3mm acrylic (weight: 380g total)</li>
+                    </ul>
+
+                    <!-- System Diagram -->
+                    <h2 id="circuit">System Diagram</h2>
+                    <div class="mermaid my-4">
+flowchart TD
+    subgraph Sensors ["👁️ Perception"]
+        IR["5× IR Sensor Array\nTCRT5000"]
+    end
+    
+    subgraph Brain ["🧠 Processing"]
+        Arduino["Arduino Mega 2560"]
+        PID["PID Controller\nKp·e + Ki·∫e + Kd·de/dt"]
+    end
+    
+    subgraph Drive ["⚡ Actuation"]
+        L293D["L293D H-Bridge"]
+        LM["🔄 Left Motor\n300 RPM"]
+        RM["🔄 Right Motor\n300 RPM"]
+    end
+    
+    Battery["🔋 12V Li-Po"] --> L293D
+    Battery --> Arduino
+    IR -->|Analog Readings| Arduino
+    Arduino --> PID
+    PID -->|PWM Signal| L293D
+    L293D -->|Voltage| LM
+    L293D -->|Voltage| RM
+                    </div>
+
+                    <!-- Section 3 -->
+                    <h2 id="calibration">3. Sensor Calibration: The Step Everyone Skips</h2>
+                    <p>
+                        Raw IR sensor readings are <strong>meaningless</strong> without calibration. The TCRT5000 output varies wildly between surfaces, lighting conditions, and even sensor aging. A "black line" might read 850 on a clean track and 650 on a dusty one.
+                    </p>
+                    <p>
+                        At boot, we run a <strong>30-second calibration routine</strong> where the robot slowly rotates over the line, recording the <code>min</code> and <code>max</code> readings from each sensor. This gives us normalized 0–1000 values regardless of environment.
+                    </p>
+
+                    <div class="code-block-wrapper my-4">
+                         <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-2 mb-3">
+                            <span class="font-monospace small text-muted">calibration.ino</span>
+                            <i class="fas fa-code text-muted"></i>
+                        </div>
+<pre><code class="language-c">// --- Sensor Calibration Routine ---
+// Run at boot: robot slowly rotates to capture min/max for each sensor
+
+#define NUM_SENSORS 5
+int sensorPins[NUM_SENSORS] = {A0, A1, A2, A3, A4};
+int sensorMin[NUM_SENSORS], sensorMax[NUM_SENSORS];
+
+void calibrateSensors() {
+    // Initialize min/max arrays
+    for (int i = 0; i < NUM_SENSORS; i++) {
+        sensorMin[i] = 1023;  // Start high (10-bit ADC max)
+        sensorMax[i] = 0;     // Start low
+    }
+    
+    // Spin slowly for 30 seconds, sampling continuously
+    unsigned long startTime = millis();
+    while (millis() - startTime < 30000) {
+        // Rotate robot slowly to sweep sensors over line
+        analogWrite(LEFT_PWM, 80);
+        analogWrite(RIGHT_PWM, 80);
+        digitalWrite(LEFT_DIR, HIGH);
+        digitalWrite(RIGHT_DIR, LOW);  // Opposite → spin in place
+        
+        for (int i = 0; i < NUM_SENSORS; i++) {
+            int val = analogRead(sensorPins[i]);
+            if (val < sensorMin[i]) sensorMin[i] = val;
+            if (val > sensorMax[i]) sensorMax[i] = val;
+        }
+        delay(5);
+    }
+    stopMotors();
+}
+
+// Normalize raw reading to 0-1000 range using calibration data
+int normalizeReading(int sensorIndex, int rawValue) {
+    int range = sensorMax[sensorIndex] - sensorMin[sensorIndex];
+    if (range < 50) return 0;  // Guard: sensor dead or disconnected
+    int normalized = map(rawValue, sensorMin[sensorIndex],
+                         sensorMax[sensorIndex], 0, 1000);
+    return constrain(normalized, 0, 1000);
+}</code></pre>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h5 class="fw-bold mb-3"><i class="fas fa-weight-hanging me-2" style="color: #7C3AED;"></i>Sensor Weight Array</h5>
+                        <p class="small text-muted mb-2">Each sensor is assigned a weight based on its distance from center. The weighted average gives us a continuous error signal:</p>
+                        <div class="table-responsive">
+                            <table class="table table-sm mb-0" style="font-size: 0.9rem;">
+                                <thead>
+                                    <tr><th>Sensor</th><th>Position</th><th>Weight</th><th>Purpose</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>S0 (Far Left)</td><td>A0</td><td><strong>-2000</strong></td><td>Hard left correction</td></tr>
+                                    <tr><td>S1 (Left)</td><td>A1</td><td><strong>-1000</strong></td><td>Gentle left correction</td></tr>
+                                    <tr><td>S2 (Center)</td><td>A2</td><td><strong>0</strong></td><td>On the line (no error)</td></tr>
+                                    <tr><td>S3 (Right)</td><td>A3</td><td><strong>+1000</strong></td><td>Gentle right correction</td></tr>
+                                    <tr><td>S4 (Far Right)</td><td>A4</td><td><strong>+2000</strong></td><td>Hard right correction</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Section 4 -->
+                    <h2 id="theory">4. Understanding PID Control</h2>
+                    <p>
+                        PID is a <strong>closed-loop feedback controller</strong> that calculates an error value as the difference between a desired setpoint (center of line) and the measured process variable (sensor position). Each of the three terms contributes differently:
+                    </p>
+
+                    <div class="row g-4 my-4">
+                        <div class="col-md-4">
+                            <div class="highlight-box mt-0 h-100 py-4">
+                                <h5 class="fw-bold"><span style="color: #3B82F6;">P</span> — Proportional</h5>
+                                <p class="small mb-1"><code>P = Kp × error</code></p>
+                                <p class="small mb-0 text-muted">Steers proportionally to how far off-center the robot is. High Kp = aggressive correction, but can cause oscillation.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="highlight-box mt-0 h-100 py-4" style="border-left-color: #10B981;">
+                                <h5 class="fw-bold"><span style="color: #10B981;">I</span> — Integral</h5>
+                                <p class="small mb-1"><code>I += error × dt</code></p>
+                                <p class="small mb-0 text-muted">Accumulates past errors. Fixes steady-state offset (robot slightly off-center on straights). Too much → "wind-up" drift.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="highlight-box mt-0 h-100 py-4" style="border-left-color: #EF4444;">
+                                <h5 class="fw-bold"><span style="color: #EF4444;">D</span> — Derivative</h5>
+                                <p class="small mb-1"><code>D = Kd × (error - prev_error)</code></p>
+                                <p class="small mb-0 text-muted">Predicts the future by measuring rate of change. Acts as a "brake" to prevent overshoot on corners.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h5 class="fw-bold mb-2"><i class="fas fa-square-root-alt me-2" style="color: #2563EB;"></i>The Combined Formula</h5>
+                        <p class="mb-0 font-monospace text-center" style="font-size: 1.1rem;">
+                            <strong>Correction = Kp·e(t) + Ki·∫e(t)dt + Kd·de(t)/dt</strong>
+                        </p>
+                    </div>
+
+                    <!-- Section 5 -->
+                    <h2 id="code">5. Arduino Implementation (Full Code)</h2>
+                    <p>
+                        Below is the complete PID loop including sensor reading, error calculation, integral wind-up protection, and motor speed clamping. The loop runs every <strong>5ms</strong> (200Hz), fast enough for smooth control at 1.2 m/s.
+                    </p>
+
+                    <div class="code-block-wrapper my-4">
+                         <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-2 mb-3">
+                            <span class="font-monospace small text-muted">line_follower.ino</span>
+                            <i class="fas fa-code text-muted"></i>
+                        </div>
+<pre><code class="language-c">// --- PID Line Follower (Competition-Ready) ---
+// Hardware: Arduino Mega, 5× TCRT5000, L293D, N20 Motors
+
+// PID Gains (tuned via Ziegler-Nichols method)
+float Kp = 10.0;   // Proportional gain
+float Ki = 0.05;    // Integral gain (kept low to avoid wind-up)
+float Kd = 28.0;    // Derivative gain (aggressive damping)
+
+// State variables
+float error = 0, previous_error = 0;
+float P = 0, I = 0, D = 0, PID_value = 0;
+int base_speed = 180;  // PWM: 0-255 (70% of max)
+
+// Sensor weights: far-left(-2000) to far-right(+2000)
+int weights[5] = {-2000, -1000, 0, 1000, 2000};
+
+void loop() {
+    // 1. Read calibrated sensor values
+    int position = 0, totalWeight = 0;
+    bool onLine = false;
+    
+    for (int i = 0; i < 5; i++) {
+        int val = normalizeReading(i, analogRead(sensorPins[i]));
+        if (val > 200) onLine = true;  // At least one sensor sees line
+        position += val * weights[i];
+        totalWeight += val;
+    }
+    
+    // 2. Calculate error (0 = centered on line)
+    if (totalWeight > 0) {
+        error = (float)position / totalWeight;
+    }
+    // If line lost: use last known direction (overshoot recovery)
+    if (!onLine) {
+        error = (previous_error > 0) ? 2500 : -2500;
+    }
+    
+    // 3. PID Calculation
+    P = error;
+    I = I + error;
+    D = error - previous_error;
+    
+    // Anti-wind-up: clamp integral to prevent accumulation
+    I = constrain(I, -10000, 10000);
+    
+    PID_value = (Kp * P) + (Ki * I) + (Kd * D);
+    previous_error = error;
+    
+    // 4. Apply correction to motors (differential steering)
+    int left_speed  = base_speed - PID_value;
+    int right_speed = base_speed + PID_value;
+    
+    // Clamp to valid PWM range
+    left_speed  = constrain(left_speed, 0, 255);
+    right_speed = constrain(right_speed, 0, 255);
+    
+    setMotorSpeed(left_speed, right_speed);
+    
+    delay(5);  // 5ms loop → 200 Hz control frequency
+}</code></pre>
+                    </div>
+
+                    <!-- Section 6 -->
+                    <h2 id="tuning">6. Tuning Methodology (Ziegler-Nichols)</h2>
+                    <p>
+                        Tuning a PID controller is part science, part art. We used the <strong>Ziegler-Nichols</strong> method, a systematic approach that saves hours of trial-and-error:
+                    </p>
+                    <ol>
+                        <li><strong>Set Ki = 0, Kd = 0.</strong> Increase <strong>Kp</strong> until the robot follows the line but oscillates consistently. This is the <em>Ultimate Gain</em> (Ku). Record the oscillation period (Tu).</li>
+                        <li><strong>Calculate initial gains</strong> from the Ziegler-Nichols table:
+                            <ul>
+                                <li><code>Kp = 0.6 × Ku</code></li>
+                                <li><code>Ki = 2 × Kp / Tu</code></li>
+                                <li><code>Kd = Kp × Tu / 8</code></li>
+                            </ul>
+                        </li>
+                        <li><strong>Fine-tune on the competition track.</strong> Increase Kd if corners cause overshoot. Reduce Ki if the robot drifts on straights.</li>
+                    </ol>
+
+                    <div class="highlight-box">
+                        <h5 class="fw-bold mb-3"><i class="fas fa-sliders-h me-2" style="color: #F59E0B;"></i>Our Tuning Journey</h5>
+                        <div class="table-responsive">
+                            <table class="table table-sm mb-0" style="font-size: 0.9rem;">
+                                <thead>
+                                    <tr><th>Attempt</th><th>Kp</th><th>Ki</th><th>Kd</th><th>Behavior</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>1 (P-only)</td><td>15</td><td>0</td><td>0</td><td>Heavy oscillation, goes off on corners</td></tr>
+                                    <tr><td>2 (Ku found)</td><td>17</td><td>0</td><td>0</td><td>Sustained oscillation → Ku = 17, Tu ≈ 0.3s</td></tr>
+                                    <tr><td>3 (Z-N formula)</td><td>10.2</td><td>68</td><td>0.38</td><td>Better, slight drift on straights</td></tr>
+                                    <tr><td>4 (Manual adjustment)</td><td>10</td><td>0.05</td><td>28</td><td><strong>✅ Smooth! Competition-ready</strong></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <p>
+                        <strong>Key Insight:</strong> The Ziegler-Nichols Ki value (68) was way too high for our system and caused integral wind-up. We reduced it to 0.05 and increased Kd dramatically. This is common in fast-response systems — the derivative term matters much more than the integral.
+                    </p>
+
+                    <!-- Section 7 -->
+                    <h2 id="results">7. Competition Results & Performance</h2>
+                    <p>
+                        We tested the robot on three different track types during the Tech Fest competition. Here are the results compared to the winning team (Team Alpha) who used an 8-sensor array:
+                    </p>
+
+                    <div class="highlight-box">
+                        <h5 class="fw-bold mb-3"><i class="fas fa-trophy me-2" style="color: #F59E0B;"></i>Competition Performance</h5>
+                        <div class="table-responsive">
+                            <table class="table table-sm mb-0" style="font-size: 0.9rem;">
+                                <thead>
+                                    <tr><th>Track Type</th><th>Our Robot</th><th>Winner (8-sensor)</th><th>Gap</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Straight Line (3m)</td><td>2.5s</td><td>2.2s</td><td>0.3s</td></tr>
+                                    <tr><td>90° Turns (4 corners)</td><td>8.1s</td><td>7.8s</td><td>0.3s</td></tr>
+                                    <tr><td>Complex Track (S-curves + hairpins)</td><td>14.2s</td><td>12.9s</td><td>1.3s</td></tr>
+                                    <tr><td><strong>Total Time</strong></td><td><strong>24.8s</strong></td><td><strong>22.9s</strong></td><td><strong>1.9s (2nd Place)</strong></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <p>
+                        The 1.9-second gap was primarily due to the S-curve section. With only 5 sensors, our bot lost the line momentarily on tight curves. The winning team's 8-sensor array gave them wider coverage. That said, we matched them on straights and 90° turns — proving that <strong>algorithm tuning matters more than sensor count</strong> for common track geometries.
+                    </p>
+
+                    <!-- Section 8 -->
+                    <h2 id="future">8. Future Enhancements</h2>
+                    <p>
+                        Building a PID line follower is just the beginning. Here's the roadmap for Version 2:
+                    </p>
+                    <ul>
+                        <li><strong>Camera-Based Navigation:</strong> Replace IR sensors with a <strong>Raspberry Pi Camera</strong> and <strong>OpenCV</strong> to detect line position via image processing — enabling intersection handling and color-coded routes.</li>
+                        <li><strong>8+ Sensor Array:</strong> Upgrade to an 8-sensor array for better coverage on tight curves. The math stays the same; only the weight array changes.</li>
+                        <li><strong>Adaptive Kp:</strong> Implement dynamic Kp based on speed — higher Kp at low speeds for tight corners, lower Kp at high speeds for stability.</li>
+                        <li><strong>Bluetooth Tuning App:</strong> Build an Android app to adjust Kp/Ki/Kd <em>in real-time</em> via Bluetooth, eliminating the upload-test-repeat cycle.</li>
+                        <li><strong>EEPROM Storage:</strong> Save tuned PID values to EEPROM so the robot remembers its calibration between power cycles.</li>
+                    </ul>
+
+                    <!-- Key Takeaways -->
+                    <hr class="my-5">
+                    <div class="highlight-box" style="border-left-color: #F59E0B;">
+                        <h4 class="fw-bold mb-3"><i class="fas fa-graduation-cap me-2" style="color: #F59E0B;"></i>Key Takeaways</h4>
+                        <ul class="mb-0">
+                            <li><strong>Calibrate before you ride.</strong> Raw sensor readings are unreliable. A 30-second calibration routine is the single biggest improvement you can make.</li>
+                            <li><strong>Kd > Ki for fast systems.</strong> In a robot moving at 1.2 m/s, the derivative term (prediction) matters far more than the integral (history).</li>
+                            <li><strong>Anti-wind-up is essential.</strong> Without integral clamping, the I term accumulates on corners and causes the robot to overshoot on the straight after.</li>
+                            <li><strong>The Ziegler-Nichols method gives you a starting point, not the answer.</strong> Always fine-tune manually on the actual competition track.</li>
+                            <li><strong>5 sensors are enough for 90% of tracks.</strong> Algorithm tuning compensates for sensor limitations on all but the tightest curves.</li>
+                        </ul>
+                    </div>
+
+                    <hr class="my-5">
+                    
+                    <div class="card bg-light border-0 p-4">
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="../photo_sk.jpg" class="rounded-circle" width="60" alt="Shubham Kulkarni">
+                            <div>
+                                <h5 class="fw-bold mb-1">About Shubham Kulkarni</h5>
+                                <p class="mb-0 small text-secondary">
+                                    I am a Robotics & AI Engineer passionate about building systems that bridge the physical and digital worlds. 
+                                    <a href="../index.html" class="text-danger fw-bold text-decoration-none">View my Portfolio.</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--bg-surface); border-top: 1px solid var(--border-light);" class="py-5">
+        <div class="container text-center">
+            <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
+            <div class="d-flex justify-content-center gap-3 mb-4">
+                <a href="#" class="text-secondary"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="https://github.com/kulkarnishub377" class="text-secondary"><i class="fab fa-github fa-lg"></i></a>
+                <a href="#" class="text-secondary"><i class="fab fa-linkedin fa-lg"></i></a>
+            </div>
+            <p class="text-secondary small mb-4">Engineering the Future.</p>
+            <a href="index.html" class="btn btn-outline-dark rounded-pill px-4 hover-lift">Back to Blog</a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>
