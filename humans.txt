@@ -1,0 +1,20 @@
+# humanstxt.org
+# The humans responsible & technology stack behind this site
+
+# TEAM
+    Author/Developer: Shubham Kulkarni
+    Title: Software Engineer - AI/ML
+    Location: Pune, Maharashtra, India
+    LinkedIn: https://www.linkedin.com/in/shubhkulk21/
+    GitHub: https://github.com/kulkarnishub377
+    Email: kulkarnishub377@gmail.com
+
+# THANKS
+    Open Source Community, modern web standard developers, and the Google Font project.
+
+# SITE
+    Standards: HTML5, CSS3, ES6 JavaScript
+    UI Framework/Libraries: GSAP (animations), Three.js (3D particles), FontAwesome (icons), Bootstrap 5 (blog layout)
+    Design Aesthetics: Dark mode, cyber/modern tech typography, fluid responsive layout
+    Caching: Progressive Web Application Webmanifest configured
+    SEO: Schema.org JSON-LD Structured Entity Data, complete custom sitemap and crawling rules

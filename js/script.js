@@ -285,7 +285,7 @@
     setTimeout(() => {
       // System overload simulation -> trigger 500.html
       if (subject.includes('error') || subject.includes('500') || subject.includes('fail')) {
-        window.location.href = '/sk/500.html';
+        window.location.href = '/500.html';
         return;
       }
       
@@ -336,7 +336,7 @@
     const hash = window.location.hash;
     if (hash && hash !== '#' && !document.querySelector(hash)) {
       // The section doesn't exist on this page -> Render 404
-      window.location.href = '/sk/404.html';
+      window.location.href = '/404.html';
     }
   }
   window.addEventListener('hashchange', checkHashRoute);
@@ -346,7 +346,7 @@
   window.addEventListener('unhandledrejection', (event) => {
     console.error('Critical System Error:', event.reason);
     // Uncomment for production:
-    // window.location.href = '/sk/500.html';
+    // window.location.href = '/500.html';
   });
 
 })();

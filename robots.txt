@@ -1,0 +1,20 @@
+# Crawl rules for kulkarnishub377.github.io
+# Designed for optimal SEO crawling of portfolio and engineering blog articles
+
+User-agent: *
+Allow: /
+Allow: /blog/
+Allow: /css/
+Allow: /js/
+Allow: /favicon/
+
+# Block hidden files and configurations
+Disallow: /.git/
+Disallow: /.gitignore
+Disallow: /.nojekyll
+Disallow: /LICENSE
+Disallow: /README.md
+Disallow: /site.webmanifest
+
+# Sitemap Location
+Sitemap: https://kulkarnishub377.github.io/sitemap.xml
