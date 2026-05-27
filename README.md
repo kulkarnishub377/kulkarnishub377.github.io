@@ -29,7 +29,7 @@
 
 ### 🎯 About The Project
 
-[![Portfolio Preview](https://user-images.githubusercontent.com/88601825/188274889-e3508869-1a88-4143-8557-81bbe53691e3.png)](https://kulkarnishub377.github.io/)
+[![Portfolio Preview](kulkarnishub377.github.io_.png)](https://kulkarnishub377.github.io/)
 
 This project serves as my digital resume and portfolio. It's a carefully crafted space where I present my professional journey, technical skills, and the projects I'm passionate about. The goal was to create an engaging, accessible, and visually appealing platform for visitors, recruiters, and fellow developers.
 
@@ -42,7 +42,7 @@ This portfolio is built with a combination of modern web technologies, focusing 
 *   [![HTML5][HTML5-shield]][HTML5-url]
 *   [![CSS3][CSS3-shield]][CSS3-url]
 *   [![JavaScript][JavaScript-shield]][JavaScript-url]
-*   [![Bootstrap][Bootstrap-shield]][Bootstrap-url]
+*   [![GSAP][GSAP-shield]][GSAP-url]
 *   [![Git][Git-shield]][Git-url]
 *   [![GitHub][GitHub-shield]][GitHub-url]
 *   [![Font Awesome][Font-Awesome-shield]][Font-Awesome-url]
@@ -73,11 +73,11 @@ You only need a modern web browser to view the project. No special software or d
 
 1.  Clone the repository to your local machine:
         ```sh
-        git clone https://github.com/kulkarnishub377/sk.git
+        git clone https://github.com/kulkarnishub377/kulkarnishub377.github.io.git
         ```
 2.  Navigate to the project directory:
         ```sh
-        cd portfolio-sk
+        cd kulkarnishub377.github.io
         ```
 3.  Open the `index.html` file in your favorite browser to view the website.
 
@@ -89,10 +89,10 @@ You only need a modern web browser to view the project. No special software or d
 *   [x] Implement a dark/light mode toggle for user preference.
 *   [x] Add more projects with detailed case studies.
 *   [x] Enhance animations and transitions for a richer user experience.
+*   [x] Add a custom 404 page.
 *   [ ] Refactor CSS: remove legacy dead code and consolidate media queries.
 *   [ ] Add CSS/JS minification for production builds.
 *   [ ] Host blog images locally to remove external dependencies.
-*   [ ] Add a custom 404 page.
 
 See the [open issues](https://github.com/kulkarnishub377/kulkarnishub377.github.io/issues) for a full list of proposed features (and known issues).
 
@@ -121,8 +121,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [CSS3-url]: https://developer.mozilla.org/en-US/docs/Web/CSS
 [JavaScript-shield]: https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
 [JavaScript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
-[Bootstrap-shield]: https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
+[GSAP-shield]: https://img.shields.io/badge/GSAP-88CE02?style=for-the-badge&logo=greensock&logoColor=white
+[GSAP-url]: https://greensock.com/gsap/
 [Git-shield]: https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white
 [Git-url]: https://git-scm.com/
 [GitHub-shield]: https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white
