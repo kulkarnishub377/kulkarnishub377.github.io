@@ -14,10 +14,14 @@
     <style>
         .article-content-wrapper { font-family: 'Inter', sans-serif; color: #2c3e50; }
         .article-content-wrapper p { font-size: 1.25rem; line-height: 1.85; margin-bottom: 2rem; color: #374151; }
-        .article-content-wrapper h2 { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 2.25rem; margin-top: 4rem; margin-bottom: 1.5rem; color: #111827; letter-spacing: -0.02em; }
+        .article-content-wrapper h2 { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 2.25rem; margin-top: 4rem; margin-bottom: 1.5rem; color: #111827; letter-spacing: -0.02em; position: relative;}
         .article-content-wrapper h2::after { content: ''; display: block; width: 80px; height: 6px; background: linear-gradient(90deg, #F59E0B, transparent); margin-top: 15px; border-radius: 4px; }
         .dropcap::first-letter { font-family: 'Libre Baskerville', serif; font-size: 4.5rem; float: left; line-height: 0.85; margin-right: 1.25rem; margin-top: 0.2rem; color: #F59E0B; font-weight: 700; }
         .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin: 3.5rem 0; }
+        
+        .highlight-box { background: #FFFBEB; border-left: 6px solid #F59E0B; padding: 2.5rem; border-radius: 16px; margin: 3.5rem 0; position: relative; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        .highlight-box::before { content: '\f1b9'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; top: -20px; right: -20px; font-size: 8rem; color: rgba(245, 158, 11, 0.05); transform: rotate(30deg); }
+
         .stat-card { background: #ffffff; padding: 2rem; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); text-align: center; border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; }
         .stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-color: rgba(245, 158, 11, 0.2); }
         .stat-value { font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: block; margin-bottom: 0.5rem; }
@@ -34,10 +38,15 @@
 
     <nav class="navbar navbar-expand-lg fixed-top navbar-premium">
         <div class="container">
-            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../index.html">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html">
                 <i class="fas fa-arrow-left text-secondary" style="font-size: 0.9rem;"></i>
-                <span style="font-family: var(--font-mono); color: var(--text-primary);">Back to Portfolio</span>
+                <span style="font-family: var(--font-mono); color: var(--text-primary);">Back to Blog</span>
             </a>
+            <div class="ms-auto d-none d-md-block">
+                <span class="badge bg-light text-dark border fw-medium px-3 py-2">
+                    <i class="fas fa-clock me-2"></i> 7 min read
+                </span>
+            </div>
         </div>
     </nav>
 
@@ -45,11 +54,25 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10 text-center">
-                    <span class="hero-tag mb-3 d-inline-block text-white" style="background-color: #F59E0B !important;">Computer Vision</span>
+                    <span class="hero-tag mb-3 d-inline-block text-white border-0" style="background-color: #F59E0B !important;">Computer Vision</span>
                     <h1 class="hero-title display-4 fw-bolder mb-4">Vehicle Re-Identification without a Database</h1>
                     <p class="lead text-secondary mb-4 mx-auto" style="max-width: 800px; font-size: 1.35rem; line-height: 1.6;">
                         Building an intelligent, image-based vehicle matching platform using YOLOv5 and OSNet-AIN with zero database dependencies.
                     </p>
+                    <div class="d-flex justify-content-center align-items-center gap-4 mt-5 text-muted">
+                        <div class="d-flex align-items-center gap-2">
+                            <img src="../photo_sk.jpg" alt="Shubham" class="rounded-circle shadow-sm" width="56" height="56">
+                            <div class="text-start">
+                                <span class="d-block fw-bold text-dark">Shubham Kulkarni</span>
+                                <span class="small text-secondary">AI Engineer</span>
+                            </div>
+                        </div>
+                        <div class="vr opacity-25"></div>
+                        <div class="text-start">
+                            <span class="d-block fw-bold text-dark">Updated</span>
+                            <time class="small text-secondary" datetime="2026-04-10">Apr 10, 2026</time>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -63,10 +86,11 @@
                         <div class="toc-wrapper">
                             <h6 class="text-uppercase text-muted fw-bold mb-4 small" style="letter-spacing: 1px;">Contents</h6>
                             <ul class="toc-list">
-                                <li><a href="#overview">1. Overview</a></li>
-                                <li><a href="#features">2. Key Features</a></li>
-                                <li><a href="#architecture">3. System Architecture</a></li>
-                                <li><a href="#stack">4. Tech Stack</a></li>
+                                <li><a href="#overview">1. The Database Bottleneck</a></li>
+                                <li><a href="#architecture">2. Architecture Overview</a></li>
+                                <li><a href="#embeddings">3. YOLO & OSNet Embeddings</a></li>
+                                <li><a href="#faiss">4. FAISS Vector Search</a></li>
+                                <li><a href="#stack">5. Tech Stack Summary</a></li>
                             </ul>
                         </div>
                     </div>
@@ -76,7 +100,7 @@
                     <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1200&q=80" alt="Vehicle AI" class="img-fluid rounded-4 mb-5 shadow-sm w-100">
 
                     <p class="dropcap">
-                        The Vehicle Re-Identification System is a complete, standalone application for matching vehicles across images using state-of-the-art deep learning models. Unlike traditional systems, this implementation operates entirely in-memory.
+                        The Vehicle Re-Identification System is a complete, standalone application for matching vehicles across images using state-of-the-art deep learning models. But unlike traditional systems that rely on heavy PostgreSQL or MongoDB instances to store metadata, this implementation operates entirely in-memory.
                     </p>
 
                     <div class="stat-grid">
@@ -94,36 +118,117 @@
                         </div>
                     </div>
 
-                    <h2 id="overview">1. Overview</h2>
+                    <h2 id="overview">1. The Database Bottleneck</h2>
                     <p>
-                        No database is required—it uses pure in-memory, real-time processing to perform vehicle forensic matching. This makes it incredibly fast, easy to deploy, and perfectly suited for stateless, ephemeral environments like serverless functions or lightweight containers.
+                        In typical computer vision pipelines, once an image is processed, the feature vectors (embeddings) are written to a database. For high-speed applications like toll booths or forensic searching, I/O database latency becomes the primary bottleneck. 
+                    </p>
+                    <p>
+                        No database is required here—it uses pure in-memory, real-time processing to perform vehicle forensic matching. This makes it incredibly fast, easy to deploy, and perfectly suited for stateless, ephemeral environments like serverless functions or lightweight Docker containers.
                     </p>
 
-                    <h2 id="features">2. Key Features</h2>
-                    <ul>
-                        <li><strong>Automated Vehicle Detection:</strong> YOLOv5 for accurate vehicle localization.</li>
-                        <li><strong>Deep Learning Embeddings:</strong> OSNet-AIN generates 512-dimensional vectors representing visual features.</li>
-                        <li><strong>Real-Time Vector Search:</strong> FAISS in-memory indexing for sub-100ms searches.</li>
-                        <li><strong>Confidence Scoring:</strong> Intelligent match classification (confident/probable/weak).</li>
-                    </ul>
-
-                    <h2 id="architecture">3. System Architecture</h2>
+                    <h2 id="architecture">2. Architecture Overview</h2>
                     <p>
-                        A microservice design with 5 focused services ensures clear separation of concerns. The FastAPI backend provides an async REST API with automatic documentation. The frontend is built using standard HTML5/CSS3/Vanilla JavaScript with a drag-and-drop interface for simple testing and demonstration.
+                        The architecture is based on a session-based Microservice design with 5 focused services ensuring clear separation of concerns. The <strong>FastAPI backend</strong> provides an async REST API with automatic documentation.
+                    </p>
+                    <p>
+                        Instead of persisting data, the system groups uploads by a temporary session ID. As long as the session is alive in memory, users can run ultra-fast cross-matching on the uploaded images.
                     </p>
 
-                    <h2 id="stack">4. Tech Stack</h2>
+                    <div class="mermaid my-4">
+graph TD
+    UI[Frontend Client] -->|Upload Images| API[FastAPI Gateway]
+    API -->|Images| YOLO[YOLOv5 Detector]
+    YOLO -->|Bounding Boxes| OSNet[OSNet-AIN Extractor]
+    OSNet -->|512-dim Vectors| FAISS[(FAISS In-Memory Index)]
+    
+    UI -->|Search Image| API
+    API -->|Extract Query Vector| OSNet
+    OSNet -->|Search| FAISS
+    FAISS -->|Top Matches & Scores| API
+    API -->|Results| UI
+                    </div>
+
+                    <h2 id="embeddings">3. YOLO & OSNet Embeddings</h2>
+                    <div class="highlight-box">
+                        <h4 class="h5 fw-bold mb-3"><i class="fas fa-car-side text-warning me-2"></i>The Deep Learning Pipeline</h4>
+                        <ul class="mb-0">
+                            <li><strong>Automated Vehicle Detection:</strong> YOLOv5 acts as the first pass, finding where the vehicles are in the frame and generating tight bounding boxes.</li>
+                            <li><strong>Deep Learning Embeddings:</strong> OSNet-AIN takes those cropped bounding boxes and generates 512-dimensional vectors representing visual features (color, make, model nuances).</li>
+                            <li><strong>Confidence Scoring:</strong> The system computes intelligent match classification (confident/probable/weak) based on the L2 distance of vectors.</li>
+                        </ul>
+                    </div>
+
+                    <h2 id="faiss">4. FAISS Vector Search</h2>
                     <p>
-                        <strong>Backend:</strong> Python, FastAPI, PyTorch, YOLO, FAISS<br>
-                        <strong>Frontend:</strong> HTML5, CSS3, Vanilla JavaScript<br>
-                        <strong>Models:</strong> YOLOv5 (detection), OSNet-AIN (embeddings)<br>
+                        For the actual matching, looping through arrays in Python is too slow. We utilize <strong>FAISS (Facebook AI Similarity Search)</strong>. By maintaining an ephemeral FAISS index in memory, vector distance calculations happen in C++ underneath the hood, bringing search latency to under 100 milliseconds.
+                    </p>
+
+                    <div class="code-block-wrapper my-4">
+                        <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-2 mb-3">
+                            <span class="font-monospace small text-muted">faiss_matcher.py</span>
+                            <i class="fas fa-code text-muted"></i>
+                        </div>
+<pre><code class="language-python">import faiss
+import numpy as np
+
+class InMemoryMatcher:
+    def __init__(self, dimension=512):
+        # L2 Distance Index for Euclidean distance search
+        self.index = faiss.IndexFlatL2(dimension)
+        self.metadata = []
+
+    def add_vehicle(self, vector, image_id):
+        """Add OSNet-AIN vector to FAISS index."""
+        # FAISS expects a 2D float32 numpy array
+        np_vector = np.array([vector], dtype=np.float32)
+        self.index.add(np_vector)
+        self.metadata.append(image_id)
+
+    def search(self, query_vector, k=5):
+        """Search for top K matches in < 10ms."""
+        np_query = np.array([query_vector], dtype=np.float32)
+        distances, indices = self.index.search(np_query, k)
+        
+        results = []
+        for dist, idx in zip(distances[0], indices[0]):
+            if idx != -1:
+                results.append({
+                    "image_id": self.metadata[idx],
+                    "confidence_score": max(0, 100 - (dist * 10)) # Arbitrary scaling
+                })
+        return results</code></pre>
+                    </div>
+
+                    <h2 id="stack">5. Tech Stack Summary</h2>
+                    <p>
+                        <strong>Backend:</strong> Python, FastAPI, PyTorch, YOLOv5, FAISS<br>
+                        <strong>Frontend:</strong> HTML5, CSS3, Vanilla JavaScript with Drag & Drop<br>
                         <strong>Deployment:</strong> Docker, Docker Compose
                     </p>
+                    
+                    <div class="mt-5 text-center">
+                        <a href="https://github.com/kulkarnishub377/Vechile_forensic_match_RAC" target="_blank" class="btn btn-outline-warning text-dark rounded-pill px-4 me-3"><i class="fab fa-github me-2"></i>View GitHub Repository</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Footer -->
+    <footer style="background: var(--bg-surface); border-top: 1px solid var(--border-light);" class="py-5 mt-5">
+        <div class="container text-center">
+            <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
+            <div class="d-flex justify-content-center gap-3 mb-4">
+                <a href="https://github.com/kulkarnishub377" class="text-secondary"><i class="fab fa-github fa-lg"></i></a>
+                <a href="https://www.linkedin.com/in/shubhkulk21" class="text-secondary"><i class="fab fa-linkedin fa-lg"></i></a>
+            </div>
+            <p class="text-secondary small mb-4">Engineering Efficient Systems.</p>
+            <a href="index.html" class="btn btn-outline-dark rounded-pill px-4 hover-lift">Back to Blog</a>
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
 </body>
 </html>
