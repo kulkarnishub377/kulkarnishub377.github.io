@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniSight: Autonomous Incident Intelligence | Shubham Kulkarni</title>
+    <meta name="description" content="Architecting an event-driven AI platform for real-time anomaly validation and agentic investigations.">
+    <meta name="author" content="Shubham Kulkarni">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .article-content-wrapper { font-family: 'Inter', sans-serif; color: #2c3e50; }
+        .article-content-wrapper p { font-size: 1.25rem; line-height: 1.85; margin-bottom: 2rem; color: #374151; }
+        .article-content-wrapper h2 { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 2.25rem; margin-top: 4rem; margin-bottom: 1.5rem; color: #111827; letter-spacing: -0.02em; }
+        .article-content-wrapper h2::after { content: ''; display: block; width: 80px; height: 6px; background: linear-gradient(90deg, #3B82F6, transparent); margin-top: 15px; border-radius: 4px; }
+        .dropcap::first-letter { font-family: 'Libre Baskerville', serif; font-size: 4.5rem; float: left; line-height: 0.85; margin-right: 1.25rem; margin-top: 0.2rem; color: #3B82F6; font-weight: 700; }
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin: 3.5rem 0; }
+        .stat-card { background: #ffffff; padding: 2rem; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); text-align: center; border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; }
+        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-color: rgba(59, 130, 246, 0.2); }
+        .stat-value { font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: block; margin-bottom: 0.5rem; }
+        .stat-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: #6B7280; font-weight: 700; }
+        .toc-wrapper { background: #ffffff; padding: 2rem; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); margin-bottom: 3rem; border: 1px solid #E5E7EB; }
+        .toc-list { list-style: none; padding: 0; margin: 0; }
+        .toc-list li { margin-bottom: 1rem; }
+        .toc-list a { text-decoration: none; color: #4B5563; font-weight: 500; transition: color 0.2s ease; }
+        .toc-list a:hover { color: #3B82F6; }
+        @media (max-width: 992px) { .toc-wrapper { display: none; } }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-premium">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../index.html">
+                <i class="fas fa-arrow-left text-secondary" style="font-size: 0.9rem;"></i>
+                <span style="font-family: var(--font-mono); color: var(--text-primary);">Back to Portfolio</span>
+            </a>
+        </div>
+    </nav>
+
+    <header class="article-header pt-5 mt-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <span class="hero-tag mb-3 d-inline-block text-white" style="background-color: #3B82F6 !important;">Agentic AI</span>
+                    <h1 class="hero-title display-4 fw-bolder mb-4">OmniSight: Multi-Modal Incident Intelligence</h1>
+                    <p class="lead text-secondary mb-4 mx-auto" style="max-width: 800px; font-size: 1.35rem; line-height: 1.6;">
+                        Architecting a production-grade, event-driven AI platform for real-time anomaly validation and agentic investigations.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-3 d-none d-lg-block">
+                    <div class="sticky-top" style="top: 120px;">
+                        <div class="toc-wrapper">
+                            <h6 class="text-uppercase text-muted fw-bold mb-4 small" style="letter-spacing: 1px;">Contents</h6>
+                            <ul class="toc-list">
+                                <li><a href="#executive-summary">1. Executive Summary</a></li>
+                                <li><a href="#use-cases">2. Core Use Cases</a></li>
+                                <li><a href="#agentic-engine">3. Agentic Workflow Engine</a></li>
+                                <li><a href="#architecture">4. Architecture</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 article-content-wrapper">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80" alt="OmniSight Dashboard" class="img-fluid rounded-4 mb-5 shadow-sm w-100">
+
+                    <p class="dropcap">
+                        Instead of relying on human operators to stare at monitors and match anomalies, OmniSight automatically validates, deduplicates, and enriches these events in real time. Once an anomaly is detected, an <strong>Agentic Workflow</strong> kicks in.
+                    </p>
+
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <span class="stat-value">Agentic</span>
+                            <span class="stat-label">Workflow Engine</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">RAG</span>
+                            <span class="stat-label">Semantic DB</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">Multi</span>
+                            <span class="stat-label">Modal Sensors</span>
+                        </div>
+                    </div>
+
+                    <h2 id="executive-summary">1. Executive Summary</h2>
+                    <p>
+                        OmniSight is designed to ingest and correlate high-velocity signals from diverse edge sources—including RTSP Cameras, IoT Sensors, Microphones, and standard operating procedure (SOP) Documents. It uses a high-end FastAPI backend and Docker-based deployment.
+                    </p>
+
+                    <h2 id="use-cases">2. Core Use Cases</h2>
+                    <p>
+                        <strong>Smart Manufacturing:</strong> Correlates IoT temperature spikes with audio grinding anomalies, querying the machine's maintenance manual using RAG, and determining a high risk of catastrophic failure.<br><br>
+                        <strong>Secure Facility Monitoring:</strong> A badge-swipe is registered at a secure door, but the camera detects two faces (tailgating). OmniSight flags the anomaly, cross-references the access control policy, and alerts the guard station.
+                    </p>
+
+                    <h2 id="agentic-engine">3. Agentic Workflow Engine</h2>
+                    <p>OmniSight moves beyond simple rules-based alerts by utilizing a Deterministic Agentic Runtime composed of specialized AI personas:</p>
+                    <ul>
+                        <li><strong>Observer:</strong> Continuously monitors the event stream.</li>
+                        <li><strong>Investigator:</strong> Groups related anomalies within specific time-windows.</li>
+                        <li><strong>Retriever:</strong> Queries the Qdrant/Postgres vector database for relevant SOPs.</li>
+                        <li><strong>Planner:</strong> Formulates a step-by-step resolution plan.</li>
+                        <li><strong>Safety Guard:</strong> A deterministic policy engine reviewing suggestions.</li>
+                        <li><strong>Action Executor:</strong> Dispatches approved actions (webhooks, Jira tickets).</li>
+                    </ul>
+
+                    <h2 id="architecture">4. Architecture</h2>
+                    <div class="mermaid my-4">
+flowchart LR
+    A[Edge Sensors] --> B[FastAPI Gateway]
+    B --> C[Event Processor]
+    C --> D[Incident Correlator]
+    D --> E[Memory Fabric]
+    E -.-> F[Semantic DB]
+    D --> H[Agent Runtime]
+    H --> F
+    H --> I[Safety Guard]
+    I --> J[Action Execution]
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivicMind: AI-Powered Smart City Brain | Shubham Kulkarni</title>
+    <meta name="description" content="How we engineered a Multi-Agent Decision Intelligence Platform using Gemini 2.5 and Vertex AI to transform fragmented city data into actionable policy.">
+    <meta name="author" content="Shubham Kulkarni">
+    <link rel="canonical" href="https://kulkarnishub377.github.io/blog/civicmind.html">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .article-content-wrapper { font-family: 'Inter', sans-serif; color: #2c3e50; }
+        .article-content-wrapper p { font-size: 1.25rem; line-height: 1.85; margin-bottom: 2rem; color: #374151; }
+        .article-content-wrapper h2 { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 2.25rem; margin-top: 4rem; margin-bottom: 1.5rem; color: #111827; letter-spacing: -0.02em; }
+        .article-content-wrapper h2::after { content: ''; display: block; width: 80px; height: 6px; background: linear-gradient(90deg, #10B981, transparent); margin-top: 15px; border-radius: 4px; }
+        .article-content-wrapper h3 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.75rem; margin-top: 3rem; margin-bottom: 1.25rem; color: #047857; }
+        .dropcap::first-letter { font-family: 'Libre Baskerville', serif; font-size: 4.5rem; float: left; line-height: 0.85; margin-right: 1.25rem; margin-top: 0.2rem; color: #10B981; font-weight: 700; }
+        .highlight-box { background: #ECFDF5; border-left: 6px solid #10B981; padding: 2.5rem; border-radius: 16px; margin: 3.5rem 0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin: 3.5rem 0; }
+        .stat-card { background: #ffffff; padding: 2rem; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); text-align: center; border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; }
+        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-color: rgba(16, 185, 129, 0.2); }
+        .stat-value { font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, #10B981 0%, #047857 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: block; margin-bottom: 0.5rem; }
+        .stat-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: #6B7280; font-weight: 700; }
+        .toc-wrapper { background: #ffffff; padding: 2rem; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); margin-bottom: 3rem; border: 1px solid #E5E7EB; }
+        .toc-list { list-style: none; padding: 0; margin: 0; }
+        .toc-list li { margin-bottom: 1rem; }
+        .toc-list a { text-decoration: none; color: #4B5563; font-weight: 500; transition: color 0.2s ease; }
+        .toc-list a:hover { color: #10B981; }
+        @media (max-width: 992px) { .toc-wrapper { display: none; } }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-premium">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="../index.html">
+                <i class="fas fa-arrow-left text-secondary" style="font-size: 0.9rem;"></i>
+                <span style="font-family: var(--font-mono); color: var(--text-primary);">Back to Portfolio</span>
+            </a>
+        </div>
+    </nav>
+
+    <header class="article-header pt-5 mt-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <span class="hero-tag mb-3 d-inline-block text-white" style="background-color: #10B981 !important;">Smart Cities</span>
+                    <h1 class="hero-title display-4 fw-bolder mb-4">CivicMind: AI-Powered Smart City Decision Intelligence</h1>
+                    <p class="lead text-secondary mb-4 mx-auto" style="max-width: 800px; font-size: 1.35rem; line-height: 1.6;">
+                        How we engineered a Multi-Agent system using Gemini 2.5 and Vertex AI to transform fragmented city data into actionable policy.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-3 d-none d-lg-block">
+                    <div class="sticky-top" style="top: 120px;">
+                        <div class="toc-wrapper">
+                            <h6 class="text-uppercase text-muted fw-bold mb-4 small" style="letter-spacing: 1px;">Contents</h6>
+                            <ul class="toc-list">
+                                <li><a href="#the-challenge">1. The Challenge</a></li>
+                                <li><a href="#multi-agent">2. Multi-Agent Orchestration</a></li>
+                                <li><a href="#digital-twin">3. Digital Twin Simulator</a></li>
+                                <li><a href="#xai">4. Explainable AI (XAI)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 article-content-wrapper">
+                    <img src="https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?auto=format&fit=crop&w=1200&q=80" alt="Smart City AI" class="img-fluid rounded-4 mb-5 shadow-sm w-100">
+
+                    <p class="dropcap">
+                        Local governments generate terabytes of data daily—from traffic sensors to environmental monitors and citizen reports. Yet, this data remains heavily siloed, making it nearly impossible for city leaders to make holistic, proactive decisions.
+                    </p>
+
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <span class="stat-value">4</span>
+                            <span class="stat-label">AI Agents</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">100%</span>
+                            <span class="stat-label">Explainable</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">Gemini</span>
+                            <span class="stat-label">LLM Core</span>
+                        </div>
+                    </div>
+
+                    <h2 id="the-challenge">1. The Challenge</h2>
+                    <p>
+                        We needed a system that acts as a "smart city brain," actively detecting crises, predicting downstream risks, and providing fully explainable recommendations. It had to transcend simple dashboards and move into <strong>Decision Intelligence</strong>.
+                    </p>
+
+                    <h2 id="multi-agent">2. Multi-Agent AI Orchestration</h2>
+                    <p>
+                        Instead of a single monolithic model, CivicMind employs a Multi-Agent architecture using Google Gemini 2.5 and Vertex AI. Four distinct agents collaborate in real-time:
+                    </p>
+                    <ul>
+                        <li><strong>EcoWatch:</strong> Monitors environmental anomalies (air quality, flood risks).</li>
+                        <li><strong>TransitFlow:</strong> Analyzes traffic congestion and public transit bottlenecks.</li>
+                        <li><strong>CivicVoice:</strong> Processes citizen feedback and sentiment from 311 calls.</li>
+                        <li><strong>Strategy Agent:</strong> Correlates findings from the other three agents to generate holistic policy recommendations.</li>
+                    </ul>
+
+                    <h2 id="digital-twin">3. Digital Twin Simulator</h2>
+                    <p>
+                        We developed a "What-If" simulator allowing leaders to test emergency responses and visualize risk reduction before deploying real resources. Built with Next.js 14 and Chart.js, the frontend provides a glassmorphic, responsive interface to manipulate variables and observe predicted outcomes.
+                    </p>
+
+                    <h2 id="xai">4. Explainable AI (XAI)</h2>
+                    <p>
+                        In public policy, a black-box model is a liability. We integrated driver analysis and confidence bounds into all AI outputs to ensure complete transparency and civic trust. Every recommendation provides a trace of which data points (and which agent) contributed to the conclusion.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
