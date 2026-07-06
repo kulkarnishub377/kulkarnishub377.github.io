@@ -513,3 +513,56 @@ pre, code { font-family: var(--font-mono); }
         transition: none;
     }
 }
+
+/* --------------------------------------------------------------------------
+   INLINE STYLES OVERRIDES FOR DARK MODE
+   -------------------------------------------------------------------------- */
+.article-content-wrapper {
+    color: var(--text-primary) !important;
+}
+
+.article-content-wrapper p,
+.article-content-wrapper li {
+    color: var(--text-secondary) !important;
+}
+
+.article-content-wrapper h2,
+.article-content-wrapper h3,
+.article-content-wrapper h4 {
+    color: var(--text-primary) !important;
+}
+
+.highlight-box {
+    background: var(--bg-surface-alt) !important;
+}
+
+.highlight-box::before {
+    color: rgba(255, 255, 255, 0.03) !important;
+}
+
+.stat-card {
+    background: var(--bg-surface) !important;
+    border: 1px solid var(--border-light) !important;
+}
+
+.stat-label {
+    color: var(--text-muted) !important;
+}
+
+.toc-wrapper {
+    background: var(--bg-surface) !important;
+    border: 1px solid var(--border-light) !important;
+}
+
+.toc-list a {
+    color: var(--text-secondary) !important;
+}
+
+.shot-card, .pill {
+    background: var(--bg-surface) !important;
+    border-color: var(--border-light) !important;
+}
+
+.shot-card .caption {
+    color: var(--text-secondary) !important;
+}
