@@ -566,3 +566,47 @@ pre, code { font-family: var(--font-mono); }
 .shot-card .caption {
     color: var(--text-secondary) !important;
 }
+
+/* --------------------------------------------------------------------------
+   BOOTSTRAP OVERRIDES FOR DARK MODE
+   -------------------------------------------------------------------------- */
+.bg-light {
+    background-color: var(--bg-surface-alt) !important;
+}
+
+.text-dark {
+    color: var(--text-primary) !important;
+}
+
+.card.bg-light {
+    background-color: var(--bg-surface-alt) !important;
+    border-color: var(--border-light) !important;
+}
+
+.btn-dark {
+    background-color: var(--bg-surface-alt) !important;
+    border-color: var(--border-light) !important;
+    color: var(--text-primary) !important;
+}
+
+.btn-dark:hover {
+    background-color: var(--text-primary) !important;
+    color: var(--bg-surface) !important;
+}
+
+.btn-outline-dark {
+    border-color: var(--border-light) !important;
+    color: var(--text-primary) !important;
+}
+
+.btn-outline-dark:hover {
+    background-color: var(--text-primary) !important;
+    color: var(--bg-surface) !important;
+}
+
+/* --------------------------------------------------------------------------
+   MERMAID GRAPH DARK MODE FIX
+   -------------------------------------------------------------------------- */
+.mermaid svg {
+    filter: invert(0.85) hue-rotate(180deg);
+}
