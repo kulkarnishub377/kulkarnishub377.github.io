@@ -1,39 +1,168 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vehicle Re-Identification System | Shubham Kulkarni</title>
-    <meta name="description" content="Building an intelligent, image-based vehicle matching platform using YOLOv5 and OSNet-AIN.">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="description"
+        content="Building an intelligent, image-based vehicle matching platform using YOLOv5 and OSNet-AIN.">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;700;800&family=Libre+Baskerville:wght@400;700&display=swap"
+        rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-        .article-content-wrapper { font-family: 'Inter', sans-serif; color: #2c3e50; }
-        .article-content-wrapper p { font-size: 1.25rem; line-height: 1.85; margin-bottom: 2rem; color: #374151; }
-        .article-content-wrapper h2 { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 2.25rem; margin-top: 4rem; margin-bottom: 1.5rem; color: #111827; letter-spacing: -0.02em; position: relative;}
-        .article-content-wrapper h2::after { content: ''; display: block; width: 80px; height: 6px; background: linear-gradient(90deg, #F59E0B, transparent); margin-top: 15px; border-radius: 4px; }
-        .dropcap::first-letter { font-family: 'Libre Baskerville', serif; font-size: 4.5rem; float: left; line-height: 0.85; margin-right: 1.25rem; margin-top: 0.2rem; color: #F59E0B; font-weight: 700; }
-        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin: 3.5rem 0; }
-        
-        .highlight-box { background: #FFFBEB; border-left: 6px solid #F59E0B; padding: 2.5rem; border-radius: 16px; margin: 3.5rem 0; position: relative; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
-        .highlight-box::before { content: '\f1b9'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; top: -20px; right: -20px; font-size: 8rem; color: rgba(245, 158, 11, 0.05); transform: rotate(30deg); }
+        .article-content-wrapper {
+            font-family: 'Inter', sans-serif;
+            color: #2c3e50;
+        }
 
-        .stat-card { background: #ffffff; padding: 2rem; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); text-align: center; border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; }
-        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-color: rgba(245, 158, 11, 0.2); }
-        .stat-value { font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: block; margin-bottom: 0.5rem; }
-        .stat-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: #6B7280; font-weight: 700; }
-        .toc-wrapper { background: #ffffff; padding: 2rem; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); margin-bottom: 3rem; border: 1px solid #E5E7EB; }
-        .toc-list { list-style: none; padding: 0; margin: 0; }
-        .toc-list li { margin-bottom: 1rem; }
-        .toc-list a { text-decoration: none; color: #4B5563; font-weight: 500; transition: color 0.2s ease; }
-        .toc-list a:hover { color: #F59E0B; }
-        @media (max-width: 992px) { .toc-wrapper { display: none; } }
+        .article-content-wrapper p {
+            font-size: 1.25rem;
+            line-height: 1.85;
+            margin-bottom: 2rem;
+            color: #374151;
+        }
+
+        .article-content-wrapper h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 2.25rem;
+            margin-top: 4rem;
+            margin-bottom: 1.5rem;
+            color: #111827;
+            letter-spacing: -0.02em;
+            position: relative;
+        }
+
+        .article-content-wrapper h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 6px;
+            background: linear-gradient(90deg, #F59E0B, transparent);
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+
+        .dropcap::first-letter {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 4.5rem;
+            float: left;
+            line-height: 0.85;
+            margin-right: 1.25rem;
+            margin-top: 0.2rem;
+            color: #F59E0B;
+            font-weight: 700;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 3.5rem 0;
+        }
+
+        .highlight-box {
+            background: #FFFBEB;
+            border-left: 6px solid #F59E0B;
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 3.5rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .highlight-box::before {
+            content: '\f1b9';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 8rem;
+            color: rgba(245, 158, 11, 0.05);
+            transform: rotate(30deg);
+        }
+
+        .stat-card {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: rgba(245, 158, 11, 0.2);
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #6B7280;
+            font-weight: 700;
+        }
+
+        .toc-wrapper {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+            border: 1px solid #E5E7EB;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list li {
+            margin-bottom: 1rem;
+        }
+
+        .toc-list a {
+            text-decoration: none;
+            color: #4B5563;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: #F59E0B;
+        }
+
+        @media (max-width: 992px) {
+            .toc-wrapper {
+                display: none;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <nav class="navbar navbar-expand-lg fixed-top navbar-premium">
@@ -54,14 +183,18 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10 text-center">
-                    <span class="hero-tag mb-3 d-inline-block text-white border-0" style="background-color: #F59E0B !important;">Computer Vision</span>
+                    <span class="hero-tag mb-3 d-inline-block text-white border-0"
+                        style="background-color: #F59E0B !important;">Computer Vision</span>
                     <h1 class="hero-title display-4 fw-bolder mb-4">Vehicle Re-Identification without a Database</h1>
-                    <p class="lead text-secondary mb-4 mx-auto" style="max-width: 800px; font-size: 1.35rem; line-height: 1.6;">
-                        Building an intelligent, image-based vehicle matching platform using YOLOv5 and OSNet-AIN with zero database dependencies.
+                    <p class="lead text-secondary mb-4 mx-auto"
+                        style="max-width: 800px; font-size: 1.35rem; line-height: 1.6;">
+                        Building an intelligent, image-based vehicle matching platform using YOLOv5 and OSNet-AIN with
+                        zero database dependencies.
                     </p>
                     <div class="d-flex justify-content-center align-items-center gap-4 mt-5 text-muted">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="../photo_sk.jpg" alt="Shubham" class="rounded-circle shadow-sm" width="56" height="56">
+                            <img src="../photo_sk.png" alt="Shubham" class="rounded-circle shadow-sm" width="56"
+                                height="56">
                             <div class="text-start">
                                 <span class="d-block fw-bold text-dark">Shubham Kulkarni</span>
                                 <span class="small text-secondary">AI Engineer</span>
@@ -77,10 +210,14 @@
                     <!-- Share Buttons -->
                     <div class="share-buttons-container justify-content-center mt-4">
                         <span class="text-muted small fw-bold me-2">SHARE:</span>
-                        <a href="#" class="share-btn linkedin" data-platform="linkedin" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="share-btn twitter" data-platform="twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="share-btn whatsapp" data-platform="whatsapp" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                        <button class="share-btn copy-link-btn" aria-label="Copy Link"><i class="fas fa-link"></i></button>
+                        <a href="#" class="share-btn linkedin" data-platform="linkedin"
+                            aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="share-btn twitter" data-platform="twitter" aria-label="Share on Twitter"><i
+                                class="fab fa-twitter"></i></a>
+                        <a href="#" class="share-btn whatsapp" data-platform="whatsapp"
+                            aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <button class="share-btn copy-link-btn" aria-label="Copy Link"><i
+                                class="fas fa-link"></i></button>
                     </div>
                 </div>
             </div>
@@ -93,7 +230,8 @@
                 <div class="col-lg-3 d-none d-lg-block">
                     <div class="sticky-top" style="top: 120px;">
                         <div class="toc-wrapper">
-                            <h6 class="text-uppercase text-muted fw-bold mb-4 small" style="letter-spacing: 1px;">Contents</h6>
+                            <h6 class="text-uppercase text-muted fw-bold mb-4 small" style="letter-spacing: 1px;">
+                                Contents</h6>
                             <ul class="toc-list">
                                 <li><a href="#overview">1. The Database Bottleneck</a></li>
                                 <li><a href="#architecture">2. Architecture Overview</a></li>
@@ -106,10 +244,14 @@
                 </div>
 
                 <div class="col-lg-8 article-content-wrapper">
-                    <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1200&q=80" alt="Vehicle AI" class="img-fluid rounded-4 mb-5 shadow-sm w-100">
+                    <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1200&q=80"
+                        alt="Vehicle AI" class="img-fluid rounded-4 mb-5 shadow-sm w-100">
 
                     <p class="dropcap">
-                        The Vehicle Re-Identification System is a complete, standalone application for matching vehicles across images using state-of-the-art deep learning models. But unlike traditional systems that rely on heavy PostgreSQL or MongoDB instances to store metadata, this implementation operates entirely in-memory.
+                        The Vehicle Re-Identification System is a complete, standalone application for matching vehicles
+                        across images using state-of-the-art deep learning models. But unlike traditional systems that
+                        rely on heavy PostgreSQL or MongoDB instances to store metadata, this implementation operates
+                        entirely in-memory.
                     </p>
 
                     <div class="stat-grid">
@@ -129,55 +271,71 @@
 
                     <h2 id="overview">1. The Database Bottleneck</h2>
                     <p>
-                        In typical computer vision pipelines, once an image is processed, the feature vectors (embeddings) are written to a database. For high-speed applications like toll booths or forensic searching, I/O database latency becomes the primary bottleneck. 
+                        In typical computer vision pipelines, once an image is processed, the feature vectors
+                        (embeddings) are written to a database. For high-speed applications like toll booths or forensic
+                        searching, I/O database latency becomes the primary bottleneck.
                     </p>
                     <p>
-                        No database is required here—it uses pure in-memory, real-time processing to perform vehicle forensic matching. This makes it incredibly fast, easy to deploy, and perfectly suited for stateless, ephemeral environments like serverless functions or lightweight Docker containers.
+                        No database is required here—it uses pure in-memory, real-time processing to perform vehicle
+                        forensic matching. This makes it incredibly fast, easy to deploy, and perfectly suited for
+                        stateless, ephemeral environments like serverless functions or lightweight Docker containers.
                     </p>
 
                     <h2 id="architecture">2. Architecture Overview</h2>
                     <p>
-                        The architecture is based on a session-based Microservice design with 5 focused services ensuring clear separation of concerns. The <strong>FastAPI backend</strong> provides an async REST API with automatic documentation.
+                        The architecture is based on a session-based Microservice design with 5 focused services
+                        ensuring clear separation of concerns. The <strong>FastAPI backend</strong> provides an async
+                        REST API with automatic documentation.
                     </p>
                     <p>
-                        Instead of persisting data, the system groups uploads by a temporary session ID. As long as the session is alive in memory, users can run ultra-fast cross-matching on the uploaded images.
+                        Instead of persisting data, the system groups uploads by a temporary session ID. As long as the
+                        session is alive in memory, users can run ultra-fast cross-matching on the uploaded images.
                     </p>
 
                     <div class="mermaid my-4">
-graph TD
-    UI[Frontend Client] -->|Upload Images| API[FastAPI Gateway]
-    API -->|Images| YOLO[YOLOv5 Detector]
-    YOLO -->|Bounding Boxes| OSNet[OSNet-AIN Extractor]
-    OSNet -->|512-dim Vectors| FAISS[(FAISS In-Memory Index)]
-    
-    UI -->|Search Image| API
-    API -->|Extract Query Vector| OSNet
-    OSNet -->|Search| FAISS
-    FAISS -->|Top Matches & Scores| API
-    API -->|Results| UI
+                        graph TD
+                        UI[Frontend Client] -->|Upload Images| API[FastAPI Gateway]
+                        API -->|Images| YOLO[YOLOv5 Detector]
+                        YOLO -->|Bounding Boxes| OSNet[OSNet-AIN Extractor]
+                        OSNet -->|512-dim Vectors| FAISS[(FAISS In-Memory Index)]
+
+                        UI -->|Search Image| API
+                        API -->|Extract Query Vector| OSNet
+                        OSNet -->|Search| FAISS
+                        FAISS -->|Top Matches & Scores| API
+                        API -->|Results| UI
                     </div>
 
                     <h2 id="embeddings">3. YOLO & OSNet Embeddings</h2>
                     <div class="highlight-box">
-                        <h4 class="h5 fw-bold mb-3"><i class="fas fa-car-side text-warning me-2"></i>The Deep Learning Pipeline</h4>
+                        <h4 class="h5 fw-bold mb-3"><i class="fas fa-car-side text-warning me-2"></i>The Deep Learning
+                            Pipeline</h4>
                         <ul class="mb-0">
-                            <li><strong>Automated Vehicle Detection:</strong> YOLOv5 acts as the first pass, finding where the vehicles are in the frame and generating tight bounding boxes.</li>
-                            <li><strong>Deep Learning Embeddings:</strong> OSNet-AIN takes those cropped bounding boxes and generates 512-dimensional vectors representing visual features (color, make, model nuances).</li>
-                            <li><strong>Confidence Scoring:</strong> The system computes intelligent match classification (confident/probable/weak) based on the L2 distance of vectors.</li>
+                            <li><strong>Automated Vehicle Detection:</strong> YOLOv5 acts as the first pass, finding
+                                where the vehicles are in the frame and generating tight bounding boxes.</li>
+                            <li><strong>Deep Learning Embeddings:</strong> OSNet-AIN takes those cropped bounding boxes
+                                and generates 512-dimensional vectors representing visual features (color, make, model
+                                nuances).</li>
+                            <li><strong>Confidence Scoring:</strong> The system computes intelligent match
+                                classification (confident/probable/weak) based on the L2 distance of vectors.</li>
                         </ul>
                     </div>
 
                     <h2 id="faiss">4. FAISS Vector Search</h2>
                     <p>
-                        For the actual matching, looping through arrays in Python is too slow. We utilize <strong>FAISS (Facebook AI Similarity Search)</strong>. By maintaining an ephemeral FAISS index in memory, vector distance calculations happen in C++ underneath the hood, bringing search latency to under 100 milliseconds.
+                        For the actual matching, looping through arrays in Python is too slow. We utilize <strong>FAISS
+                            (Facebook AI Similarity Search)</strong>. By maintaining an ephemeral FAISS index in memory,
+                        vector distance calculations happen in C++ underneath the hood, bringing search latency to under
+                        100 milliseconds.
                     </p>
 
                     <div class="code-block-wrapper my-4">
-                        <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-2 mb-3">
+                        <div
+                            class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-2 mb-3">
                             <span class="font-monospace small text-muted">faiss_matcher.py</span>
                             <i class="fas fa-code text-muted"></i>
                         </div>
-<pre><code class="language-python">import faiss
+                        <pre><code class="language-python">import faiss
 import numpy as np
 
 class InMemoryMatcher:
@@ -214,9 +372,11 @@ class InMemoryMatcher:
                         <strong>Frontend:</strong> HTML5, CSS3, Vanilla JavaScript with Drag & Drop<br>
                         <strong>Deployment:</strong> Docker, Docker Compose
                     </p>
-                    
+
                     <div class="mt-5 text-center">
-                        <a href="https://github.com/kulkarnishub377/Vechile_forensic_match_RAC" target="_blank" class="btn btn-outline-warning text-dark rounded-pill px-4 me-3"><i class="fab fa-github me-2"></i>View GitHub Repository</a>
+                        <a href="https://github.com/kulkarnishub377/Vechile_forensic_match_RAC" target="_blank"
+                            class="btn btn-outline-warning text-dark rounded-pill px-4 me-3"><i
+                                class="fab fa-github me-2"></i>View GitHub Repository</a>
                     </div>
                 </div>
             </div>
@@ -228,8 +388,10 @@ class InMemoryMatcher:
         <div class="container text-center">
             <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
             <div class="d-flex justify-content-center gap-3 mb-4">
-                <a href="https://github.com/kulkarnishub377" class="text-secondary"><i class="fab fa-github fa-lg"></i></a>
-                <a href="https://www.linkedin.com/in/shubhkulk21" class="text-secondary"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="https://github.com/kulkarnishub377" class="text-secondary"><i
+                        class="fab fa-github fa-lg"></i></a>
+                <a href="https://www.linkedin.com/in/shubhkulk21" class="text-secondary"><i
+                        class="fab fa-linkedin fa-lg"></i></a>
             </div>
             <p class="text-secondary small mb-4">Engineering Efficient Systems.</p>
             <a href="index.html" class="btn btn-outline-dark rounded-pill px-4 hover-lift">Back to Blog</a>
@@ -240,4 +402,5 @@ class InMemoryMatcher:
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
 </body>
+
 </html>
