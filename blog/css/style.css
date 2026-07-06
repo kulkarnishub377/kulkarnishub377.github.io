@@ -271,7 +271,7 @@ a { transition: all 0.2s ease; }
    NAVBAR
    -------------------------------------------------------------------------- */
 .navbar-premium {
-    background: rgba(248, 250, 252, 0.88);
+    background: rgba(5, 5, 7, 0.88);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--border-light);
