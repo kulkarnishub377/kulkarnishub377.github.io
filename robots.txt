@@ -1,20 +1,24 @@
 # Crawl rules for kulkarnishub377.github.io
-# Designed for optimal SEO crawling of portfolio and engineering blog articles
+# Shubham Kulkarni Portfolio — AI Engineer | Computer Vision, GenAI & MLOps
 
 User-agent: *
 Allow: /
+
+# Block hidden/dev files only
+Disallow: /.git/
+Disallow: /.gitignore
+Disallow: /.nojekyll
+
+# Allow important assets explicitly
 Allow: /blog/
 Allow: /css/
 Allow: /js/
 Allow: /favicon/
-
-# Block hidden files and configurations
-Disallow: /.git/
-Disallow: /.gitignore
-Disallow: /.nojekyll
-Disallow: /LICENSE
-Disallow: /README.md
-Disallow: /site.webmanifest
+Allow: /photo_sk.png
+Allow: /Shubham_Kulkarni_Ao.pdf
+Allow: /site.webmanifest
+Allow: /sitemap.xml
+Allow: /sitemap.xsl
 
 # Sitemap Location
 Sitemap: https://kulkarnishub377.github.io/sitemap.xml

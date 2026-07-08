@@ -3,12 +3,15 @@
 
 # TEAM
     Author/Developer: Shubham Kulkarni
-    Title: Software Engineer - AI/ML
+    Title: AI Engineer (Computer Vision & Generative AI)
+    Company: Arya Omnitalk Wireless Solutions, Pune
     Location: Pune, Maharashtra, India
     LinkedIn: https://www.linkedin.com/in/shubhkulk21/
     GitHub: https://github.com/kulkarnishub377
     Email: kulkarnishub377@gmail.com
-    Last Updated: May 26, 2026
+    Phone: +91 8308003684
+    Portfolio: https://kulkarnishub377.github.io/
+    Last Updated: 2026-07-08
 
 # THANKS
     Open Source Community, modern web standard developers, and the Google Font project.
@@ -18,4 +21,4 @@
     UI Framework/Libraries: GSAP (animations), Three.js (3D particles), FontAwesome (icons), Bootstrap 5 (blog layout)
     Design Aesthetics: Dark mode, cyber/modern tech typography, fluid responsive layout
     Caching: Progressive Web Application Webmanifest configured
-    SEO: Schema.org JSON-LD Structured Entity Data, complete custom sitemap and crawling rules
+    SEO: Schema.org JSON-LD Structured Entity Data (WebSite, ProfilePage, Person, BreadcrumbList), canonical tag, sitemap, robots.txt, OpenGraph, Twitter Card
