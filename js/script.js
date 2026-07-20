@@ -11,10 +11,13 @@
   const ctx = canvas.getContext('2d');
   let particles = [];
   let w, h, mouseX = -9999, mouseY = -9999;
-  const PARTICLE_COUNT = Math.min(65, Math.floor(window.innerWidth / 22));
-  const CONNECT_DIST = 130;
-  const MOUSE_DIST = 180;
-  const accentR = 108, accentG = 99, accentB = 255;
+  
+  const PARTICLE_COUNT = Math.min(80, Math.floor(window.innerWidth / 18));
+  const CONNECT_DIST = 140;
+  const MOUSE_DIST = 160;
+  
+  // Sleek Electric Cyan theme
+  const accentR = 0, accentG = 255, accentB = 204;
 
   function resizeCanvas() {
     w = canvas.width = window.innerWidth;
@@ -29,22 +32,39 @@
       this.x = Math.random() * w;
       this.y = Math.random() * h;
       this.z = Math.random() * 2 + 0.5;  // depth
-      this.vx = (Math.random() - 0.5) * 0.35;
-      this.vy = (Math.random() - 0.5) * 0.35;
+      
+      // Base velocity
+      this.baseVx = (Math.random() - 0.5) * 0.6;
+      this.baseVy = (Math.random() - 0.5) * 0.6;
+      this.vx = this.baseVx;
+      this.vy = this.baseVy;
+      
       this.baseSize = Math.random() * 1.5 + 0.5;
-      this.alpha = Math.random() * 0.35 + 0.08;
+      this.alpha = Math.random() * 0.35 + 0.1;
     }
     update() {
-      this.x += this.vx * this.z;
-      this.y += this.vy * this.z;
-      // Mouse repulsion
+      // Momentum-based scattering behavior
       const dx = mouseX - this.x, dy = mouseY - this.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
+      
       if (dist < MOUSE_DIST) {
-        const force = (MOUSE_DIST - dist) / MOUSE_DIST * 0.015;
-        this.x -= dx * force;
-        this.y -= dy * force;
+        // Push particles away smoothly
+        const force = (MOUSE_DIST - dist) / MOUSE_DIST;
+        this.vx -= (dx / dist) * force * 0.15;
+        this.vy -= (dy / dist) * force * 0.15;
       }
+      
+      // Gentle friction to return to normal floating speed
+      this.vx += (this.baseVx - this.vx) * 0.03;
+      this.vy += (this.baseVy - this.vy) * 0.03;
+
+      // Speed limits so they don't fly off too fast
+      this.vx = Math.max(-3, Math.min(3, this.vx));
+      this.vy = Math.max(-3, Math.min(3, this.vy));
+
+      this.x += this.vx * this.z;
+      this.y += this.vy * this.z;
+      
       // Boundaries wrap
       if (this.x < -20) this.x = w + 20;
       if (this.x > w + 20) this.x = -20;
@@ -69,10 +89,10 @@
         const dy = particles[i].y - particles[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < CONNECT_DIST) {
-          const alpha = (1 - dist / CONNECT_DIST) * 0.06 * Math.min(particles[i].z, particles[j].z);
+          const alpha = (1 - dist / CONNECT_DIST) * 0.12 * Math.min(particles[i].z, particles[j].z);
           ctx.beginPath();
           ctx.strokeStyle = `rgba(${accentR},${accentG},${accentB},${alpha})`;
-          ctx.lineWidth = 0.5;
+          ctx.lineWidth = 0.8;
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
           ctx.stroke();
@@ -85,10 +105,10 @@
       const dy = mouseY - particles[i].y;
       const dist = Math.sqrt(dx * dx + dy * dy);
       if (dist < MOUSE_DIST) {
-        const alpha = (1 - dist / MOUSE_DIST) * 0.12;
+        const alpha = (1 - dist / MOUSE_DIST) * 0.2;
         ctx.beginPath();
         ctx.strokeStyle = `rgba(${accentR},${accentG},${accentB},${alpha})`;
-        ctx.lineWidth = 0.6;
+        ctx.lineWidth = 1;
         ctx.moveTo(particles[i].x, particles[i].y);
         ctx.lineTo(mouseX, mouseY);
         ctx.stroke();
