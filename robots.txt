@@ -14,7 +14,7 @@ Allow: /blog/
 Allow: /css/
 Allow: /js/
 Allow: /favicon/
-Allow: /photo_sk.png
+Allow: /sk_b.png
 Allow: /Shubham_Kulkarni_Ao.pdf
 Allow: /site.webmanifest
 Allow: /sitemap.xml
