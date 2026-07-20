@@ -855,7 +855,7 @@ button {
 
 /* ── SECTION SYSTEM ── */
 .sec {
-  padding: clamp(80px, 12vw, 140px) 0;
+  padding: clamp(50px, 5vw, 90px) 0;
   position: relative;
   z-index: 2
 }
