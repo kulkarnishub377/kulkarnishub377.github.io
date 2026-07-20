@@ -2019,6 +2019,10 @@ button {
 }
 
 @media(max-width:480px) {
+  .sec {
+    padding: 50px 0
+  }
+
   .hero {
     padding: 60px 0 30px
   }
