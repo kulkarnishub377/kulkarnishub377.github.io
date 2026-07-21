@@ -721,6 +721,7 @@ button {
   height: 100%;
   object-fit: cover;
   transition: transform 0.6s cubic-bezier(.4, 0, .2, 1);
+  filter: brightness(1.15);
 }
 
 .hero-card:hover .hc-bg-img {
@@ -1850,20 +1851,33 @@ button {
   position: fixed;
   bottom: 22px;
   right: 22px;
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: var(--accent);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: conic-gradient(var(--accent) var(--scroll, 0%), var(--b2) 0%);
   border: none;
-  color: #fff;
-  font-size: .82rem;
+  color: var(--t1);
+  font-size: 1rem;
   cursor: pointer;
   z-index: 9000;
   opacity: 0;
   visibility: hidden;
   transform: translateY(12px);
-  transition: all .35s var(--ease);
-  box-shadow: 0 4px 16px var(--a-glow)
+  transition: opacity .35s var(--ease), visibility .35s var(--ease), transform .35s var(--ease);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btt::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  background: var(--bg);
+  border-radius: 50%;
+  z-index: -1;
+  transition: background .3s;
 }
 
 .btt.show {
@@ -1873,8 +1887,11 @@ button {
 }
 
 .btt:hover {
-  background: var(--accent2);
   transform: translateY(-2px)
+}
+
+.btt:hover::before {
+  background: var(--bg2);
 }
 
 /* ── REVEALS ── */

@@ -224,7 +224,9 @@
 
     // Scroll progress
     const docH = document.documentElement.scrollHeight - window.innerHeight;
-    document.getElementById('scrollProgress').style.width = (s / docH * 100) + '%';
+    const scrollPercent = (s / docH) * 100;
+    document.getElementById('scrollProgress').style.width = scrollPercent + '%';
+    btt.style.setProperty('--scroll', scrollPercent + '%');
   }, { passive: true });
 
   btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
