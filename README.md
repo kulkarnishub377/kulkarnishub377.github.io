@@ -53,8 +53,9 @@ This portfolio is built with a combination of modern web technologies, focusing 
 ### ✨ Key Features
 
 *   **📱 Fully Responsive Design:** Adapts seamlessly to any screen size, from mobile phones to widescreen desktops.
-*   **🎨 Interactive UI/UX:** Smooth animations and interactive elements create a dynamic and engaging user experience.
+*   **🎨 Interactive UI/UX:** Features a dynamic momentum-based particle background, smooth GSAP animations, and custom cursor interactions.
 *   **📂 Project Showcase:** A dedicated section to display my work with links to live demos and source code on GitHub.
+*   **🧭 Dynamic Scroll Indicators:** Includes an interactive circular progress ring on the Back-to-Top button that fills as you scroll.
 *   **💡 Skills Overview:** Clearly lists my technical skills and proficiencies with intuitive icons.
 *   **📨 Contact Form:** A simple and effective way for visitors and potential employers to get in touch.
 *   **⚡ Fast & Lightweight:** Optimized for performance to ensure a quick and smooth browsing experience.
@@ -85,14 +86,23 @@ You only need a modern web browser to view the project. No special software or d
 
 ### 🗺️ Roadmap
 
-*   [x] Add a blog section to share articles and tutorials.
-*   [x] Implement a dark/light mode toggle for user preference.
-*   [x] Add more projects with detailed case studies.
-*   [x] Enhance animations and transitions for a richer user experience.
-*   [x] Add a custom 404 page.
+**Phase 1: Foundation (Completed) ✅**
+*   [x] Set up modern HTML5 structure and CSS variables.
+*   [x] Implement fully responsive layouts for mobile and desktop.
+*   [x] Add interactive project showcase and skills section.
+
+**Phase 2: UI/UX Enhancements (Completed) ✅**
+*   [x] Add a dedicated blog section for articles and tutorials.
+*   [x] Integrate GSAP for premium interactive UI elements and animations.
+*   [x] Implement momentum-based 3D particle network background.
+*   [x] Add dynamic scroll progress indicators to navigation.
+*   [x] Add a custom 404 page for better user experience.
+
+**Phase 3: Optimization & Future Goals (In Progress) ⏳**
+*   [x] Update and perfectly align hero assets and headshots.
+*   [ ] Implement a dark/light mode toggle for user preference.
 *   [ ] Refactor CSS: remove legacy dead code and consolidate media queries.
-*   [ ] Add CSS/JS minification for production builds.
-*   [ ] Host blog images locally to remove external dependencies.
+*   [ ] Add CSS/JS minification for production deployment.
 
 See the [open issues](https://github.com/kulkarnishub377/kulkarnishub377.github.io/issues) for a full list of proposed features (and known issues).
 
