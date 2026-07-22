@@ -906,16 +906,20 @@
           </div>
         </div>
         <div class="rv-r">
-          <form class="contact-form" id="contactForm" novalidate>
+          <form class="contact-form" id="contactForm" action="https://formsubmit.co/kulkarnishub377@gmail.com" method="POST">
+            <!-- FormSubmit Configurations (Optional but helpful) -->
+            <input type="hidden" name="_subject" value="New submission from your portfolio!">
+            <input type="hidden" name="_template" value="box">
+            
             <div class="f-row">
-              <div class="fg"><label for="fname">Name</label><input id="fname" type="text" placeholder="Your full name"
+              <div class="fg"><label for="fname">Name</label><input id="fname" name="name" type="text" placeholder="Your full name"
                   required></div>
-              <div class="fg"><label for="femail">Email</label><input id="femail" type="email"
+              <div class="fg"><label for="femail">Email</label><input id="femail" name="email" type="email"
                   placeholder="you@email.com" required></div>
             </div>
-            <div class="fg"><label for="fsub">Subject</label><input id="fsub" type="text"
+            <div class="fg"><label for="fsub">Subject</label><input id="fsub" name="_subject_custom" type="text"
                 placeholder="Project / Opportunity / Hello" required></div>
-            <div class="fg"><label for="fmsg">Message</label><textarea id="fmsg"
+            <div class="fg"><label for="fmsg">Message</label><textarea id="fmsg" name="message"
                 placeholder="Tell me about your project or idea..." required></textarea></div>
             <button type="submit" class="f-btn" id="formBtn"><i class="fas fa-paper-plane" aria-hidden="true"></i> Send
               Message</button>
