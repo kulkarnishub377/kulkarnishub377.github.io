@@ -499,7 +499,7 @@ flowchart TD
                                 </tbody>
                             </table>
                         </div>
-                        <p class="small text-muted mt-2 mb-0">*Mojo speedup when utilizing SIMD and AVX-512 explicitly versus <strong>Python native loops</strong>. NumPy's C bindings narrow the gap significantly, but Mojo remains faster for custom ops that can't use pre-built C kernels.</p>
+                                                <p class="small text-muted mt-2 mb-0">*Methodology Note: The 92% PyTorch/Python market share metric reflects PyTorch Foundation developer surveys (2025/2026). The 68,000× Mojo benchmark represents Modular Inc. vendor benchmarks comparing unoptimized pure CPython loops against AVX-512 SIMD-vectorized Mojo. In practice with C-bound NumPy/PyTorch kernels, performance gains depend heavily on custom operator architecture.</p>
                     </div>
 
                     <!-- Section 6 -->
@@ -557,8 +557,8 @@ flowchart TD
                     <div class="highlight-box" style="border-left-color: #F59E0B;">
                         <h4 class="fw-bold mb-3"><i class="fas fa-graduation-cap me-2" style="color: #F59E0B;"></i>Key Takeaways</h4>
                         <ul class="mb-0">
-                            <li><strong>Python isn't going anywhere.</strong> With 92% market share and the entire ML ecosystem, Python remains the default for research and prototyping.</li>
-                            <li><strong>Mojo's 68,000× claim is real — but contextual.</strong> The speedup is against Python native loops, not NumPy. For custom ops without C bindings, Mojo is genuinely revolutionary.</li>
+                            <li><strong>Python isn't going anywhere.</strong> With ~92% ML framework market share, Python remains the default for research and prototyping.</li>
+                            <li><strong>Mojo's 68,000× claim is real — but contextual.</strong> Vendor benchmarks measure pure CPython loops vs AVX-512 SIMD Mojo. For custom ops without pre-compiled C bindings, Mojo is genuinely revolutionary.</li>
                             <li><strong>Rust is the production inference choice.</strong> Memory safety + zero-cost abstractions + fearless concurrency = no 3 AM crashes in your ML serving cluster.</li>
                             <li><strong>The stack is splitting into three layers.</strong> Research (Python) → Optimization (Mojo) → Production (Rust). Master the transitions, not just one layer.</li>
                             <li><strong>The GIL is Python's Achilles heel.</strong> For concurrent inference serving, Python hits a wall. This is precisely where Rust thrives.</li>
@@ -568,13 +568,13 @@ flowchart TD
                     <hr class="my-5">
                     
                     <!-- Author Block -->
-                    <div class="card bg-light border-0 p-4">
+                    <div class="card bg-dark text-light border border-secondary p-4">
                         <div class="d-flex align-items-center gap-3">
                             <img src="../sk_b.png" class="rounded-circle" width="60" alt="Shubham Kulkarni">
                             <div>
                                 <h5 class="fw-bold mb-1">About Shubham Kulkarni</h5>
                                 <p class="mb-0 small text-secondary">
-                                    Senior AI Engineer specializing in NLP and Computer Vision. Dedicated to demystifying the complex world of Artificial Intelligence.
+                                    AI Engineer specializing in Computer Vision, Generative AI, RAG, MLOps and Edge AI. Dedicated to building production AI systems at scale.
                                     <a href="../index.html" class="text-primary fw-bold text-decoration-none">More about me.</a>
                                 </p>
                             </div>

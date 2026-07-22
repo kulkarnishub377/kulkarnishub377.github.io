@@ -5,8 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 — Page Not Found | Shubham Kulkarni</title>
     <meta name="robots" content="noindex, nofollow">
-    <meta name="description" content="The page you're looking for doesn't exist. Return to Shubham Kulkarni's portfolio.">
-    
+    <!-- Legacy /sk/ path redirect handling for SEO migration -->
+    <script>
+      (function() {
+        var path = window.location.pathname;
+        if (path.indexOf('/sk/') !== -1) {
+          var cleanPath = path.replace(/\/sk\//, '/');
+          window.location.replace(cleanPath + window.location.search + window.location.hash);
+        }
+      })();
+    </script>
+
     <!-- Tailwind CSS for layout -->
     <script src="https://cdn.tailwindcss.com"></script>
     
