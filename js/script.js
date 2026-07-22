@@ -293,30 +293,10 @@
   }, { threshold: 0.25 });
   document.querySelectorAll('.hero-metrics, .stats-grid').forEach(el => cObs.observe(el));
 
-  // ══════ CONTACT FORM ══════
+  // ══════ CONTACT FORM (Handled natively by FormSubmit in HTML) ══════
   const form = document.getElementById('contactForm');
   const fBtn = document.getElementById('formBtn');
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const orig = fBtn.innerHTML;
-    fBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Processing...';
-    
-    const subject = document.getElementById('fsub') ? document.getElementById('fsub').value.toLowerCase() : '';
-    
-    // Simulate API request processing
-    setTimeout(() => {
-      // System overload simulation -> trigger 500.html
-      if (subject.includes('error') || subject.includes('500') || subject.includes('fail')) {
-        window.location.href = '/500.html';
-        return;
-      }
-      
-      fBtn.innerHTML = '<i class="fas fa-check"></i> Sent!';
-      fBtn.classList.add('sent');
-      burstParticles(fBtn);
-      setTimeout(() => { fBtn.innerHTML = orig; fBtn.classList.remove('sent'); form.reset(); }, 3500);
-    }, 1200);
-  });
+  // Removed fake submit simulation to allow real POST to FormSubmit
 
   function burstParticles(el) {
     const r = el.getBoundingClientRect();
