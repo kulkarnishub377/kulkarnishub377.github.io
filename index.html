@@ -99,7 +99,7 @@
         "name": "Shubham Kulkarni — AI Engineer | Computer Vision, GenAI & MLOps",
         "description": "Shubham Kulkarni is an AI Engineer at Arya Omnitalk specializing in Computer Vision, Generative AI, RAG Pipelines, Edge AI & MLOps.",
         "datePublished": "2025-08-01",
-        "dateModified": "2026-07-08",
+        "dateModified": "2026-07-22",
         "image": "https://kulkarnishub377.github.io/sk_b.png",
         "primaryImageOfPage": {
           "@type": "ImageObject",
@@ -161,6 +161,37 @@
         ]
       },
       {
+        "@type": "ItemList",
+        "@id": "https://kulkarnishub377.github.io/#projects",
+        "name": "Featured AI Projects",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "OmniSight: Multi-Modal AI Incident Intelligence",
+            "url": "https://kulkarnishub377.github.io/blog/omnisight.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "CivicMind: AI Smart City Decision Intelligence",
+            "url": "https://kulkarnishub377.github.io/blog/civicmind.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Vehicle Re-Identification System",
+            "url": "https://kulkarnishub377.github.io/blog/vehicle-re-identification.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Production RAG Pipeline",
+            "url": "https://kulkarnishub377.github.io/blog/rag-pipeline.html"
+          }
+        ]
+      },
+      {
         "@type": "BreadcrumbList",
         "@id": "https://kulkarnishub377.github.io/#breadcrumb",
         "itemListElement": [
@@ -188,23 +219,45 @@
 </head>
 
 <body>
+  <!-- ═══ HEADER / NAVBAR ═══ -->
+  <header class="site-header" id="siteHeader">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a href="#hero" class="nav-logo" aria-label="Shubham Kulkarni Home">Shubham<em>.</em></a>
+
+      <div class="nav-right">
+        <div class="social-pills" aria-label="Social Profiles">
+          <a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+            title="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+          <a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
+            title="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+          <a href="mailto:kulkarnishub377@gmail.com" aria-label="Email" title="Email"><i class="fas fa-envelope"
+              aria-hidden="true"></i></a>
+          <a href="https://wa.me/+918308003684" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"
+            title="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+          <a href="tel:+918308003684" aria-label="Phone" title="Phone"><i class="fas fa-phone" aria-hidden="true"></i></a>
+        </div>
+
+        <ul class="nav-menu" id="navMenu" role="menubar">
+          <li role="none"><a href="#about" role="menuitem">About</a></li>
+          <li role="none"><a href="#experience" role="menuitem">Experience</a></li>
+          <li role="none"><a href="#skills" role="menuitem">Skills</a></li>
+          <li role="none"><a href="#projects" role="menuitem">Projects</a></li>
+          <li role="none"><a href="#achievements" role="menuitem">Awards</a></li>
+          <li role="none"><a href="#certs" role="menuitem">Certs</a></li>
+          <li role="none"><a href="blog/index.html" role="menuitem">Blog</a></li>
+          <li role="none"><a href="#contact" class="nav-cta" role="menuitem">Let's Talk</a></li>
+        </ul>
+
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false"
+          aria-controls="navMenu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
 
   <!-- 3D Canvas Background -->
   <canvas id="bgCanvas"></canvas>
-
-  <!-- Social Sidebar (Desktop) -->
-  <aside class="social-sidebar" id="socialSidebar" aria-label="Social media links">
-    <a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-      title="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
-    <a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
-      title="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
-    <a href="mailto:kulkarnishub377@gmail.com" aria-label="Email" title="Email"><i class="fas fa-envelope"
-        aria-hidden="true"></i></a>
-    <a href="https://wa.me/+918308003684" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"
-      title="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
-    <a href="tel:+918308003684" aria-label="Phone" title="Phone"><i class="fas fa-phone" aria-hidden="true"></i></a>
-    <div class="sidebar-line" aria-hidden="true"></div>
-  </aside>
 
   <!-- Grain Overlay -->
   <div class="grain" aria-hidden="true"></div>
@@ -221,28 +274,6 @@
     <div class="loader-hint">Initializing</div>
   </div>
 
-  <!-- ═══ NAVIGATION ═══ -->
-  <header>
-    <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
-      <div class="container nav-inner">
-        <a href="#hero" class="nav-logo" aria-label="Shubham Kulkarni Home">Shubham<em>.</em></a>
-        <div class="nav-menu" id="navMenu" role="menubar">
-          <a href="#about" role="menuitem">About</a>
-          <a href="#experience" role="menuitem">Experience</a>
-          <a href="#skills" role="menuitem">Skills</a>
-          <a href="#projects" role="menuitem">Projects</a>
-          <a href="#achievements" role="menuitem">Awards</a>
-          <a href="#certs" role="menuitem">Certs</a>
-          <a href="blog/index.html" role="menuitem">Blog</a>
-          <a href="#contact" class="nav-cta" role="menuitem">Let's Talk</a>
-        </div>
-        <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </nav>
-  </header>
-
   <!-- ═══ HERO ═══ -->
   <section class="hero" id="hero" aria-label="Introduction">
     <div class="hero-bg" aria-hidden="true">
@@ -254,15 +285,15 @@
       <div class="hero-layout">
         <div class="hero-left">
           <div class="hero-tag rv"><span class="live-dot"></span> Open to Opportunities</div>
-          <h2 class="hero-title rv">Crafting AI<br>That <span class="em">Sees</span> &amp;<br><span
-              class="em">Thinks</span></h2>
+          <h1 class="hero-title rv">Crafting AI<br>That <span class="em">Sees</span> &amp;<br><span
+              class="em">Thinks</span></h1>
           <div class="hero-type rv" aria-label="Current role"><span id="typewriter"></span><span class="caret"
               aria-hidden="true"></span></div>
           <p class="rv">I'm <strong>Shubham Kulkarni</strong>, building production-grade <strong>Computer
               Vision</strong> &amp; <strong>Generative AI</strong> systems at Arya Omnitalk — powering live highway
             infrastructure processing <strong>50,000+ events daily</strong> with 95% model accuracy.</p>
           <div class="hero-btns rv">
-            <a href="Shubham_kulkarni_ao.pdf" target="_blank" class="btn btn-primary"><i class="fas fa-file-pdf"
+            <a href="Shubham_Kulkarni_Ao.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="fas fa-file-pdf"
                 aria-hidden="true"></i> Download Resume</a>
             <a href="#projects" class="btn btn-outline"><i class="fas fa-arrow-down" aria-hidden="true"></i> View
               Projects</a>

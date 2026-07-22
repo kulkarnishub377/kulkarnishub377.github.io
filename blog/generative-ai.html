@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- SEO -->
-    <title>Demystifying Transformers & LLMs | Shubham Kulkarni</title>
-    <meta name="description" content="A technical deep dive into the Self-Attention mechanism. Understanding Query, Key, and Value vectors in modern Large Language Models.">
+    <title>Demystifying Transformers &amp; LLM Attention Mechanisms | Shubham Kulkarni</title>
+    <meta name="description" content="A technical deep dive into Self-Attention, Query-Key-Value projections, and Transformer neural architectures in LLMs by Shubham Kulkarni.">
     <meta name="keywords" content="Generative AI, Transformers, LLM, Self-Attention, Natural Language Processing, Machine Learning, Deep Learning, Shubham Kulkarni">
     <meta name="author" content="Shubham Kulkarni">
+    <meta name="theme-color" content="#050507">
     <link rel="canonical" href="https://kulkarnishub377.github.io/blog/generative-ai.html">
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Demystifying Transformers & LLMs | Shubham Kulkarni">
+    <meta name="twitter:title" content="Demystifying Transformers &amp; LLMs | Shubham Kulkarni">
     <meta name="twitter:description" content="A technical deep dive into the Self-Attention mechanism. Understanding Query, Key, and Value vectors in modern Large Language Models.">
     <meta name="twitter:image" content="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80">
 
@@ -31,7 +32,7 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "BlogPosting",
+      "@type": "TechArticle",
       "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "https://kulkarnishub377.github.io/blog/generative-ai.html"
@@ -43,15 +44,16 @@
         "@type": "Person",
         "name": "Shubham Kulkarni",
         "url": "https://kulkarnishub377.github.io/",
-        "image": "https://kulkarnishub377.github.io/sk_b.png",
+        "image": "https://kulkarnishub377.github.io/photo_sk.png",
         "jobTitle": "AI Researcher"
       },
       "publisher": {
         "@type": "Person",
-        "name": "Shubham Kulkarni"
+        "name": "Shubham Kulkarni",
+        "url": "https://kulkarnishub377.github.io/"
       },
       "datePublished": "2026-02-18",
-      "dateModified": "2026-02-18"
+      "dateModified": "2026-07-22"
     }
     </script>
 
@@ -70,14 +72,14 @@
         
         .article-content-wrapper {
             font-family: 'Inter', sans-serif;
-            color: #2c3e50;
+            color: var(--text-primary);
         }
 
         .article-content-wrapper p {
             font-size: 1.25rem;
             line-height: 1.85;
             margin-bottom: 2rem;
-            color: #374151;
+            color: var(--text-secondary);
         }
 
         .article-content-wrapper h2 {
@@ -86,7 +88,7 @@
             font-size: 2.25rem;
             margin-top: 4rem;
             margin-bottom: 1.5rem;
-            color: #111827;
+            color: var(--text-primary);
             position: relative;
             letter-spacing: -0.02em;
         }
@@ -107,7 +109,7 @@
             font-size: 1.75rem;
             margin-top: 3rem;
             margin-bottom: 1.25rem;
-            color: #BE185D; /* Darker Pink */
+            color: #F472B6; /* Dark mode Pink */
         }
 
         .dropcap::first-letter {
@@ -122,14 +124,14 @@
         }
 
         .highlight-box {
-            background: #FDF2F8;
+            background: rgba(219, 39, 119, 0.08);
             border-left: 6px solid #DB2777;
             padding: 2.5rem;
             border-radius: 16px;
             margin: 3.5rem 0;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
         }
 
         .highlight-box::before {
@@ -152,19 +154,19 @@
         }
 
         .stat-card {
-            background: #ffffff;
+            background: var(--bg-surface);
             padding: 2rem;
             border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
             text-align: center;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid var(--border-light);
             transition: all 0.3s ease;
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            border-color: rgba(219, 39, 119, 0.2);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+            border-color: rgba(219, 39, 119, 0.3);
         }
 
         .stat-value {
@@ -182,22 +184,22 @@
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: #6B7280;
+            color: var(--text-secondary);
             font-weight: 700;
         }
         
         .toc-wrapper {
-            background: #ffffff;
+            background: var(--bg-surface);
             padding: 2rem;
             border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
             margin-bottom: 3rem;
-            border: 1px solid #E5E7EB;
+            border: 1px solid var(--border-light);
         }
 
         .toc-list { list-style: none; padding: 0; margin: 0; }
         .toc-list li { margin-bottom: 1rem; }
-        .toc-list a { text-decoration: none; color: #4B5563; font-weight: 500; transition: color 0.2s ease; }
+        .toc-list a { text-decoration: none; color: var(--text-secondary); font-weight: 500; transition: color 0.2s ease; }
         .toc-list a:hover { color: #DB2777; }
 
         @media (max-width: 992px) {
@@ -219,7 +221,7 @@
             </a>
             
              <div class="ms-auto d-none d-md-block">
-                <span class="badge bg-light text-dark border fw-medium px-3 py-2">
+                <span class="badge bg-dark text-light border border-secondary fw-medium px-3 py-2">
                     <i class="fas fa-clock me-2"></i> 11 min read
                 </span>
             </div>
@@ -239,15 +241,15 @@
                     
                     <div class="d-flex justify-content-center align-items-center gap-4 mt-5 text-muted">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="../sk_b.png" alt="Shubham" class="rounded-circle shadow-sm" width="56" height="56">
+                            <img src="../photo_sk.png" alt="Shubham" class="rounded-circle shadow-sm" width="56" height="56">
                             <div class="text-start">
-                                <span class="d-block fw-bold text-dark">Shubham Kulkarni</span>
+                                <span class="d-block fw-bold text-light">Shubham Kulkarni</span>
                                 <span class="small text-secondary">AI Researcher</span>
                             </div>
                         </div>
                         <div class="vr opacity-25"></div>
                         <div class="text-start">
-                            <span class="d-block fw-bold text-dark">Published</span>
+                            <span class="d-block fw-bold text-light">Published</span>
                             <time class="small text-secondary" datetime="2026-02-18">Feb 18, 2026</time>
                         </div>
                     </div>
