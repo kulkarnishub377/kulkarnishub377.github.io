@@ -64,20 +64,19 @@
 
     <style>
         /* --------------------------------------------------------------------------
-           INTERNAL MAGAZINE STYLES (Page-Specific Overrides)
+           INTERNAL MAGAZINE STYLES
            -------------------------------------------------------------------------- */
         
-        /* Typography Container - Decoupled from Layout */
         .article-content-wrapper {
             font-family: 'Inter', sans-serif;
-            color: #2c3e50;
+            color: var(--text-primary);
         }
 
         .article-content-wrapper p {
-            font-size: 1.25rem; /* ~20px for excellent readability */
+            font-size: 1.25rem;
             line-height: 1.85;
             margin-bottom: 2rem;
-            color: #2c3e50;
+            color: var(--text-secondary);
         }
 
         .article-content-wrapper h2 {
@@ -86,7 +85,7 @@
             font-size: 2.25rem;
             margin-top: 4rem;
             margin-bottom: 1.5rem;
-            color: #111827;
+            color: var(--text-primary);
             position: relative;
             letter-spacing: -0.02em;
         }
@@ -107,7 +106,7 @@
             font-size: 1.75rem;
             margin-top: 3rem;
             margin-bottom: 1.25rem;
-            color: #374151;
+            color: var(--text-primary);
         }
 
         /* Feature: Dropcap */
@@ -124,25 +123,27 @@
 
         /* Feature: Highlight Box */
         .highlight-box {
-            background: #F9FAFB;
+            background: var(--bg-surface-alt);
             border-left: 6px solid #2563EB;
             padding: 2.5rem;
             border-radius: 16px;
             margin: 3.5rem 0;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border-top: 1px solid var(--border-light);
+            border-right: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
         }
 
         .highlight-box::before {
-            content: '\f0eb'; /* FontAwesome Bulb */
+            content: '\f0eb';
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
             position: absolute;
             top: -20px;
             right: -20px;
             font-size: 8rem;
-            color: rgba(37, 99, 235, 0.03);
+            color: rgba(37, 99, 235, 0.05);
             transform: rotate(30deg);
         }
 
@@ -155,25 +156,25 @@
         }
 
         .stat-card {
-            background: #ffffff;
+            background: var(--bg-surface);
             padding: 2rem;
             border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             text-align: center;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid var(--border-light);
             transition: all 0.3s ease;
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            border-color: rgba(37, 99, 235, 0.2);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            border-color: rgba(37, 99, 235, 0.4);
         }
 
         .stat-value {
             font-size: 3rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+            background: linear-gradient(135deg, #2563EB 0%, #60A5FA 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -185,18 +186,18 @@
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: #6B7280;
+            color: var(--text-muted);
             font-weight: 700;
         }
 
-        /* Feature: Sticky TOC */
+        /* Feature: TOC Sticky */
         .toc-wrapper {
-            background: #ffffff;
+            background: var(--bg-surface);
             padding: 2rem;
             border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             margin-bottom: 3rem;
-            border: 1px solid #E5E7EB;
+            border: 1px solid var(--border-light);
         }
 
         .toc-list {
@@ -211,7 +212,7 @@
 
         .toc-list a {
             text-decoration: none;
-            color: #4B5563;
+            color: var(--text-secondary);
             font-weight: 500;
             font-size: 0.95rem;
             display: flex;
@@ -228,8 +229,38 @@
             font-weight: 700;
         }
 
-        /* Mobile Optimization */
-        /* Mobile Optimization & Layout Fixes */
+        .toc-list a i {
+            font-size: 0.75rem;
+            margin-right: 0.75rem;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+        }
+
+        .toc-list a:hover i,
+        .toc-list a.active i {
+            color: #2563EB;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--bg-code);
+            color: #F8FAFC;
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-light);
+        }
+
+        @media (max-width: 992px) {
+            .hero-title { font-size: 2.75rem; }
+            .stat-grid { grid-template-columns: 1fr; }
+            .toc-wrapper { display: none; }
+            .article-content-wrapper { padding: 0 0.5rem; }
+        }
+        
         /* Hero Text scaling */
         @media (max-width: 768px) {
             .hero-title {
@@ -309,15 +340,15 @@
                     
                     <div class="d-flex justify-content-center align-items-center gap-4 mt-5 text-muted">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="../sk_b.png" alt="Shubham" class="rounded-circle shadow-sm" width="56" height="56">
+                            <img src="../Asset/sk_b.png" alt="Shubham" class="rounded-circle shadow-sm" width="56" height="56">
                             <div class="text-start">
-                                <span class="d-block fw-bold text-dark">Shubham Kulkarni</span>
-                                <span class="small text-secondary">Software Engineer</span>
+                                <span class="d-block fw-bold" style="color: var(--text-primary);">Shubham Kulkarni</span>
+                                <span class="small text-secondary">AI Engineer</span>
                             </div>
                         </div>
                         <div class="vr opacity-25"></div>
                         <div class="text-start">
-                            <span class="d-block fw-bold text-dark">Updated</span>
+                            <span class="d-block fw-bold" style="color: var(--text-primary);">Updated</span>
                             <time class="small text-secondary" datetime="2026-02-20">Feb 20, 2026</time>
                         </div>
                     </div>
@@ -607,12 +638,12 @@ flowchart LR
         <div class="container text-center">
             <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
             <div class="d-flex justify-content-center gap-3 mb-4">
-                <a href="#" class="text-secondary"><i class="fab fa-twitter fa-lg"></i></a>
-                <a href="#" class="text-secondary"><i class="fab fa-github fa-lg"></i></a>
-                <a href="#" class="text-secondary"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="GitHub"><i class="fab fa-github fa-lg"></i></a>
+                <a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="mailto:kulkarnishub377@gmail.com" class="text-secondary hover-primary" aria-label="Email"><i class="fas fa-envelope fa-lg"></i></a>
             </div>
             <p class="text-secondary small mb-4">Engineering the future, one agent at a time.</p>
-            <a href="index.html" class="btn btn-outline-dark rounded-pill px-4 hover-lift">Back to Blog</a>
+            <a href="index.html" class="btn btn-outline-light rounded-pill px-4 hover-lift">Back to Blog</a>
         </div>
     </footer>
 
