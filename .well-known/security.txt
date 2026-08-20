@@ -1,3 +1,3 @@
-Contact: mailto:kulkarnishub377@gmail.com
+Contact: mailto:[EMAIL_ADDRESS]
 Preferred-Languages: en
-Canonical: https://kulkarnishub377.github.io/sk/.well-known/security.txt
+Canonical: https://kulkarnishub377.github.io/.well-known/security.txt
