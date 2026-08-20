@@ -22,38 +22,37 @@
     <!-- Open Graph -->
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://kulkarnishub377.github.io/blog/trending-ai-langs.html">
-    <meta property="og:title" content="Python vs Mojo vs Rust: The War for AI Supremacy">
-    <meta property="og:description" content="Is Python dying? Will Mojo replace it? Insights from a Senior AI Engineer.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:title" content="Top AI Programming Languages: Python vs Mojo vs Rust | Shubham Kulkarni">
+    <meta property="og:description" content="Technical comparison of the top AI programming languages: Benchmarking Python, Mojo, and Rust for high-performance ML workloads.">
+    <meta property="og:image" content="https://kulkarnishub377.github.io/Asset/sk_b.png">
     
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Python vs Mojo vs Rust: The War for AI Supremacy">
-    <meta name="twitter:description" content="Is Python dying? Will Mojo replace it? Insights from a Senior AI Engineer.">
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=1200&q=80">
+    <meta name="twitter:title" content="Top AI Programming Languages: Python vs Mojo vs Rust | Shubham Kulkarni">
+    <meta name="twitter:description" content="Technical comparison of the top AI programming languages: Benchmarking Python, Mojo, and Rust.">
+    <meta name="twitter:image" content="https://kulkarnishub377.github.io/Asset/sk_b.png">
     
     <!-- Schema.org for Authority -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://kulkarnishub377.github.io/blog/trending-ai-langs.html"
-      },
       "headline": "Top AI Languages 2026: Python vs Mojo vs Rust",
       "description": "An in-depth performance comparison of Python, Mojo, and Rust for Artificial Intelligence workloads.",
-      "image": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=1200&q=80",
+      "image": "https://kulkarnishub377.github.io/Asset/sk_b.png",
       "author": {
         "@type": "Person",
         "name": "Shubham Kulkarni",
-        "url": "https://kulkarnishub377.github.io/",
-        "image": "https://kulkarnishub377.github.io/sk_b.png",
-        "jobTitle": "AI Engineer"
+        "url": "https://kulkarnishub377.github.io/"
       },
       "publisher": {
         "@type": "Person",
-        "name": "Shubham Kulkarni"
+        "name": "Shubham Kulkarni",
+        "url": "https://kulkarnishub377.github.io/",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://kulkarnishub377.github.io/Asset/sk_b.png"
+        }
       },
       "datePublished": "2026-02-06",
       "dateModified": "2026-02-06"
@@ -69,20 +68,16 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-        /* --------------------------------------------------------------------------
-           INTERNAL MAGAZINE STYLES
-           -------------------------------------------------------------------------- */
-        
         .article-content-wrapper {
             font-family: 'Inter', sans-serif;
-            color: #2c3e50;
+            color: var(--text-primary);
         }
 
         .article-content-wrapper p {
             font-size: 1.25rem;
             line-height: 1.85;
             margin-bottom: 2rem;
-            color: #374151;
+            color: var(--text-secondary);
         }
 
         .article-content-wrapper h2 {
@@ -91,7 +86,7 @@
             font-size: 2.25rem;
             margin-top: 4rem;
             margin-bottom: 1.5rem;
-            color: #111827;
+            color: var(--text-primary);
             position: relative;
             letter-spacing: -0.02em;
         }
@@ -101,7 +96,7 @@
             display: block;
             width: 80px;
             height: 6px;
-            background: linear-gradient(90deg, #7C3AED, transparent); /* Violet for AI */
+            background: linear-gradient(90deg, #7C3AED, transparent);
             margin-top: 15px;
             border-radius: 4px;
         }
@@ -112,7 +107,7 @@
             font-size: 1.75rem;
             margin-top: 3rem;
             margin-bottom: 1.25rem;
-            color: #5B21B6;
+            color: #A78BFA;
         }
 
         .dropcap::first-letter {
@@ -134,24 +129,25 @@
         }
 
         .stat-card {
-            background: #ffffff;
+            background: var(--bg-surface);
             padding: 2rem;
             border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             text-align: center;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid var(--border-light);
             transition: all 0.3s ease;
         }
-        
+
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.2);
+            border-color: rgba(124, 58, 237, 0.4);
         }
 
         .stat-value {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%);
+            background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -159,33 +155,87 @@
             margin-bottom: 0.5rem;
         }
 
-        .versus-table {
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            margin: 3rem 0;
+        .stat-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            font-weight: 700;
         }
-        
-        .versus-table th { background: #F5F3FF; color: #5B21B6; padding: 1.5rem; border: none; }
-        .versus-table td { padding: 1.5rem; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
-        .versus-table tr:last-child td { border-bottom: none; }
-        
+
         .toc-wrapper {
-            background: #ffffff;
+            background: var(--bg-surface);
             padding: 2rem;
             border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             margin-bottom: 3rem;
-            border: 1px solid #E5E7EB;
+            border: 1px solid var(--border-light);
         }
 
-        .toc-list { list-style: none; padding: 0; margin: 0; }
-        .toc-list li { margin-bottom: 1rem; }
-        .toc-list a { text-decoration: none; color: #4B5563; font-weight: 500; transition: color 0.2s ease; }
-        .toc-list a:hover { color: #7C3AED; }
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list li {
+            margin-bottom: 1rem;
+        }
+
+        .toc-list a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            transition: color 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: #7C3AED;
+        }
+
+        .highlight-box {
+            background: var(--bg-surface-alt);
+            border-left: 6px solid #7C3AED;
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 3.5rem 0;
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid var(--border-light);
+            border-right: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .highlight-box::before {
+            content: '\f121';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 8rem;
+            color: rgba(124, 58, 237, 0.05);
+            transform: rotate(30deg);
+        }
+
+        pre {
+            background: var(--bg-code);
+            color: #F8FAFC;
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-light);
+        }
 
         @media (max-width: 992px) {
-            .hero-title { font-size: 2.5rem; }
+            .hero-title { font-size: 2.75rem; }
+            .stat-grid { grid-template-columns: 1fr; }
             .toc-wrapper { display: none; }
             .article-content-wrapper { padding: 0 0.5rem; }
         }
@@ -200,9 +250,9 @@
                 <i class="fas fa-arrow-left text-secondary" style="font-size: 0.9rem;"></i>
                 <span style="font-family: var(--font-mono); color: var(--text-primary);">Back to Blog</span>
             </a>
-             <div class="ms-auto d-none d-md-block">
-                <span class="badge bg-light text-dark border fw-medium px-3 py-2">
-                    <i class="fas fa-clock me-2"></i> 12 min read
+            <div class="ms-auto d-none d-md-block">
+                <span class="badge border fw-medium px-3 py-2" style="background: var(--bg-surface); color: var(--text-primary); border-color: var(--border-light) !important;">
+                    <i class="fas fa-clock me-2"></i> 10 min read
                 </span>
             </div>
         </div>
@@ -213,18 +263,18 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10 text-center">
-                     <span class="hero-tag mb-3 d-inline-block text-white bg-primary border-primary" style="background-color: #7C3AED !important; border-color: #7C3AED !important;">AI Trends</span>
+                     <span class="hero-tag mb-3 d-inline-block text-white bg-primary border-primary" style="background-color: #7C3AED !important; border-color: #7C3AED !important;">Software Architecture</span>
                     <h1 class="hero-title display-4 fw-bolder mb-4">Python vs Mojo vs Rust: The War for AI Supremacy</h1>
                     <p class="lead text-secondary mb-4 mx-auto" style="max-width: 800px; font-size: 1.35rem; line-height: 1.6;">
-                        For decades, Python has been the undisputed king of AI. But with the rise of Mojo and the reliability of Rust, is the throne finally shaking?
+                        Python has ruled AI for a decade. Now Mojo promises 68,000x speedups, and Rust is eating ML infrastructure. Which one should you actually build with?
                     </p>
                     
                     <div class="d-flex justify-content-center align-items-center gap-4 mt-5 text-muted">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="../sk_b.png" alt="Shubham Kulkarni" class="rounded-circle shadow-sm" width="56" height="56">
+                            <img src="../Asset/sk_b.png" alt="Shubham" class="rounded-circle shadow-sm" width="56" height="56">
                             <div class="text-start">
-                                <span class="d-block fw-bold text-dark">Shubham Kulkarni</span>
-                                <span class="small text-secondary">AI Engineer</span>
+                                <span class="d-block fw-bold" style="color: var(--text-primary);">Shubham Kulkarni</span>
+                                <span class="small text-secondary">AI Systems Engineer</span>
                             </div>
                         </div>
                         <div class="vr opacity-25"></div>
@@ -568,14 +618,14 @@ flowchart TD
                     <hr class="my-5">
                     
                     <!-- Author Block -->
-                    <div class="card bg-dark text-light border border-secondary p-4">
+                    <div class="card p-4" style="background: var(--bg-surface); border: 1px solid var(--border-light) !important; border-radius: 16px;">
                         <div class="d-flex align-items-center gap-3">
-                            <img src="../sk_b.png" class="rounded-circle" width="60" alt="Shubham Kulkarni">
+                            <img src="../Asset/sk_b.png" class="rounded-circle" width="60" alt="Shubham Kulkarni">
                             <div>
-                                <h5 class="fw-bold mb-1">About Shubham Kulkarni</h5>
+                                <h5 class="fw-bold mb-1" style="color: var(--text-primary);">About Shubham Kulkarni</h5>
                                 <p class="mb-0 small text-secondary">
                                     AI Engineer specializing in Computer Vision, Generative AI, RAG, MLOps and Edge AI. Dedicated to building production AI systems at scale.
-                                    <a href="../index.html" class="text-primary fw-bold text-decoration-none">More about me.</a>
+                                    <a href="../index.html" class="fw-bold text-decoration-none" style="color: #A78BFA;">More about me.</a>
                                 </p>
                             </div>
                         </div>
@@ -591,12 +641,12 @@ flowchart TD
         <div class="container text-center">
             <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
             <div class="d-flex justify-content-center gap-3 mb-4">
-                <a href="#" class="text-secondary"><i class="fab fa-twitter fa-lg"></i></a>
-                <a href="https://github.com/kulkarnishub377" class="text-secondary"><i class="fab fa-github fa-lg"></i></a>
-                <a href="#" class="text-secondary"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="GitHub"><i class="fab fa-github fa-lg"></i></a>
+                <a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="mailto:kulkarnishub377@gmail.com" class="text-secondary hover-primary" aria-label="Email"><i class="fas fa-envelope fa-lg"></i></a>
             </div>
             <p class="text-secondary small mb-4">Code. Innovate. Inspire.</p>
-            <a href="index.html" class="btn btn-outline-dark rounded-pill px-4 hover-lift">Back to Blog</a>
+            <a href="index.html" class="btn btn-outline-light rounded-pill px-4 hover-lift">Back to Blog</a>
         </div>
     </footer>
 

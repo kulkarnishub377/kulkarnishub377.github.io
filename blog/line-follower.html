@@ -32,7 +32,7 @@
     <meta name="twitter:description" content="How to build a precision autonomous robot using PID logic and IR arrays. Technical walkthrough by Shubham Kulkarni.">
     <meta name="twitter:image" content="https://raw.githubusercontent.com/kulkarnishub377/Line-Following-Robot/refs/heads/main/3-Media/Line-Following-img.png">
     
-    <!-- Schema.org Structured Data: Crucial for "Person" Rank -->
+    <!-- Schema.org -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -41,9 +41,9 @@
         "@type": "WebPage",
         "@id": "https://kulkarnishub377.github.io/blog/line-follower.html"
       },
-      "headline": "Line Follower Robot: PID Control & Arduino Guide",
-      "description": "A deep dive into building an autonomous line follower robot using PID algorithms, Arduino Mega, and IR sensors.",
-      "image": "https://raw.githubusercontent.com/kulkarnishub377/Line-Following-Robot/refs/heads/main/3-Media/Line-Following-img.png",
+      "headline": "Line Follower Robot: PID Control & Arduino",
+      "description": "A comprehensive engineering guide on building a high-speed line follower robot using PID algorithm, Arduino, and 5-channel IR array.",
+      "image": "https://kulkarnishub377.github.io/Asset/sk_b.png",
       "author": {
         "@type": "Person",
         "name": "Shubham Kulkarni",
@@ -51,7 +51,7 @@
         "jobTitle": "Robotics Engineer",
         "sameAs": [
           "https://github.com/kulkarnishub377",
-          "https://linkedin.com/in/shubhamkulkarni"
+          "https://www.linkedin.com/in/shubhkulk21"
         ]
       },
       "publisher": {
@@ -59,7 +59,7 @@
         "name": "Shubham Kulkarni",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://kulkarnishub377.github.io/sk_b.png"
+          "url": "https://kulkarnishub377.github.io/Asset/sk_b.png"
         }
       },
       "datePublished": "2026-02-08",
@@ -76,20 +76,16 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-        /* --------------------------------------------------------------------------
-           INTERNAL MAGAZINE STYLES
-           -------------------------------------------------------------------------- */
-        
         .article-content-wrapper {
             font-family: 'Inter', sans-serif;
-            color: #2c3e50;
+            color: var(--text-primary);
         }
 
         .article-content-wrapper p {
             font-size: 1.25rem;
             line-height: 1.85;
             margin-bottom: 2rem;
-            color: #374151;
+            color: var(--text-secondary);
         }
 
         .article-content-wrapper h2 {
@@ -98,7 +94,7 @@
             font-size: 2.25rem;
             margin-top: 4rem;
             margin-bottom: 1.5rem;
-            color: #111827;
+            color: var(--text-primary);
             position: relative;
             letter-spacing: -0.02em;
         }
@@ -108,7 +104,7 @@
             display: block;
             width: 80px;
             height: 6px;
-            background: linear-gradient(90deg, #DC2626, transparent); /* Red for Robotics */
+            background: linear-gradient(90deg, #DC2626, transparent);
             margin-top: 15px;
             border-radius: 4px;
         }
@@ -119,7 +115,7 @@
             font-size: 1.75rem;
             margin-top: 3rem;
             margin-bottom: 1.25rem;
-            color: #991B1B;
+            color: #F87171;
         }
 
         .dropcap::first-letter {
@@ -134,18 +130,20 @@
         }
 
         .highlight-box {
-            background: #FEF2F2;
+            background: var(--bg-surface-alt);
             border-left: 6px solid #DC2626;
             padding: 2.5rem;
             border-radius: 16px;
             margin: 3.5rem 0;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border-top: 1px solid var(--border-light);
+            border-right: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
         }
 
         .highlight-box::before {
-            content: '\f544'; /* FontAwesome Robot */
+            content: '\f544';
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
             position: absolute;
@@ -164,25 +162,25 @@
         }
 
         .stat-card {
-            background: #ffffff;
+            background: var(--bg-surface);
             padding: 2rem;
             border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             text-align: center;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid var(--border-light);
             transition: all 0.3s ease;
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            border-color: rgba(220, 38, 38, 0.2);
+            box-shadow: 0 10px 15px -3px rgba(220, 38, 38, 0.2);
+            border-color: rgba(220, 38, 38, 0.4);
         }
 
         .stat-value {
             font-size: 3rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);
+            background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -194,23 +192,54 @@
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: #6B7280;
+            color: var(--text-muted);
             font-weight: 700;
         }
-        
+
         .toc-wrapper {
-            background: #ffffff;
+            background: var(--bg-surface);
             padding: 2rem;
             border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             margin-bottom: 3rem;
-            border: 1px solid #E5E7EB;
+            border: 1px solid var(--border-light);
         }
 
-        .toc-list { list-style: none; padding: 0; margin: 0; }
-        .toc-list li { margin-bottom: 1rem; }
-        .toc-list a { text-decoration: none; color: #4B5563; font-weight: 500; transition: color 0.2s ease; }
-        .toc-list a:hover { color: #DC2626; }
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list li {
+            margin-bottom: 1rem;
+        }
+
+        .toc-list a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            transition: color 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: #DC2626;
+        }
+
+        pre {
+            background: var(--bg-code);
+            color: #F8FAFC;
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-light);
+        }
 
         @media (max-width: 992px) {
             .hero-title { font-size: 2.75rem; }
@@ -251,15 +280,15 @@
                     
                     <div class="d-flex justify-content-center align-items-center gap-4 mt-5 text-muted">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="../sk_b.png" alt="Shubham Kulkarni" class="rounded-circle shadow-sm" width="56" height="56">
+                            <img src="../Asset/sk_b.png" alt="Shubham Kulkarni" class="rounded-circle shadow-sm" width="56" height="56">
                             <div class="text-start">
-                                <span class="d-block fw-bold text-dark">Shubham Kulkarni</span>
+                                <span class="d-block fw-bold" style="color: var(--text-primary);">Shubham Kulkarni</span>
                                 <span class="small text-secondary">Robotics Engineer</span>
                             </div>
                         </div>
                         <div class="vr opacity-25"></div>
                         <div class="text-start">
-                            <span class="d-block fw-bold text-dark">Updated</span>
+                            <span class="d-block fw-bold" style="color: var(--text-primary);">Updated</span>
                             <time class="small text-secondary" datetime="2026-02-08">Feb 08, 2026</time>
                         </div>
                     </div>
@@ -675,14 +704,14 @@ void loop() {
 
                     <hr class="my-5">
                     
-                    <div class="card bg-light border-0 p-4">
+                    <div class="card border-0 p-4" style="background: var(--bg-surface); border: 1px solid var(--border-light) !important; border-radius: 16px;">
                         <div class="d-flex align-items-center gap-3">
-                            <img src="../sk_b.png" class="rounded-circle" width="60" alt="Shubham Kulkarni">
+                            <img src="../Asset/sk_b.png" class="rounded-circle" width="60" alt="Shubham Kulkarni">
                             <div>
-                                <h5 class="fw-bold mb-1">About Shubham Kulkarni</h5>
+                                <h5 class="fw-bold mb-1" style="color: var(--text-primary);">About Shubham Kulkarni</h5>
                                 <p class="mb-0 small text-secondary">
-                                    I am a Robotics & AI Engineer passionate about building systems that bridge the physical and digital worlds. 
-                                    <a href="../index.html" class="text-danger fw-bold text-decoration-none">View my Portfolio.</a>
+                                    I am a Robotics &amp; AI Engineer passionate about building systems that bridge the physical and digital worlds. 
+                                    <a href="../index.html" class="fw-bold text-decoration-none" style="color: #F87171;">View my Portfolio.</a>
                                 </p>
                             </div>
                         </div>
@@ -698,12 +727,12 @@ void loop() {
         <div class="container text-center">
             <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
             <div class="d-flex justify-content-center gap-3 mb-4">
-                <a href="#" class="text-secondary"><i class="fab fa-twitter fa-lg"></i></a>
-                <a href="https://github.com/kulkarnishub377" class="text-secondary"><i class="fab fa-github fa-lg"></i></a>
-                <a href="#" class="text-secondary"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="GitHub"><i class="fab fa-github fa-lg"></i></a>
+                <a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="mailto:kulkarnishub377@gmail.com" class="text-secondary hover-primary" aria-label="Email"><i class="fas fa-envelope fa-lg"></i></a>
             </div>
             <p class="text-secondary small mb-4">Engineering the Future.</p>
-            <a href="index.html" class="btn btn-outline-dark rounded-pill px-4 hover-lift">Back to Blog</a>
+            <a href="index.html" class="btn btn-outline-light rounded-pill px-4 hover-lift">Back to Blog</a>
         </div>
     </footer>
 

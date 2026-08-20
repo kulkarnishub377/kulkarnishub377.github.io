@@ -13,23 +13,26 @@
     <!-- Open Graph Metadata -->
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://kulkarnishub377.github.io/blog/omnisight.html">
-    <meta property="og:title" content="OmniSight: Autonomous Incident Intelligence">
-    <meta property="og:description" content="Architecting an event-driven AI platform for real-time anomaly validation and agentic investigations.">
-    <meta property="og:image" content="https://kulkarnishub377.github.io/sk_b.png">
+    <meta property="og:title" content="OmniSight: Multi-Modal AI Incident Intelligence | Shubham Kulkarni">
+    <meta property="og:description"
+        content="Architecting an event-driven AI platform for real-time anomaly validation and agentic investigations.">
+    <meta property="og:image" content="https://kulkarnishub377.github.io/Asset/sk_b.png">
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="OmniSight: Autonomous Incident Intelligence">
-    <meta name="twitter:description" content="Architecting an event-driven AI platform for real-time anomaly validation and agentic investigations.">
-    <meta name="twitter:image" content="https://kulkarnishub377.github.io/sk_b.png">
+    <meta name="twitter:title" content="OmniSight: Multi-Modal AI Incident Intelligence | Shubham Kulkarni">
+    <meta name="twitter:description"
+        content="Architecting an event-driven AI platform for real-time anomaly validation and agentic investigations.">
+    <meta name="twitter:image" content="https://kulkarnishub377.github.io/Asset/sk_b.png">
 
     <!-- Schema.org -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "headline": "OmniSight: Autonomous Incident Intelligence",
-      "image": "https://kulkarnishub377.github.io/sk_b.png",
+      "@type": "TechArticle",
+      "headline": "OmniSight: Multi-Modal AI Incident Intelligence",
+      "description": "Architecting an event-driven AI platform for real-time anomaly validation and agentic investigations.",
+      "image": "https://kulkarnishub377.github.io/Asset/sk_b.png",
       "author": {
         "@type": "Person",
         "name": "Shubham Kulkarni",
@@ -38,11 +41,14 @@
       "publisher": {
         "@type": "Person",
         "name": "Shubham Kulkarni",
-        "logo": {
+        "url": "https://kulkarnishub377.github.io/",
+        "image": {
           "@type": "ImageObject",
-          "url": "https://kulkarnishub377.github.io/sk_b.png"
+          "url": "https://kulkarnishub377.github.io/Asset/sk_b.png"
         }
-      }
+      },
+      "datePublished": "2026-06-01",
+      "dateModified": "2026-06-01"
     }
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
@@ -51,25 +57,25 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-        .article-content-wrapper { font-family: 'Inter', sans-serif; color: #2c3e50; }
-        .article-content-wrapper p { font-size: 1.25rem; line-height: 1.85; margin-bottom: 2rem; color: #374151; }
-        .article-content-wrapper h2 { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 2.25rem; margin-top: 4rem; margin-bottom: 1.5rem; color: #111827; letter-spacing: -0.02em; position: relative; }
+        .article-content-wrapper { font-family: 'Inter', sans-serif; color: var(--text-primary); }
+        .article-content-wrapper p { font-size: 1.25rem; line-height: 1.85; margin-bottom: 2rem; color: var(--text-secondary); }
+        .article-content-wrapper h2 { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 2.25rem; margin-top: 4rem; margin-bottom: 1.5rem; color: var(--text-primary); letter-spacing: -0.02em; position: relative; }
         .article-content-wrapper h2::after { content: ''; display: block; width: 80px; height: 6px; background: linear-gradient(90deg, #3B82F6, transparent); margin-top: 15px; border-radius: 4px; }
         .dropcap::first-letter { font-family: 'Libre Baskerville', serif; font-size: 4.5rem; float: left; line-height: 0.85; margin-right: 1.25rem; margin-top: 0.2rem; color: #3B82F6; font-weight: 700; }
         
-        .highlight-box { background: #EFF6FF; border-left: 6px solid #3B82F6; padding: 2.5rem; border-radius: 16px; margin: 3.5rem 0; position: relative; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        .highlight-box { background: var(--bg-surface-alt); border-left: 6px solid #3B82F6; padding: 2.5rem; border-radius: 16px; margin: 3.5rem 0; position: relative; overflow: hidden; border-top: 1px solid var(--border-light); border-right: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
         .highlight-box::before { content: '\f5eb'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; top: -20px; right: -20px; font-size: 8rem; color: rgba(59, 130, 246, 0.05); transform: rotate(30deg); }
         
         .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin: 3.5rem 0; }
-        .stat-card { background: #ffffff; padding: 2rem; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); text-align: center; border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; }
-        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-color: rgba(59, 130, 246, 0.2); }
+        .stat-card { background: var(--bg-surface); padding: 2rem; border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); text-align: center; border: 1px solid var(--border-light); transition: all 0.3s ease; }
+        .stat-card:hover { transform: translateY(-5px); border-color: rgba(59, 130, 246, 0.4); }
         .stat-value { font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: block; margin-bottom: 0.5rem; }
-        .stat-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: #6B7280; font-weight: 700; }
+        .stat-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); font-weight: 700; }
         
-        .toc-wrapper { background: #ffffff; padding: 2rem; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); margin-bottom: 3rem; border: 1px solid #E5E7EB; }
+        .toc-wrapper { background: var(--bg-surface); padding: 2rem; border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); margin-bottom: 3rem; border: 1px solid var(--border-light); }
         .toc-list { list-style: none; padding: 0; margin: 0; }
         .toc-list li { margin-bottom: 1rem; }
-        .toc-list a { text-decoration: none; color: #4B5563; font-weight: 500; transition: color 0.2s ease; }
+        .toc-list a { text-decoration: none; color: var(--text-secondary); font-weight: 500; transition: color 0.2s ease; }
         .toc-list a:hover { color: #3B82F6; }
         @media (max-width: 992px) { .toc-wrapper { display: none; } }
     </style>
@@ -83,7 +89,7 @@
                 <span style="font-family: var(--font-mono); color: var(--text-primary);">Back to Blog</span>
             </a>
             <div class="ms-auto d-none d-md-block">
-                <span class="badge bg-light text-dark border fw-medium px-3 py-2">
+                <span class="badge border fw-medium px-3 py-2" style="background: var(--bg-surface); color: var(--text-primary); border-color: var(--border-light) !important;">
                     <i class="fas fa-clock me-2"></i> 10 min read
                 </span>
             </div>
@@ -101,15 +107,15 @@
                     </p>
                     <div class="d-flex justify-content-center align-items-center gap-4 mt-5 text-muted">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="../sk_b.png" alt="Shubham" class="rounded-circle shadow-sm" width="56" height="56">
+                            <img src="../Asset/sk_b.png" alt="Shubham" class="rounded-circle shadow-sm" width="56" height="56">
                             <div class="text-start">
-                                <span class="d-block fw-bold text-dark">Shubham Kulkarni</span>
+                                <span class="d-block fw-bold" style="color: var(--text-primary);">Shubham Kulkarni</span>
                                 <span class="small text-secondary">AI Engineer</span>
                             </div>
                         </div>
                         <div class="vr opacity-25"></div>
                         <div class="text-start">
-                            <span class="d-block fw-bold text-dark">Updated</span>
+                            <span class="d-block fw-bold" style="color: var(--text-primary);">Updated</span>
                             <time class="small text-secondary" datetime="2026-06-01">Jun 01, 2026</time>
                         </div>
                     </div>
@@ -239,16 +245,18 @@ graph LR
         <div class="container text-center">
             <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
             <div class="d-flex justify-content-center gap-3 mb-4">
-                <a href="https://github.com/kulkarnishub377" class="text-secondary"><i class="fab fa-github fa-lg"></i></a>
-                <a href="https://www.linkedin.com/in/shubhkulk21" class="text-secondary"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="GitHub"><i class="fab fa-github fa-lg"></i></a>
+                <a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="mailto:kulkarnishub377@gmail.com" class="text-secondary hover-primary" aria-label="Email"><i class="fas fa-envelope fa-lg"></i></a>
             </div>
             <p class="text-secondary small mb-4">Engineering Safer Systems.</p>
-            <a href="index.html" class="btn btn-outline-dark rounded-pill px-4 hover-lift">Back to Blog</a>
+            <a href="index.html" class="btn btn-outline-light rounded-pill px-4 hover-lift">Back to Blog</a>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+    <script src="js/script.js"></script>
 </body>
 </html>

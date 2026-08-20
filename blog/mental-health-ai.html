@@ -22,34 +22,33 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
     <link rel="shortcut icon" href="../favicon/favicon.ico">
-    <meta property="og:title" content="Mental Health AI: NLP for Well-being">
-    <meta property="og:description" content="Using Python, Flask, and Scikit-learn to build a proactive mental health tracker.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&w=1200&q=80">
-    <meta property="og:url" content="https://kulkarnishub377.github.io/blog/mental-health-ai.html">
     <meta property="og:type" content="article">
+    <meta property="og:url" content="https://kulkarnishub377.github.io/blog/mental-health-ai.html">
+    <meta property="og:title" content="Mental Health AI: A Fitness Tracker for the Mind | Shubham Kulkarni">
+    <meta property="og:description" content="How we used NLP and VADER Sentiment Analysis to detect behavioral micro-anomalies and predict burnout before it happens.">
+    <meta property="og:image" content="https://kulkarnishub377.github.io/Asset/sk_b.png">
 
-    <!-- Schema.org Authority -->
+    <!-- Schema.org: BlogPosting Entity -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://kulkarnishub377.github.io/blog/mental-health-ai.html"
-      },
-      "headline": "Mental Health AI: Fitness Tracker for Minds",
-      "description": "Using NLP and VADER Sentiment Analysis to detect behavioral micro-anomalies and predict user burnout.",
-      "image": "https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&w=1200&q=80",
+      "headline": "Mental Health AI: A Fitness Tracker for the Mind",
+      "description": "How we used NLP and VADER Sentiment Analysis to detect behavioral micro-anomalies and predict burnout before it happens.",
+      "image": "https://kulkarnishub377.github.io/Asset/sk_b.png",
       "author": {
         "@type": "Person",
         "name": "Shubham Kulkarni",
-        "url": "https://kulkarnishub377.github.io/",
-        "image": "https://kulkarnishub377.github.io/sk_b.png",
-        "jobTitle": "AI Engineer"
+        "url": "https://kulkarnishub377.github.io/"
       },
       "publisher": {
         "@type": "Person",
-        "name": "Shubham Kulkarni"
+        "name": "Shubham Kulkarni",
+        "url": "https://kulkarnishub377.github.io/",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://kulkarnishub377.github.io/Asset/sk_b.png"
+        }
       },
       "datePublished": "2026-01-28",
       "dateModified": "2026-02-18"
@@ -65,20 +64,16 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-        /* --------------------------------------------------------------------------
-           INTERNAL MAGAZINE STYLES
-           -------------------------------------------------------------------------- */
-        
         .article-content-wrapper {
             font-family: 'Inter', sans-serif;
-            color: #2c3e50;
+            color: var(--text-primary);
         }
 
         .article-content-wrapper p {
             font-size: 1.25rem;
             line-height: 1.85;
             margin-bottom: 2rem;
-            color: #374151;
+            color: var(--text-secondary);
         }
 
         .article-content-wrapper h2 {
@@ -87,7 +82,7 @@
             font-size: 2.25rem;
             margin-top: 4rem;
             margin-bottom: 1.5rem;
-            color: #111827;
+            color: var(--text-primary);
             position: relative;
             letter-spacing: -0.02em;
         }
@@ -97,7 +92,7 @@
             display: block;
             width: 80px;
             height: 6px;
-            background: linear-gradient(90deg, #8B5CF6, transparent); /* Purple for AI/Mind */
+            background: linear-gradient(90deg, #8B5CF6, transparent);
             margin-top: 15px;
             border-radius: 4px;
         }
@@ -108,7 +103,7 @@
             font-size: 1.75rem;
             margin-top: 3rem;
             margin-bottom: 1.25rem;
-            color: #5B21B6; /* Darker Purple */
+            color: #A78BFA;
         }
 
         .dropcap::first-letter {
@@ -123,18 +118,20 @@
         }
 
         .highlight-box {
-            background: #F5F3FF;
+            background: var(--bg-surface-alt);
             border-left: 6px solid #8B5CF6;
             padding: 2.5rem;
             border-radius: 16px;
             margin: 3.5rem 0;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border-top: 1px solid var(--border-light);
+            border-right: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
         }
 
         .highlight-box::before {
-            content: '\f0e0'; /* FontAwesome Brain */
+            content: '\f0e0';
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
             position: absolute;
@@ -153,27 +150,27 @@
         }
 
         .stat-card {
-            background: #ffffff;
+            background: var(--bg-surface);
             padding: 2rem;
             border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             text-align: center;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid var(--border-light);
             transition: all 0.3s ease;
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            border-color: rgba(139, 92, 246, 0.2);
+            box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.2);
+            border-color: rgba(139, 92, 246, 0.4);
         }
 
         .stat-value {
             font-size: 3rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+            background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
             -webkit-background-clip: text;
-            background-clip: text; /* Standard property */
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             display: block;
             margin-bottom: 0.5rem;
@@ -183,23 +180,43 @@
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: #6B7280;
+            color: var(--text-muted);
             font-weight: 700;
         }
         
         .toc-wrapper {
-            background: #ffffff;
+            background: var(--bg-surface);
             padding: 2rem;
             border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             margin-bottom: 3rem;
-            border: 1px solid #E5E7EB;
+            border: 1px solid var(--border-light);
         }
 
         .toc-list { list-style: none; padding: 0; margin: 0; }
         .toc-list li { margin-bottom: 1rem; }
-        .toc-list a { text-decoration: none; color: #4B5563; font-weight: 500; transition: color 0.2s ease; }
+        .toc-list a { 
+            text-decoration: none; 
+            color: var(--text-secondary); 
+            font-weight: 500; 
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            transition: color 0.2s ease; 
+        }
         .toc-list a:hover { color: #8B5CF6; }
+
+        pre {
+            background: var(--bg-code);
+            color: #F8FAFC;
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-light);
+        }
 
         @media (max-width: 992px) {
             .hero-title { font-size: 2.75rem; }
@@ -220,8 +237,8 @@
             </a>
             
              <div class="ms-auto d-none d-md-block">
-                <span class="badge bg-light text-dark border fw-medium px-3 py-2">
-                    <i class="fas fa-clock me-2"></i> 7 min read
+                <span class="badge border fw-medium px-3 py-2" style="background: var(--bg-surface); color: var(--text-primary); border-color: var(--border-light) !important;">
+                    <i class="fas fa-clock me-2"></i> 9 min read
                 </span>
             </div>
         </div>
@@ -240,15 +257,15 @@
                     
                     <div class="d-flex justify-content-center align-items-center gap-4 mt-5 text-muted">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="../sk_b.png" alt="Shubham" class="rounded-circle shadow-sm" width="56" height="56">
+                            <img src="../Asset/sk_b.png" alt="Shubham" class="rounded-circle shadow-sm" width="56" height="56">
                             <div class="text-start">
-                                <span class="d-block fw-bold text-dark">Shubham Kulkarni</span>
+                                <span class="d-block fw-bold" style="color: var(--text-primary);">Shubham Kulkarni</span>
                                 <span class="small text-secondary">IBM Project Lead</span>
                             </div>
                         </div>
                         <div class="vr opacity-25"></div>
                         <div class="text-start">
-                            <span class="d-block fw-bold text-dark">Updated</span>
+                            <span class="d-block fw-bold" style="color: var(--text-primary);">Updated</span>
                             <time class="small text-secondary" datetime="2026-01-28">Jan 28, 2026</time>
                         </div>
                     </div>
@@ -570,12 +587,12 @@ def detect_burnout_pattern(entries, window=7, threshold=-0.3):
         <div class="container text-center">
             <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
             <div class="d-flex justify-content-center gap-3 mb-4">
-                <a href="#" class="text-secondary"><i class="fab fa-twitter fa-lg"></i></a>
-                <a href="#" class="text-secondary"><i class="fab fa-github fa-lg"></i></a>
-                <a href="#" class="text-secondary"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="GitHub"><i class="fab fa-github fa-lg"></i></a>
+                <a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="mailto:kulkarnishub377@gmail.com" class="text-secondary hover-primary" aria-label="Email"><i class="fas fa-envelope fa-lg"></i></a>
             </div>
             <p class="text-secondary small mb-4">Engineering AI for Humans.</p>
-            <a href="index.html" class="btn btn-outline-dark rounded-pill px-4 hover-lift">Back to Blog</a>
+            <a href="index.html" class="btn btn-outline-light rounded-pill px-4 hover-lift">Back to Blog</a>
         </div>
     </footer>
 

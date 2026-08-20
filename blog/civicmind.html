@@ -13,23 +13,26 @@
     <!-- Open Graph Metadata -->
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://kulkarnishub377.github.io/blog/civicmind.html">
-    <meta property="og:title" content="CivicMind: AI-Powered Smart City Decision Intelligence">
-    <meta property="og:description" content="How we engineered a Multi-Agent Decision Intelligence Platform using Gemini 2.5 and Vertex AI to transform fragmented city data into actionable policy.">
-    <meta property="og:image" content="https://kulkarnishub377.github.io/sk_b.png">
+    <meta property="og:title" content="CivicMind: AI-Powered Smart City Decision Intelligence | Shubham Kulkarni">
+    <meta property="og:description"
+        content="How we engineered a Multi-Agent Decision Intelligence Platform using Gemini 2.5 and Vertex AI to transform fragmented city data into actionable policy.">
+    <meta property="og:image" content="https://kulkarnishub377.github.io/Asset/sk_b.png">
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="CivicMind: AI-Powered Smart City Decision Intelligence">
-    <meta name="twitter:description" content="How we engineered a Multi-Agent Decision Intelligence Platform using Gemini 2.5 and Vertex AI to transform fragmented city data into actionable policy.">
-    <meta name="twitter:image" content="https://kulkarnishub377.github.io/sk_b.png">
+    <meta name="twitter:title" content="CivicMind: AI-Powered Smart City Decision Intelligence | Shubham Kulkarni">
+    <meta name="twitter:description"
+        content="How we engineered a Multi-Agent Decision Intelligence Platform using Gemini 2.5 and Vertex AI.">
+    <meta name="twitter:image" content="https://kulkarnishub377.github.io/Asset/sk_b.png">
 
-    <!-- Schema.org -->
+    <!-- Schema.org: TechArticle Entity -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "BlogPosting",
+      "@type": "TechArticle",
       "headline": "CivicMind: AI-Powered Smart City Decision Intelligence",
-      "image": "https://kulkarnishub377.github.io/sk_b.png",
+      "description": "How we engineered a Multi-Agent Decision Intelligence Platform using Gemini 2.5 and Vertex AI.",
+      "image": "https://kulkarnishub377.github.io/Asset/sk_b.png",
       "author": {
         "@type": "Person",
         "name": "Shubham Kulkarni",
@@ -38,14 +41,18 @@
       "publisher": {
         "@type": "Person",
         "name": "Shubham Kulkarni",
-        "logo": {
+        "url": "https://kulkarnishub377.github.io/",
+        "image": {
           "@type": "ImageObject",
-          "url": "https://kulkarnishub377.github.io/sk_b.png"
+          "url": "https://kulkarnishub377.github.io/Asset/sk_b.png"
         }
-      }
+      },
+      "datePublished": "2026-05-15",
+      "dateModified": "2026-05-15"
     }
     </script>
 
+    <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
@@ -57,23 +64,23 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-        .article-content-wrapper { font-family: 'Inter', sans-serif; color: #2c3e50; }
-        .article-content-wrapper p { font-size: 1.25rem; line-height: 1.85; margin-bottom: 2rem; color: #374151; }
-        .article-content-wrapper h2 { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 2.25rem; margin-top: 4rem; margin-bottom: 1.5rem; color: #111827; position: relative; letter-spacing: -0.02em; }
+        .article-content-wrapper { font-family: 'Inter', sans-serif; color: var(--text-primary); }
+        .article-content-wrapper p { font-size: 1.25rem; line-height: 1.85; margin-bottom: 2rem; color: var(--text-secondary); }
+        .article-content-wrapper h2 { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 2.25rem; margin-top: 4rem; margin-bottom: 1.5rem; color: var(--text-primary); position: relative; letter-spacing: -0.02em; }
         .article-content-wrapper h2::after { content: ''; display: block; width: 80px; height: 6px; background: linear-gradient(90deg, #10B981, transparent); margin-top: 15px; border-radius: 4px; }
-        .article-content-wrapper h3 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.75rem; margin-top: 3rem; margin-bottom: 1.25rem; color: #047857; }
+        .article-content-wrapper h3 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.75rem; margin-top: 3rem; margin-bottom: 1.25rem; color: #34D399; }
         .dropcap::first-letter { font-family: 'Libre Baskerville', serif; font-size: 4.5rem; float: left; line-height: 0.85; margin-right: 1.25rem; margin-top: 0.2rem; color: #10B981; font-weight: 700; }
-        .highlight-box { background: #ECFDF5; border-left: 6px solid #10B981; padding: 2.5rem; border-radius: 16px; margin: 3.5rem 0; position: relative; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        .highlight-box { background: var(--bg-surface-alt); border-left: 6px solid #10B981; padding: 2.5rem; border-radius: 16px; margin: 3.5rem 0; position: relative; overflow: hidden; border-top: 1px solid var(--border-light); border-right: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
         .highlight-box::before { content: '\f1ad'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; top: -20px; right: -20px; font-size: 8rem; color: rgba(16, 185, 129, 0.05); transform: rotate(30deg); }
         .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin: 3.5rem 0; }
-        .stat-card { background: #ffffff; padding: 2rem; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); text-align: center; border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; }
-        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-color: rgba(16, 185, 129, 0.2); }
-        .stat-value { font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, #10B981 0%, #047857 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: block; margin-bottom: 0.5rem; }
-        .stat-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: #6B7280; font-weight: 700; }
-        .toc-wrapper { background: #ffffff; padding: 2rem; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); margin-bottom: 3rem; border: 1px solid #E5E7EB; }
+        .stat-card { background: var(--bg-surface); padding: 2rem; border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); text-align: center; border: 1px solid var(--border-light); transition: all 0.3s ease; }
+        .stat-card:hover { transform: translateY(-5px); border-color: rgba(16, 185, 129, 0.4); }
+        .stat-value { font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, #10B981 0%, #059669 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: block; margin-bottom: 0.5rem; }
+        .stat-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); font-weight: 700; }
+        .toc-wrapper { background: var(--bg-surface); padding: 2rem; border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); margin-bottom: 3rem; border: 1px solid var(--border-light); }
         .toc-list { list-style: none; padding: 0; margin: 0; }
         .toc-list li { margin-bottom: 1rem; }
-        .toc-list a { text-decoration: none; color: #4B5563; font-weight: 500; transition: color 0.2s ease; }
+        .toc-list a { text-decoration: none; color: var(--text-secondary); font-weight: 500; transition: color 0.2s ease; }
         .toc-list a:hover { color: #10B981; }
         @media (max-width: 992px) { .hero-title { font-size: 2.75rem; } .stat-grid { grid-template-columns: 1fr; } .toc-wrapper { display: none; } .article-content-wrapper { padding: 0 0.5rem; } }
     </style>
@@ -88,7 +95,7 @@
                 <span style="font-family: var(--font-mono); color: var(--text-primary);">Back to Blog</span>
             </a>
              <div class="ms-auto d-none d-md-block">
-                <span class="badge bg-light text-dark border fw-medium px-3 py-2">
+                <span class="badge border fw-medium px-3 py-2" style="background: var(--bg-surface); color: var(--text-primary); border-color: var(--border-light) !important;">
                     <i class="fas fa-clock me-2"></i> 8 min read
                 </span>
             </div>
@@ -108,15 +115,15 @@
                     
                     <div class="d-flex justify-content-center align-items-center gap-4 mt-5 text-muted">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="../sk_b.png" alt="Shubham" class="rounded-circle shadow-sm" width="56" height="56">
+                            <img src="../Asset/sk_b.png" alt="Shubham" class="rounded-circle shadow-sm" width="56" height="56">
                             <div class="text-start">
-                                <span class="d-block fw-bold text-dark">Shubham Kulkarni</span>
+                                <span class="d-block fw-bold" style="color: var(--text-primary);">Shubham Kulkarni</span>
                                 <span class="small text-secondary">AI Engineer</span>
                             </div>
                         </div>
                         <div class="vr opacity-25"></div>
                         <div class="text-start">
-                            <span class="d-block fw-bold text-dark">Updated</span>
+                            <span class="d-block fw-bold" style="color: var(--text-primary);">Updated</span>
                             <time class="small text-secondary" datetime="2026-05-15">May 15, 2026</time>
                         </div>
                     </div>
@@ -299,11 +306,12 @@ flowchart TD
         <div class="container text-center">
             <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
             <div class="d-flex justify-content-center gap-3 mb-4">
-                <a href="https://github.com/kulkarnishub377" class="text-secondary"><i class="fab fa-github fa-lg"></i></a>
-                <a href="https://www.linkedin.com/in/shubhkulk21" class="text-secondary"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="GitHub"><i class="fab fa-github fa-lg"></i></a>
+                <a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="mailto:kulkarnishub377@gmail.com" class="text-secondary hover-primary" aria-label="Email"><i class="fas fa-envelope fa-lg"></i></a>
             </div>
             <p class="text-secondary small mb-4">Engineering Safer Cities.</p>
-            <a href="index.html" class="btn btn-outline-dark rounded-pill px-4 hover-lift">Back to Blog</a>
+            <a href="index.html" class="btn btn-outline-light rounded-pill px-4 hover-lift">Back to Blog</a>
         </div>
     </footer>
 
@@ -312,5 +320,6 @@ flowchart TD
     <script>
         mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
     </script>
+    <script src="js/script.js"></script>
 </body>
 </html>

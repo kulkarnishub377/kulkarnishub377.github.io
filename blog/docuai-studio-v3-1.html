@@ -48,7 +48,7 @@
                 "name": "Shubham Kulkarni",
                 "logo": {
                     "@type": "ImageObject",
-                    "url": "https://kulkarnishub377.github.io/sk_b.png"
+                    "url": "https://kulkarnishub377.github.io/Asset/sk_b.png"
                 }
       },
       "datePublished": "2026-03-30",
@@ -72,14 +72,14 @@
     <style>
         .article-content-wrapper {
             font-family: 'Inter', sans-serif;
-            color: #2c3e50;
+            color: var(--text-primary);
         }
 
         .article-content-wrapper p {
             font-size: 1.25rem;
             line-height: 1.85;
             margin-bottom: 2rem;
-            color: #374151;
+            color: var(--text-secondary);
         }
 
         .article-content-wrapper h2 {
@@ -88,7 +88,7 @@
             font-size: 2.25rem;
             margin-top: 4rem;
             margin-bottom: 1.5rem;
-            color: #111827;
+            color: var(--text-primary);
             position: relative;
             letter-spacing: -0.02em;
         }
@@ -103,6 +103,15 @@
             border-radius: 4px;
         }
 
+        .article-content-wrapper h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.75rem;
+            margin-top: 3rem;
+            margin-bottom: 1.25rem;
+            color: #a78bfa;
+        }
+
         .dropcap::first-letter {
             font-family: 'Libre Baskerville', serif;
             font-size: 4.5rem;
@@ -115,14 +124,16 @@
         }
 
         .highlight-box {
-            background: #f5f3ff;
+            background: var(--bg-surface-alt);
             border-left: 6px solid #7c3aed;
             padding: 2.5rem;
             border-radius: 16px;
             margin: 3.5rem 0;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border-top: 1px solid var(--border-light);
+            border-right: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
         }
 
         .highlight-box::before {
@@ -145,25 +156,25 @@
         }
 
         .stat-card {
-            background: #ffffff;
+            background: var(--bg-surface);
             padding: 2rem;
             border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             text-align: center;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-light);
             transition: all 0.3s ease;
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.15);
-            border-color: rgba(124, 58, 237, 0.2);
+            box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.2);
+            border-color: rgba(124, 58, 237, 0.4);
         }
 
         .stat-value {
             font-size: 3rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
+            background: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -175,17 +186,17 @@
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: #6b7280;
+            color: var(--text-muted);
             font-weight: 700;
         }
 
         .toc-wrapper {
-            background: #ffffff;
+            background: var(--bg-surface);
             padding: 2rem;
             border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             margin-bottom: 3rem;
-            border: 1px solid #e5e7eb;
+            border: 1px solid var(--border-light);
         }
 
         .toc-list {
@@ -200,13 +211,13 @@
 
         .toc-list a {
             text-decoration: none;
-            color: #4b5563;
+            color: var(--text-secondary);
             font-weight: 500;
             transition: color 0.2s ease;
         }
 
         .toc-list a:hover {
-            color: #7c3aed;
+            color: #a78bfa;
         }
 
         .shot-grid {
@@ -237,12 +248,34 @@
 
         .pill {
             display: inline-block;
+            background: var(--bg-surface-alt);
+            color: #a78bfa;
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 9999px;
+            padding: 0.35rem 0.85rem;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .ui-shot {
             border: 1px solid var(--border-light);
-            background: #fff;
-            border-radius: 999px;
-            padding: 0.3rem 0.7rem;
-            font-size: 0.82rem;
-            margin: 0.2rem;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+            margin: 2rem 0;
+        }
+
+        pre {
+            background: var(--bg-code);
+            color: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-light);
         }
 
         @media (max-width: 992px) {
@@ -281,15 +314,15 @@
 
                     <div class="d-flex justify-content-center align-items-center gap-4 mt-5 text-muted">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="../sk_b.png" alt="Shubham Kulkarni" class="rounded-circle shadow-sm" width="56" height="56">
+                            <img src="../Asset/sk_b.png" alt="Shubham Kulkarni" class="rounded-circle shadow-sm" width="56" height="56">
                             <div class="text-start">
-                                <span class="d-block fw-bold text-dark">Shubham Kulkarni</span>
+                                <span class="d-block fw-bold" style="color: var(--text-primary);">Shubham Kulkarni</span>
                                 <span class="small text-secondary">AI Engineer</span>
                             </div>
                         </div>
                         <div class="vr opacity-25"></div>
                         <div class="text-start">
-                            <span class="d-block fw-bold text-dark">Updated</span>
+                            <span class="d-block fw-bold" style="color: var(--text-primary);">Updated</span>
                             <time class="small text-secondary" datetime="2026-03-30">Mar 30, 2026</time>
                         </div>
                     </div>
@@ -466,23 +499,23 @@
 
                     <hr class="my-5">
 
-                    <div class="card bg-light border-0 p-4">
+                    <div class="card border-0 p-4" style="background: var(--bg-surface); border: 1px solid var(--border-light) !important; border-radius: 16px;">
                         <div class="d-flex align-items-center gap-3">
-                            <img src="../sk_b.png" class="rounded-circle" width="60" alt="Shubham Kulkarni">
+                            <img src="../Asset/sk_b.png" class="rounded-circle" width="60" alt="Shubham Kulkarni">
                             <div>
-                                <h5 class="fw-bold mb-1">About Shubham Kulkarni</h5>
+                                <h5 class="fw-bold mb-1" style="color: var(--text-primary);">About Shubham Kulkarni</h5>
                                 <p class="mb-0 small text-secondary">
                                     I build production AI systems across computer vision, retrieval, and full-stack deployment.
-                                    <a href="../index.html" class="fw-bold text-decoration-none" style="color: #7c3aed;">View my Portfolio.</a>
+                                    <a href="../index.html" class="fw-bold text-decoration-none" style="color: #a78bfa;">View my Portfolio.</a>
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="share-section my-5 p-4 bg-light rounded-4 text-center">
-                        <h5 class="fw-bold mb-3">Explore Project</h5>
+                    <div class="share-section my-5 p-4 rounded-4 text-center" style="background: var(--bg-surface); border: 1px solid var(--border-light);">
+                        <h5 class="fw-bold mb-3" style="color: var(--text-primary);">Explore Project</h5>
                         <div class="d-flex gap-3 justify-content-center flex-wrap">
-                            <a href="https://github.com/kulkarnishub377/Document-AI---RAG-Pipeline" target="_blank" rel="noopener noreferrer" class="btn btn-dark rounded-pill px-4">
+                            <a href="https://github.com/kulkarnishub377/Document-AI---RAG-Pipeline" target="_blank" rel="noopener noreferrer" class="btn btn-outline-light rounded-pill px-4">
                                 <i class="fab fa-github me-2"></i>Open Repository
                             </a>
                             <a href="https://github.com/kulkarnishub377/Document-AI---RAG-Pipeline/blob/main/README.md" target="_blank" rel="noopener noreferrer" class="btn btn-primary rounded-pill px-4">
@@ -503,12 +536,12 @@
         <div class="container text-center">
             <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
             <div class="d-flex justify-content-center gap-3 mb-4">
-                <a href="#" class="text-secondary"><i class="fab fa-twitter fa-lg"></i></a>
-                <a href="https://github.com/kulkarnishub377" class="text-secondary"><i class="fab fa-github fa-lg"></i></a>
-                <a href="https://www.linkedin.com/in/shubhkulk21" class="text-secondary"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="GitHub"><i class="fab fa-github fa-lg"></i></a>
+                <a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="mailto:kulkarnishub377@gmail.com" class="text-secondary hover-primary" aria-label="Email"><i class="fas fa-envelope fa-lg"></i></a>
             </div>
             <p class="text-secondary small mb-4">Engineering practical AI systems with strong production fundamentals.</p>
-            <a href="index.html" class="btn btn-outline-dark rounded-pill px-4 hover-lift">Back to Blog</a>
+            <a href="index.html" class="btn btn-outline-light rounded-pill px-4 hover-lift">Back to Blog</a>
         </div>
     </footer>
 

@@ -20,16 +20,16 @@
     <!-- Open Graph -->
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://kulkarnishub377.github.io/blog/sih-win-2023.html">
-    <meta property="og:title" content="36 Hours, No Sleep, One Win: The SIH 2023 Story">
+    <meta property="og:title" content="How I Won Smart India Hackathon 2023 (AIR 1) | Shubham Kulkarni">
     <meta property="og:description" content="How we built a winning Smart Irrigation system under extreme pressure.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:image" content="https://kulkarnishub377.github.io/Asset/sk_b.png">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://kulkarnishub377.github.io/blog/sih-win-2023.html">
-    <meta name="twitter:title" content="36 Hours, No Sleep, One Win: The SIH 2023 Story">
+    <meta name="twitter:title" content="How I Won Smart India Hackathon 2023 (AIR 1) | Shubham Kulkarni">
     <meta name="twitter:description" content="How we built a winning Smart Irrigation system under extreme pressure.">
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80">
+    <meta name="twitter:image" content="https://kulkarnishub377.github.io/Asset/sk_b.png">
     <meta name="robots" content="index, follow">
     
     <!-- Structured Data -->
@@ -38,12 +38,21 @@
       "@context": "https://schema.org",
       "@type": "BlogPosting",
       "headline": "How I Won Smart India Hackathon 2023",
-      "description": "A personal account of winning SIH 2023.",
-      "image": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80",
+      "description": "The inside story of how Team AgroTechies won 1st place in Smart India Hackathon 2023.",
+      "image": "https://kulkarnishub377.github.io/Asset/sk_b.png",
       "author": {
         "@type": "Person",
         "name": "Shubham Kulkarni",
         "url": "https://kulkarnishub377.github.io/"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Shubham Kulkarni",
+        "url": "https://kulkarnishub377.github.io/",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://kulkarnishub377.github.io/Asset/sk_b.png"
+        }
       },
       "datePublished": "2026-02-16",
       "dateModified": "2026-02-16"
@@ -59,18 +68,22 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-        /* Internal Magazine Styles (Matched to ai-ml-trends.html) */
-        .article-content-wrapper { font-family: 'Inter', sans-serif; color: #2c3e50; }
-        .article-content-wrapper p { font-size: 1.25rem; line-height: 1.85; margin-bottom: 2rem; color: #374151; }
+        /* Internal Magazine Styles */
+        .article-content-wrapper { font-family: 'Inter', sans-serif; color: var(--text-primary); }
+        .article-content-wrapper p { font-size: 1.25rem; line-height: 1.85; margin-bottom: 2rem; color: var(--text-secondary); }
         
         .article-content-wrapper h2 {
             font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 2.25rem;
-            margin-top: 4rem; margin-bottom: 1.5rem; color: #111827; position: relative; letter-spacing: -0.02em;
+            margin-top: 4rem; margin-bottom: 1.5rem; color: var(--text-primary); position: relative; letter-spacing: -0.02em;
         }
         .article-content-wrapper h2::after {
             content: ''; display: block; width: 80px; height: 6px;
             background: linear-gradient(90deg, #F59E0B, transparent);
             margin-top: 15px; border-radius: 4px;
+        }
+        .article-content-wrapper h3 {
+            font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.75rem;
+            margin-top: 3rem; margin-bottom: 1.25rem; color: #FBBF24;
         }
 
         /* Stat Grid */
@@ -79,29 +92,30 @@
             gap: 1.5rem; margin: 3.5rem 0;
         }
         .stat-card {
-            background: #ffffff; padding: 2rem; border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); text-align: center;
-            border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease;
+            background: var(--bg-surface); padding: 2rem; border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); text-align: center;
+            border: 1px solid var(--border-light); transition: all 0.3s ease;
         }
-        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.1); }
+        .stat-card:hover { transform: translateY(-5px); border-color: rgba(245, 158, 11, 0.4); }
         .stat-value {
             font-size: 2.5rem; font-weight: 800;
             background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
             -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
             display: block; margin-bottom: 0.5rem;
         }
-        .stat-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: #6B7280; font-weight: 700; }
+        .stat-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); font-weight: 700; }
 
-        .highlight-box { background: #FFFBEB; border-left: 6px solid #F59E0B; padding: 2.5rem; border-radius: 16px; margin: 3.5rem 0; position: relative; overflow: hidden; }
+        .highlight-box { background: var(--bg-surface-alt); border-left: 6px solid #F59E0B; padding: 2.5rem; border-radius: 16px; margin: 3.5rem 0; position: relative; overflow: hidden; border-top: 1px solid var(--border-light); border-right: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
         .highlight-box::before { content: '\f091'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; top: -20px; right: -20px; font-size: 8rem; color: rgba(245, 158, 11, 0.05); transform: rotate(30deg); }
+        
         /* TOC Wrapper */
         .toc-wrapper {
-            background: #ffffff;
+            background: var(--bg-surface);
             padding: 2rem;
             border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             margin-bottom: 3rem;
-            border: 1px solid #E5E7EB;
+            border: 1px solid var(--border-light);
         }
 
         .toc-list {
@@ -116,7 +130,7 @@
 
         .toc-list a {
             text-decoration: none;
-            color: #4B5563;
+            color: var(--text-secondary);
             font-weight: 500;
             font-size: 0.95rem;
             display: flex;
@@ -125,14 +139,16 @@
         }
 
         .toc-list a:hover {
-            color: #2563EB;
+            color: #F59E0B;
         }
 
         .toc-list a.active {
-            color: #2563EB;
+            color: #F59E0B;
             font-weight: 700;
         }
         
+        pre { background: var(--bg-code); color: #F8FAFC; padding: 1.5rem; border-radius: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; overflow-x: auto; margin-bottom: 2rem; border: 1px solid var(--border-light); }
+
         @media (max-width: 992px) {
             .hero-title { font-size: 2.5rem; }
             .toc-wrapper { display: none; }
@@ -141,7 +157,6 @@
     </style>
 </head>
 <body>
-
     <!-- Nav -->
     <nav class="navbar navbar-expand-lg fixed-top navbar-premium">
         <div class="container">
@@ -150,7 +165,7 @@
                 <span style="font-family: var(--font-mono); color: var(--text-primary);">Back to Blog</span>
             </a>
             <div class="ms-auto d-none d-md-block">
-                <span class="badge bg-light text-dark border fw-medium px-3 py-2">
+                <span class="badge border fw-medium px-3 py-2" style="background: var(--bg-surface); color: var(--text-primary); border-color: var(--border-light) !important;">
                     <i class="fas fa-clock me-2"></i> 8 min read
                 </span>
             </div>
@@ -170,15 +185,15 @@
                     
                     <div class="d-flex justify-content-center align-items-center gap-4 mt-5 text-muted">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="../sk_b.png" alt="Shubham Kulkarni" class="rounded-circle shadow-sm" width="56" height="56">
+                            <img src="../Asset/sk_b.png" alt="Shubham Kulkarni" class="rounded-circle shadow-sm" width="56" height="56">
                             <div class="text-start">
-                                <span class="d-block fw-bold text-dark">Shubham Kulkarni</span>
+                                <span class="d-block fw-bold" style="color: var(--text-primary);">Shubham Kulkarni</span>
                                 <span class="small text-secondary">Team Lead</span>
                             </div>
                         </div>
                         <div class="vr opacity-25"></div>
                         <div class="text-start">
-                            <span class="d-block fw-bold text-dark">Published</span>
+                            <span class="d-block fw-bold" style="color: var(--text-primary);">Published</span>
                             <time class="small text-secondary" datetime="2026-02-16">Feb 16, 2026</time>
                         </div>
                     </div>
@@ -398,13 +413,13 @@ Use cloud ONLY for async dashboard sync.
                     </div>
 
                     <!-- Share Section -->
-                    <div class="share-section my-5 p-4 bg-light rounded-4 text-center">
-                        <h5 class="fw-bold mb-3">Share this Story</h5>
+                    <div class="share-section my-5 p-4 rounded-4 text-center" style="background: var(--bg-surface); border: 1px solid var(--border-light);">
+                        <h5 class="fw-bold mb-3" style="color: var(--text-primary);">Share this Story</h5>
                         <div class="d-flex gap-3 justify-content-center">
                             <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://kulkarnishub377.github.io/blog/sih-win-2023.html" target="_blank" class="btn btn-primary rounded-pill px-4">
                                 <i class="fab fa-linkedin me-2"></i> LinkedIn
                             </a>
-                            <a href="https://twitter.com/intent/tweet?text=How I Won SIH 2023&url=https://kulkarnishub377.github.io/blog/sih-win-2023.html" target="_blank" class="btn btn-dark rounded-pill px-4">
+                            <a href="https://twitter.com/intent/tweet?text=How I Won SIH 2023&url=https://kulkarnishub377.github.io/blog/sih-win-2023.html" target="_blank" class="btn btn-outline-light rounded-pill px-4">
                                 <i class="fab fa-twitter me-2"></i> X (Twitter)
                             </a>
                         </div>
@@ -423,12 +438,12 @@ Use cloud ONLY for async dashboard sync.
         <div class="container text-center">
             <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
             <div class="d-flex justify-content-center gap-3 mb-4">
-                <a href="#" class="text-secondary"><i class="fab fa-twitter fa-lg"></i></a>
-                <a href="#" class="text-secondary"><i class="fab fa-github fa-lg"></i></a>
-                <a href="#" class="text-secondary"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="GitHub"><i class="fab fa-github fa-lg"></i></a>
+                <a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="mailto:kulkarnishub377@gmail.com" class="text-secondary hover-primary" aria-label="Email"><i class="fas fa-envelope fa-lg"></i></a>
             </div>
             <p class="text-secondary small mb-4">Engineering the future, one hackathon at a time.</p>
-            <a href="index.html" class="btn btn-outline-dark rounded-pill px-4 hover-lift">Back to Blog</a>
+            <a href="index.html" class="btn btn-outline-light rounded-pill px-4 hover-lift">Back to Blog</a>
         </div>
     </footer>
 
