@@ -128,12 +128,17 @@
   document.addEventListener('mouseleave', () => { mouseX = -9999; mouseY = -9999; });
 
   // ══════ LOADER ══════
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      document.getElementById('loader').classList.add('done');
+  function hideLoader() {
+    const loader = document.getElementById('loader');
+    if (loader && !loader.classList.contains('done')) {
+      loader.classList.add('done');
       initHeroAnim();
-    }, 2200);
+    }
+  }
+  window.addEventListener('load', () => {
+    setTimeout(hideLoader, 450);
   });
+  setTimeout(hideLoader, 2000);
 
   // ══════ GSAP ══════
   gsap.registerPlugin(ScrollTrigger);
@@ -333,22 +338,26 @@
   }
 
   // ══════ ERROR ROUTING (404 / 500) ══════
-  // Handles invalid anchor links dynamically
   function checkHashRoute() {
-    const hash = window.location.hash;
-    if (hash && hash !== '#' && !document.querySelector(hash)) {
-      // The section doesn't exist on this page -> Render 404
-      window.location.href = '/404.html';
+    try {
+      const hash = window.location.hash;
+      if (hash && hash.length > 1 && hash.startsWith('#')) {
+        const id = hash.substring(1);
+        const target = document.getElementById(id);
+        if (!target) {
+          console.warn('Section not found on page:', hash);
+        }
+      }
+    } catch (e) {
+      console.warn('Invalid hash identifier:', e);
     }
   }
   window.addEventListener('hashchange', checkHashRoute);
   window.addEventListener('load', checkHashRoute);
 
-  // Catch critical frontend failures and redirect to 500
+  // Catch critical frontend failures
   window.addEventListener('unhandledrejection', (event) => {
-    console.error('Critical System Error:', event.reason);
-    // Uncomment for production:
-    // window.location.href = '/500.html';
+    console.error('Handled System Warning:', event.reason);
   });
 
 })();

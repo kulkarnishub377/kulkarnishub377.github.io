@@ -10,12 +10,13 @@ Disallow: /.gitignore
 Disallow: /.nojekyll
 
 # Allow important assets explicitly
+Allow: /Asset/
+Allow: /Asset/sk_b.png
+Allow: /Asset/Shubham_Kulkarni_Ao.pdf
 Allow: /blog/
 Allow: /css/
 Allow: /js/
 Allow: /favicon/
-Allow: /sk_b.png
-Allow: /Shubham_Kulkarni_Ao.pdf
 Allow: /site.webmanifest
 Allow: /sitemap.xml
 Allow: /sitemap.xsl
