@@ -150,71 +150,11 @@
             transform: rotate(30deg);
         }
 
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            margin: 3.5rem 0;
-        }
-
-        .stat-card {
-            background: var(--bg-surface);
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            text-align: center;
-            border: 1px solid var(--border-light);
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(0, 242, 254, 0.4);
-        }
-
         .stat-value {
-            font-size: 3rem;
-            font-weight: 800;
             background: linear-gradient(135deg, #00F2FE 0%, #38BDF8 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-muted);
-            font-weight: 700;
-        }
-
-        .toc-wrapper {
-            background: var(--bg-surface);
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            margin-bottom: 3rem;
-            border: 1px solid var(--border-light);
-        }
-
-        .toc-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .toc-list li {
-            margin-bottom: 1rem;
-        }
-
-        .toc-list a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 500;
-            transition: color 0.2s ease;
         }
 
         .toc-list a:hover {
@@ -332,15 +272,15 @@
                     </div>
 
                     <!-- Share Buttons -->
-                    <div class="share-buttons-container justify-content-center mt-4">
-                        <span class="text-muted small fw-bold me-2">SHARE:</span>
+                    <div class="share-buttons-container mt-4">
+                        <span class="share-label me-1">SHARE:</span>
                         <a href="#" class="share-btn linkedin" data-platform="linkedin"
                             aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#" class="share-btn twitter" data-platform="twitter"
                             aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
                         <a href="#" class="share-btn whatsapp" data-platform="whatsapp"
                             aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                        <button class="share-btn copy-link-btn" aria-label="Copy Link"><i
+                        <button type="button" class="share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i
                                 class="fas fa-link"></i></button>
                     </div>
                 </div>
@@ -351,24 +291,22 @@
     <!-- Main Body -->
     <section class="py-5">
         <div class="container">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center align-items-start">
 
                 <!-- Sidebar TOC -->
-                <div class="col-lg-3 d-none d-lg-block">
-                    <div class="sticky-top" style="top: 120px;">
-                        <div class="toc-wrapper">
-                            <h6 class="text-uppercase text-muted fw-bold mb-4 small" style="letter-spacing: 1px;">
-                                Contents</h6>
-                            <ul class="toc-list">
-                                <li><a href="#core-problem">1. The Core Problem</a></li>
-                                <li><a href="#deterministic-pipeline">2. 10-Agent Deterministic AI</a></li>
-                                <li><a href="#granular-rendering">3. Zero-Lag O(1) DOM Engine</a></li>
-                                <li><a href="#ghost-arcade">4. Ghost Racing &amp; Space Combat</a></li>
-                                <li><a href="#webaudio-dsp">5. Pure Web Audio DSP (0 KB)</a></li>
-                                <li><a href="#benchmarks">6. Technical Benchmarks</a></li>
-                                <li><a href="#takeaways">7. Architecture Takeaways</a></li>
-                            </ul>
-                        </div>
+                <div class="col-lg-3 d-none d-lg-block sticky-top-sidebar">
+                    <div class="toc-wrapper">
+                        <h6 class="text-uppercase text-muted fw-bold mb-4 small" style="letter-spacing: 1px;">
+                            Contents</h6>
+                        <ul class="toc-list">
+                            <li><a href="#core-problem">1. The Core Problem</a></li>
+                            <li><a href="#deterministic-pipeline">2. 10-Agent Deterministic AI</a></li>
+                            <li><a href="#granular-rendering">3. Zero-Lag O(1) DOM Engine</a></li>
+                            <li><a href="#ghost-arcade">4. Ghost Racing &amp; Space Combat</a></li>
+                            <li><a href="#webaudio-dsp">5. Pure Web Audio DSP (0 KB)</a></li>
+                            <li><a href="#benchmarks">6. Technical Benchmarks</a></li>
+                            <li><a href="#takeaways">7. Architecture Takeaways</a></li>
+                        </ul>
                     </div>
                 </div>
 
@@ -600,7 +538,22 @@ function playMechanicalClick() {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral' });</script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            themeVariables: {
+                darkMode: true,
+                background: '#0c0d14',
+                primaryColor: '#1e293b',
+                primaryTextColor: '#f8fafc',
+                primaryBorderColor: '#6366f1',
+                lineColor: '#38bdf8',
+                secondaryColor: '#13141f',
+                tertiaryColor: '#1a1b2a'
+            }
+        });
+    </script>
     <script src="js/script.js"></script>
 </body>
 

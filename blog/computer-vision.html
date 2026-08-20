@@ -39,7 +39,11 @@
       "publisher": {
         "@type": "Person",
         "name": "Shubham Kulkarni",
-        "url": "https://kulkarnishub377.github.io/"
+        "url": "https://kulkarnishub377.github.io/",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://kulkarnishub377.github.io/Asset/sk_b.png"
+        }
       }
     }
     </script>
@@ -48,7 +52,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
     <!-- Dependencies -->
@@ -65,46 +69,49 @@
 
 <body>
 
+    <div class="reading-progress-bar"></div>
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg fixed-top navbar-premium">
         <div class="container">
-            <a class="navbar-brand fw-bold d-flex align-items-center" href="../index.html"
-                style="font-family: 'Outfit', sans-serif; font-size: 1.5rem; color: var(--text-primary);">
-                Shubham<span style="color: var(--accent-primary);">.</span>
+            <a class="navbar-brand d-flex align-items-center" href="../index.html">
+                Shubham<em>.</em>
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto gap-3" style="font-size: 0.95rem;">
+                <ul class="navbar-nav ms-auto gap-2 align-items-center">
                     <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="../index.html#experience">Experience</a></li>
                     <li class="nav-item"><a class="nav-link" href="../index.html#skills">Skills</a></li>
                     <li class="nav-item"><a class="nav-link" href="../index.html#projects">Projects</a></li>
                     <li class="nav-item"><a class="nav-link" href="../index.html#achievements">Awards</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../index.html#certs">Certs</a></li>
                     <li class="nav-item"><a class="nav-link active" href="index.html">Blog</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../index.html#contact"
-                            style="color: var(--accent-primary); font-weight: 600;">Let's Talk</a></li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-sm btn-primary rounded-pill px-3" href="../index.html#contact">Let's Talk</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-section text-center">
+    <header class="hero-section">
         <div class="container">
-            <div class="animate-fade-up">
-                <span class="hero-tag">
-                    <i class="fas fa-eye me-2"></i>Topic Hub: Computer Vision
-                </span>
-                <h1 class="hero-title">Computer Vision &amp;<br>Edge Intelligence</h1>
-                <p class="hero-description mt-3">
-                    Deep dives into YOLO object detection, multi-camera vehicle re-identification, traffic telemetry AI, and low-latency edge inference pipelines.
-                </p>
+            <span class="hero-tag">
+                <i class="fas fa-eye"></i> Dedicated Topic Hub
+            </span>
+            <h1 class="hero-title">Computer Vision &amp;<br>Edge Intelligence</h1>
+            <p class="hero-description">
+                Deep dives into real-time YOLO object detection, multi-camera vehicle re-identification, Kalman tracking, and edge acceleration pipelines processing 50,000+ daily events.
+            </p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="index.html" class="btn btn-sm btn-outline-light rounded-pill px-3">← All Blog Articles</a>
+                <a href="generative-ai-hub.html" class="btn btn-sm btn-outline-primary rounded-pill px-3">Generative AI Hub →</a>
             </div>
         </div>
-    </section>
+    </header>
 
     <!-- Content Grid -->
     <main class="container py-5">
@@ -112,37 +119,97 @@
 
             <!-- Card 1: OmniSight -->
             <article class="article-card">
-                <div class="card-content p-4">
-                    <span class="category-tag mb-2 d-inline-block">Multi-Modal Vision</span>
-                    <h3><a href="omnisight.html" class="stretched-link text-white text-decoration-none">OmniSight: Multi-Modal AI Incident Intelligence</a></h3>
-                    <p class="text-secondary mt-2">Architecting an event-driven AI platform for real-time anomaly validation and agentic investigations.</p>
+                <div class="card-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="OmniSight">
+                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 8 min</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-meta">
+                        <span class="category-tag">Agentic AI</span>
+                        <span class="meta-dot"></span>
+                        <time datetime="2026-06-01">Jun 01, 2026</time>
+                    </div>
+                    <h2 class="card-heading"><a href="omnisight.html">OmniSight: Multi-Modal AI Incident Intelligence</a></h2>
+                    <p class="card-excerpt">Architecting an event-driven AI platform for real-time anomaly validation and agentic incident investigations.</p>
+                    <div class="card-footer">
+                        <div class="author-block">
+                            <img src="../Asset/sk_b.png" alt="Shubham Kulkarni" class="author-img">
+                            <span class="author-name">Shubham K.</span>
+                        </div>
+                        <a href="omnisight.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
             </article>
 
             <!-- Card 2: Vehicle Re-ID -->
             <article class="article-card">
-                <div class="card-content p-4">
-                    <span class="category-tag mb-2 d-inline-block">Computer Vision</span>
-                    <h3><a href="vehicle-re-identification.html" class="stretched-link text-white text-decoration-none">Vehicle Re-Identification Without Database</a></h3>
-                    <p class="text-secondary mt-2">Image-based vehicle matching using YOLOv5 and OSNet-AIN feature embedding with zero database overhead.</p>
+                <div class="card-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="Vehicle Re-ID">
+                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 7 min</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-meta">
+                        <span class="category-tag amber">Computer Vision</span>
+                        <span class="meta-dot"></span>
+                        <time datetime="2026-04-10">Apr 10, 2026</time>
+                    </div>
+                    <h2 class="card-heading"><a href="vehicle-re-identification.html">Vehicle Re-Identification Without Database</a></h2>
+                    <p class="card-excerpt">Image-based vehicle matching using YOLOv5 and OSNet-AIN feature embedding with zero database overhead.</p>
+                    <div class="card-footer">
+                        <div class="author-block">
+                            <img src="../Asset/sk_b.png" alt="Shubham Kulkarni" class="author-img">
+                            <span class="author-name">Shubham K.</span>
+                        </div>
+                        <a href="vehicle-re-identification.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
             </article>
 
             <!-- Card 3: VIDES Traffic System -->
             <article class="article-card">
-                <div class="card-content p-4">
-                    <span class="category-tag mb-2 d-inline-block">Edge AI</span>
-                    <h3><a href="vehicle-detection-system.html" class="stretched-link text-white text-decoration-none">AI Highway Traffic Incident System (VIDES)</a></h3>
-                    <p class="text-secondary mt-2">Live highway infrastructure processing 50,000+ daily events for real-time incident detection.</p>
+                <div class="card-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="VIDES HTMS">
+                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 9 min</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-meta">
+                        <span class="category-tag amber">Edge AI</span>
+                        <span class="meta-dot"></span>
+                        <time datetime="2026-02-10">Feb 10, 2026</time>
+                    </div>
+                    <h2 class="card-heading"><a href="vehicle-detection-system.html">AI Highway Traffic Incident System (VIDES)</a></h2>
+                    <p class="card-excerpt">Live highway infrastructure processing 50,000+ daily events for real-time incident detection and quality filtering.</p>
+                    <div class="card-footer">
+                        <div class="author-block">
+                            <img src="../Asset/sk_b.png" alt="Shubham Kulkarni" class="author-img">
+                            <span class="author-name">Shubham K.</span>
+                        </div>
+                        <a href="vehicle-detection-system.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
             </article>
 
-            <!-- Card 4: Object Detection 30FPS -->
+            <!-- Card 4: Object Detection -->
             <article class="article-card">
-                <div class="card-content p-4">
-                    <span class="category-tag mb-2 d-inline-block">Model Optimization</span>
-                    <h3><a href="object-detection.html" class="stretched-link text-white text-decoration-none">Real-Time Edge Object Detection at 30FPS</a></h3>
-                    <p class="text-secondary mt-2">Optimizing MobileNet SSD and OpenCV for high-frame-rate real-time inference on edge CPUs.</p>
+                <div class="card-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="Object Detection">
+                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 5 min</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-meta">
+                        <span class="category-tag amber">Computer Vision</span>
+                        <span class="meta-dot"></span>
+                        <time datetime="2026-02-09">Feb 09, 2026</time>
+                    </div>
+                    <h2 class="card-heading"><a href="object-detection.html">Real-Time Object Detection with Python &amp; OpenCV</a></h2>
+                    <p class="card-excerpt">Multi-object detection and tracking from live video streams with frame rate optimization and bounding box rendering.</p>
+                    <div class="card-footer">
+                        <div class="author-block">
+                            <img src="../Asset/sk_b.png" alt="Shubham Kulkarni" class="author-img">
+                            <span class="author-name">Shubham K.</span>
+                        </div>
+                        <a href="object-detection.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
             </article>
 
@@ -150,22 +217,25 @@
     </main>
 
     <!-- Footer -->
-    <footer style="background: var(--bg-surface); border-top: 1px solid var(--border-light);" class="py-5 mt-5">
+    <footer class="blog-footer">
         <div class="container text-center">
-            <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
-            <div class="d-flex justify-content-center gap-4 mb-4">
-                <a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer"
-                    class="text-secondary hover-primary" aria-label="GitHub"><i class="fab fa-github fs-4"></i></a>
-                <a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer"
-                    class="text-secondary hover-primary" aria-label="LinkedIn"><i class="fab fa-linkedin fs-4"></i></a>
-                <a href="mailto:kulkarnishub377@gmail.com" class="text-secondary hover-primary" aria-label="Email"><i
-                        class="fa-solid fa-envelope fs-4"></i></a>
+            <h4 class="fw-bold mb-2">Shubham Kulkarni</h4>
+            <p class="text-muted small mb-3">AI / ML Engineer &amp; Systems Architect</p>
+            <div class="footer-social-links">
+                <a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:kulkarnishub377@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
-            <p class="text-secondary small mb-0">&copy; 2026 Shubham Kulkarni. All rights reserved.</p>
+            <div class="d-flex justify-content-center gap-3 mt-4">
+                <a href="index.html" class="btn btn-sm btn-outline-light rounded-pill px-3">← All Blog Articles</a>
+                <a href="../index.html" class="btn btn-sm btn-primary rounded-pill px-3">Portfolio Home</a>
+            </div>
+            <p class="text-muted small mt-4 mb-0">&copy; 2026 Shubham Kulkarni. All rights reserved.</p>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>
+
 </html>
