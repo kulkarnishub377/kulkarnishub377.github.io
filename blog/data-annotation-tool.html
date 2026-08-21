@@ -19,14 +19,14 @@
     <meta property="og:title" content="Building an Open-Source Data Annotation Platform for Computer Vision | Shubham Kulkarni">
     <meta property="og:description"
         content="Deep dive into local-first CV dataset engineering: 100K images in 30 mins on NVIDIA Orin NX, YOLO-assisted auto-labeling, dataset health QA, and in-browser YOLO model training.">
-    <meta property="og:image" content="https://kulkarnishub377.github.io/Asset/sk_b.png">
+    <meta property="og:image" content="https://kulkarnishub377.github.io/blog/images/cv_annotation_tool_1787318820950.jpg">
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Building an Open-Source Data Annotation Platform for Computer Vision | Shubham Kulkarni">
     <meta name="twitter:description"
         content="Deep dive into local-first CV dataset engineering: 100K images in 30 mins on NVIDIA Orin NX, model-assisted annotation, and in-browser training.">
-    <meta name="twitter:image" content="https://kulkarnishub377.github.io/Asset/sk_b.png">
+    <meta name="twitter:image" content="https://kulkarnishub377.github.io/blog/images/cv_annotation_tool_1787318820950.jpg">
 
     <!-- Schema.org: TechArticle Entity -->
     <script type="application/ld+json">
@@ -334,6 +334,81 @@
                 <div class="stat-value display-6 fw-bold mb-1">End-to-End</div>
                 <div class="text-secondary small fw-bold text-uppercase" style="letter-spacing: 0.05em;">Lifecycle</div>
                 <div class="small text-muted mt-1">Label &rarr; QA &rarr; Split &rarr; Train</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Visual CV Studio Preview -->
+    <div class="container mb-5">
+        <div class="p-2 p-md-3 rounded-4 position-relative overflow-hidden"
+            style="background: #080B10; border: 1px solid rgba(16,185,129,0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.6);">
+            <!-- Mockup Window Header -->
+            <div class="d-flex align-items-center justify-content-between px-3 py-2 border-bottom"
+                style="background: #0D111A; border-color: rgba(255,255,255,0.08) !important; border-radius: 12px 12px 0 0;">
+                <div class="d-flex align-items-center gap-2">
+                    <span style="width: 10px; height: 10px; border-radius: 50%; background: #EF4444; display: inline-block;"></span>
+                    <span style="width: 10px; height: 10px; border-radius: 50%; background: #F59E0B; display: inline-block;"></span>
+                    <span style="width: 10px; height: 10px; border-radius: 50%; background: #10B981; display: inline-block;"></span>
+                    <span class="ms-2 small text-secondary fw-semibold" style="font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;">
+                        <i class="fas fa-microchip text-success me-1"></i> Data Annotation Platform &mdash; YOLOv8 Instance Segmentation &amp; Detection Canvas
+                    </span>
+                </div>
+                <div class="d-none d-md-flex align-items-center gap-3" style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;">
+                    <span class="badge bg-success-subtle text-success border border-success-subtle"><i class="fas fa-bolt me-1"></i> Orin NX: 55.5 FPS</span>
+                    <span class="text-secondary">Image 0248/100000</span>
+                </div>
+            </div>
+            <!-- Canvas Simulation with Real Bounding Boxes -->
+            <div class="position-relative overflow-hidden" style="min-height: 420px; border-radius: 0 0 12px 12px; background: #0A0D14;">
+                <img src="https://images.unsplash.com/photo-1508962914676-134849a727f0?auto=format&fit=crop&w=1400&q=85" 
+                    alt="Computer Vision Data Annotation Studio Interface" 
+                    style="width: 100%; height: 460px; object-fit: cover; filter: brightness(0.85) contrast(1.15);">
+                
+                <!-- Full HUD Overlay -->
+                <div style="position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at center, transparent 35%, rgba(5,5,7,0.7) 100%);">
+                    <!-- Crosshair Grid Lines -->
+                    <div style="position: absolute; top: 0; bottom: 0; left: 48%; width: 1px; background: rgba(56,189,248,0.25); border-left: 1px dashed rgba(56,189,248,0.4);"></div>
+                    <div style="position: absolute; left: 0; right: 0; top: 48%; height: 1px; background: rgba(56,189,248,0.25); border-top: 1px dashed rgba(56,189,248,0.4);"></div>
+
+                    <!-- Bounding Box 1: SUV (Cyan) -->
+                    <div style="position: absolute; top: 38%; left: 34%; width: 26%; height: 40%; border: 2px solid #10B981; border-radius: 4px; box-shadow: 0 0 18px rgba(16,185,129,0.7); background: rgba(16,185,129,0.16);">
+                        <span style="position: absolute; top: -24px; left: -2px; background: #10B981; color: #050507; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 800; padding: 2px 8px; border-radius: 4px 4px 0 0; text-transform: uppercase;">car: 0.98 [YOLO]</span>
+                        <!-- Corner Crosshairs -->
+                        <div style="position: absolute; top: -4px; left: -4px; width: 8px; height: 8px; background: #10B981; border-radius: 50%;"></div>
+                        <div style="position: absolute; top: -4px; right: -4px; width: 8px; height: 8px; background: #10B981; border-radius: 50%;"></div>
+                        <div style="position: absolute; bottom: -4px; left: -4px; width: 8px; height: 8px; background: #10B981; border-radius: 50%;"></div>
+                        <div style="position: absolute; bottom: -4px; right: -4px; width: 8px; height: 8px; background: #10B981; border-radius: 50%;"></div>
+                    </div>
+
+                    <!-- Bounding Box 2: Commercial Truck (Sky Blue) -->
+                    <div style="position: absolute; top: 20%; left: 8%; width: 22%; height: 50%; border: 2px solid #38BDF8; border-radius: 4px; box-shadow: 0 0 18px rgba(56,189,248,0.6); background: rgba(56,189,248,0.14);">
+                        <span style="position: absolute; top: -24px; left: -2px; background: #38BDF8; color: #050507; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 800; padding: 2px 8px; border-radius: 4px 4px 0 0; text-transform: uppercase;">truck: 0.95 [YOLO]</span>
+                    </div>
+
+                    <!-- Bounding Box 3: Pedestrian (Purple) -->
+                    <div style="position: absolute; top: 32%; right: 12%; width: 14%; height: 44%; border: 2px solid #C084FC; border-radius: 4px; box-shadow: 0 0 18px rgba(192,132,252,0.6); background: rgba(192,132,252,0.15);">
+                        <span style="position: absolute; top: -24px; left: -2px; background: #C084FC; color: #050507; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 800; padding: 2px 8px; border-radius: 4px 4px 0 0; text-transform: uppercase;">pedestrian: 0.97</span>
+                    </div>
+
+                    <!-- Top Annotation Toolbar HUD -->
+                    <div class="d-none d-md-flex align-items-center gap-2" style="position: absolute; top: 12px; left: 16px; background: rgba(10,13,20,0.85); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(10px); padding: 6px 12px; border-radius: 8px;">
+                        <span class="badge bg-success" style="font-size: 0.7rem;"><i class="fas fa-draw-polygon me-1"></i> BBox Mode (D)</span>
+                        <span class="badge bg-dark border border-secondary text-secondary" style="font-size: 0.7rem;"><i class="fas fa-vector-square me-1"></i> Polygon</span>
+                        <span class="badge bg-dark border border-secondary text-secondary" style="font-size: 0.7rem;"><i class="fas fa-magic me-1"></i> Auto-Label (ON)</span>
+                    </div>
+
+                    <!-- Bottom Status HUD -->
+                    <div class="d-flex align-items-center justify-content-between" style="position: absolute; bottom: 12px; left: 16px; right: 16px; background: rgba(10,13,20,0.9); border: 1px solid rgba(16,185,129,0.3); backdrop-filter: blur(10px); padding: 8px 16px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;">
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="text-success fw-bold"><i class="fas fa-check-circle me-1"></i> 5 Anomaly Checks Passed</span>
+                            <span class="text-secondary d-none d-md-inline">&bull; Zoom: 140% [Cursor-Anchored]</span>
+                            <span class="text-secondary d-none d-md-inline">&bull; Precision: 16-Decimals</span>
+                        </div>
+                        <div class="text-info fw-bold">
+                            <i class="fas fa-bolt me-1"></i> 100K in 30m Auto-Annotation
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
