@@ -2068,3 +2068,215 @@ button {
     padding: 24px
   }
 }
+
+/* ── PROJECT FILTERS ── */
+.proj-filter-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 34px;
+}
+
+.proj-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  background: var(--card);
+  border: 1px solid var(--b2);
+  border-radius: 100px;
+  font-family: var(--body);
+  font-size: .8rem;
+  font-weight: 500;
+  color: var(--t2);
+  cursor: pointer;
+  transition: all .3s var(--ease);
+  position: relative;
+  outline: none;
+}
+
+.proj-filter-btn i {
+  font-size: .75rem;
+  color: var(--accent);
+  transition: color .3s;
+}
+
+.filter-count {
+  display: inline-block;
+  padding: 2px 7px;
+  background: rgba(255, 255, 255, .05);
+  border-radius: 100px;
+  font-family: var(--mono);
+  font-size: .62rem;
+  color: var(--t3);
+  transition: all .3s;
+}
+
+.proj-filter-btn:hover {
+  border-color: var(--a-bdr);
+  color: var(--t1);
+  background: var(--card2);
+  transform: translateY(-2px);
+}
+
+.proj-filter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  box-shadow: 0 4px 18px var(--a-glow);
+}
+
+.proj-filter-btn.active i {
+  color: #fff;
+}
+
+.proj-filter-btn.active .filter-count {
+  background: rgba(0, 0, 0, .25);
+  color: #fff;
+}
+
+/* Project Card Filter Animation */
+.proj.is-hidden {
+  display: none !important;
+}
+
+/* ── COPY EMAIL BUTTONS & TOAST ── */
+.btn-copy-email {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-icon-copy {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .25s;
+  padding: 0;
+}
+
+.btn-icon-copy:hover {
+  color: var(--accent) !important;
+  transform: translateY(-2px);
+}
+
+.cl-copy-trigger {
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+}
+
+.cl-copy-trigger .cl-text {
+  flex: 1;
+}
+
+.copy-email-btn {
+  background: none;
+  border: none;
+  color: var(--t3);
+  font-size: .9rem;
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all .25s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cl-copy-trigger:hover .copy-email-btn {
+  color: var(--accent);
+  background: var(--a-soft);
+  transform: scale(1.1);
+}
+
+/* ── FLOATING TOAST NOTIFICATION ── */
+.toast-notification {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 22px;
+  background: rgba(20, 20, 30, 0.92);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border: 1px solid var(--a-bdr);
+  border-radius: var(--rs);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .5), 0 0 24px var(--a-glow);
+  color: var(--t1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(24px) scale(0.95);
+  transition: all .35s cubic-bezier(.34, 1.56, .64, 1);
+  pointer-events: none;
+}
+
+.toast-notification.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.toast-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(52, 211, 153, .12);
+  border: 1px solid rgba(52, 211, 153, .3);
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.toast-message {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.toast-title {
+  font-family: var(--head);
+  font-size: .84rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.toast-detail {
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--accent2);
+}
+
+@media(max-width:480px) {
+  .proj-filter-wrapper {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .proj-filter-btn {
+    flex-shrink: 0;
+  }
+  .toast-notification {
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    justify-content: center;
+  }
+}

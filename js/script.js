@@ -314,6 +314,113 @@
     }
   }
 
+  // ══════ 1-CLICK COPY EMAIL & CYBER TOAST ══════
+  const toast = document.getElementById('toast');
+  const toastDetail = document.getElementById('toastDetail');
+  let toastTimer = null;
+
+  function showToast(text) {
+    if (!toast) return;
+    if (toastDetail && text) {
+      toastDetail.textContent = text;
+    }
+    toast.classList.add('show');
+    toast.setAttribute('aria-hidden', 'false');
+    
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('show');
+      toast.setAttribute('aria-hidden', 'true');
+    }, 3200);
+  }
+
+  function copyToClipboard(email, triggerEl) {
+    if (!email) email = 'kulkarnishub377@gmail.com';
+    
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(email).then(() => {
+        showToast(email);
+        if (triggerEl) {
+          burstParticles(triggerEl);
+          const icon = triggerEl.querySelector('i');
+          if (icon) {
+            const prevClass = icon.className;
+            icon.className = 'fas fa-check text-green';
+            setTimeout(() => { icon.className = prevClass; }, 2000);
+          }
+        }
+      }).catch(() => {
+        fallbackCopy(email);
+      });
+    } else {
+      fallbackCopy(email);
+    }
+  }
+
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      showToast(text);
+    } catch (e) {
+      console.warn('Copy failed:', e);
+    }
+    document.body.removeChild(ta);
+  }
+
+  // Hook all copy triggers
+  document.querySelectorAll('.btn-copy-email, .btn-icon-copy, .cl-copy-trigger, .copy-email-btn').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const email = el.dataset.email || el.closest('[data-email]')?.dataset.email || 'kulkarnishub377@gmail.com';
+      copyToClipboard(email, el);
+    });
+  });
+
+  // ══════ PROJECT CATEGORY FILTERS ══════
+  const filterBtns = document.querySelectorAll('.proj-filter-btn');
+  const projCards = document.querySelectorAll('.proj-grid .proj');
+
+  if (filterBtns.length && projCards.length) {
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter;
+        
+        filterBtns.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+
+        projCards.forEach(card => {
+          const cat = card.dataset.category || '';
+          const match = filter === 'all' || cat.split(' ').includes(filter);
+          
+          if (match) {
+            card.classList.remove('is-hidden');
+            gsap.fromTo(card, 
+              { opacity: 0, scale: 0.96, y: 15 },
+              { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: 'power2.out' }
+            );
+          } else {
+            card.classList.add('is-hidden');
+          }
+        });
+
+        if (typeof ScrollTrigger !== 'undefined') {
+          ScrollTrigger.refresh();
+        }
+      });
+    });
+  }
+
   // ══════ MAGNETIC BUTTONS (desktop) ══════
   if (window.innerWidth > 768) {
     document.querySelectorAll('.btn').forEach(btn => {
@@ -361,3 +468,4 @@
   });
 
 })();
+

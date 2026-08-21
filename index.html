@@ -293,8 +293,7 @@
                 aria-hidden="true"></i> Download Resume</a>
             <a href="#projects" class="btn btn-outline"><i class="fas fa-arrow-down" aria-hidden="true"></i> View
               Projects</a>
-            <a href="#contact" class="btn btn-outline"><i class="far fa-comment-dots" aria-hidden="true"></i> Get in
-              Touch</a>
+            <button type="button" class="btn btn-outline btn-copy-email" data-email="kulkarnishub377@gmail.com" aria-label="Copy email address to clipboard"><i class="far fa-copy" aria-hidden="true"></i> Copy Email</button>
           </div>
           <div class="hero-metrics rv">
             <div class="hm">
@@ -332,7 +331,7 @@
                     aria-label="GitHub"><i class="fab fa-github"></i></a>
                   <a href="https://www.linkedin.com/in/shubhkulk21/" target="_blank" rel="noopener noreferrer"
                     aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                  <a href="mailto:kulkarnishub377@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                  <button type="button" class="btn-icon-copy" data-email="kulkarnishub377@gmail.com" aria-label="Copy Email" title="Copy Email"><i class="fas fa-envelope"></i></button>
                   <a href="https://wa.me/+918308003684" target="_blank" rel="noopener noreferrer"
                     aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                 </div>
@@ -503,41 +502,42 @@
           <div class="sk-ico"><i class="fas fa-brain" aria-hidden="true"></i></div>
           <h4>AI · ML · Computer Vision</h4>
           <div class="sk-pills">
-            <span>Python</span><span>PyTorch</span><span>TensorFlow</span><span>OpenCV</span><span>YOLOv8</span><span>Hugging
-              Face</span><span>Scikit-Learn</span><span>NumPy</span><span>Pandas</span><span>MATLAB</span>
+            <span>Python</span><span>PyTorch</span><span>YOLOv8</span><span>OpenCV</span><span>Hugging Face</span><span>ByteTrack</span><span>TensorFlow</span><span>Scikit-Learn</span><span>NumPy</span><span>MATLAB</span>
           </div>
         </div>
         <div class="sk-card rv">
           <div class="sk-ico"><i class="fas fa-wand-magic-sparkles" aria-hidden="true"></i></div>
           <h4>Generative AI · LLMs · RAG</h4>
-          <div class="sk-pills"><span>LangChain</span><span>RAG Pipelines</span><span>Prompt Eng.</span><span>Agentic
-              AI</span><span>FAISS</span><span>ChromaDB</span><span>OpenAI API</span><span>Document AI</span></div>
+          <div class="sk-pills">
+            <span>LangGraph</span><span>DSPy</span><span>Compound AI</span><span>Hybrid RAG (RRF)</span><span>Agentic AI</span><span>vLLM</span><span>Ollama</span><span>FAISS</span><span>ChromaDB</span><span>Ragas Evals</span>
+          </div>
         </div>
         <div class="sk-card rv">
           <div class="sk-ico"><i class="fas fa-server" aria-hidden="true"></i></div>
           <h4>MLOps · DevOps · Cloud</h4>
           <div class="sk-pills">
-            <span>Docker</span><span>Kubernetes</span><span>FastAPI</span><span>Streamlit</span><span>Git</span><span>Linux</span><span>AWS</span><span>CI/CD</span>
+            <span>Docker</span><span>Kubernetes</span><span>FastAPI</span><span>Triton Server</span><span>CI/CD</span><span>Linux</span><span>AWS</span><span>Prometheus</span><span>Streamlit</span><span>Git</span>
           </div>
         </div>
         <div class="sk-card rv">
           <div class="sk-ico"><i class="fas fa-microchip" aria-hidden="true"></i></div>
           <h4>Edge AI · Hardware</h4>
-          <div class="sk-pills"><span>NVIDIA Jetson</span><span>TensorRT</span><span>ONNX Runtime</span><span>Raspberry
-              Pi</span><span>Rockchip</span><span>Arduino</span></div>
+          <div class="sk-pills">
+            <span>NVIDIA Jetson</span><span>TensorRT</span><span>ONNX Runtime</span><span>TensorRT-LLM</span><span>Raspberry Pi</span><span>Rockchip</span><span>PID Control</span><span>Arduino</span>
+          </div>
         </div>
         <div class="sk-card rv">
           <div class="sk-ico"><i class="fas fa-database" aria-hidden="true"></i></div>
           <h4>Databases &amp; Caching</h4>
           <div class="sk-pills">
-            <span>PostgreSQL</span><span>Redis</span><span>MongoDB</span><span>MySQL</span><span>MSSQL</span>
+            <span>PostgreSQL</span><span>Redis (Cache)</span><span>Vector DBs</span><span>SQLite WAL</span><span>MongoDB</span><span>MySQL</span>
           </div>
         </div>
         <div class="sk-card rv">
           <div class="sk-ico"><i class="fas fa-code" aria-hidden="true"></i></div>
           <h4>Full Stack Dev</h4>
           <div class="sk-pills">
-            <span>Django</span><span>Flask</span><span>JavaScript</span><span>HTML5</span><span>CSS3</span><span>Bootstrap</span>
+            <span>FastAPI</span><span>Django</span><span>Flask</span><span>JavaScript (ES6+)</span><span>pywebview</span><span>HTML5 / CSS3</span><span>REST APIs</span><span>WebSockets</span>
           </div>
         </div>
       </div>
@@ -552,10 +552,27 @@
         <h2 class="sec-title">Featured <span class="em">Projects</span></h2>
         <p class="sec-desc">Production AI systems, hackathon winners &amp; open-source tools.</p>
       </div>
-      <div class="proj-grid">
+
+      <!-- Project Category Filter Tabs -->
+      <div class="proj-filter-wrapper rv" role="tablist" aria-label="Filter projects by category">
+        <button type="button" class="proj-filter-btn active" data-filter="all" role="tab" aria-selected="true">
+          <span>All Projects</span> <span class="filter-count">13</span>
+        </button>
+        <button type="button" class="proj-filter-btn" data-filter="cv-edge" role="tab" aria-selected="false">
+          <i class="fas fa-eye" aria-hidden="true"></i> <span>CV &amp; Edge AI</span> <span class="filter-count">7</span>
+        </button>
+        <button type="button" class="proj-filter-btn" data-filter="genai" role="tab" aria-selected="false">
+          <i class="fas fa-brain" aria-hidden="true"></i> <span>GenAI &amp; Agents</span> <span class="filter-count">5</span>
+        </button>
+        <button type="button" class="proj-filter-btn" data-filter="fullstack" role="tab" aria-selected="false">
+          <i class="fas fa-layer-group" aria-hidden="true"></i> <span>Full Stack &amp; IoT</span> <span class="filter-count">6</span>
+        </button>
+      </div>
+
+      <div class="proj-grid" id="projGrid">
 
         <!-- KeyFlow AI Typing Studio -->
-        <article class="proj rv">
+        <article class="proj rv" data-category="genai fullstack">
           <div class="proj-badge new">New</div>
           <h3 class="proj-title"><i class="fas fa-keyboard" aria-hidden="true"></i> KeyFlow AI Typing Studio</h3>
           <p>Local-first adaptive typing trainer &amp; cyber velocity arcade engineered with a <strong>10-agent deterministic AI architecture</strong>. Features sub-millisecond telemetry, O(1) granular DOM mutations, real-time ghost racing, Web Audio DSP synthesis, and space combat in an 18 MB standalone binary.</p>
@@ -577,7 +594,7 @@
         </article>
 
         <!-- CivicMind -->
-        <article class="proj rv">
+        <article class="proj rv" data-category="genai">
           <div class="proj-badge new">New</div>
           <h3 class="proj-title"><i class="fas fa-city" aria-hidden="true"></i> CivicMind</h3>
           <p>Enterprise-grade Decision Intelligence Platform acting as an AI-powered "smart city brain". Features
@@ -600,7 +617,7 @@
         </article>
 
         <!-- OmniSight -->
-        <article class="proj rv">
+        <article class="proj rv" data-category="cv-edge genai">
           <div class="proj-badge live-b">Live</div>
           <h3 class="proj-title"><i class="fas fa-satellite-dish" aria-hidden="true"></i> OmniSight</h3>
           <p>Autonomous Multi-Modal Incident Intelligence Fabric. Ingests and correlates high-velocity signals from IoT,
@@ -622,7 +639,7 @@
         </article>
 
         <!-- Vehicle Re-Identification System -->
-        <article class="proj rv">
+        <article class="proj rv" data-category="cv-edge">
           <div class="proj-badge feat">Featured</div>
           <h3 class="proj-title"><i class="fas fa-car-side" aria-hidden="true"></i> Vehicle Re-Identification</h3>
           <p>Intelligent, image-based vehicle matching platform using advanced computer vision. Features a pure
@@ -643,7 +660,7 @@
         </article>
 
         <!-- 1 — DocuAI Studio v3.1 -->
-        <article class="proj rv">
+        <article class="proj rv" data-category="genai">
           <div class="proj-badge new">New</div>
           <h3 class="proj-title"><i class="fas fa-file-lines" aria-hidden="true"></i> DocuAI Studio v3.1</h3>
           <p>Production-ready <strong>Document AI + RAG</strong> platform with hybrid retrieval (FAISS + BM25 + RRF),
@@ -664,7 +681,7 @@
         </article>
 
         <!-- 2 — VIDES Vehicle Detection -->
-        <article class="proj rv">
+        <article class="proj rv" data-category="cv-edge">
           <div class="proj-badge feat">Featured</div>
           <h3 class="proj-title"><i class="fas fa-car" aria-hidden="true"></i> VIDES: Vehicle Detection System</h3>
           <p>Production-grade vehicle detection &amp; tracking for AI training datasets. Multi-camera RTSP streams,
@@ -683,7 +700,7 @@
         </article>
 
         <!-- 3 — Smart Irrigation (SIH Winner) -->
-        <article class="proj rv">
+        <article class="proj rv" data-category="fullstack cv-edge">
           <div class="proj-badge winner">🏆 AIR 1</div>
           <h3 class="proj-title"><i class="fas fa-seedling" aria-hidden="true"></i> Smart Irrigation System</h3>
           <p>IoT-powered irrigation with AI-driven water optimization. Uses real-time soil moisture sensors + weather
@@ -703,7 +720,7 @@
         </article>
 
         <!-- 4 — Alumni Management Portal -->
-        <article class="proj rv">
+        <article class="proj rv" data-category="fullstack">
           <div class="proj-badge live-b">Live</div>
           <h3 class="proj-title"><i class="fas fa-users" aria-hidden="true"></i> Alumni Management Portal</h3>
           <p>Full-stack role-based alumni networking platform with <strong>164+ commits</strong>. 4 dashboards (Alumni,
@@ -725,7 +742,7 @@
         </article>
 
         <!-- 5 — Mental Health AI Tracker -->
-        <article class="proj rv">
+        <article class="proj rv" data-category="genai">
           <h3 class="proj-title"><i class="fas fa-brain" aria-hidden="true"></i> Mental Health AI Tracker</h3>
           <p>NLP-powered mood detection from free-form journal entries. VADER sentiment analysis with trend
             visualization, micro-anomaly detection for early burnout signals. Built at <strong>IBM India</strong>.</p>
@@ -742,7 +759,7 @@
         </article>
 
         <!-- 6 — E-Waste Management System -->
-        <article class="proj rv">
+        <article class="proj rv" data-category="fullstack cv-edge">
           <div class="proj-badge live-b">Live</div>
           <h3 class="proj-title"><i class="fas fa-recycle" aria-hidden="true"></i> E-Waste Management System</h3>
           <p>IoT-enabled smart bins with AI device identification, GPS tracking, weight/fill-level sensors, and
@@ -761,7 +778,7 @@
         </article>
 
         <!-- 7 — Real-Time Object Detection -->
-        <article class="proj rv">
+        <article class="proj rv" data-category="cv-edge">
           <h3 class="proj-title"><i class="fas fa-eye" aria-hidden="true"></i> Real-Time Object Detection</h3>
           <p>Multi-object detection &amp; tracking with Python + OpenCV. Real-time video stream processing with bounding
             box visualization and class labeling.</p>
@@ -774,7 +791,7 @@
         </article>
 
         <!-- 8 — Line Following Robot -->
-        <article class="proj rv">
+        <article class="proj rv" data-category="cv-edge fullstack">
           <h3 class="proj-title"><i class="fas fa-robot" aria-hidden="true"></i> Line Following Robot</h3>
           <p>Autonomous robot with <strong>PID control</strong> algorithm, Arduino Mega microcontroller, and 5-channel
             IR sensor array. Interrupt-driven motor control for real-time path detection.</p>
@@ -788,7 +805,7 @@
         </article>
 
         <!-- 9 — Portfolio Website -->
-        <article class="proj rv">
+        <article class="proj rv" data-category="fullstack">
           <div class="proj-badge live-b">Live</div>
           <h3 class="proj-title"><i class="fas fa-globe" aria-hidden="true"></i> Portfolio Website</h3>
           <p>SEO-optimized portfolio with dark mode, 3D animated particle backgrounds, JSON-LD structured data, GSAP
@@ -896,10 +913,11 @@
           <h3>Get in Touch</h3>
           <p>Open to new opportunities, AI projects, or collaborations. I typically respond within 24 hours.</p>
           <div class="c-links">
-            <a href="mailto:kulkarnishub377@gmail.com" class="cl">
+            <div class="cl cl-copy-trigger" data-email="kulkarnishub377@gmail.com" role="button" tabindex="0" title="Click to copy email" aria-label="Click to copy email address">
               <div class="cl-i"><i class="fas fa-envelope" aria-hidden="true"></i></div>
-              <div><small>Email</small><strong>kulkarnishub377@gmail.com</strong></div>
-            </a>
+              <div class="cl-text"><small>Email (Click to Copy)</small><strong>kulkarnishub377@gmail.com</strong></div>
+              <button type="button" class="copy-email-btn" aria-label="Copy email address" title="Copy to clipboard"><i class="far fa-copy"></i></button>
+            </div>
             <a href="https://www.linkedin.com/in/shubhkulk21/" target="_blank" rel="noopener noreferrer" class="cl">
               <div class="cl-i"><i class="fab fa-linkedin-in" aria-hidden="true"></i></div>
               <div><small>LinkedIn</small><strong>linkedin.com/in/shubhkulk21</strong></div>
@@ -952,6 +970,15 @@
       </div>
     </div>
   </footer>
+
+  <!-- Floating Toast Notification -->
+  <div id="toast" class="toast-notification" role="status" aria-live="polite" aria-hidden="true">
+    <div class="toast-icon"><i class="fas fa-check-circle"></i></div>
+    <div class="toast-message">
+      <span class="toast-title">Copied to Clipboard!</span>
+      <span class="toast-detail" id="toastDetail">kulkarnishub377@gmail.com</span>
+    </div>
+  </div>
 
   <button class="btt" id="btt" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
 
