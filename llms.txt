@@ -37,6 +37,7 @@
 
 - [VIDES Vehicle Detection & Tracking](https://kulkarnishub377.github.io/blog/vehicle-detection-system.html): Production multi-camera RTSP vehicle tracking system processing 50K+ vehicles/day with YOLOv8 + ByteTrack + TensorRT at 12ms latency on NVIDIA Jetson.
 - [ATMS Vehicle Forensic Re-Identification](https://kulkarnishub377.github.io/blog/vehicle-re-identification.html): In-memory forensic vehicle matching system serving 150K+ daily queries at <100ms latency using OSNet + FAISS IVF-PQ without database overhead.
+- [Open Source Data Annotation Tool for CV](https://github.com/kulkarnishub377/Data_Annotation_Tool): Local-first, privacy-focused alternative to CVAT & Roboflow. End-to-end dataset platform featuring model-assisted auto-annotation (100,000 images in 30 mins on NVIDIA Orin NX 16GB), bbox & polygon segmentation, 5-point dataset health QA dashboard, multi-format inference (.pt, .onnx, .engine), auto splitting, and in-browser model fine-tuning with live SSE logs. [GitHub](https://github.com/kulkarnishub377/Data_Annotation_Tool) | [Case Study](https://kulkarnishub377.github.io/blog/data-annotation-tool.html)
 - [OmniSight](https://kulkarnishub377.github.io/OmniSight/): Autonomous multi-modal AI incident intelligence fabric ingesting IoT, vision, and audio signals with an Agentic workflow engine. [Case Study](https://kulkarnishub377.github.io/blog/omnisight.html) | [GitHub](https://github.com/kulkarnishub377/OmniSight)
 - [DocuAI Studio v3.1](https://kulkarnishub377.github.io/blog/docuai-studio-v3-1.html): Production Document AI & Hybrid RAG platform (FAISS + BM25 + RRF) with streaming Q&A, knowledge graphs, and 40+ REST API endpoints. [GitHub](https://github.com/kulkarnishub377/Document-AI---RAG-Pipeline)
 - [CivicMind](https://kulkarnishub377.github.io/CivicMind/): Multi-agent smart city decision intelligence platform using Gemini 2.5 orchestration, digital twin simulation, and Explainable AI (XAI). [Case Study](https://kulkarnishub377.github.io/blog/civicmind.html) | [GitHub](https://github.com/kulkarnishub377/CivicMind)
@@ -48,6 +49,7 @@
 
 ## Technical Blog & Deep Dives
 
+- [Open Source Data Annotation Platform](https://kulkarnishub377.github.io/blog/data-annotation-tool.html): Technical deep dive into local-first CV dataset engineering, YOLO-assisted auto-annotation, dataset health QA, and in-browser model training with live SSE logs.
 - [LangGraph Multi-Agent Workflows](https://kulkarnishub377.github.io/blog/ai-agent-langgraph.html): Architectural guide to designing cyclical, stateful AI agent networks with human-in-the-loop validation.
 - [Production RAG Pipeline Architecture](https://kulkarnishub377.github.io/blog/rag-pipeline.html): Implementing Hybrid Retrieval (Dense Vector + BM25 Sparse + Reciprocal Rank Fusion) and evaluation with Ragas.
 - [Generative AI Engineering Guide](https://kulkarnishub377.github.io/blog/generative-ai.html): Full-stack LLM engineering from fine-tuning to compound AI systems and structured outputs.

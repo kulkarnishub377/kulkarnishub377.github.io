@@ -46,7 +46,18 @@
 - **Case Study:** https://kulkarnishub377.github.io/blog/vehicle-re-identification.html
 - **Repository:** https://github.com/kulkarnishub377/Vechile_forensic_match_RAC
 
-### 2.3 DocuAI Studio v3.1 (Production Document AI & RAG Platform)
+### 2.3 Open Source Data Annotation Tool for Computer Vision
+- **Context:** 100% free, local-first alternative to CVAT and Roboflow designed for private, high-speed dataset curation, dataset health QA, and in-browser model fine-tuning without cloud lock-in.
+- **Architecture & Performance:**
+  - Benchmark Throughput: Auto-annotated **100,000 images in ~30 minutes** on **NVIDIA Jetson Orin NX 16 GB** for rapid model fine-tuning.
+  - Backend: Python & Flask with SQLite `state.db` thread-safe session tracking and asynchronous `threading.Thread` inference workers.
+  - Multi-Format Support: Natively runs inference with `.pt`, `.onnx`, `.engine` (TensorRT), `.tflite`, and `.torchscript` weights for YOLOv8, YOLO11, and YOLO26.
+  - Dataset Health QA: 5-point automated anomaly scanner checking for corrupt images, empty annotations, zero-area boxes, and coordinate overflows.
+  - In-Browser Training: Configurable hyperparameter panel with real-time stdout streaming via Server-Sent Events (SSE).
+- **Case Study:** https://kulkarnishub377.github.io/blog/data-annotation-tool.html
+- **Repository:** https://github.com/kulkarnishub377/Data_Annotation_Tool
+
+### 2.4 DocuAI Studio v3.1 (Production Document AI & RAG Platform)
 - **Context:** Enterprise document intelligence and streaming Q&A.
 - **Architecture:**
   - Hybrid Search: Reciprocal Rank Fusion (RRF) combining Dense Vector Search (FAISS IVF) and Sparse Lexical Search (BM25).

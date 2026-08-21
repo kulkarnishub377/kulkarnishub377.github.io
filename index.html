@@ -579,16 +579,16 @@
       <!-- Project Category Filter Tabs -->
       <div class="proj-filter-wrapper rv" role="tablist" aria-label="Filter projects by technology category">
         <button type="button" class="proj-filter-btn active" data-filter="all" role="tab" aria-selected="true">
-          <span>All Projects</span> <span class="filter-count">13</span>
+          <span>All Projects</span> <span class="filter-count">14</span>
         </button>
         <button type="button" class="proj-filter-btn" data-filter="cv-edge" role="tab" aria-selected="false">
-          <i class="fas fa-video" aria-hidden="true"></i> <span>CV &amp; Edge AI</span> <span class="filter-count">7</span>
+          <i class="fas fa-video" aria-hidden="true"></i> <span>CV &amp; Edge AI</span> <span class="filter-count">8</span>
         </button>
         <button type="button" class="proj-filter-btn" data-filter="genai" role="tab" aria-selected="false">
           <i class="fas fa-brain" aria-hidden="true"></i> <span>GenAI &amp; Agents</span> <span class="filter-count">5</span>
         </button>
         <button type="button" class="proj-filter-btn" data-filter="fullstack" role="tab" aria-selected="false">
-          <i class="fas fa-layer-group" aria-hidden="true"></i> <span>Full Stack &amp; IoT</span> <span class="filter-count">6</span>
+          <i class="fas fa-layer-group" aria-hidden="true"></i> <span>Full Stack &amp; IoT</span> <span class="filter-count">7</span>
         </button>
       </div>
 
@@ -632,7 +632,26 @@
           </div>
         </article>
 
-        <!-- 3 — OmniSight -->
+        <!-- 3 — Open Source Data Annotation Tool for CV -->
+        <article class="proj rv" data-category="cv-edge fullstack">
+          <div class="proj-badge new">Open Source</div>
+          <h3 class="proj-title"><i class="fas fa-draw-polygon" aria-hidden="true"></i> Data Annotation Platform for CV</h3>
+          <p>Local-first, end-to-end <strong>Computer Vision dataset development platform</strong> designed for fast, model-assisted annotation. Auto-annotates <strong>100,000 images in 30 mins</strong> on NVIDIA Orin NX 16GB. Features YOLOv8/11/26 auto-labeling, bbox &amp; polygon instance segmentation, 5-point dataset QA, and in-browser model fine-tuning with live SSE logs.</p>
+          <div class="proj-kpis">
+            <div class="kpi"><strong>100K / 30m</strong><span>Orin NX 16GB</span></div>
+            <div class="kpi"><strong>BBox + Polygon</strong><span>Instance Seg</span></div>
+            <div class="kpi"><strong>End-to-End</strong><span>QA to Fine-Tuning</span></div>
+          </div>
+          <div class="proj-tech">
+            <span>Python</span><span>Flask</span><span>YOLOv8</span><span>YOLO11</span><span>PyTorch</span><span>Orin NX</span><span>Dataset QA</span><span>SSE Logs</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/kulkarnishub377/Data_Annotation_Tool" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+            <a href="blog/data-annotation-tool.html"><i class="fas fa-book-open"></i> Case Study</a>
+          </div>
+        </article>
+
+        <!-- 4 — OmniSight -->
         <article class="proj rv" data-category="cv-edge genai">
           <div class="proj-badge live-b">Live</div>
           <h3 class="proj-title"><i class="fas fa-satellite-dish" aria-hidden="true"></i> OmniSight — Multi-Modal Incident Intelligence</h3>
