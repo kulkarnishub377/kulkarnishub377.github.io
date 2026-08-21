@@ -11,14 +11,14 @@
     Email: kulkarnishub377@gmail.com
     Phone: +91 8308003684
     Portfolio: https://kulkarnishub377.github.io/
-    Last Updated: 2026-07-08
+    Last Updated: 2026-08-21
 
 # THANKS
     Open Source Community, modern web standard developers, and the Google Font project.
 
 # SITE
-    Standards: HTML5, CSS3, ES6 JavaScript
+    Standards: HTML5, CSS3, ES6 JavaScript, llms.txt standard
     UI Framework/Libraries: GSAP (animations), Three.js (3D particles), FontAwesome (icons), Bootstrap 5 (blog layout)
     Design Aesthetics: Dark mode, cyber/modern tech typography, fluid responsive layout
     Caching: Progressive Web Application Webmanifest configured
-    SEO: Schema.org JSON-LD Structured Entity Data (WebSite, ProfilePage, Person, BreadcrumbList), canonical tag, sitemap, robots.txt, OpenGraph, Twitter Card
+    SEO & AI Discoverability: Schema.org JSON-LD Structured Entity Data, canonical tag, sitemap, robots.txt, llms.txt, llms-full.txt, OpenGraph, Twitter Card

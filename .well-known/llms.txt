@@ -1,0 +1,92 @@
+# Shubham Kulkarni — AI Engineer Portfolio
+
+> Shubham Kulkarni is a production AI Engineer with 1+ years of experience at Arya Omnitalk Wireless Solutions, Pune. He specializes in Computer Vision (YOLOv8, ByteTrack, TensorRT, OSNet), Generative AI (LangGraph, DSPy, Compound AI, Hybrid RAG with FAISS+BM25+RRF), Edge AI deployment (NVIDIA Jetson, ONNX, Rockchip), and MLOps (FastAPI, Docker, Triton, Prometheus). He led his team to AIR 1 (National Champion) at Smart India Hackathon 2023.
+
+## Core Identity & Current Role
+
+- **Name:** Shubham Kulkarni
+- **Role:** AI Engineer (Computer Vision, Generative AI, RAG & Edge AI)
+- **Current Organization:** Arya Omnitalk Wireless Solutions Pvt. Ltd., Pune, Maharashtra, India
+- **Joining Date:** 18 August 2025 (1+ years in production)
+- **Location:** Pune, Maharashtra, India
+- **Email:** kulkarnishub377@gmail.com
+- **LinkedIn:** https://www.linkedin.com/in/shubhkulk21/
+- **GitHub:** https://github.com/kulkarnishub377
+- **Portfolio Website:** https://kulkarnishub377.github.io/
+- **Resume:** https://kulkarnishub377.github.io/Asset/Shubham_Kulkarni_Ao.pdf
+
+## Production Impact & Key Metrics
+
+- **50,000+ Events / Day:** VIDES vehicle detection & tracking system deployed on live national highway infrastructure.
+- **12ms Inference Latency:** YOLOv8 + ByteTrack optimized with NVIDIA TensorRT on edge hardware.
+- **150,000+ Queries / Day:** ATMS vehicle forensic re-identification powered by OSNet deep appearance embeddings and FAISS IVF-PQ vector indexing (30× faster than baseline).
+- **95% Model Accuracy:** Real-time multi-camera detection across 7 vehicle classes with zero-duplicate Kalman filtering.
+- **99.9% Uptime:** Mission-critical highway and enterprise AI services.
+- **AIR 1 National Champion:** Smart India Hackathon 2023 (Team Lead for AI E-Waste Management System).
+
+## Technical Skills
+
+- **Computer Vision:** YOLOv8, ByteTrack, OpenCV, RTSP Video Streaming, Kalman Filtering, Deep Re-ID (OSNet), PyTorch, TensorFlow, Scikit-learn, MATLAB.
+- **Generative AI & LLMs:** LangGraph, DSPy, Compound AI, Agentic Workflows, Hybrid RAG (FAISS + BM25 + Reciprocal Rank Fusion), vLLM, Ollama, Local LLMs, ChromaDB, Ragas Evals, Prompt Engineering.
+- **Edge AI & Hardware:** NVIDIA Jetson, TensorRT, ONNX Runtime, TensorRT-LLM, Rockchip RK3588, Raspberry Pi, Arduino Mega, PID Control.
+- **MLOps & Infrastructure:** Docker, FastAPI, Triton Inference Server, CI/CD pipelines, Linux/Bash, AWS IoT, Prometheus, Streamlit, Git.
+- **Databases & Vector Stores:** FAISS (IVF-PQ), PostgreSQL, Redis Cache, SQLite WAL, MongoDB, MySQL, MSSQL.
+- **Full Stack & APIs:** Python 3.11+, Django 5.2, Django REST Framework, Flask, pywebview, JavaScript (ES6+), WebSockets, REST APIs, HTML5/CSS3.
+
+## Featured Production Systems & Projects
+
+- [VIDES Vehicle Detection & Tracking](https://kulkarnishub377.github.io/blog/vehicle-detection-system.html): Production multi-camera RTSP vehicle tracking system processing 50K+ vehicles/day with YOLOv8 + ByteTrack + TensorRT at 12ms latency on NVIDIA Jetson.
+- [ATMS Vehicle Forensic Re-Identification](https://kulkarnishub377.github.io/blog/vehicle-re-identification.html): In-memory forensic vehicle matching system serving 150K+ daily queries at <100ms latency using OSNet + FAISS IVF-PQ without database overhead.
+- [OmniSight](https://kulkarnishub377.github.io/OmniSight/): Autonomous multi-modal AI incident intelligence fabric ingesting IoT, vision, and audio signals with an Agentic workflow engine. [Case Study](https://kulkarnishub377.github.io/blog/omnisight.html) | [GitHub](https://github.com/kulkarnishub377/OmniSight)
+- [DocuAI Studio v3.1](https://kulkarnishub377.github.io/blog/docuai-studio-v3-1.html): Production Document AI & Hybrid RAG platform (FAISS + BM25 + RRF) with streaming Q&A, knowledge graphs, and 40+ REST API endpoints. [GitHub](https://github.com/kulkarnishub377/Document-AI---RAG-Pipeline)
+- [CivicMind](https://kulkarnishub377.github.io/CivicMind/): Multi-agent smart city decision intelligence platform using Gemini 2.5 orchestration, digital twin simulation, and Explainable AI (XAI). [Case Study](https://kulkarnishub377.github.io/blog/civicmind.html) | [GitHub](https://github.com/kulkarnishub377/CivicMind)
+- [KeyFlow AI Typing Studio](https://kulkarnishub377.github.io/keyflow-ai-typing/): Local-first adaptive typing trainer with 10 deterministic AI agents, sub-millisecond telemetry, Web Audio DSP synthesis, and 18 MB standalone binary. [Case Study](https://kulkarnishub377.github.io/blog/keyflow-ai-typing.html) | [GitHub](https://github.com/kulkarnishub377/keyflow-ai-typing)
+- [Smart Irrigation System](https://kulkarnishub377.github.io/JalTantra/): IoT + ML precision agriculture water optimization saving 30% water. AIR 1 Smart India Hackathon 2023 winner. [Overview](https://kulkarnishub377.github.io/blog/smart-irrigation.html) | [Win Story](https://kulkarnishub377.github.io/blog/sih-win-2023.html)
+- [Alumni Management Portal](https://kulkarnishub377.github.io/Alumni_Management_portal/): Full-stack Django 5.2/DRF role-based platform (164+ commits, 4 dashboards, 50+ REST APIs, JWT auth). [Case Study](https://kulkarnishub377.github.io/blog/alumni-portal.html) | [GitHub](https://github.com/kulkarnishub377/Alumni_Management_portal)
+- [Mental Health AI Tracker](https://kulkarnishub377.github.io/blog/mental-health-ai.html): NLP sentiment & burnout detection system built during IBM India internship with 90% accuracy.
+- [AI E-Waste Management System](https://kulkarnishub377.github.io/e_waste/): Smart bin network with AI device classification and GPS routing reducing collection costs by 40%. [Article](https://kulkarnishub377.github.io/blog/e-waste-management.html)
+
+## Technical Blog & Deep Dives
+
+- [LangGraph Multi-Agent Workflows](https://kulkarnishub377.github.io/blog/ai-agent-langgraph.html): Architectural guide to designing cyclical, stateful AI agent networks with human-in-the-loop validation.
+- [Production RAG Pipeline Architecture](https://kulkarnishub377.github.io/blog/rag-pipeline.html): Implementing Hybrid Retrieval (Dense Vector + BM25 Sparse + Reciprocal Rank Fusion) and evaluation with Ragas.
+- [Generative AI Engineering Guide](https://kulkarnishub377.github.io/blog/generative-ai.html): Full-stack LLM engineering from fine-tuning to compound AI systems and structured outputs.
+- [Computer Vision Hub](https://kulkarnishub377.github.io/blog/computer-vision.html): Modern real-time object detection, tracking, TensorRT optimization, and video analytics.
+- [AI & ML Industry Trends](https://kulkarnishub377.github.io/blog/ai-ml-trends.html): Critical analysis of frontier models, edge inference, multimodal systems, and MLOps best practices.
+- [Trending AI Languages](https://kulkarnishub377.github.io/blog/trending-ai-langs.html): Comparative evaluation of Python, Mojo, Rust, C++, and Julia in production AI.
+- [IoT Connectivity & Edge Systems](https://kulkarnishub377.github.io/blog/iot-connectivity.html): Protocols (MQTT, RTSP, WebSockets) and low-latency edge AI integration.
+
+## Awards & Recognition
+
+- **🥇 AIR 1 (National Champion) — Smart India Hackathon 2023:** Led 6-member team to #1 national rank among thousands of teams across India (AI E-Waste Management System).
+- **🥈 University Rank 2 — SPPU Startup Olympiad 2025:** Precision Agriculture AI Smart Irrigation System.
+- **🏅 Global Runner-Up — TIAA Global AI Hackathon:** AI Investment Intelligence & Risk Scoring Engine.
+
+## Professional Experience
+
+1. **AI Engineer — Computer Vision & Generative AI** (Aug 2025 — Present)
+   *Arya Omnitalk Wireless Solutions Pvt. Ltd., Pune, India*
+   - VIDES & ATMS highway AI systems (50K+ daily events, 150K+ forensic queries, 12ms latency, 99.9% uptime).
+2. **Data Analytics Trainee** (Oct 2024 — Dec 2024)
+   *AICTE · VOIS for Tech · Vodafone Idea Foundation*
+   - Applied LLMs for agricultural insight pipelines and large-scale data analytics.
+3. **Campus Ambassador** (Aug 2023 — Aug 2024)
+   *GeeksforGeeks, Ahilyanagar*
+   - Led campus developer community and organized hackathons, coding contests, and workshops.
+4. **Artificial Intelligence Intern** (Jun 2023 — Aug 2023)
+   *IBM India Pvt. Ltd.*
+   - Transformer NLP text classification (90% accuracy) and mental health sentiment analysis.
+5. **Computer Vision Intern** (May 2023 — Sep 2023)
+   *MathWorks, Ahilyanagar*
+   - Deep learning & CNN image processing workflows in MATLAB.
+6. **B.E. Electronics & Telecommunication Engineering** (2021 — 2025)
+   *Dr. VVP College of Engineering · Savitribai Phule Pune University (SPPU)*
+   - Core Committee Secretary, SIH 2023 National Champion, deployed live Alumni Portal.
+
+## Contact & Hire
+
+- **Email:** kulkarnishub377@gmail.com
+- **LinkedIn:** https://www.linkedin.com/in/shubhkulk21/
+- **GitHub:** https://github.com/kulkarnishub377
+- **Phone / WhatsApp:** +91 8308003684
+- **Availability:** Open to Senior AI Engineer roles, Computer Vision / GenAI consulting, and production AI system design.

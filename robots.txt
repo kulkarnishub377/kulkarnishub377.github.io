@@ -20,6 +20,9 @@ Allow: /favicon/
 Allow: /site.webmanifest
 Allow: /sitemap.xml
 Allow: /sitemap.xsl
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /humans.txt
 
 # Sitemap Location
 Sitemap: https://kulkarnishub377.github.io/sitemap.xml

@@ -181,4 +181,18 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- ═══ LLM & Machine Context Files ═══ -->
+  <url>
+    <loc>https://kulkarnishub377.github.io/llms.txt</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://kulkarnishub377.github.io/llms-full.txt</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
 </urlset>
