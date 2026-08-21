@@ -358,57 +358,12 @@
                     <span class="text-secondary">Image 0248/100000</span>
                 </div>
             </div>
-            <!-- Canvas Simulation with Real Bounding Boxes -->
-            <div class="position-relative overflow-hidden" style="min-height: 420px; border-radius: 0 0 12px 12px; background: #0A0D14;">
-                <img src="https://images.unsplash.com/photo-1508962914676-134849a727f0?auto=format&fit=crop&w=1400&q=85" 
-                    alt="Computer Vision Data Annotation Studio Interface" 
-                    style="width: 100%; height: 460px; object-fit: cover; filter: brightness(0.85) contrast(1.15);">
-                
-                <!-- Full HUD Overlay -->
-                <div style="position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at center, transparent 35%, rgba(5,5,7,0.7) 100%);">
-                    <!-- Crosshair Grid Lines -->
-                    <div style="position: absolute; top: 0; bottom: 0; left: 48%; width: 1px; background: rgba(56,189,248,0.25); border-left: 1px dashed rgba(56,189,248,0.4);"></div>
-                    <div style="position: absolute; left: 0; right: 0; top: 48%; height: 1px; background: rgba(56,189,248,0.25); border-top: 1px dashed rgba(56,189,248,0.4);"></div>
-
-                    <!-- Bounding Box 1: SUV (Cyan) -->
-                    <div style="position: absolute; top: 38%; left: 34%; width: 26%; height: 40%; border: 2px solid #10B981; border-radius: 4px; box-shadow: 0 0 18px rgba(16,185,129,0.7); background: rgba(16,185,129,0.16);">
-                        <span style="position: absolute; top: -24px; left: -2px; background: #10B981; color: #050507; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 800; padding: 2px 8px; border-radius: 4px 4px 0 0; text-transform: uppercase;">car: 0.98 [YOLO]</span>
-                        <!-- Corner Crosshairs -->
-                        <div style="position: absolute; top: -4px; left: -4px; width: 8px; height: 8px; background: #10B981; border-radius: 50%;"></div>
-                        <div style="position: absolute; top: -4px; right: -4px; width: 8px; height: 8px; background: #10B981; border-radius: 50%;"></div>
-                        <div style="position: absolute; bottom: -4px; left: -4px; width: 8px; height: 8px; background: #10B981; border-radius: 50%;"></div>
-                        <div style="position: absolute; bottom: -4px; right: -4px; width: 8px; height: 8px; background: #10B981; border-radius: 50%;"></div>
-                    </div>
-
-                    <!-- Bounding Box 2: Commercial Truck (Sky Blue) -->
-                    <div style="position: absolute; top: 20%; left: 8%; width: 22%; height: 50%; border: 2px solid #38BDF8; border-radius: 4px; box-shadow: 0 0 18px rgba(56,189,248,0.6); background: rgba(56,189,248,0.14);">
-                        <span style="position: absolute; top: -24px; left: -2px; background: #38BDF8; color: #050507; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 800; padding: 2px 8px; border-radius: 4px 4px 0 0; text-transform: uppercase;">truck: 0.95 [YOLO]</span>
-                    </div>
-
-                    <!-- Bounding Box 3: Pedestrian (Purple) -->
-                    <div style="position: absolute; top: 32%; right: 12%; width: 14%; height: 44%; border: 2px solid #C084FC; border-radius: 4px; box-shadow: 0 0 18px rgba(192,132,252,0.6); background: rgba(192,132,252,0.15);">
-                        <span style="position: absolute; top: -24px; left: -2px; background: #C084FC; color: #050507; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 800; padding: 2px 8px; border-radius: 4px 4px 0 0; text-transform: uppercase;">pedestrian: 0.97</span>
-                    </div>
-
-                    <!-- Top Annotation Toolbar HUD -->
-                    <div class="d-none d-md-flex align-items-center gap-2" style="position: absolute; top: 12px; left: 16px; background: rgba(10,13,20,0.85); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(10px); padding: 6px 12px; border-radius: 8px;">
-                        <span class="badge bg-success" style="font-size: 0.7rem;"><i class="fas fa-draw-polygon me-1"></i> BBox Mode (D)</span>
-                        <span class="badge bg-dark border border-secondary text-secondary" style="font-size: 0.7rem;"><i class="fas fa-vector-square me-1"></i> Polygon</span>
-                        <span class="badge bg-dark border border-secondary text-secondary" style="font-size: 0.7rem;"><i class="fas fa-magic me-1"></i> Auto-Label (ON)</span>
-                    </div>
-
-                    <!-- Bottom Status HUD -->
-                    <div class="d-flex align-items-center justify-content-between" style="position: absolute; bottom: 12px; left: 16px; right: 16px; background: rgba(10,13,20,0.9); border: 1px solid rgba(16,185,129,0.3); backdrop-filter: blur(10px); padding: 8px 16px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;">
-                        <div class="d-flex align-items-center gap-3">
-                            <span class="text-success fw-bold"><i class="fas fa-check-circle me-1"></i> 5 Anomaly Checks Passed</span>
-                            <span class="text-secondary d-none d-md-inline">&bull; Zoom: 140% [Cursor-Anchored]</span>
-                            <span class="text-secondary d-none d-md-inline">&bull; Precision: 16-Decimals</span>
-                        </div>
-                        <div class="text-info fw-bold">
-                            <i class="fas fa-bolt me-1"></i> 100K in 30m Auto-Annotation
-                        </div>
-                    </div>
-                </div>
+            <!-- High-Resolution Real Studio Interface Image -->
+            <div class="position-relative overflow-hidden" style="border-radius: 0 0 12px 12px; background: #0A0D14;">
+                <img src="images/cv_annotation_tool_1787318820950.jpg" 
+                    alt="Open Source Computer Vision Data Annotation Studio Interface" 
+                    class="img-fluid w-100"
+                    style="display: block; border-radius: 0 0 12px 12px; object-fit: contain;">
             </div>
         </div>
     </div>
