@@ -1189,6 +1189,39 @@ button {
   color: var(--accent2)
 }
 
+/* Production role bullet list */
+.exp-bullets {
+  margin: 8px 0 10px 0;
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px
+}
+
+.exp-bullets li {
+  font-size: .8rem;
+  color: var(--t2);
+  line-height: 1.7;
+  padding-left: 18px;
+  position: relative
+}
+
+.exp-bullets li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--green);
+  font-size: .75rem;
+  line-height: 1.7
+}
+
+.exp-bullets li strong {
+  color: var(--t1)
+}
+
+
 /* ── SKILLS ── */
 .skills-grid {
   display: grid;

@@ -6,6 +6,35 @@
 (function () {
   'use strict';
 
+  // ══════ DYNAMIC EXPERIENCE DURATION ══════
+  // Joining date: 18 August 2025 — auto-updates every page load, no manual edits ever.
+  (function calcExpDuration() {
+    const JOIN = new Date(2025, 7, 18); // Month is 0-indexed: 7 = August
+    const NOW  = new Date();
+
+    let years  = NOW.getFullYear() - JOIN.getFullYear();
+    let months = NOW.getMonth()    - JOIN.getMonth();
+
+    if (months < 0) { years--; months += 12; }
+    if (NOW.getDate() < JOIN.getDate() && months > 0) months--;
+
+    // Format: always "X.Y yr" — e.g. 1.3 yr, 2.0 yr, 0.7 yr
+    function decLabel() {
+      return years + '.' + months + ' yr';
+    }
+    function decLabelUpper() {
+      return (years + '.' + months + ' YR · PRODUCTION');
+    }
+
+    // Populate all span targets
+    document.querySelectorAll('.exp-dur-tag').forEach(el     => { el.textContent = decLabel();      });
+    document.querySelectorAll('.exp-dur-hero').forEach(el    => { el.textContent = decLabel();      });
+    document.querySelectorAll('.exp-dur-stat').forEach(el    => { el.textContent = decLabel();      });
+    document.querySelectorAll('.exp-dur-inline').forEach(el  => { el.textContent = decLabel();      });
+    document.querySelectorAll('.exp-dur-badge').forEach(el   => { el.textContent = decLabelUpper(); });
+    document.querySelectorAll('.exp-dur-heading').forEach(el => { el.textContent = decLabel();      });
+  })();
+
   // ══════ 3D PARTICLE NETWORK BACKGROUND ══════
   const canvas = document.getElementById('bgCanvas');
   const ctx = canvas.getContext('2d');
@@ -266,7 +295,7 @@
   });
 
   // ══════ TYPEWRITER ══════
-  const roles = ['AI Engineer @ Arya Omnitalk', 'Computer Vision Specialist', 'Generative AI Developer', 'Edge AI & MLOps Engineer', 'RAG Pipeline Architect', 'SIH 2023 National Champion 🏆'];
+  const roles = ['1 Yr Production AI Engineer', 'Computer Vision Engineer — VIDES & ATMS', 'Generative AI & RAG Pipeline Architect', 'Edge AI & TensorRT Specialist', 'LangGraph · DSPy · vLLM Developer', 'MLOps & FastAPI System Builder', 'SIH 2023 National Champion 🏆'];
   let ri = 0, ci = 0, del = false;
   const tw = document.getElementById('typewriter');
 
