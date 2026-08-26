@@ -10,8 +10,8 @@
     GitHub: https://github.com/kulkarnishub377
     Email: kulkarnishub377@gmail.com
     Phone: +91 8308003684
-    Portfolio: https://kulkarnishub377.github.io/
-    Last Updated: 2026-08-21
+    Portfolio: https://shubhamkulkarni.me/
+    Last Updated: 2026-08-26
 
 # THANKS
     Open Source Community, modern web standard developers, and the Google Font project.

@@ -12,8 +12,8 @@
 - **Email:** kulkarnishub377@gmail.com
 - **LinkedIn:** https://www.linkedin.com/in/shubhkulk21/
 - **GitHub:** https://github.com/kulkarnishub377
-- **Portfolio Website:** https://kulkarnishub377.github.io/
-- **Resume:** https://kulkarnishub377.github.io/Asset/Shubham_Kulkarni_Ao.pdf
+- **Portfolio Website:** https://shubhamkulkarni.me/
+- **Resume:** https://shubhamkulkarni.me/Asset/Shubham_Kulkarni_Ao.pdf
 
 ## Production Impact & Key Metrics
 
@@ -35,28 +35,28 @@
 
 ## Featured Production Systems & Projects
 
-- [VIDES Vehicle Detection & Tracking](https://kulkarnishub377.github.io/blog/vehicle-detection-system.html): Production multi-camera RTSP vehicle tracking system processing 50K+ vehicles/day with YOLOv8 + ByteTrack + TensorRT at 12ms latency on NVIDIA Jetson.
-- [ATMS Vehicle Forensic Re-Identification](https://kulkarnishub377.github.io/blog/vehicle-re-identification.html): In-memory forensic vehicle matching system serving 150K+ daily queries at <100ms latency using OSNet + FAISS IVF-PQ without database overhead.
-- [Open Source Data Annotation Tool for CV](https://github.com/kulkarnishub377/Data_Annotation_Tool): Local-first, privacy-focused alternative to CVAT & Roboflow. End-to-end dataset platform featuring model-assisted auto-annotation (100,000 images in 30 mins on NVIDIA Orin NX 16GB), bbox & polygon segmentation, 5-point dataset health QA dashboard, multi-format inference (.pt, .onnx, .engine), auto splitting, and in-browser model fine-tuning with live SSE logs. [GitHub](https://github.com/kulkarnishub377/Data_Annotation_Tool) | [Case Study](https://kulkarnishub377.github.io/blog/data-annotation-tool.html)
-- [OmniSight](https://kulkarnishub377.github.io/OmniSight/): Autonomous multi-modal AI incident intelligence fabric ingesting IoT, vision, and audio signals with an Agentic workflow engine. [Case Study](https://kulkarnishub377.github.io/blog/omnisight.html) | [GitHub](https://github.com/kulkarnishub377/OmniSight)
-- [DocuAI Studio v3.1](https://kulkarnishub377.github.io/blog/docuai-studio-v3-1.html): Production Document AI & Hybrid RAG platform (FAISS + BM25 + RRF) with streaming Q&A, knowledge graphs, and 40+ REST API endpoints. [GitHub](https://github.com/kulkarnishub377/Document-AI---RAG-Pipeline)
-- [CivicMind](https://kulkarnishub377.github.io/CivicMind/): Multi-agent smart city decision intelligence platform using Gemini 2.5 orchestration, digital twin simulation, and Explainable AI (XAI). [Case Study](https://kulkarnishub377.github.io/blog/civicmind.html) | [GitHub](https://github.com/kulkarnishub377/CivicMind)
-- [KeyFlow AI Typing Studio](https://kulkarnishub377.github.io/keyflow-ai-typing/): Local-first adaptive typing trainer with 10 deterministic AI agents, sub-millisecond telemetry, Web Audio DSP synthesis, and 18 MB standalone binary. [Case Study](https://kulkarnishub377.github.io/blog/keyflow-ai-typing.html) | [GitHub](https://github.com/kulkarnishub377/keyflow-ai-typing)
-- [Smart Irrigation System](https://kulkarnishub377.github.io/JalTantra/): IoT + ML precision agriculture water optimization saving 30% water. AIR 1 Smart India Hackathon 2023 winner. [Overview](https://kulkarnishub377.github.io/blog/smart-irrigation.html) | [Win Story](https://kulkarnishub377.github.io/blog/sih-win-2023.html)
-- [Alumni Management Portal](https://kulkarnishub377.github.io/Alumni_Management_portal/): Full-stack Django 5.2/DRF role-based platform (164+ commits, 4 dashboards, 50+ REST APIs, JWT auth). [Case Study](https://kulkarnishub377.github.io/blog/alumni-portal.html) | [GitHub](https://github.com/kulkarnishub377/Alumni_Management_portal)
-- [Mental Health AI Tracker](https://kulkarnishub377.github.io/blog/mental-health-ai.html): NLP sentiment & burnout detection system built during IBM India internship with 90% accuracy.
-- [AI E-Waste Management System](https://kulkarnishub377.github.io/e_waste/): Smart bin network with AI device classification and GPS routing reducing collection costs by 40%. [Article](https://kulkarnishub377.github.io/blog/e-waste-management.html)
+- [VIDES Vehicle Detection & Tracking](https://shubhamkulkarni.me/blog/vehicle-detection-system.html): Production multi-camera RTSP vehicle tracking system processing 50K+ vehicles/day with YOLOv8 + ByteTrack + TensorRT at 12ms latency on NVIDIA Jetson.
+- [ATMS Vehicle Forensic Re-Identification](https://shubhamkulkarni.me/blog/vehicle-re-identification.html): In-memory forensic vehicle matching system serving 150K+ daily queries at <100ms latency using OSNet + FAISS IVF-PQ without database overhead.
+- [Open Source Data Annotation Tool for CV](https://github.com/kulkarnishub377/Data_Annotation_Tool): Local-first, privacy-focused alternative to CVAT & Roboflow. End-to-end dataset platform featuring model-assisted auto-annotation (100,000 images in 30 mins on NVIDIA Orin NX 16GB), bbox & polygon segmentation, 5-point dataset health QA dashboard, multi-format inference (.pt, .onnx, .engine), auto splitting, and in-browser model fine-tuning with live SSE logs. [GitHub](https://github.com/kulkarnishub377/Data_Annotation_Tool) | [Case Study](https://shubhamkulkarni.me/blog/data-annotation-tool.html)
+- [OmniSight](https://shubhamkulkarni.me/OmniSight/): Autonomous multi-modal AI incident intelligence fabric ingesting IoT, vision, and audio signals with an Agentic workflow engine. [Case Study](https://shubhamkulkarni.me/blog/omnisight.html) | [GitHub](https://github.com/kulkarnishub377/OmniSight)
+- [DocuAI Studio v3.1](https://shubhamkulkarni.me/blog/docuai-studio-v3-1.html): Production Document AI & Hybrid RAG platform (FAISS + BM25 + RRF) with streaming Q&A, knowledge graphs, and 40+ REST API endpoints. [GitHub](https://github.com/kulkarnishub377/Document-AI---RAG-Pipeline)
+- [CivicMind](https://shubhamkulkarni.me/CivicMind/): Multi-agent smart city decision intelligence platform using Gemini 2.5 orchestration, digital twin simulation, and Explainable AI (XAI). [Case Study](https://shubhamkulkarni.me/blog/civicmind.html) | [GitHub](https://github.com/kulkarnishub377/CivicMind)
+- [KeyFlow AI Typing Studio](https://shubhamkulkarni.me/keyflow-ai-typing/): Local-first adaptive typing trainer with 10 deterministic AI agents, sub-millisecond telemetry, Web Audio DSP synthesis, and 18 MB standalone binary. [Case Study](https://shubhamkulkarni.me/blog/keyflow-ai-typing.html) | [GitHub](https://github.com/kulkarnishub377/keyflow-ai-typing)
+- [Smart Irrigation System](https://shubhamkulkarni.me/JalTantra/): IoT + ML precision agriculture water optimization saving 30% water. AIR 1 Smart India Hackathon 2023 winner. [Overview](https://shubhamkulkarni.me/blog/smart-irrigation.html) | [Win Story](https://shubhamkulkarni.me/blog/sih-win-2023.html)
+- [Alumni Management Portal](https://shubhamkulkarni.me/Alumni_Management_portal/): Full-stack Django 5.2/DRF role-based platform (164+ commits, 4 dashboards, 50+ REST APIs, JWT auth). [Case Study](https://shubhamkulkarni.me/blog/alumni-portal.html) | [GitHub](https://github.com/kulkarnishub377/Alumni_Management_portal)
+- [Mental Health AI Tracker](https://shubhamkulkarni.me/blog/mental-health-ai.html): NLP sentiment & burnout detection system built during IBM India internship with 90% accuracy.
+- [AI E-Waste Management System](https://shubhamkulkarni.me/e_waste/): Smart bin network with AI device classification and GPS routing reducing collection costs by 40%. [Article](https://shubhamkulkarni.me/blog/e-waste-management.html)
 
 ## Technical Blog & Deep Dives
 
-- [Open Source Data Annotation Platform](https://kulkarnishub377.github.io/blog/data-annotation-tool.html): Technical deep dive into local-first CV dataset engineering, YOLO-assisted auto-annotation, dataset health QA, and in-browser model training with live SSE logs.
-- [LangGraph Multi-Agent Workflows](https://kulkarnishub377.github.io/blog/ai-agent-langgraph.html): Architectural guide to designing cyclical, stateful AI agent networks with human-in-the-loop validation.
-- [Production RAG Pipeline Architecture](https://kulkarnishub377.github.io/blog/rag-pipeline.html): Implementing Hybrid Retrieval (Dense Vector + BM25 Sparse + Reciprocal Rank Fusion) and evaluation with Ragas.
-- [Generative AI Engineering Guide](https://kulkarnishub377.github.io/blog/generative-ai.html): Full-stack LLM engineering from fine-tuning to compound AI systems and structured outputs.
-- [Computer Vision Hub](https://kulkarnishub377.github.io/blog/computer-vision.html): Modern real-time object detection, tracking, TensorRT optimization, and video analytics.
-- [AI & ML Industry Trends](https://kulkarnishub377.github.io/blog/ai-ml-trends.html): Critical analysis of frontier models, edge inference, multimodal systems, and MLOps best practices.
-- [Trending AI Languages](https://kulkarnishub377.github.io/blog/trending-ai-langs.html): Comparative evaluation of Python, Mojo, Rust, C++, and Julia in production AI.
-- [IoT Connectivity & Edge Systems](https://kulkarnishub377.github.io/blog/iot-connectivity.html): Protocols (MQTT, RTSP, WebSockets) and low-latency edge AI integration.
+- [Open Source Data Annotation Platform](https://shubhamkulkarni.me/blog/data-annotation-tool.html): Technical deep dive into local-first CV dataset engineering, YOLO-assisted auto-annotation, dataset health QA, and in-browser model training with live SSE logs.
+- [LangGraph Multi-Agent Workflows](https://shubhamkulkarni.me/blog/ai-agent-langgraph.html): Architectural guide to designing cyclical, stateful AI agent networks with human-in-the-loop validation.
+- [Production RAG Pipeline Architecture](https://shubhamkulkarni.me/blog/rag-pipeline.html): Implementing Hybrid Retrieval (Dense Vector + BM25 Sparse + Reciprocal Rank Fusion) and evaluation with Ragas.
+- [Generative AI Engineering Guide](https://shubhamkulkarni.me/blog/generative-ai.html): Full-stack LLM engineering from fine-tuning to compound AI systems and structured outputs.
+- [Computer Vision Hub](https://shubhamkulkarni.me/blog/computer-vision.html): Modern real-time object detection, tracking, TensorRT optimization, and video analytics.
+- [AI & ML Industry Trends](https://shubhamkulkarni.me/blog/ai-ml-trends.html): Critical analysis of frontier models, edge inference, multimodal systems, and MLOps best practices.
+- [Trending AI Languages](https://shubhamkulkarni.me/blog/trending-ai-langs.html): Comparative evaluation of Python, Mojo, Rust, C++, and Julia in production AI.
+- [IoT Connectivity & Edge Systems](https://shubhamkulkarni.me/blog/iot-connectivity.html): Protocols (MQTT, RTSP, WebSockets) and low-latency edge AI integration.
 
 ## Awards & Recognition
 

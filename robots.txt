@@ -1,4 +1,4 @@
-# Crawl rules for kulkarnishub377.github.io
+# Crawl rules for shubhamkulkarni.me
 # Shubham Kulkarni Portfolio — AI Engineer | Computer Vision, GenAI & MLOps
 
 User-agent: *
@@ -25,4 +25,4 @@ Allow: /llms-full.txt
 Allow: /humans.txt
 
 # Sitemap Location
-Sitemap: https://kulkarnishub377.github.io/sitemap.xml
+Sitemap: https://shubhamkulkarni.me/sitemap.xml
