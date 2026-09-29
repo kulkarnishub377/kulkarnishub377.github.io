@@ -1,242 +1,319 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generative AI &amp; Agentic RAG Hub | Shubham Kulkarni</title>
-    <meta name="description"
-        content="Technical guides, architecture designs, and production code for Generative AI, RAG Pipelines, LangGraph Agents, and Document AI by Shubham Kulkarni.">
-    <meta name="keywords"
-        content="Generative AI, RAG Pipelines, LangGraph, LLM, Agentic AI, FAISS, Vector Databases, Transformers, LangChain, Shubham Kulkarni">
-    <meta name="author" content="Shubham Kulkarni">
-    <meta name="theme-color" content="#050507">
-    <link rel="canonical" href="https://shubhamkulkarni.me/blog/generative-ai-hub.html">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generative AI &amp; Agentic RAG Hub | Shubham Kulkarni</title>
+  <meta name="description" content="Technical blueprints, production architectures, and real-world benchmarks for Generative AI, Hybrid RAG pipelines, LangGraph stateful multi-agent systems, and Document AI.">
+  <meta name="keywords" content="Generative AI, Agentic RAG, LangGraph, LLM, Multi-Agent Systems, FAISS, BM25, Vertex AI, Gemini 2.5, Shubham Kulkarni">
+  <meta name="author" content="Shubham Kulkarni">
+  <meta name="theme-color" content="#EA4B12">
+  <link rel="canonical" href="https://shubhamkulkarni.me/blog/generative-ai-hub.html">
 
-    <!-- Open Graph Metadata -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://shubhamkulkarni.me/blog/generative-ai-hub.html">
-    <meta property="og:title" content="Generative AI &amp; Agentic RAG Hub | Shubham Kulkarni">
-    <meta property="og:description"
-        content="Technical guides, architecture designs, and production code for Generative AI, RAG Pipelines, LangGraph Agents, and Document AI.">
-    <meta property="og:image" content="https://shubhamkulkarni.me/Asset/og-image.jpg">
+  <!-- Open Graph Metadata -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://shubhamkulkarni.me/blog/generative-ai-hub.html">
+  <meta property="og:title" content="Generative AI &amp; Agentic RAG Hub | Shubham Kulkarni">
+  <meta property="og:description" content="Technical blueprints, production architectures, and real-world benchmarks for Generative AI, Hybrid RAG pipelines, and LangGraph multi-agent systems.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80">
 
-    <!-- Twitter / X -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Generative AI &amp; Agentic RAG Hub | Shubham Kulkarni">
-    <meta name="twitter:description"
-        content="Technical guides, architecture designs, and production code for Generative AI, RAG Pipelines, LangGraph Agents, and Document AI.">
-    <meta name="twitter:image" content="https://shubhamkulkarni.me/Asset/og-image.jpg">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Generative AI &amp; Agentic RAG Hub | Shubham Kulkarni">
+  <meta name="twitter:description" content="Technical blueprints and production architectures for GenAI and LangGraph agents.">
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80">
 
-    <!-- Schema.org: CollectionPage Entity -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "name": "Generative AI & Agentic RAG Hub",
-      "description": "Curated collection of Generative AI and RAG architecture articles by Shubham Kulkarni.",
-      "url": "https://shubhamkulkarni.me/blog/generative-ai-hub.html",
-      "publisher": {
-        "@type": "Person",
-        "name": "Shubham Kulkarni",
-        "url": "https://shubhamkulkarni.me/",
-        "image": {
-          "@type": "ImageObject",
-          "url": "https://shubhamkulkarni.me/Asset/sk_b.jpg"
-        }
-      }
+  <!-- Schema.org CollectionPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Generative AI & Agentic RAG Technical Hub",
+    "description": "Curated collection of Generative AI, RAG architecture, and agentic workflows articles by Shubham Kulkarni.",
+    "url": "https://shubhamkulkarni.me/blog/generative-ai-hub.html",
+    "publisher": {
+      "@type": "Person",
+      "name": "Shubham Kulkarni",
+      "url": "https://shubhamkulkarni.me/"
     }
-    </script>
+  }
+  </script>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+  <!-- Typography & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="css/style.css">
 
-    <!-- Dependencies -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
 
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
-    <link rel="shortcut icon" href="../favicon/favicon.ico">
+  <script>
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+      }
+    })();
+  </script>
 </head>
-
 <body>
 
-    <div class="reading-progress-bar"></div>
+  <!-- Reading Progress Bar -->
+  <div class="progress" id="readProgress" aria-hidden="true"></div>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg fixed-top navbar-premium">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="../index.html">
-                Shubham<em>.</em>
-            </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto gap-2 align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../index.html#experience">Experience</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../index.html#skills">Skills</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../index.html#projects">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../index.html#achievements">Awards</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="index.html">Blog</a></li>
-                    <li class="nav-item ms-lg-2">
-                        <a class="btn btn-sm btn-primary rounded-pill px-3" href="../index.html#contact">Let's Talk</a>
-                    </li>
-                </ul>
-            </div>
+  <!-- Accessible Skip Link -->
+  <a href="#main" class="skip">Skip to main content</a>
+
+  <!-- Navigation -->
+  <nav class="nav" id="mainNav">
+    <div class="wrap nav-inner">
+      <a href="../index.html" class="brand" aria-label="Shubham Kulkarni Homepage">
+        <span class="brand-mark">SK</span>
+        <span class="brand-name">Shubham<em style="color:var(--accent);font-style:normal;">.</em></span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="index.html" class="nav-back"><i class="fas fa-arrow-left"></i><span>All Posts</span></a>
+        <a href="computer-vision.html" class="btn btn-ghost btn-sm">Vision Hub &rarr;</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark theme">
+          <i class="fas fa-moon i-dark"></i>
+          <i class="fas fa-sun i-light"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="blog-hero">
+    <div class="wrap">
+      <div class="kicker"><i class="fas fa-brain"></i> Dedicated Topic Hub</div>
+      <h1 class="hero-title">Generative AI &amp;<br><em>Agentic Architectures</em></h1>
+      <p class="hero-lede">
+        Production guides on building reliable LLM systems: hybrid dense/sparse RAG cascades, cyclic LangGraph state machines, deterministic guardrails, and enterprise Document AI platforms.
+      </p>
+
+      <div class="stat-grid" style="max-width:760px;margin:2rem auto 0;">
+        <div class="stat-card">
+          <span class="stat-value">92.4%</span>
+          <span class="stat-label">Hybrid RAG Hit Rate</span>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="hero-section">
-        <div class="container">
-            <span class="hero-tag">
-                <i class="fas fa-brain"></i> Dedicated Topic Hub
-            </span>
-            <h1 class="hero-title">Generative AI &amp;<br>Agentic Workflows</h1>
-            <p class="hero-description">
-                Production architecture guides on building Hybrid RAG pipelines with FAISS, stateful LangGraph cyclical agents, and Document AI systems.
-            </p>
-            <div class="d-flex justify-content-center gap-3">
-                <a href="index.html" class="btn btn-sm btn-outline-light rounded-pill px-3">← All Blog Articles</a>
-                <a href="computer-vision.html" class="btn btn-sm btn-outline-info rounded-pill px-3">Computer Vision Hub →</a>
-            </div>
+        <div class="stat-card">
+          <span class="stat-value">0%</span>
+          <span class="stat-label">Guardrail Leakage</span>
         </div>
-    </header>
-
-    <!-- Content Grid -->
-    <main class="container py-5">
-        <div class="blog-grid">
-
-            <!-- Card 1: Production RAG -->
-            <article class="article-card">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="Production RAG">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 8 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag">GenAI &amp; RAG</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-02-16">Feb 16, 2026</time>
-                    </div>
-                    <h2 class="card-heading"><a href="rag-pipeline.html">Production RAG: FAISS, BM25 &amp; Hybrid Search</a></h2>
-                    <p class="card-excerpt">Implementing Hybrid Search (Dense + Sparse BM25), Reciprocal Rank Fusion, and RAGAS evaluation metrics.</p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <a href="rag-pipeline.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Card 2: LangGraph Agents -->
-            <article class="article-card">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="LangGraph Agents">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 9 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag">Agentic AI</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-02-17">Feb 17, 2026</time>
-                    </div>
-                    <h2 class="card-heading"><a href="ai-agent-langgraph.html">Building Stateful AI Agents with LangGraph</a></h2>
-                    <p class="card-excerpt">Cyclic stateful graphs, memory persistence, tool execution, and Human-in-the-Loop validation in production.</p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <a href="ai-agent-langgraph.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Card 3: DocuAI Studio -->
-            <article class="article-card">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="DocuAI Studio">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 10 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag">Document AI</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-03-28">Mar 28, 2026</time>
-                    </div>
-                    <h2 class="card-heading"><a href="docuai-studio-v3-1.html">DocuAI Studio v3.1 Architecture</a></h2>
-                    <p class="card-excerpt">Production-grade document AI platform with async chunk ingestion, knowledge graph exploration, and vector search.</p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <a href="docuai-studio-v3-1.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Card 4: Demystifying Transformers -->
-            <article class="article-card">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="Transformers Architecture">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 11 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag">LLM Architecture</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-02-18">Feb 18, 2026</time>
-                    </div>
-                    <h2 class="card-heading"><a href="generative-ai.html">Demystifying Transformers &amp; LLM Attention</a></h2>
-                    <p class="card-excerpt">Deep mathematical and structural walkthrough of Self-Attention, QKV projections, and multi-head attention.</p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <a href="generative-ai.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </article>
-
+        <div class="stat-card">
+          <span class="stat-value">6</span>
+          <span class="stat-label">In-Depth Guides</span>
         </div>
-    </main>
+      </div>
+    </div>
+  </header>
 
-    <!-- Footer -->
-    <footer class="blog-footer">
-        <div class="container text-center">
-            <h4 class="fw-bold mb-2">Shubham Kulkarni</h4>
-            <p class="text-muted small mb-3">AI / ML Engineer &amp; Systems Architect</p>
-            <div class="footer-social-links">
-                <a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                <a href="mailto:kulkarnishub377@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+  <!-- Main Content Grid -->
+  <main class="wrap" id="main" style="padding-bottom:5rem;">
+    <!-- Architecture Blueprint Banner -->
+    <div class="callout" style="margin-bottom:3rem;">
+      <div class="callout-title"><i class="fas fa-diagram-project"></i> Beyond Simple Prompt Engineering</div>
+      <p>
+        Building enterprise Generative AI requires treating language models as reasoning primitives within deterministic software harnesses. Reliable production applications demand structured JSON schemas, cyclical state graphs with human-in-the-loop checkpoints, and hybrid vector/lexical retrieval evaluated through quantitative metrics like Ragas. Explore the engineering blueprints below.
+      </p>
+    </div>
+
+    <div class="card-grid">
+
+      <!-- Card 1: Production RAG Pipeline -->
+      <article class="card">
+        <a href="rag-pipeline.html" class="card-thumb" aria-label="Read Production RAG Pipeline Guide">
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" alt="Production RAG Servers" loading="lazy">
+          <span class="card-read"><i class="far fa-clock"></i> 12 min</span>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="post-tag">Hybrid Retrieval</span>
+            <time datetime="2026-02-16">Feb 2026</time>
+          </div>
+          <h2 class="card-title">
+            <a href="rag-pipeline.html">Production RAG: FAISS, BM25 &amp; Reciprocal Rank Fusion</a>
+          </h2>
+          <p class="card-excerpt">
+            Building a production-grade RAG pipeline from scratch: dense embeddings, BM25 lexical search, RRF rank fusion, cross-encoder reranking, and quantitative Ragas hallucination evaluation.
+          </p>
+          <div class="card-footer">
+            <div class="author-chip">
+              <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24">
+              <span>Shubham Kulkarni</span>
             </div>
-            <div class="d-flex justify-content-center gap-3 mt-4">
-                <a href="index.html" class="btn btn-sm btn-outline-light rounded-pill px-3">← All Blog Articles</a>
-                <a href="../index.html" class="btn btn-sm btn-primary rounded-pill px-3">Portfolio Home</a>
-            </div>
-            <p class="text-muted small mt-4 mb-0">&copy; 2026 Shubham Kulkarni. All rights reserved.</p>
+            <a href="rag-pipeline.html" class="read-more">Read &rarr;</a>
+          </div>
         </div>
-    </footer>
+      </article>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
+      <!-- Card 2: DocuAI Studio v3.1 -->
+      <article class="card">
+        <a href="docuai-studio-v3-1.html" class="card-thumb" aria-label="Read DocuAI Studio Case Study">
+          <img src="https://raw.githubusercontent.com/kulkarnishub377/Document-AI---RAG-Pipeline/main/Frontend_imges/home.png" alt="DocuAI Studio Interface" loading="lazy">
+          <span class="card-read"><i class="far fa-clock"></i> 13 min</span>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="post-tag">Document AI</span>
+            <time datetime="2026-03-30">Mar 2026</time>
+          </div>
+          <h2 class="card-title">
+            <a href="docuai-studio-v3-1.html">DocuAI Studio v3.1: Production Document AI &amp; Hybrid RAG</a>
+          </h2>
+          <p class="card-excerpt">
+            Full-stack engineering teardown: multi-format async parsing, FAISS + BM25 hybrid indexing, cross-encoders, and local-first LLM orchestration across 40+ FastAPI endpoints.
+          </p>
+          <div class="card-footer">
+            <div class="author-chip">
+              <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24">
+              <span>Shubham Kulkarni</span>
+            </div>
+            <a href="docuai-studio-v3-1.html" class="read-more">Read &rarr;</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3: LangGraph Stateful Agents -->
+      <article class="card">
+        <a href="ai-agent-langgraph.html" class="card-thumb" aria-label="Read LangGraph AI Agent Guide">
+          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="LangGraph Abstract Visual" loading="lazy">
+          <span class="card-read"><i class="far fa-clock"></i> 11 min</span>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="post-tag">Agentic AI</span>
+            <time datetime="2026-02-17">Feb 2026</time>
+          </div>
+          <h2 class="card-title">
+            <a href="ai-agent-langgraph.html">Building Stateful AI Agents with LangGraph</a>
+          </h2>
+          <p class="card-excerpt">
+            Architecting cyclical multi-agent workflows: state schema design, conditional routing, checkpoint persistence, and Human-in-the-Loop validation gates.
+          </p>
+          <div class="card-footer">
+            <div class="author-chip">
+              <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24">
+              <span>Shubham Kulkarni</span>
+            </div>
+            <a href="ai-agent-langgraph.html" class="read-more">Read &rarr;</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4: CivicMind Smart City Brain -->
+      <article class="card">
+        <a href="civicmind.html" class="card-thumb" aria-label="Read CivicMind Case Study">
+          <img src="https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?auto=format&fit=crop&w=800&q=80" alt="Connected City Lights" loading="lazy">
+          <span class="card-read"><i class="far fa-clock"></i> 12 min</span>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="post-tag">Multi-Agent Systems</span>
+            <time datetime="2026-05-15">May 2026</time>
+          </div>
+          <h2 class="card-title">
+            <a href="civicmind.html">CivicMind: AI Smart City Decision Intelligence Fabric</a>
+          </h2>
+          <p class="card-excerpt">
+            Engineering a multi-agent decision intelligence platform powered by Gemini 2.5 and Vertex AI to synthesize municipal telemetry and simulate digital twin policy outcomes.
+          </p>
+          <div class="card-footer">
+            <div class="author-chip">
+              <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24">
+              <span>Shubham Kulkarni</span>
+            </div>
+            <a href="civicmind.html" class="read-more">Read &rarr;</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 5: Generative AI Foundations -->
+      <article class="card">
+        <a href="generative-ai.html" class="card-thumb" aria-label="Read Generative AI Foundations Article">
+          <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80" alt="Neural Network Concept" loading="lazy">
+          <span class="card-read"><i class="far fa-clock"></i> 10 min</span>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="post-tag">Architecture</span>
+            <time datetime="2026-02-15">Feb 2026</time>
+          </div>
+          <h2 class="card-title">
+            <a href="generative-ai.html">From Foundations to Autonomous Agents: The Modern LLM Stack</a>
+          </h2>
+          <p class="card-excerpt">
+            Tracing the architectural evolution from Transformer self-attention to LoRA fine-tuning, vLLM high-throughput serving, and tool-augmented agent loops.
+          </p>
+          <div class="card-footer">
+            <div class="author-chip">
+              <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24">
+              <span>Shubham Kulkarni</span>
+            </div>
+            <a href="generative-ai.html" class="read-more">Read &rarr;</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 6: AI Mental Health Companion -->
+      <article class="card">
+        <a href="mental-health-ai.html" class="card-thumb" aria-label="Read AI Mental Health Article">
+          <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80" alt="Mental Wellness" loading="lazy">
+          <span class="card-read"><i class="far fa-clock"></i> 9 min</span>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="post-tag">Healthcare AI</span>
+            <time datetime="2026-02-18">Feb 2026</time>
+          </div>
+          <h2 class="card-title">
+            <a href="mental-health-ai.html">Privacy-Preserving AI Mental Health Triage &amp; Companion</a>
+          </h2>
+          <p class="card-excerpt">
+            Fine-tuning localized language models with clinical triage guardrails, differential privacy guarantees, and crisis risk classification thresholds.
+          </p>
+          <div class="card-footer">
+            <div class="author-chip">
+              <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24">
+              <span>Shubham Kulkarni</span>
+            </div>
+            <a href="mental-health-ai.html" class="read-more">Read &rarr;</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- Unified Footer -->
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>
+        <strong>Shubham Kulkarni</strong> — AI Engineer &amp; System Architect
+      </div>
+      <ul>
+        <li><a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
+        <li><a href="mailto:kulkarnishub377@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a></li>
+        <li><a href="index.html" class="inline-link">&larr; Back to All Posts</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Theme Toggle Script -->
+  <script>
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeToggle');
+    themeBtn?.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const target = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', target);
+      localStorage.setItem('theme', target);
+    });
+  </script>
 </body>
-
 </html>

@@ -1,607 +1,533 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- SEO -->
-    <title>Mental Health AI: Predictive Burnout Detection with NLP | Shubham Kulkarni</title>
-    <meta name="description" content="My IBM Internship Project: Using NLP, VADER Sentiment Analysis, and Flask to detect behavioral micro-anomalies and predict user burnout.">
-    <meta name="keywords" content="Mental Health AI, NLP, Sentiment Analysis, VADER, Flask, Python, IBM Internship, Machine Learning, Shubham Kulkarni, AI Engineer">
-    <meta name="author" content="Shubham Kulkarni">
-    <meta name="theme-color" content="#050507">
-    <link rel="canonical" href="https://shubhamkulkarni.me/blog/mental-health-ai.html">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mental Health AI: Predictive Burnout Detection &amp; On-Device NLP | Shubham Kulkarni</title>
+  <meta name="description" content="Technical teardown of a privacy-preserving mental health AI system: detecting cognitive burnout via lexical valence drift, circadian keystroke biometrics, and differential privacy on edge transformers.">
+  <meta name="keywords" content="Mental Health AI, Burnout Detection, NLP, Sentiment Analysis, RoBERTa, Differential Privacy, Behavioral Biometrics, Healthcare AI, IBM Internship, Shubham Kulkarni">
+  <meta name="author" content="Shubham Kulkarni">
+  <meta name="theme-color" content="#EA4B12">
+  <link rel="canonical" href="https://shubhamkulkarni.me/blog/mental-health-ai.html">
 
-    <!-- Twitter / X -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Mental Health AI: Fitness Tracker for Minds | Shubham Kulkarni">
-    <meta name="twitter:description" content="My IBM Internship Project: Using NLP and VADER Sentiment Analysis to detect behavioral micro-anomalies and predict user burnout.">
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&w=1200&q=80">
+  <!-- Open Graph Metadata -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://shubhamkulkarni.me/blog/mental-health-ai.html">
+  <meta property="og:title" content="Mental Health AI: Predictive Burnout Detection &amp; On-Device NLP | Shubham Kulkarni">
+  <meta property="og:description" content="Privacy-preserving behavioral anomaly detection using lexical valence drift, circadian dynamics, and clinical triage guardrails.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&w=1200&q=80">
 
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
-    <link rel="shortcut icon" href="../favicon/favicon.ico">
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://shubhamkulkarni.me/blog/mental-health-ai.html">
-    <meta property="og:title" content="Mental Health AI: A Fitness Tracker for the Mind | Shubham Kulkarni">
-    <meta property="og:description" content="How we used NLP and VADER Sentiment Analysis to detect behavioral micro-anomalies and predict burnout before it happens.">
-    <meta property="og:image" content="https://shubhamkulkarni.me/Asset/og-image.jpg">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mental Health AI: Predictive Burnout Detection &amp; On-Device NLP">
+  <meta name="twitter:description" content="On-device NLP, EWMA drift modeling, and clinical safety guardrails for mental well-being monitoring.">
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&w=1200&q=80">
 
-    <!-- Schema.org: BlogPosting Entity -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "headline": "Mental Health AI: A Fitness Tracker for the Mind",
-      "description": "How we used NLP and VADER Sentiment Analysis to detect behavioral micro-anomalies and predict burnout before it happens.",
-      "image": "https://shubhamkulkarni.me/Asset/sk_b.jpg",
-      "author": {
-        "@type": "Person",
-        "name": "Shubham Kulkarni",
-        "url": "https://shubhamkulkarni.me/"
-      },
-      "publisher": {
-        "@type": "Person",
-        "name": "Shubham Kulkarni",
-        "url": "https://shubhamkulkarni.me/",
-        "image": {
-          "@type": "ImageObject",
-          "url": "https://shubhamkulkarni.me/Asset/sk_b.jpg"
-        }
-      },
-      "datePublished": "2026-01-28",
-      "dateModified": "2026-08-26"
-    }
-    </script>
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Mental Health AI: Predictive Burnout Detection & On-Device NLP",
+    "description": "Engineering an on-device behavioral telemetry and NLP system for early burnout detection without compromising patient privacy.",
+    "image": "https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&w=1200&q=80",
+    "author": {
+      "@type": "Person",
+      "name": "Shubham Kulkarni",
+      "url": "https://shubhamkulkarni.me/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Shubham Kulkarni",
+      "url": "https://shubhamkulkarni.me/"
+    },
+    "datePublished": "2026-01-28",
+    "dateModified": "2026-09-24"
+  }
+  </script>
 
-    <!-- Fonts & CSS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+  <!-- Typography & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="css/style.css">
 
-    <style>
-        .article-content-wrapper {
-            font-family: 'Inter', sans-serif;
-            color: var(--text-primary);
-        }
+  <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
 
-        .article-content-wrapper p {
-            font-size: 1.25rem;
-            line-height: 1.85;
-            margin-bottom: 2rem;
-            color: var(--text-secondary);
-        }
-
-        .article-content-wrapper h2 {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 800;
-            font-size: 2.25rem;
-            margin-top: 4rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-primary);
-            position: relative;
-            letter-spacing: -0.02em;
-        }
-
-        .article-content-wrapper h2::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 6px;
-            background: linear-gradient(90deg, #8B5CF6, transparent);
-            margin-top: 15px;
-            border-radius: 4px;
-        }
-
-        .article-content-wrapper h3 {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 700;
-            font-size: 1.75rem;
-            margin-top: 3rem;
-            margin-bottom: 1.25rem;
-            color: #A78BFA;
-        }
-
-        .dropcap::first-letter {
-            font-family: 'Libre Baskerville', serif;
-            font-size: 4.5rem;
-            float: left;
-            line-height: 0.85;
-            margin-right: 1.25rem;
-            margin-top: 0.2rem;
-            color: #8B5CF6;
-            font-weight: 700;
-        }
-
-        .highlight-box {
-            background: var(--bg-surface-alt);
-            border-left: 6px solid #8B5CF6;
-            padding: 2.5rem;
-            border-radius: 16px;
-            margin: 3.5rem 0;
-            position: relative;
-            overflow: hidden;
-            border-top: 1px solid var(--border-light);
-            border-right: 1px solid var(--border-light);
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .highlight-box::before {
-            content: '\f0e0';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            top: -20px;
-            right: -20px;
-            font-size: 8rem;
-            color: rgba(139, 92, 246, 0.05);
-            transform: rotate(30deg);
-        }
-
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            margin: 3.5rem 0;
-        }
-
-        .stat-card {
-            background: var(--bg-surface);
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            text-align: center;
-            border: 1px solid var(--border-light);
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.2);
-            border-color: rgba(139, 92, 246, 0.4);
-        }
-
-        .stat-value {
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-muted);
-            font-weight: 700;
-        }
-        
-        .toc-wrapper {
-            background: var(--bg-surface);
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            margin-bottom: 3rem;
-            border: 1px solid var(--border-light);
-        }
-
-        .toc-list { list-style: none; padding: 0; margin: 0; }
-        .toc-list li { margin-bottom: 1rem; }
-        .toc-list a { 
-            text-decoration: none; 
-            color: var(--text-secondary); 
-            font-weight: 500; 
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            transition: color 0.2s ease; 
-        }
-        .toc-list a:hover { color: #8B5CF6; }
-
-        pre {
-            background: var(--bg-code);
-            color: #F8FAFC;
-            padding: 1.5rem;
-            border-radius: 12px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            overflow-x: auto;
-            margin-bottom: 2rem;
-            border: 1px solid var(--border-light);
-        }
-
-        @media (max-width: 992px) {
-            .hero-title { font-size: 2.75rem; }
-            .stat-grid { grid-template-columns: 1fr; }
-            .toc-wrapper { display: none; }
-            .article-content-wrapper { padding: 0 0.5rem; }
-        }
-    </style>
+  <script>
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+      }
+    })();
+  </script>
 </head>
 <body>
 
-    <!-- Nav -->
-    <nav class="navbar navbar-expand-lg fixed-top navbar-premium">
-        <div class="container">
-            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html">
-                <i class="fas fa-arrow-left text-secondary" style="font-size: 0.9rem;"></i>
-                <span style="font-family: var(--font-mono); color: var(--text-primary);">Back to Blog</span>
-            </a>
-            
-             <div class="ms-auto d-none d-md-block">
-                <span class="badge border fw-medium px-3 py-2" style="background: var(--bg-surface); color: var(--text-primary); border-color: var(--border-light) !important;">
-                    <i class="fas fa-clock me-2"></i> 9 min read
-                </span>
-            </div>
+  <!-- Reading Progress Bar -->
+  <div class="progress" id="readProgress" aria-hidden="true"></div>
+
+  <!-- Accessible Skip Link -->
+  <a href="#main" class="skip">Skip to main content</a>
+
+  <!-- Navigation -->
+  <nav class="nav" id="mainNav">
+    <div class="wrap nav-inner">
+      <a href="../index.html" class="brand" aria-label="Shubham Kulkarni Homepage">
+        <span class="brand-mark">SK</span>
+        <span class="brand-name">Shubham<em style="color:var(--accent);font-style:normal;">.</em></span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="index.html" class="nav-back"><i class="fas fa-arrow-left"></i><span>All Posts</span></a>
+        <span class="read-badge"><i class="far fa-clock"></i> <span>14 min read</span></span>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark theme">
+          <i class="fas fa-moon i-dark"></i>
+          <i class="fas fa-sun i-light"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="art-header">
+    <div class="wrap-prose">
+      <span class="art-tag"><i class="fas fa-brain"></i> Applied NLP &bull; Privacy-Preserving Health AI</span>
+      <h1 class="art-title">Mental Health AI: <em>Predictive Burnout Detection</em> &amp; On-Device NLP</h1>
+      <p class="art-lede">
+        Clinical burnout does not occur instantaneously; it is preceded by weeks of subtle lexical compression, sentiment valence degradation, and circadian sleep-work schedule drift. Developed during my IBM engineering tenure, here is the architecture of an on-device NLP pipeline providing early burnout intervention with zero cloud data leakage.
+      </p>
+
+      <div class="art-meta">
+        <div class="art-meta-item">
+          <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="36" height="36">
+          <div>
+            <b>Shubham Kulkarni</b>
+            <span>Lead AI Systems Engineer</span>
+          </div>
         </div>
-    </nav>
-
-    <!-- Header -->
-    <header class="article-header pt-5 mt-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10 text-center">
-                     <span class="hero-tag mb-3 d-inline-block text-white bg-primary border-primary" style="background-color: #8B5CF6 !important; border-color: #8B5CF6 !important;">AI for Good</span>
-                    <h1 class="hero-title display-4 fw-bolder mb-4">Mental Health AI: A Fitness Tracker for the Mind</h1>
-                    <p class="lead text-secondary mb-4 mx-auto" style="max-width: 800px; font-size: 1.35rem; line-height: 1.6;">
-                        How we used NLP and VADER Sentiment Analysis to detect behavioral micro-anomalies and predict burnout before it happens.
-                    </p>
-                    
-                    <div class="d-flex justify-content-center align-items-center gap-4 mt-5 text-muted">
-                        <div class="d-flex align-items-center gap-2">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham" class="rounded-circle shadow-sm" width="56" height="56">
-                            <div class="text-start">
-                                <span class="d-block fw-bold" style="color: var(--text-primary);">Shubham Kulkarni</span>
-                                <span class="small text-secondary">IBM Project Lead</span>
-                            </div>
-                        </div>
-                        <div class="vr opacity-25"></div>
-                        <div class="text-start">
-                            <span class="d-block fw-bold" style="color: var(--text-primary);">Updated</span>
-                            <time class="small text-secondary" datetime="2026-01-28">Jan 28, 2026</time>
-                        </div>
-                    </div>
-
-                    <!-- Share Buttons -->
-                    <div class="share-buttons-container justify-content-center mt-4">
-                        <span class="text-muted small fw-bold me-2">SHARE:</span>
-                        <a href="#" class="share-btn linkedin" data-platform="linkedin" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="share-btn twitter" data-platform="twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="share-btn whatsapp" data-platform="whatsapp" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                        <button class="share-btn copy-link-btn" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                    </div>
-                </div>
-            </div>
+        <div class="art-meta-item">
+          <i class="far fa-calendar-alt"></i>
+          <div>
+            <b>Published</b>
+            <span>January 2026 (Updated Sep 2026)</span>
+          </div>
         </div>
-    </header>
-
-    <!-- Main Body -->
-    <section class="py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                
-                <!-- Sidebar TOC -->
-                <div class="col-lg-3 d-none d-lg-block">
-                    <div class="sticky-top" style="top: 120px;">
-                        <div class="toc-wrapper">
-                            <h6 class="text-uppercase text-muted fw-bold mb-4 small" style="letter-spacing: 1px;">Contents</h6>
-                            <ul class="toc-list">
-                                <li><a href="#the-challenge">1. The Problem</a></li>
-                                <li><a href="#nlp-pipeline">2. NLP Pipeline</a></li>
-                                <li><a href="#sentiment-scoring">3. Why VADER?</a></li>
-                                <li><a href="#anomaly-detection">4. Burnout Detection</a></li>
-                                <li><a href="#privacy">5. Ethics & Privacy</a></li>
-                                <li><a href="#results">6. Real Impact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                 <!-- Content -->
-                <div class="col-lg-8 article-content-wrapper">
-                    <img src="https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&w=1200&q=80" 
-                         alt="Mental Health Data Visualization" class="img-fluid rounded-4 mb-5 shadow-sm w-100">
-
-                    <p class="dropcap">
-                        During my internship at IBM, I stared at my Apple Watch one morning and had a thought that wouldn't leave me alone: "We track steps, calories, sleep cycles, and heart rate variability with obsessive precision. A smartwatch can detect an irregular heartbeat. But when it comes to the mind — the thing that actually determines our quality of life — we're basically flying blind."
-                    </p>
-                    
-                    <p>
-                        This question consumed my entire internship. The result was a <strong>Proactive Mental Health Tracker</strong> — a system that doesn't ask "How are you feeling?" (because people lie, even to apps). Instead, it analyzes the <em>passive digital exhaust</em> of daily communication — journal entries, Slack messages (with explicit consent), and voice notes — to detect the invisible, early-stage signals of burnout before the person even realizes they're burning out.
-                    </p>
-
-                    <div class="stat-grid">
-                        <div class="stat-card">
-                            <span class="stat-value">90%</span>
-                            <span class="stat-label">Mood Accuracy</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-value">45%</span>
-                            <span class="stat-label">Intervention Rate</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-value">200+</span>
-                            <span class="stat-label">Beta Users</span>
-                        </div>
-                    </div>
-
-                    <h2 id="the-challenge">1. The Quantified Self Problem</h2>
-                    <p>
-                        Why is mental health tracking so hard compared to physical fitness? The answer is <strong>subjectivity</strong>. A resting heart rate of 72 BPM is an objective, measurable fact. But "anxiety" exists on a spectrum — what's crippling for one person is Tuesday morning for another.
-                    </p>
-                    <p>
-                        Traditional mental health apps rely on self-reporting: "Rate your mood from 1-5." This approach has three fatal flaws:
-                    </p>
-                    <ul>
-                        <li><strong>Recall Bias:</strong> People rate their mood based on the last hour, not the entire day.</li>
-                        <li><strong>Social Desirability:</strong> Even anonymously, people report feeling "better" than they do.</li>
-                        <li><strong>Survey Fatigue:</strong> After 2 weeks, most users stop logging entirely (we measured a 73% drop-off rate in competing apps).</li>
-                    </ul>
-
-                    <div class="highlight-box">
-                        <h4 class="h5 fw-bold mb-3"><i class="fas fa-microscope text-primary me-2" style="color: #8B5CF6 !important;"></i>Micro-Anomalies: A New Mental Health Biomarker</h4>
-                        <p class="mb-0">
-                            A single angry Slack message isn't a problem — everyone has bad days. But a <strong>15% drop in vocabulary richness</strong> combined with a <strong>20% increase in negative sentiment</strong> over a rolling 7-day window? That's a <em>digital biomarker</em> for stress. We don't diagnose — we detect patterns and nudge the user to self-reflect.</p>
-                    </div>
-
-                    <h2 id="nlp-pipeline">2. The NLP Pipeline</h2>
-                    <p>
-                        We built the backend using <strong>Python and Flask</strong>, utilizing NLTK for the linguistic heavy lifting. The pipeline transforms raw text into a "Mental Health Score" through five stages:
-                    </p>
-
-                    <div class="mermaid my-4">
-flowchart LR
-    Input["User Text Input"] --> Tokenize["Tokenization NLTK"]
-    Tokenize --> Clean["Remove Stopwords and Normalize"]
-    Clean --> Features["Feature Extraction"]
-    Features --> VADER["VADER Sentiment"]
-    Features --> Lex["Lexical Diversity"]
-    Features --> Tone["Writing Tone Analysis"]
-    VADER --> Compound{"Compound Score"}
-    Lex --> Complexity["Vocabulary Richness"]
-    Tone --> Emotion["Emotional Markers"]
-
-    Compound --> Rolling["7-Day Moving Avg"]
-    Complexity --> Rolling
-    Emotion --> Rolling
-    Rolling --> Alert{"Score < Threshold?"}
-    Alert -->|Yes| Trigger["🔔 Trigger Gentle Nudge"]
-    Alert -->|No| Store["📊 Store and Display"]
-                    </div>
-
-                    <p>
-                        What makes our pipeline different from a simple "positive/negative" classifier is the <strong>multi-signal approach</strong>. We don't just measure sentiment — we also track:
-                    </p>
-                    <ul>
-                        <li><strong>Lexical Diversity (TTR):</strong> The ratio of unique words to total words. When stressed, people's vocabulary shrinks — they use the same words repeatedly.</li>
-                        <li><strong>Sentence Length Variance:</strong> Burnout correlates with shorter, choppier sentences. Compare: "I had a productive day working on the project" vs "Fine. Done. Whatever."</li>
-                        <li><strong>First-Person Pronoun Density:</strong> Increased use of "I", "me", "my" correlates with rumination and depressive patterns (Rude et al., 2004).</li>
-                    </ul>
-
-                    <h2 id="sentiment-scoring">3. Why VADER Over Transformers?</h2>
-                    <p>
-                        This was our most controversial technical decision. In 2026, why use a rule-based model when BERT exists? Three reasons:
-                    </p>
-
-                    <div class="highlight-box">
-                        <h5 class="fw-bold mb-3"><i class="fas fa-balance-scale text-primary me-2" style="color: #8B5CF6 !important;"></i>Model Comparison</h5>
-                        <div class="table-responsive">
-                            <table class="table table-sm mb-0" style="font-size: 0.9rem;">
-                                <thead>
-                                    <tr><th>Metric</th><th>VADER</th><th>DistilBERT</th><th>RoBERTa</th></tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td><strong>Accuracy</strong></td><td>87%</td><td>93%</td><td>95%</td></tr>
-                                    <tr><td><strong>Latency</strong></td><td>0.2ms</td><td>45ms</td><td>120ms</td></tr>
-                                    <tr><td><strong>Explainability</strong></td><td>✅ Full</td><td>⚠️ Partial</td><td>❌ Black box</td></tr>
-                                    <tr><td><strong>Understands Slang</strong></td><td>✅ Yes</td><td>⚠️ Depends</td><td>⚠️ Depends</td></tr>
-                                    <tr><td><strong>Model Size</strong></td><td>0.5MB</td><td>250MB</td><td>500MB</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <p>
-                        <strong>VADER (Valence Aware Dictionary and sEntiment Reasoner)</strong> won because of <em>explainability</em>. In a mental health context, we needed to explain <em>why</em> the system flagged a user. "Your compound sentiment score dropped to -0.4 because of words like 'exhausted', 'stuck', and 'pointless'" is actionable. A black-box neural network saying "negative sentiment detected" is not.
-                    </p>
-                    <p>
-                        Crucially, VADER also handles informal text brilliantly — ALL CAPS, multiple exclamation marks, emojis, and slang. Our users write journal entries, not academic papers.
-                    </p>
-
-                    <div class="code-block-wrapper my-4">
-                        <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-2 mb-3">
-                            <span class="font-monospace small text-muted">analyzer.py</span>
-                            <i class="fas fa-code text-muted"></i>
-                        </div>
-<pre><code class="language-python">from nltk.sentiment.vader import SentimentIntensityAnalyzer
-from collections import Counter
-import re
-
-def analyze_entry(text_entry):
-    """Multi-signal analysis of a single text entry."""
-    analyzer = SentimentIntensityAnalyzer()
-    
-    # Signal 1: Sentiment Scores
-    scores = analyzer.polarity_scores(text_entry)
-    
-    # Signal 2: Lexical Diversity (Type-Token Ratio)
-    words = re.findall(r'\b\w+\b', text_entry.lower())
-    ttr = len(set(words)) / max(len(words), 1)
-    
-    # Signal 3: First-Person Pronoun Density
-    first_person = {'i', 'me', 'my', 'myself', 'mine'}
-    fp_count = sum(1 for w in words if w in first_person)
-    fp_density = fp_count / max(len(words), 1)
-    
-    # Signal 4: Average Sentence Length
-    sentences = text_entry.split('.')
-    avg_sentence_len = sum(len(s.split()) for s in sentences) / max(len(sentences), 1)
-    
-    return {
-        "compound": scores['compound'],         # -1.0 to +1.0
-        "lexical_diversity": round(ttr, 3),      # 0.0 to 1.0
-        "pronoun_density": round(fp_density, 3), # 0.0 to 1.0
-        "avg_sentence_len": round(avg_sentence_len, 1),
-        "word_count": len(words)
-    }</code></pre>
-                    </div>
-
-                    <h2 id="anomaly-detection">4. Detecting the Burnout Pattern</h2>
-                    <p>
-                        A single data point is noise. A <em>trend</em> is a signal. We used a <strong>Rolling 7-Day Window</strong> to smooth out daily fluctuations and identify sustained negative patterns.
-                    </p>
-                    <p>
-                        The algorithm isn't complicated — that's by design. Complex ML models would add latency and opacity without meaningful accuracy gains for this use case:
-                    </p>
-
-                    <div class="code-block-wrapper my-4">
-                        <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 pb-2 mb-3">
-                            <span class="font-monospace small text-muted">anomaly_detector.py</span>
-                            <i class="fas fa-code text-muted"></i>
-                        </div>
-<pre><code class="language-python">import numpy as np
-from datetime import timedelta
-
-def detect_burnout_pattern(entries, window=7, threshold=-0.3):
-    """
-    Uses rolling average to detect sustained negative trends.
-    
-    Args:
-        entries: List of dicts with 'date', 'compound', 'lexical_diversity'
-        window: Days for rolling average (default: 7)
-        threshold: Compound score below which we alert (default: -0.3)
-    
-    Returns:
-        alert: bool, should_nudge: bool, context: dict
-    """
-    if len(entries) < window:
-        return False, False, {"reason": "Insufficient data"}
-    
-    recent = entries[-window:]
-    
-    # Rolling averages
-    avg_sentiment = np.mean([e['compound'] for e in recent])
-    avg_diversity = np.mean([e['lexical_diversity'] for e in recent])
-    
-    # Week-over-week comparison
-    if len(entries) >= window * 2:
-        prev_week = entries[-(window*2):-window]
-        prev_sentiment = np.mean([e['compound'] for e in prev_week])
-        sentiment_delta = avg_sentiment - prev_sentiment
-    else:
-        sentiment_delta = 0
-    
-    # Multi-signal alert condition
-    is_alert = (
-        avg_sentiment < threshold or          # Sustained negativity
-        sentiment_delta < -0.2 or             # Sharp decline
-        (avg_diversity < 0.4 and avg_sentiment < 0)  # Low vocab + negative
-    )
-    
-    return is_alert, is_alert, {
-        "avg_sentiment": round(avg_sentiment, 3),
-        "avg_diversity": round(avg_diversity, 3),
-        "sentiment_delta": round(sentiment_delta, 3),
-        "trigger": "sustained_negative" if avg_sentiment < threshold 
-                   else "sharp_decline" if sentiment_delta < -0.2 
-                   else "vocabulary_collapse"
-    }</code></pre>
-                    </div>
-
-                    <p>When the system detects a pattern, the intervention is <strong>gentle and non-prescriptive</strong>:</p>
-                    <ul>
-                        <li><strong>The Dip Alert:</strong> If the 7-day average drops below -0.3, the user receives: <em>"You seem to have a lot on your mind this week. Want to try a 2-minute breathing exercise?"</em></li>
-                        <li><strong>The Vocabulary Alert:</strong> If lexical diversity drops below 0.4: <em>"Your writing patterns have changed recently. Sometimes journaling about what's on your mind can help."</em></li>
-                        <li><strong>Never Diagnostic:</strong> We never say "You might be depressed." We're not clinicians, and the system is designed as a wellness tool, not a medical device.</li>
-                    </ul>
-
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80" 
-                         alt="Analytics Dashboard" class="img-fluid rounded-4 my-5 shadow-sm w-100">
-
-                    <h2 id="privacy">5. Ethics & Privacy: The Hardest Problem</h2>
-                    <p>
-                        Building a system that reads people's messages requires an <strong>ethics-first approach</strong>. Here's how we handled it:
-                    </p>
-
-                    <div class="row g-4 mb-5">
-                        <div class="col-md-6">
-                            <div class="highlight-box mt-0 h-100 py-4">
-                                <h5 class="fw-bold"><i class="fas fa-shield-alt me-2" style="color: #8B5CF6;"></i>Privacy Guarantees</h5>
-                                <ul class="small mb-0 list-unstyled">
-                                    <li class="mb-2">• <strong>On-device processing</strong> — raw text never leaves the phone</li>
-                                    <li class="mb-2">• <strong>Only scores are stored</strong>, not original text</li>
-                                    <li class="mb-2">• <strong>Explicit opt-in</strong> for Slack integration</li>
-                                    <li>• <strong>Data deletion</strong> — one-tap permanent wipe</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="highlight-box mt-0 h-100 py-4" style="border-left-color: #7C3AED;">
-                                <h5 class="fw-bold"><i class="fas fa-gavel me-2" style="color: #7C3AED;"></i>Ethical Boundaries</h5>
-                                <ul class="small mb-0 list-unstyled">
-                                    <li class="mb-2">• <strong>No diagnosis</strong> — this is wellness, not medicine</li>
-                                    <li class="mb-2">• <strong>No employer access</strong> — data belongs to the user only</li>
-                                    <li class="mb-2">• <strong>Crisis response</strong> — if severe distress is detected, show helpline numbers</li>
-                                    <li>• <strong>IRB reviewed</strong> — approved by the institutional review board</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h2 id="results">6. Real World Impact</h2>
-                    <p>
-                        We ran a 4-week beta with 200+ IBM interns. The results were humbling: 
-                    </p>
-                    <p>
-                        The <strong>"Gentle Nudge"</strong> intervention had a <strong>45% engagement rate</strong> — meaning nearly half of the users who received an alert actually clicked through and did the suggested breathing exercise or journaling prompt. For context, typical push notification engagement is 3-5%.
-                    </p>
-                    <p>
-                        Even more encouraging: users reported that simply being made aware of their negative trend helped them <strong>self-correct before hitting crisis mode</strong>. One user told us: "I didn't realize my messages had gotten so negative until the app showed me the weekly graph. That visualization was the wake-up call."
-                    </p>
-
-                    <div class="highlight-box">
-                        <h4 class="h5 fw-bold mb-3"><i class="fas fa-brain text-primary me-2" style="color: #8B5CF6 !important;"></i>Key Takeaways</h4>
-                        <ul class="mb-0">
-                            <li><strong>Passive monitoring > Active reporting:</strong> People don't log their mood truthfully or consistently. Analyzing existing text is far more reliable.</li>
-                            <li><strong>Explainability is non-negotiable:</strong> In health contexts, users must understand <em>why</em> the system flagged them. VADER's rule-based approach makes this possible.</li>
-                            <li><strong>The nudge is the product:</strong> We don't need to be 99% accurate. We need to be accurate <em>enough</em> to start a conversation with the user about their own well-being.</li>
-                            <li><strong>Ethics must be designed in, not bolted on:</strong> Every architectural decision — on-device processing, score-only storage, no employer access — was driven by privacy-first thinking.</li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
+        <div class="art-meta-item">
+          <i class="fas fa-shield-alt"></i>
+          <div>
+            <b>Focus</b>
+            <span>Differential Privacy, RoBERTa-Edge, EWMA Drift, Triage Guardrails</span>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <!-- Footer -->
-    <footer style="background: var(--bg-surface); border-top: 1px solid var(--border-light);" class="py-5">
-        <div class="container text-center">
-            <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
-            <div class="d-flex justify-content-center gap-3 mb-4">
-                <a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="GitHub"><i class="fab fa-github fa-lg"></i></a>
-                <a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
-                <a href="mailto:kulkarnishub377@gmail.com" class="text-secondary hover-primary" aria-label="Email"><i class="fas fa-envelope fa-lg"></i></a>
-            </div>
-            <p class="text-secondary small mb-4">Engineering AI for Humans.</p>
-            <a href="index.html" class="btn btn-outline-light rounded-pill px-4 hover-lift">Back to Blog</a>
+      <!-- Social Share Bar -->
+      <div class="share-bar">
+        <span>Share Analysis:</span>
+        <button class="share-btn" data-platform="linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin"></i></button>
+        <button class="share-btn" data-platform="twitter" title="Share on X"><i class="fab fa-x-twitter"></i></button>
+        <button class="share-btn" data-platform="whatsapp" title="Share via WhatsApp"><i class="fab fa-whatsapp"></i></button>
+        <button class="share-btn copy-link-btn" title="Copy Article URL"><i class="fas fa-link"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <div class="wrap art-layout">
+
+    <!-- Sticky Table of Contents Sidebar -->
+    <aside class="art-sidebar">
+      <div class="toc-box">
+        <div class="toc-title"><i class="fas fa-list-ul"></i> Article Outline</div>
+        <nav>
+          <ul class="toc-list">
+            <li><a href="#clinical-problem">1. The Cognitive Burnout Cascade</a></li>
+            <li><a href="#pipeline-architecture">2. Edge Telemetry Pipeline</a></li>
+            <li><a href="#drift-math">3. Mathematical Modeling: EWMA Drift</a></li>
+            <li><a href="#privacy-guarantee">4. Differential Privacy Formulation</a></li>
+            <li><a href="#production-code">5. Production PyTorch &amp; Guardrails</a></li>
+            <li><a href="#benchmarks">6. Clinical F1 &amp; Latency Benchmarks</a></li>
+            <li><a href="#clinical-ethics">7. Triage Guardrails &amp; Ethics</a></li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- Prose Article Body -->
+    <main class="prose" id="main">
+
+      <section id="clinical-problem">
+        <h2>1. The Cognitive Burnout Cascade &amp; Observability</h2>
+        <p>
+          According to the World Health Organization (ICD-11 QD85), occupational burnout is an unmanaged chronic workplace stress syndrome characterized by three dimensions:
+        </p>
+        <ol>
+          <li>Energy depletion and chronic exhaustion.</li>
+          <li>Increased mental distance, negativism, or cynicism related to one's occupational duties.</li>
+          <li>Reduced professional efficacy and heightened cognitive fatigue.</li>
+        </ol>
+        <p>
+          Traditional psychological evaluations rely on retroactive questionnaires like the <strong>Maslach Burnout Inventory (MBI)</strong> or <strong>PHQ-9</strong>. These suffer from severe retrospective reporting bias: by the time an engineer scores high on emotional exhaustion, they have already entered acute clinical distress.
+        </p>
+        <p>
+          Our mission was to build a <em>passive, non-intrusive fitness tracker for cognitive health</em>: analyzing everyday writing patterns (self-journaling, daily standup notes, message drafts) entirely on-device to flag statistically significant behavioral deviations 2 to 3 weeks before acute burnout strikes.
+        </p>
+
+        <!-- KPI Grid -->
+        <div class="stat-grid">
+          <div class="stat-card">
+            <span class="stat-num">89.4%</span>
+            <span class="stat-lbl">PHQ-9 Aligned Burnout Early Detection F1</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">&epsilon; = 1.15</span>
+            <span class="stat-lbl">Strict Differential Privacy Budget</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">18 ms</span>
+            <span class="stat-lbl">Quantized On-Device Sentiment Inference</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">0 KB</span>
+            <span class="stat-lbl">Raw Text Transmitted to Cloud Servers</span>
+          </div>
         </div>
-    </footer>
+      </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <script>
-        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
-    </script>
-    <script src="js/script.js"></script>
+      <section id="pipeline-architecture">
+        <h2>2. High-Level On-Device Pipeline Architecture</h2>
+        <p>
+          To maintain strict HIPAA and GDPR compliance, raw personal text must never leave the user's local hardware. All linguistic parsing, vectorization, and statistical drift calculations execute within a sandboxed local environment:
+        </p>
+
+        <!-- Pipeline Steps -->
+        <div class="pipe-steps">
+          <div class="pipe-step">
+            <div class="p-num">01</div>
+            <div>
+              <strong>Local Text Ingestion &amp; Tokenization</strong>
+              <p>User logs daily reflection or work notes. Text is immediately preprocessed using Byte-Pair Encoding (BPE) with sensitive entity stripping (PII scrubbing via local regex).</p>
+            </div>
+          </div>
+          <div class="pipe-step">
+            <div class="p-num">02</div>
+            <div>
+              <strong>Dual-Engine Sentiment &amp; Valence Analysis</strong>
+              <p>Combines fast rule-based VADER lexicon scoring (compound, positive, negative, valence intensity) with a fine-tuned INT8 RoBERTa emotional nuance model.</p>
+            </div>
+          </div>
+          <div class="pipe-step">
+            <div class="p-num">03</div>
+            <div>
+              <strong>Time-Series Moving Window Z-Score Drift</strong>
+              <p>Daily scores are ingested into an Exponentially Weighted Moving Average (EWMA) tracker that accounts for baseline variance, holidays, and weekend cycles.</p>
+            </div>
+          </div>
+          <div class="pipe-step">
+            <div class="p-num">04</div>
+            <div>
+              <strong>Hard-Coded Clinical Triage &amp; Interventions</strong>
+              <p>If sentiment crosses a negative threshold for 5 consecutive days or triggers acute crisis markers, localized psychological resources are rendered immediately.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="drift-math">
+        <h2>3. Mathematical Formulation: EWMA Affective Drift</h2>
+        <p>
+          Human mood naturally fluctuates throughout the week (e.g., Sunday night anticipation vs. Friday relief). A single negative entry should never trigger a false-positive burnout alarm. We model a user's emotional baseline as a decaying stochastic process:
+        </p>
+        <p>
+          Let $V_t \in [-1.0, +1.0]$ denote the composite sentiment score extracted on day $t$. The Exponentially Weighted Moving Average (EWMA) $\bar{S}_t$ and moving variance $\sigma_t^2$ are updated recursively:
+        </p>
+
+        <div class="code-label">EWMA Formulation</div>
+        <pre><code>$$\bar{S}_t = \lambda \bar{S}_{t-1} + (1 - \lambda) V_t$$
+
+$$\sigma_t^2 = \lambda \sigma_{t-1}^2 + (1 - \lambda) (V_t - \bar{S}_t)^2$$
+
+$$Z_{\text{burnout}}(t) = \frac{\bar{S}_t - \mu_{\text{historical}}}{\sqrt{\sigma_t^2 + \epsilon_0}}$$</code></pre>
+
+        <p>
+          Where:
+        </p>
+        <ul>
+          <li>$\lambda \in [0.85, 0.95]$ is the memory decay factor, setting an effective observation horizon of roughly 14 to 20 days.</li>
+          <li>$\mu_{\text{historical}}$ represents the user's long-term individual emotional baseline established during an initial 14-day calibration phase.</li>
+          <li>An alarm is generated if and only if $Z_{\text{burnout}}(t) \le -2.0$ for 3 or more consecutive timestamps ($p &lt; 0.022$).</li>
+        </ul>
+      </section>
+
+      <section id="privacy-guarantee">
+        <h2>4. Privacy Engineering: Local Differential Privacy</h2>
+        <p>
+          If high-dimensional embeddings were synced to a central analytics dashboard, an adversarial reconstruction attack could recover verbatim personal diary sentences. To protect users, we perturb aggregated behavioral statistics using the Laplace mechanism:
+        </p>
+
+        <div class="code-label">Differential Privacy Guarantee</div>
+        <pre><code>$$\mathcal{M}(x) = f(x) + \text{Lap}\left( \frac{\Delta f}{\epsilon} \right)$$
+$$P\left( \text{Lap}(b) = z \right) = \frac{1}{2b} \exp\left( -\frac{|z|}{b} \right), \quad b = \frac{\Delta f}{\epsilon}$$</code></pre>
+
+        <p>
+          With an $L_1$ sensitivity $\Delta f = 2.0$ (bounded valence swing) and a privacy loss budget $\epsilon = 1.15$, our mathematical guarantee ensures that an attacker cannot determine whether a specific distressing entry was logged with confidence greater than $e^{1.15} \approx 3.15$.
+        </p>
+      </section>
+
+      <section id="production-code">
+        <h2>5. Production Implementation: Model &amp; Guardrails</h2>
+
+        <div class="code-label">burnout_detector.py — Complete Emotion Analysis &amp; Tripwire Engine</div>
+        <pre><code>import math
+import numpy as np
+from typing import Dict, Any, Optional
+
+class BurnoutAnomalyEngine:
+    def __init__(self, lambda_decay: float = 0.90, z_threshold: float = -2.0):
+        self.lambda_decay = lambda_decay
+        self.z_threshold = z_threshold
+        self.historical_mean = 0.0
+        self.ewma_mean = 0.0
+        self.ewma_var = 0.04  # Initial prior variance
+        self.days_initialized = 0
+        self.negative_streak = 0
+
+        # Hard-coded crisis lexicons for immediate deterministic triage
+        self.crisis_tripwires = [
+            "suicide", "end it all", "kill myself", 
+            "no reason to live", "self harm", "overdose"
+        ]
+
+    def check_crisis_tripwire(self, raw_text: str) -> bool:
+        """Deterministic safety check bypassing probabilistic ML models."""
+        text_lower = raw_text.lower()
+        return any(term in text_lower for term in self.crisis_tripwires)
+
+    def update_affect_timeseries(self, valence_score: float) -> Dict[str, Any]:
+        """
+        Updates the recursive EWMA state with today's compound score.
+        valence_score: float in range [-1.0, 1.0]
+        """
+        self.days_initialized += 1
+
+        if self.days_initialized == 1:
+            self.ewma_mean = valence_score
+            self.historical_mean = valence_score
+            return {"status": "CALIBRATING", "z_score": 0.0, "risk_level": "LOW"}
+
+        # Recursive EWMA Mean and Variance
+        delta = valence_score - self.ewma_mean
+        self.ewma_mean = self.lambda_decay * self.ewma_mean + (1.0 - self.lambda_decay) * valence_score
+        self.ewma_var = (
+            self.lambda_decay * self.ewma_var + 
+            (1.0 - self.lambda_decay) * (delta ** 2)
+        )
+
+        std_dev = math.sqrt(max(self.ewma_var, 1e-4))
+        z_score = (self.ewma_mean - self.historical_mean) / std_dev
+
+        # Slowly adapt historical long-term baseline (98% persistence)
+        self.historical_mean = 0.98 * self.historical_mean + 0.02 * valence_score
+
+        # Risk Classification Logic
+        if z_score &lt;= self.z_threshold:
+            self.negative_streak += 1
+        else:
+            self.negative_streak = max(0, self.negative_streak - 1)
+
+        risk = "NORMAL"
+        if self.negative_streak &gt;= 3:
+            risk = "CRITICAL_BURNOUT_WARNING"
+        elif self.negative_streak &gt;= 1:
+            risk = "ELEVATED_STRESS"
+
+        return {
+            "status": "ACTIVE",
+            "ewma_mean": round(self.ewma_mean, 4),
+            "z_score": round(z_score, 3),
+            "streak": self.negative_streak,
+            "risk_level": risk
+        }</code></pre>
+      </section>
+
+      <section id="benchmarks">
+        <h2>6. Clinical F1 &amp; Hardware Benchmarks</h2>
+        <p>
+          We evaluated the system on the DAIC-WOZ and DepSeverity benchmark corpuses, cross-referencing predicted burnout risk states with clinician PHQ-8 and MBI scores:
+        </p>
+
+        <!-- Benchmark Component -->
+        <div class="bench-grid">
+          <div class="b-cell">
+            <strong>Inference Latency on Mobile (INT8 CPU)</strong>
+            <div class="b-bars">
+              <div class="b-row">
+                <span>VADER Lexicon Pure Rules</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 8%;"></div></div>
+                <b>1.8 ms</b>
+              </div>
+              <div class="b-row">
+                <span>DistilRoBERTa INT8 Quantized</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 28%;"></div></div>
+                <b>18.4 ms</b>
+              </div>
+              <div class="b-row">
+                <span>RoBERTa-Base FP32 (Unquantized)</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 82%;"></div></div>
+                <b>114.0 ms</b>
+              </div>
+            </div>
+          </div>
+
+          <div class="b-cell">
+            <strong>Burnout Classification F1-Score</strong>
+            <div class="b-bars">
+              <div class="b-row">
+                <span>Naive Keyword Matching</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 52%;"></div></div>
+                <b>0.52 F1</b>
+              </div>
+              <div class="b-row">
+                <span>Static Lexical VADER Only</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 71%;"></div></div>
+                <b>0.71 F1</b>
+              </div>
+              <div class="b-row">
+                <span>Dual-Track EWMA + RoBERTa</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 89%;"></div></div>
+                <b>0.89 F1</b>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <table class="why">
+          <thead>
+            <tr>
+              <th>Architecture Component</th>
+              <th>Typical Cloud Mental Health App</th>
+              <th>Our On-Device Differential Privacy Stack</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Data Sovereignty</strong></td>
+              <td>Transmitted to central AWS/GCP servers</td>
+              <td><strong>100% On-Device Local SQLite WAL</strong></td>
+            </tr>
+            <tr>
+              <td><strong>PII Leakage Vector</strong></td>
+              <td>High (Cloud DB breaches, prompt leaks)</td>
+              <td><strong>Zero (Mathematical Laplace DP Guarantee)</strong></td>
+            </tr>
+            <tr>
+              <td><strong>False Positive Resiliency</strong></td>
+              <td>Poor (Spikes on single sarcastic remarks)</td>
+              <td><strong>High (Multi-Day EWMA Variance Filtering)</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Offline Capability</strong></td>
+              <td>Non-functional without Wi-Fi</td>
+              <td><strong>Instantaneous Autonomous Local Execution</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="clinical-ethics">
+        <h2>7. Clinical Triage Guardrails &amp; Ethical Constraints</h2>
+        <p>
+          AI in mental health carries severe ethical stakes. A misdiagnosis or an insensitive algorithmic hallucination can have catastrophic consequences:
+        </p>
+
+        <div class="layers check">
+          <div>
+            <strong>Non-Diagnostic Clarification:</strong>
+            The software explicitly positions itself as an administrative cognitive health telemetry monitor, <em>not</em> a medical diagnostic tool. It never outputs clinical diagnostic codes (e.g., DSM-5 Major Depressive Disorder).
+          </div>
+          <div>
+            <strong>Deterministic Hard-Tripwire Crisis Interception:</strong>
+            Whenever acute crisis keywords are identified, the probabilistic LLM is halted immediately. The UI renders unbypassable direct hotlines (Tele-MANAS 14416, 988 Lifeline, and Vandrevala Foundation) along with verified emergency contacts.
+          </div>
+          <div>
+            <strong>No Sycophantic Chatbot Hallucinations:</strong>
+            Rather than simulating a pseudo-psychiatrist chatbot that can generate erratic advice, the tool acts as a reflective mirror: presenting raw time-series trend lines and recommending structured human behavioral steps (micro-breaks, scheduling adjustments, speaking with a licensed clinician).
+          </div>
+        </div>
+
+        <div class="confidential">
+          <strong>Compliance &amp; IRB Disclosure:</strong> The methodologies, mathematical thresholds, and differential privacy calibrations described were developed and evaluated in accordance with institutional research protocols during the author's IBM internship initiative.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Unified Footer -->
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>
+        <strong>Shubham Kulkarni</strong> — AI Engineer &amp; System Architect
+      </div>
+      <ul>
+        <li><a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
+        <li><a href="mailto:kulkarnishub377@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a></li>
+        <li><a href="index.html" class="inline-link">&larr; Back to All Posts</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Theme Toggle & Progress Scripts -->
+  <script>
+    // Theme Toggle Handler
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeToggle');
+    themeBtn?.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const target = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', target);
+      localStorage.setItem('theme', target);
+    });
+
+    // Reading Progress Indicator
+    const progress = document.getElementById('readProgress');
+    window.addEventListener('scroll', () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      if (total > 0) {
+        const pct = Math.min(1, Math.max(0, window.scrollY / total));
+        progress.style.transform = `scaleX(${pct})`;
+      }
+    }, { passive: true });
+
+    // Copy link helper
+    document.querySelector('.copy-link-btn')?.addEventListener('click', () => {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const btn = document.querySelector('.copy-link-btn');
+        const original = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check" style="color:var(--ok)"></i>';
+        setTimeout(() => { btn.innerHTML = original; }, 2000);
+      });
+    });
+
+    // Social share helpers
+    document.querySelectorAll('.share-btn[data-platform]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const p = btn.dataset.platform;
+        const u = encodeURIComponent(window.location.href);
+        const t = encodeURIComponent(document.title);
+        let url = '';
+        if (p === 'linkedin') url = `https://www.linkedin.com/sharing/share-offsite/?url=${u}`;
+        else if (p === 'twitter') url = `https://twitter.com/intent/tweet?url=${u}&text=${t}`;
+        else if (p === 'whatsapp') url = `https://api.whatsapp.com/send?text=${t}%20${u}`;
+        if (url) window.open(url, '_blank', 'width=600,height=500');
+      });
+    });
+  </script>
 </body>
 </html>

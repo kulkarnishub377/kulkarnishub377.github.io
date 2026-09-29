@@ -1,489 +1,251 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Building an Open-Source Data Annotation Platform for Computer Vision | Shubham Kulkarni</title>
-    <meta name="description"
-        content="Technical deep dive into building an open-source, local-first CV dataset development platform: model-assisted auto-annotation (100K images in 30 mins on NVIDIA Orin NX 16GB), bbox/polygon segmentation, dataset health QA, and in-browser training with live SSE logs.">
-    <meta name="keywords"
-        content="Data Annotation Tool, Computer Vision, YOLOv8 Annotation, YOLO11 Training, YOLO26, Bounding Box Tool, Polygon Segmentation, Image Labeling Software, AI Auto-Annotation, Dataset QA, Local-First AI, NVIDIA Orin NX, Shubham Kulkarni, AI Engineer">
-    <meta name="author" content="Shubham Kulkarni">
-    <meta name="theme-color" content="#050507">
-    <link rel="canonical" href="https://shubhamkulkarni.me/blog/data-annotation-tool.html">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building an Open-Source Data Annotation Platform for Computer Vision | Shubham Kulkarni</title>
+  <meta name="description" content="Technical deep dive into building an open-source, local-first CV dataset development platform: model-assisted auto-annotation (100K images in 30 mins on NVIDIA Orin NX 16GB), bbox/polygon segmentation, dataset health QA, and in-browser training with live SSE logs.">
+  <meta name="keywords" content="Data Annotation Tool, Computer Vision, YOLOv8 Annotation, YOLO11 Training, Bounding Box Tool, Polygon Segmentation, AI Auto-Annotation, Dataset QA, Local-First AI, NVIDIA Orin NX, Shubham Kulkarni">
+  <meta name="author" content="Shubham Kulkarni">
+  <meta name="theme-color" content="#EA4B12">
+  <link rel="canonical" href="https://shubhamkulkarni.me/blog/data-annotation-tool.html">
 
-    <!-- Open Graph Metadata -->
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://shubhamkulkarni.me/blog/data-annotation-tool.html">
-    <meta property="og:title" content="Building an Open-Source Data Annotation Platform for Computer Vision | Shubham Kulkarni">
-    <meta property="og:description"
-        content="Deep dive into local-first CV dataset engineering: 100K images in 30 mins on NVIDIA Orin NX, YOLO-assisted auto-labeling, dataset health QA, and in-browser YOLO model training.">
-    <meta property="og:image" content="https://shubhamkulkarni.me/blog/images/cv_annotation_tool_1787318820950.jpg">
+  <!-- Open Graph Metadata -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://shubhamkulkarni.me/blog/data-annotation-tool.html">
+  <meta property="og:title" content="Building an Open-Source Data Annotation Platform for Computer Vision | Shubham Kulkarni">
+  <meta property="og:description" content="Deep dive into local-first CV dataset engineering: 100K images in 30 mins on NVIDIA Orin NX, model-assisted annotation, and in-browser training.">
+  <meta property="og:image" content="images/cv_annotation_tool_1787318820950.jpg">
 
-    <!-- Twitter / X -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Building an Open-Source Data Annotation Platform for Computer Vision | Shubham Kulkarni">
-    <meta name="twitter:description"
-        content="Deep dive into local-first CV dataset engineering: 100K images in 30 mins on NVIDIA Orin NX, model-assisted annotation, and in-browser training.">
-    <meta name="twitter:image" content="https://shubhamkulkarni.me/blog/images/cv_annotation_tool_1787318820950.jpg">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Building an Open-Source Data Annotation Platform for Computer Vision">
+  <meta name="twitter:description" content="100K images in 30 mins on NVIDIA Orin NX, model-assisted labeling, and in-browser training.">
+  <meta name="twitter:image" content="images/cv_annotation_tool_1787318820950.jpg">
 
-    <!-- Schema.org: TechArticle Entity -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "TechArticle",
-      "headline": "Building an Open-Source Data Annotation Platform for Computer Vision",
-      "description": "Technical deep dive into building an open-source, local-first Computer Vision dataset development platform: model-assisted auto-annotation (100K images in 30 mins on NVIDIA Orin NX 16GB), bbox and polygon segmentation, dataset health QA, and in-browser training with real-time SSE streaming.",
-      "image": "https://shubhamkulkarni.me/Asset/sk_b.jpg",
-      "author": {
-        "@type": "Person",
-        "name": "Shubham Kulkarni",
-        "url": "https://shubhamkulkarni.me/"
-      },
-      "publisher": {
-        "@type": "Person",
-        "name": "Shubham Kulkarni",
-        "url": "https://shubhamkulkarni.me/",
-        "image": {
-          "@type": "ImageObject",
-          "url": "https://shubhamkulkarni.me/Asset/sk_b.jpg"
-        }
-      },
-      "datePublished": "2026-08-21",
-      "dateModified": "2026-08-26"
-    }
-    </script>
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Building an Open-Source Data Annotation Platform for Computer Vision",
+    "description": "Technical deep dive into building an open-source, local-first Computer Vision dataset development platform: model-assisted auto-annotation (100K images in 30 mins on NVIDIA Orin NX 16GB), bbox and polygon segmentation, dataset health QA, and in-browser training.",
+    "image": "https://shubhamkulkarni.me/Asset/sk_b.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Shubham Kulkarni",
+      "url": "https://shubhamkulkarni.me/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Shubham Kulkarni",
+      "url": "https://shubhamkulkarni.me/"
+    },
+    "datePublished": "2026-08-21",
+    "dateModified": "2026-09-22"
+  }
+  </script>
 
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
-    <link rel="shortcut icon" href="../favicon/favicon.ico">
+  <!-- Typography & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="css/style.css">
 
-    <!-- Fonts & CSS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;700;800;900&family=Libre+Baskerville:wght@400;700&display=swap"
-        rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
 
-    <style>
-        .article-content-wrapper {
-            font-family: 'Inter', sans-serif;
-            color: var(--text-primary);
-        }
-
-        .article-content-wrapper p {
-            font-size: 1.25rem;
-            line-height: 1.85;
-            margin-bottom: 2rem;
-            color: var(--text-secondary);
-        }
-
-        .article-content-wrapper h2 {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 800;
-            font-size: 2.25rem;
-            margin-top: 4rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-primary);
-            position: relative;
-            letter-spacing: -0.02em;
-        }
-
-        .article-content-wrapper h2::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 6px;
-            background: linear-gradient(90deg, #10B981, transparent);
-            margin-top: 15px;
-            border-radius: 4px;
-        }
-
-        .article-content-wrapper h3 {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 700;
-            font-size: 1.75rem;
-            margin-top: 3rem;
-            margin-bottom: 1.25rem;
-            color: #34D399;
-        }
-
-        .dropcap::first-letter {
-            font-family: 'Libre Baskerville', serif;
-            font-size: 4.5rem;
-            float: left;
-            line-height: 0.85;
-            margin-right: 1.25rem;
-            margin-top: 0.2rem;
-            color: #10B981;
-            font-weight: 700;
-        }
-
-        .highlight-box {
-            background: var(--bg-surface-alt);
-            border-left: 6px solid #10B981;
-            padding: 2.5rem;
-            border-radius: 16px;
-            margin: 3.5rem 0;
-            position: relative;
-            overflow: hidden;
-            border-top: 1px solid var(--border-light);
-            border-right: 1px solid var(--border-light);
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .highlight-box::before {
-            content: '\f5ee';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            top: -20px;
-            right: -20px;
-            font-size: 8rem;
-            color: rgba(16, 185, 129, 0.05);
-            transform: rotate(20deg);
-        }
-
-        .stat-value {
-            background: linear-gradient(135deg, #10B981 0%, #34D399 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .toc-list a:hover {
-            color: #10B981;
-        }
-
-        pre {
-            background: var(--bg-code);
-            color: #F8FAFC;
-            padding: 1.5rem;
-            border-radius: 12px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            overflow-x: auto;
-            margin-bottom: 2rem;
-            border: 1px solid var(--border-light);
-        }
-
-        .spec-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2.5rem 0;
-            background: var(--bg-surface);
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid var(--border-light);
-        }
-
-        .spec-table th,
-        .spec-table td {
-            padding: 1.25rem 1.5rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border-light);
-            font-size: 1rem;
-        }
-
-        .spec-table th {
-            background: var(--bg-surface-alt);
-            color: var(--text-primary);
-            font-weight: 800;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
-        }
-
-        .spec-table td strong {
-            color: #34D399;
-        }
-
-        .kbd-badge {
-            background: #1E293B;
-            color: #38BDF8;
-            border: 1px solid #334155;
-            padding: 0.2rem 0.55rem;
-            border-radius: 6px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            font-weight: 600;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        @media (max-width: 992px) {
-            .hero-title {
-                font-size: 2.75rem;
-            }
-
-            .stat-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .toc-wrapper {
-                display: none;
-            }
-
-            .article-content-wrapper {
-                padding: 0 0.5rem;
-            }
-        }
-    </style>
+  <script>
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+      }
+    })();
+  </script>
 </head>
-
 <body>
 
-    <!-- Nav -->
-    <nav class="navbar navbar-expand-lg fixed-top navbar-premium">
-        <div class="container">
-            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html">
-                <i class="fas fa-arrow-left text-secondary" style="font-size: 0.9rem;"></i>
-                <span style="font-family: var(--font-mono); color: var(--text-primary);">Back to Blog</span>
-            </a>
-            <div class="ms-auto d-none d-md-block">
-                <span class="badge border fw-medium px-3 py-2"
-                    style="background: var(--bg-surface); color: var(--text-primary); border-color: var(--border-light) !important;">
-                    <i class="fas fa-clock me-2"></i> 12 min read
-                </span>
-            </div>
-        </div>
-    </nav>
+  <!-- Reading Progress Bar -->
+  <div class="progress" id="readProgress" aria-hidden="true"></div>
 
-    <!-- Header -->
-    <header class="article-header pt-5 mt-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10 text-center">
-                    <span class="hero-tag mb-3 d-inline-block text-white border-0"
-                        style="background: linear-gradient(135deg, #059669 0%, #10B981 100%);">
-                        <i class="fas fa-draw-polygon me-2"></i> Computer Vision &amp; MLOps
-                    </span>
-                    <h1 class="hero-title fw-bolder mb-4" style="font-family: var(--font-heading); color: var(--text-primary);">
-                        Engineering an Open-Source Data Annotation Platform for Computer Vision
-                    </h1>
-                    <p class="lead mx-auto mb-4"
-                        style="max-width: 850px; color: var(--text-secondary); font-size: 1.35rem; line-height: 1.6;">
-                        A local-first dataset development platform engineered for fast, model-assisted annotation (100K images in 30 mins on NVIDIA Orin NX), dataset health QA, automated splitting, and in-browser YOLO model training.
-                    </p>
+  <!-- Accessible Skip Link -->
+  <a href="#main" class="skip">Skip to main content</a>
 
-                    <!-- Author Details & Meta -->
-                    <div class="d-flex align-items-center justify-content-center gap-3 border-top border-bottom py-3 mx-auto flex-wrap"
-                        style="max-width: 700px; border-color: var(--border-light) !important;">
-                        <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="rounded-circle" width="48"
-                            height="48" style="object-fit: cover; border: 2px solid #10B981;">
-                        <div class="text-start">
-                            <div class="fw-bold" style="color: var(--text-primary);">Shubham Kulkarni</div>
-                            <div class="small text-secondary">AI Engineer &middot; August 21, 2026</div>
-                        </div>
-                        <div class="vr d-none d-md-block opacity-25"></div>
-                        <div class="text-start d-none d-md-block">
-                            <span class="d-block fw-bold" style="color: var(--text-primary);">License</span>
-                            <span class="small text-secondary">MIT Open Source</span>
-                        </div>
-                        <div class="ms-md-auto d-flex gap-2">
-                            <a href="https://github.com/kulkarnishub377/Data_Annotation_Tool" target="_blank"
-                                rel="noopener noreferrer" class="btn btn-sm btn-outline-light rounded-pill px-3">
-                                <i class="fab fa-github me-1"></i> Repository
-                            </a>
-                        </div>
-                    </div>
+  <!-- Navigation -->
+  <nav class="nav" id="mainNav">
+    <div class="wrap nav-inner">
+      <a href="../index.html" class="brand" aria-label="Shubham Kulkarni Homepage">
+        <span class="brand-mark">SK</span>
+        <span class="brand-name">Shubham<em style="color:var(--accent);font-style:normal;">.</em></span>
+      </a>
 
-                    <!-- Share Buttons -->
-                    <div class="share-buttons-container justify-content-center mt-4">
-                        <span class="share-label me-1">SHARE:</span>
-                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://shubhamkulkarni.me/blog/data-annotation-tool.html" target="_blank" rel="noopener noreferrer" class="share-btn linkedin" data-platform="linkedin" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://twitter.com/intent/tweet?text=Building an Open-Source Data Annotation Platform for Computer Vision&url=https://shubhamkulkarni.me/blog/data-annotation-tool.html" target="_blank" rel="noopener noreferrer" class="share-btn twitter" data-platform="twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="https://api.whatsapp.com/send?text=Building an Open-Source Data Annotation Platform for Computer Vision https://shubhamkulkarni.me/blog/data-annotation-tool.html" target="_blank" rel="noopener noreferrer" class="share-btn whatsapp" data-platform="whatsapp" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                        <button type="button" class="share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Metrics Matrix -->
-    <div class="container my-5">
-        <div class="stat-grid"
-            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem;">
-            <div class="card p-4 text-center border rounded-4"
-                style="background: var(--bg-surface); border-color: var(--border-light) !important;">
-                <div class="stat-value display-6 fw-bold mb-1">100K / 30m</div>
-                <div class="text-secondary small fw-bold text-uppercase" style="letter-spacing: 0.05em;">Auto-Annotation Rate</div>
-                <div class="small text-muted mt-1">Tested on NVIDIA Orin NX 16GB</div>
-            </div>
-            <div class="card p-4 text-center border rounded-4"
-                style="background: var(--bg-surface); border-color: var(--border-light) !important;">
-                <div class="stat-value display-6 fw-bold mb-1">100%</div>
-                <div class="text-secondary small fw-bold text-uppercase" style="letter-spacing: 0.05em;">Offline &amp; Private</div>
-                <div class="small text-muted mt-1">Zero cloud dependencies</div>
-            </div>
-            <div class="card p-4 text-center border rounded-4"
-                style="background: var(--bg-surface); border-color: var(--border-light) !important;">
-                <div class="stat-value display-6 fw-bold mb-1">5+</div>
-                <div class="text-secondary small fw-bold text-uppercase" style="letter-spacing: 0.05em;">Model Formats</div>
-                <div class="small text-muted mt-1">.pt, .onnx, .engine, .tflite</div>
-            </div>
-            <div class="card p-4 text-center border rounded-4"
-                style="background: var(--bg-surface); border-color: var(--border-light) !important;">
-                <div class="stat-value display-6 fw-bold mb-1">End-to-End</div>
-                <div class="text-secondary small fw-bold text-uppercase" style="letter-spacing: 0.05em;">Lifecycle</div>
-                <div class="small text-muted mt-1">Label &rarr; QA &rarr; Split &rarr; Train</div>
-            </div>
-        </div>
+      <div class="nav-actions">
+        <a href="index.html" class="nav-back"><i class="fas fa-arrow-left"></i><span>All Posts</span></a>
+        <span class="read-badge"><i class="far fa-clock"></i> <span>14 min read</span></span>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark theme">
+          <i class="fas fa-moon i-dark"></i>
+          <i class="fas fa-sun i-light"></i>
+        </button>
+      </div>
     </div>
+  </nav>
 
-    <!-- Interactive Visual CV Studio Preview -->
-    <div class="container mb-5">
-        <div class="p-2 p-md-3 rounded-4 position-relative overflow-hidden"
-            style="background: #080B10; border: 1px solid rgba(16,185,129,0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.6);">
-            <!-- Mockup Window Header -->
-            <div class="d-flex align-items-center justify-content-between px-3 py-2 border-bottom"
-                style="background: #0D111A; border-color: rgba(255,255,255,0.08) !important; border-radius: 12px 12px 0 0;">
-                <div class="d-flex align-items-center gap-2">
-                    <span style="width: 10px; height: 10px; border-radius: 50%; background: #EF4444; display: inline-block;"></span>
-                    <span style="width: 10px; height: 10px; border-radius: 50%; background: #F59E0B; display: inline-block;"></span>
-                    <span style="width: 10px; height: 10px; border-radius: 50%; background: #10B981; display: inline-block;"></span>
-                    <span class="ms-2 small text-secondary fw-semibold" style="font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;">
-                        <i class="fas fa-microchip text-success me-1"></i> Data Annotation Platform &mdash; YOLOv8 Instance Segmentation &amp; Detection Canvas
-                    </span>
-                </div>
-                <div class="d-none d-md-flex align-items-center gap-3" style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;">
-                    <span class="badge bg-success-subtle text-success border border-success-subtle"><i class="fas fa-bolt me-1"></i> Orin NX: 55.5 FPS</span>
-                    <span class="text-secondary">Image 0248/100000</span>
-                </div>
-            </div>
-            <!-- High-Resolution Real Studio Interface Image -->
-            <div class="position-relative overflow-hidden" style="border-radius: 0 0 12px 12px; background: #0A0D14;">
-                <img src="images/cv_annotation_tool_1787318820950.jpg" 
-                    alt="Open Source Computer Vision Data Annotation Studio Interface" 
-                    class="img-fluid w-100"
-                    style="display: block; border-radius: 0 0 12px 12px; object-fit: contain;">
-            </div>
+  <!-- Article Header -->
+  <header class="art-header">
+    <div class="wrap-prose">
+      <span class="art-tag"><i class="fas fa-draw-polygon"></i> Computer Vision &bull; MLOps</span>
+      <h1 class="art-title">Engineering an Open-Source <em>Data Annotation Platform</em></h1>
+      <p class="art-lede">
+        A local-first dataset development platform engineered for fast, model-assisted annotation (100K images in 30 mins on NVIDIA Orin NX), dataset health QA, automated splitting, and in-browser YOLO model fine-tuning with live Server-Sent Events.
+      </p>
+
+      <div class="art-meta">
+        <div class="art-meta-item">
+          <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="36" height="36">
+          <div>
+            <b>Shubham Kulkarni</b>
+            <span>Creator &amp; AI Systems Engineer</span>
+          </div>
         </div>
+        <div class="art-meta-sep"></div>
+        <div class="art-meta-item">
+          <div>
+            <b>Published</b>
+            <span>August 2026 &bull; Updated Sep 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="share-bar">
+        <span class="share-label">Share</span>
+        <button class="share-btn" data-platform="linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></button>
+        <button class="share-btn" data-platform="twitter" title="Share on X"><i class="fab fa-x-twitter"></i></button>
+        <button class="share-btn" data-platform="whatsapp" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></button>
+        <button class="share-btn copy-link-btn" title="Copy link to clipboard"><i class="fas fa-link"></i></button>
+      </div>
     </div>
+  </header>
 
-    <!-- Article Content -->
-    <section class="container py-4">
-        <div class="row justify-content-center">
-            <!-- Sidebar TOC (Desktop) -->
-            <div class="col-lg-3 d-none d-lg-block">
-                <div class="sticky-top toc-wrapper p-4 rounded-4"
-                    style="top: 100px; background: var(--bg-surface); border: 1px solid var(--border-light);">
-                    <h5 class="fw-bold mb-3" style="font-family: var(--font-heading); color: var(--text-primary);">Table of Contents</h5>
-                    <ul class="list-unstyled toc-list mb-0 d-flex flex-column gap-2" style="font-size: 0.9rem;">
-                        <li><a href="#bottleneck" class="text-secondary text-decoration-none d-block">1. The CV Annotation Dilemma</a></li>
-                        <li><a href="#architecture" class="text-secondary text-decoration-none d-block">2. System &amp; State Architecture</a></li>
-                        <li><a href="#auto-annotation" class="text-secondary text-decoration-none d-block">3. 100K Images in 30 Mins Benchmark</a></li>
-                        <li><a href="#precision-canvas" class="text-secondary text-decoration-none d-block">4. Precision Canvas &amp; Shortcuts</a></li>
-                        <li><a href="#dataset-qa" class="text-secondary text-decoration-none d-block">5. Dataset Health QA Dashboard</a></li>
-                        <li><a href="#in-browser-training" class="text-secondary text-decoration-none d-block">6. In-Browser YOLO Fine-Tuning &amp; SSE</a></li>
-                        <li><a href="#directory-setup" class="text-secondary text-decoration-none d-block">7. Directory Layout &amp; Setup</a></li>
-                        <li><a href="#benchmarks" class="text-secondary text-decoration-none d-block">8. Benchmark Comparisons</a></li>
-                        <li><a href="#takeaways" class="text-secondary text-decoration-none d-block">9. Engineering Takeaways</a></li>
-                    </ul>
-                </div>
-            </div>
+  <!-- Article Layout -->
+  <div class="art-layout">
+    <!-- Sticky TOC -->
+    <aside class="art-sidebar">
+      <div class="toc-box">
+        <h6>Contents</h6>
+        <nav class="toc-list" aria-label="Table of Contents">
+          <a href="#bottleneck">1. The CV Annotation Dilemma</a>
+          <a href="#architecture">2. System &amp; State Architecture</a>
+          <a href="#auto-annotation">3. 100K Images in 30 Mins</a>
+          <a href="#precision-canvas">4. Precision Canvas &amp; Hotkeys</a>
+          <a href="#dataset-qa">5. Proactive Dataset Health QA</a>
+          <a href="#in-browser-training">6. In-Browser YOLO Fine-Tuning</a>
+          <a href="#directory-setup">7. Directory Layout &amp; Setup</a>
+          <a href="#benchmarks">8. Benchmark Comparisons</a>
+          <a href="#takeaways">9. Engineering Takeaways</a>
+        </nav>
+      </div>
+    </aside>
 
-            <!-- Main Body -->
-            <div class="col-lg-8">
-                <div class="article-content-wrapper">
+    <!-- Main Content -->
+    <main class="prose" id="main">
+      <img src="images/cv_annotation_tool_1787318820950.jpg" alt="Computer Vision Data Annotation Studio Interface" style="border-radius:var(--r);border:1px solid var(--line);margin-bottom:2rem;box-shadow:var(--shadow);">
 
-                    <!-- Section 1 -->
-                    <h2 id="bottleneck" class="mt-0">1. The CV Annotation Dilemma</h2>
-                    <p class="dropcap">
-                        In modern computer vision engineering, model accuracy is fundamentally bounded by dataset quality, labeling precision, and turnaround velocity. While foundational detection backbones like YOLOv8, YOLO11, and next-generation vision models continue to push inference boundaries, the tooling required to curate, clean, and fine-tune proprietary datasets remains fragmented, expensive, and cloud-locked.
-                    </p>
-                    <p>
-                        Most computer vision practitioners encounter three major roadblocks with existing solutions:
-                    </p>
-                    <ul>
-                        <li><strong>Cloud Lock-In &amp; Privacy Vulnerabilities:</strong> Platforms like Roboflow require uploading confidential enterprise images (highway traffic feeds, medical scans, defense imagery, manufacturing defects) to third-party cloud servers, violating strict data sovereignty rules.</li>
-                        <li><strong>Heavy Setup Overheads:</strong> Traditional open-source suites like CVAT demand complex multi-container Docker compose setups, PostgreSQL, Redis, and Nuclio AI server orchestration just to label a few hundred images locally.</li>
-                        <li><strong>Disconnected Fine-Tuning Loops:</strong> Engineers annotate in tool A, write custom scripts to clean bounding box anomalies in tool B, split subsets in tool C, and then switch to terminal commands in tool D for model training.</li>
-                    </ul>
+      <p class="dropcap">
+        In modern computer vision engineering, real-world model accuracy is fundamentally bounded by dataset curation quality, label precision, and iteration velocity. While state-of-the-art detection architectures like YOLOv8, YOLO11, and RT-DETR continue to push inference speeds, the tooling required to curate, label, clean, and fine-tune proprietary datasets remains fragmented, expensive, and cloud-locked.
+      </p>
 
-                    <p>
-                        To solve this, I developed the <strong>Open Source Data Annotation Tool</strong>: a lightweight, 100% offline, local-first dataset development platform that unifies model-assisted auto-annotation, visual dataset QA, automatic train/val/test splitting, and in-browser model training into a single, intuitive interface.
-                    </p>
+      <p>
+        Most computer vision teams encounter three painful roadblocks with commercial SaaS annotation tools: strict cloud-upload policies that violate defense or medical data sovereignty, heavyweight multi-container overheads (like self-hosted CVAT requiring PostgreSQL, Redis, and Nuclio just to label 500 images locally), and disconnected fine-tuning loops. I engineered the <strong>Open Source Data Annotation Tool</strong> to eliminate this friction: an ultra-lightweight, 100% offline, local-first platform that unifies model-assisted auto-annotation, visual dataset QA, automatic train/val/test splitting, and in-browser model training.
+      </p>
 
-                    <!-- Section 2 -->
-                    <h2 id="architecture">2. System &amp; State Architecture</h2>
-                    <p>
-                        The platform is engineered around three pillars: high-throughput OS file hardlinking, a thread-safe asynchronous worker queue, and hardware-accelerated frontend canvas rendering:
-                    </p>
+      <!-- Key Performance Indicators -->
+      <div class="stat-grid">
+        <div class="stat-card">
+          <span class="stat-value">100k/30m</span>
+          <span class="stat-label">Orin NX Pre-Annotation</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value">100%</span>
+          <span class="stat-label">Local &amp; Offline Privacy</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value">5+</span>
+          <span class="stat-label">Model Backends (.pt/.engine)</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value">0$</span>
+          <span class="stat-label">Free &amp; Open Source</span>
+        </div>
+      </div>
 
-                    <div class="p-3 my-4 rounded-4" style="background: var(--bg-surface); border: 1px solid var(--border-light);">
-                        <pre class="mermaid text-center mb-0" style="background: transparent; border: none;">
-graph TD
-    subgraph Client["Frontend Canvas Engine (Vanilla JS + HTML5 Canvas)"]
-        UI[Interactive Web UI] -->|Sub-pixel Pan / Zoom| Canvas[BBox & Polygon Canvas]
-        UI -->|Enhance| Sliders[Brightness & Contrast Filters]
-        UI -->|Real-Time Logs| SSE_Client[SSE Stream Listener]
-        UI -->|Visual QA| HealthGrid[Dataset Health Dashboard]
-    end
+      <!-- Section 1 -->
+      <section class="art-sec" id="bottleneck">
+        <h2>1. The CV Annotation Dilemma: Cloud SaaS vs Heavy Self-Hosting</h2>
+        <p>
+          Why build a local-first labeling platform when tools like Roboflow, CVAT, and Labelme exist?
+        </p>
 
-    subgraph Server["Backend Application Server (Python + Flask)"]
-        API[REST Routing Engine] --> StateDB[(SQLite state.db)]
-        API --> Ingestion[Hardlink Ingestion Worker]
-        API --> QAEval[Dataset QA Validator]
-        API --> Trainer[YOLO Training Subprocess]
-        Trainer -->|Live CLI Logs| SSE_Server[Server-Sent Events]
-    end
+        <ul>
+          <li><strong>Cloud Lock-In &amp; Data Sovereignty:</strong> Commercial SaaS platforms require uploading confidential client video feeds (highway surveillance, factory floor robotics, medical diagnostics) to remote servers, violating strict enterprise compliance and NDAs.</li>
+          <li><strong>Heavy Infrastructure Overhead:</strong> Traditional open-source suites like CVAT demand 8+ Docker containers, custom reverse proxies, and complicated server configuration that overwhelms a single engineer trying to label data on an edge laptop.</li>
+          <li><strong>Fragmented Feedback Loops:</strong> Engineers label in tool A, write one-off Python scripts to clean corrupt bounding boxes in tool B, split directories in tool C, and switch to a separate terminal for training. KeyFlow unifies this into a single closed feedback loop.</li>
+        </ul>
 
-    subgraph Inference["Background AI Pipeline (threading.Thread + queue.Queue)"]
-        ModelLoader[Multi-Format Model Loader] --> Engine[CUDA / MPS / CPU Auto-Selector]
-        Engine --> ModelYOLO[YOLOv8 / YOLO11 / YOLO26 / TensorRT]
-        ModelYOLO --> AutoLabel[Background Pre-Annotation Engine]
-    end
+        <div class="callout">
+          <div class="callout-title"><i class="fas fa-bullseye"></i> Core Design Principle</div>
+          <p>
+            Zero cloud uploads. Zero complex multi-container setup. A single command <code>python app.py</code> boots a production-grade annotation studio with OS-level file hardlinking, model-assisted labeling, and live in-browser GPU training.
+          </p>
+        </div>
+      </section>
 
-    subgraph Storage["Local Data Sovereignty (Filesystem)"]
-        Raw[Raw Images Directory] --> Ingestion
-        AutoLabel --> YOLOLabels[YOLO .txt / 16-Dec Precision]
-        YOLOLabels --> Export[YOLO / COCO / data.yaml Exporter]
-    end
+      <!-- Section 2 -->
+      <section class="art-sec" id="architecture">
+        <h2>2. System &amp; State Architecture</h2>
+        <p>
+          The platform decouples high-speed frontend HTML5 Canvas rendering from thread-safe background inference workers and local file storage:
+        </p>
 
-    Canvas -->|Save BBox/Polygons| API
-    AutoLabel -.->|Pre-fill Canvas| Canvas
-    QAEval -.->|Flag Outliers| HealthGrid
-                        </pre>
-                    </div>
+        <p class="pipe-label">Data Annotation Tool Architecture Pipeline</p>
+        <ul class="pipe-steps cols-4">
+          <li>
+            <span class="ps-n">TIER 01</span>
+            <b>Canvas Client</b>
+            <small>Cursor-anchored zoom, sub-pixel polygon &amp; bbox math</small>
+          </li>
+          <li>
+            <span class="ps-n">TIER 02</span>
+            <b>Flask Backend</b>
+            <small>REST endpoints, SQLite session state, OS hardlinking</small>
+          </li>
+          <li class="hot">
+            <span class="ps-n">TIER 03</span>
+            <b>Inference Queue</b>
+            <small>Background threading workers running YOLO / TensorRT</small>
+          </li>
+          <li class="hot">
+            <span class="ps-n">TIER 04</span>
+            <b>Training Engine</b>
+            <small>Subprocess training with real-time SSE log streaming</small>
+          </li>
+        </ul>
+      </section>
 
-                    <p>
-                        Key architectural highlights:
-                    </p>
-                    <ul>
-                        <li><strong>Thread-Safe State Management:</strong> The Flask backend manages session state, active labels, and dataset indexes via a lightweight SQLite database (<code>state.db</code>).</li>
-                        <li><strong>Non-Blocking Background Threads:</strong> Parallel background workers (<code>threading.Thread</code> and <code>queue.Queue</code>) execute YOLO inference asynchronously so the UI remains butter-smooth and responsive during batch ingestion.</li>
-                        <li><strong>Zero-Duplicate Hardlinking:</strong> Ingests large image folders in milliseconds using space-saving OS hardlinks, avoiding duplicate drive consumption.</li>
-                    </ul>
+      <!-- Section 3 -->
+      <section class="art-sec" id="auto-annotation">
+        <h2>3. Model-Assisted Pre-Annotation: 100K Images in 30 Mins</h2>
+        <p>
+          Manual labeling from scratch is the single largest bottleneck in computer vision. The platform features an automated background pre-annotation worker that leverages pre-trained or custom weights to pre-fill bounding boxes:
+        </p>
 
-                    <!-- Section 3 -->
-                    <h2 id="auto-annotation">3. Model-Assisted Pre-Annotation: 100K Images in 30 Mins</h2>
-                    <p>
-                        Manual labeling is the largest cost in dataset development. The platform integrates a <strong>background model-assisted pre-annotation engine</strong> that automatically labels images before human inspection.
-                    </p>
-
-                    <div class="highlight-box">
-                        <h4 class="h5 fw-bold mb-3"><i class="fas fa-microchip text-success me-2"></i>Real-World Edge Benchmark (NVIDIA Jetson Orin NX 16GB)</h4>
-                        <p>
-                            In real-world testing, using an existing trained custom model to pre-annotate incoming frames for fine-tuning achieved an astonishing rate of:
-                        </p>
-                        <ul class="mb-0">
-                            <li><strong>Throughput:</strong> Annotated <strong>1,00,000 (100K) images in ~30 minutes</strong> (~55.5 FPS sustained throughput).</li>
-                            <li><strong>Hardware:</strong> Evaluated directly on an edge device — <strong>NVIDIA Jetson Orin NX 16 GB</strong> with INT8/FP16 acceleration.</li>
-                            <li><strong>Workflow Benefit:</strong> Instead of drawing 100K bounding boxes from scratch, the human engineer merely reviews and nudges outliers, reducing dataset preparation time by over <strong>75%</strong>.</li>
-                        </ul>
-                    </div>
-
-                    <pre><code class="language-python"># Model Ingestion & Multi-Format Pre-Annotation (Flask + Ultralytics Engine)
-import os
+        <div class="code-label">
+          <span>annotation_tool/engine/pre_annotator.py</span>
+          <span>Python 3.11 / Ultralytics / Hardware Auto-Profiling</span>
+        </div>
+<pre><code>import os
 import torch
 from ultralytics import YOLO
 
@@ -495,10 +257,10 @@ def detect_optimal_device():
         return 'mps'
     return 'cpu'
 
-def run_model_assisted_inference(model_path, image_path, conf_threshold=0.25):
+def run_model_assisted_inference(model_path: str, image_path: str, conf_threshold: float = 0.25):
     """
     Natively supports .pt, .onnx, .engine (TensorRT), .tflite, and .torchscript.
-    Outputs coordinates in normalized YOLO format with 16-decimal precision.
+    Outputs normalized coordinates in standard YOLO format with 8-decimal precision.
     """
     device = detect_optimal_device()
     model = YOLO(model_path)
@@ -515,7 +277,7 @@ def run_model_assisted_inference(model_path, image_path, conf_threshold=0.25):
         boxes = r.boxes
         masks = r.masks
         
-        # Bounding Box Extraction (Object Detection)
+        # Bounding Box Extraction
         if boxes is not None:
             for box in boxes:
                 cls_id = int(box.cls[0].item())
@@ -537,168 +299,115 @@ def run_model_assisted_inference(model_path, image_path, conf_threshold=0.25):
                     "points": [[round(pt[0], 8), round(pt[1], 8)] for pt in poly.tolist()]
                 })
                 
-    return annotations</code></pre>
+    return annotations
+</code></pre>
+      </section>
 
-                    <!-- Section 4 -->
-                    <h2 id="precision-canvas">4. Precision Canvas &amp; Complete Keyboard Shortcuts</h2>
-                    <p>
-                        High-precision computer vision requires sub-pixel annotation accuracy and zero coordinate drift during panning and zooming. The frontend canvas implements cursor-anchored zoom math and middle-click panning:
-                    </p>
+      <!-- Section 4 -->
+      <section class="art-sec" id="precision-canvas">
+        <h2>4. Precision Canvas &amp; Complete Keyboard Shortcuts</h2>
+        <p>
+          High-velocity labeling requires zero cursor drift and single-key ergonomics:
+        </p>
 
-                    <pre><code class="language-javascript">// Cursor-Centered Smooth Zoom & Coordinate Transformation Math
-canvas.addEventListener('wheel', (e) => {
-    e.preventDefault();
-    const rect = canvas.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
+        <table class="why">
+          <thead>
+            <tr>
+              <th>Shortcut Key</th>
+              <th>Action Performed</th>
+              <th>Workflow Stage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th><code>D</code></th>
+              <td>Toggle Draw Mode (BBox / Polygon)</td>
+              <td>Annotation</td>
+            </tr>
+            <tr>
+              <th><code>F</code></th>
+              <td>Fit image to viewport / reset zoom</td>
+              <td>Navigation</td>
+            </tr>
+            <tr>
+              <th><code>C</code></th>
+              <td>Copy all bounding boxes from previous frame</td>
+              <td>Video / Sequence Tracking</td>
+            </tr>
+            <tr>
+              <th><code>J</code></th>
+              <td>Jump directly to next unannotated image</td>
+              <td>Quality Assurance</td>
+            </tr>
+            <tr>
+              <th><code>Q / E</code></th>
+              <td>Cycle active class of selected box backward / forward</td>
+              <td>Classification</td>
+            </tr>
+            <tr>
+              <th><code>1 &ndash; 9</code></th>
+              <td>Directly assign class index (0 &ndash; 8)</td>
+              <td>Classification</td>
+            </tr>
+            <tr>
+              <th><code>Enter</code></th>
+              <td>Commit annotations &amp; advance to next frame</td>
+              <td>Commit</td>
+            </tr>
+            <tr>
+              <th><code>Ctrl + S</code></th>
+              <td>Save annotations directly to local disk</td>
+              <td>Persistence</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
-    const zoomFactor = e.deltaY < 0 ? 1.15 : 0.85;
-    const newScale = Math.min(Math.max(currentScale * zoomFactor, 0.2), 30.0);
+      <!-- Section 5 -->
+      <section class="art-sec" id="dataset-qa">
+        <h2>5. Proactive Dataset Health QA Dashboard</h2>
+        <p>
+          Dirty training data is the leading cause of silent model failure. The built-in QA engine audits datasets against 5 critical corruption modes before training:
+        </p>
 
-    // Maintain anchor point exactly under the mouse pointer
-    originX = mouseX - (mouseX - originX) * (newScale / currentScale);
-    originY = mouseY - (mouseY - originY) * (newScale / currentScale);
-    currentScale = newScale;
+        <ul class="layers check">
+          <li>
+            <b>Zero-Area Bounding Boxes</b>
+            <span>Prevents NaN loss gradients during backpropagation by flagging zero-width boxes for 1-click batch deletion</span>
+          </li>
+          <li>
+            <b>Out-of-Bounds Coordinates</b>
+            <span>Prevents bounding box distortion by automatically clamping coordinates to the [0.0, 1.0] interval</span>
+          </li>
+          <li>
+            <b>Class Imbalance Alerts</b>
+            <span>Visualizes class frequency distribution charts and warns when minority classes fall below 5% representation</span>
+          </li>
+          <li>
+            <b>Corrupted Image Quarantine</b>
+            <span>Identifies unreadable or truncated image headers and isolates them to prevent PyTorch DataLoader crashes</span>
+          </li>
+        </ul>
+      </section>
 
-    redrawCanvas();
-    updateMinimapIndicator();
-}, { passive: false });</code></pre>
+      <!-- Section 6 -->
+      <section class="art-sec" id="in-browser-training">
+        <h2>6. In-Browser YOLO Fine-Tuning &amp; Live SSE Logs</h2>
+        <p>
+          Once annotations and QA checks pass, engineers launch model fine-tuning directly from the browser UI with live terminal logs streamed via Server-Sent Events (SSE):
+        </p>
 
-                    <h3 class="mt-4">⌨️ Comprehensive Keyboard Shortcuts</h3>
-                    <p>
-                        Every core action is mapped to single-key hotkeys for maximum ergonomic velocity:
-                    </p>
-
-                    <table class="spec-table">
-                        <thead>
-                            <tr>
-                                <th>Shortcut Key</th>
-                                <th>Action Performed</th>
-                                <th>Workflow Stage</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="kbd-badge">D</span></td>
-                                <td>Toggle Draw mode (BBox / Polygon)</td>
-                                <td>Annotation</td>
-                            </tr>
-                            <tr>
-                                <td><span class="kbd-badge">F</span></td>
-                                <td>Fit image to viewport / reset zoom</td>
-                                <td>Navigation</td>
-                            </tr>
-                            <tr>
-                                <td><span class="kbd-badge">C</span></td>
-                                <td>Copy all bounding boxes from previous image</td>
-                                <td>Video / Sequential labeling</td>
-                            </tr>
-                            <tr>
-                                <td><span class="kbd-badge">J</span></td>
-                                <td>Jump directly to next unannotated image</td>
-                                <td>Quality Assurance</td>
-                            </tr>
-                            <tr>
-                                <td><span class="kbd-badge">Q</span> / <span class="kbd-badge">E</span></td>
-                                <td>Cycle active class of selected box backward / forward</td>
-                                <td>Classification</td>
-                            </tr>
-                            <tr>
-                                <td><span class="kbd-badge">1</span> &ndash; <span class="kbd-badge">9</span></td>
-                                <td>Directly assign class index (0 &ndash; 8)</td>
-                                <td>Classification</td>
-                            </tr>
-                            <tr>
-                                <td><span class="kbd-badge">&larr;</span> / <span class="kbd-badge">&rarr;</span></td>
-                                <td>Navigate to previous / next image</td>
-                                <td>Navigation</td>
-                            </tr>
-                            <tr>
-                                <td><span class="kbd-badge">Enter</span></td>
-                                <td>Save annotations &amp; advance to next image</td>
-                                <td>Commit</td>
-                            </tr>
-                            <tr>
-                                <td><span class="kbd-badge">Del</span></td>
-                                <td>Delete currently selected bounding box / polygon</td>
-                                <td>Editing</td>
-                            </tr>
-                            <tr>
-                                <td><span class="kbd-badge">Ctrl + S</span></td>
-                                <td>Manually commit annotations to disk</td>
-                                <td>Persistence</td>
-                            </tr>
-                            <tr>
-                                <td><span class="kbd-badge">Scroll Wheel</span></td>
-                                <td>Zoom in / out centered precisely on mouse cursor</td>
-                                <td>Navigation</td>
-                            </tr>
-                            <tr>
-                                <td><span class="kbd-badge">Middle Drag</span></td>
-                                <td>Pan canvas in any direction</td>
-                                <td>Navigation</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <!-- Section 5 -->
-                    <h2 id="dataset-qa">5. Proactive Dataset Health QA Dashboard</h2>
-                    <p>
-                        A primary cause of silent model convergence failure is dirty training data. The <strong>Dataset Health Dashboard</strong> automatically scans your entire dataset and flags anomalies before GPU compute is wasted:
-                    </p>
-
-                    <table class="spec-table">
-                        <thead>
-                            <tr>
-                                <th>Anomaly Check</th>
-                                <th>Failure Impact on Model</th>
-                                <th>Automated Remediation</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Zero-Area Bounding Boxes</strong></td>
-                                <td>Produces NaN loss gradients during backpropagation</td>
-                                <td>Flagged for 1-click batch deletion or manual resize</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Out-of-Bounds Coordinates</strong></td>
-                                <td>Severe bounding box distortion in training loss</td>
-                                <td>Automatically clamped to <code>[0.0, 1.0]</code> interval</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Empty / Unlabeled Images</strong></td>
-                                <td>Distorts positive-to-background ratio</td>
-                                <td>Configurable "Roboflow Standard" background image retention</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Severe Class Imbalance</strong></td>
-                                <td>Model fails to learn rare minority classes</td>
-                                <td>Live visual class distribution bar charts with ratio alerts</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Corrupted Image Bitmaps</strong></td>
-                                <td>Crashes PyTorch DataLoader workers</td>
-                                <td>Isolated into quarantine directory automatically</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <!-- Section 6 -->
-                    <h2 id="in-browser-training">6. In-Browser YOLO Fine-Tuning &amp; Real-Time SSE</h2>
-                    <p>
-                        Unlike conventional labeling tools, the platform allows computer vision engineers to configure, launch, and monitor model training and fine-tuning directly in the browser:
-                    </p>
-
-                    <pre><code class="language-python"># Server-Sent Events (SSE) Live Training Log Streamer (Flask Subprocess)
-import subprocess
+        <div class="code-label">
+          <span>annotation_tool/server/training_stream.py</span>
+          <span>Python 3.11 / Flask SSE / Subprocess Streaming</span>
+        </div>
+<pre><code>import subprocess
 import json
 from flask import Response
 
-def generate_training_stream(dataset_yaml_path, epochs, batch_size, imgsz, model_type):
+def generate_training_stream(dataset_yaml_path: str, epochs: int, batch_size: int, imgsz: int, model_type: str):
     """
     Spawns ultralytics training subprocess and streams stdout line-by-line via SSE.
-    Enables fine-tuning older custom models on newly curated datasets!
     """
     cmd = [
         "yolo", "detect", "train",
@@ -725,206 +434,193 @@ def generate_training_stream(dataset_yaml_path, epochs, batch_size, imgsz, model
 
     process.stdout.close()
     process.wait()
-    yield f"data: {json.dumps({'status': 'complete', 'return_code': process.returncode})}\n\n"</code></pre>
+    yield f"data: {json.dumps({'status': 'complete', 'return_code': process.returncode})}\n\n"
+</code></pre>
+      </section>
 
-                    <!-- Section 7 -->
-                    <h2 id="directory-setup">7. Directory Layout &amp; Configuration</h2>
-                    <p>
-                        The repository is structured for minimal setup overhead and clean modularity:
-                    </p>
+      <!-- Section 7 -->
+      <section class="art-sec" id="directory-setup">
+        <h2>7. Directory Layout &amp; Configuration</h2>
+        <p>
+          Configuration is managed cleanly via <code>config.ini</code> without hardcoded directory strings:
+        </p>
 
-                    <pre><code class="language-text">Data_Annotation_Tool/
-├── app.py              # Backend server (Flask, YOLO inference, SQLite state, Threads)
-├── app.js              # Core frontend logic (Canvas math, SSE listeners, API calls)
-├── index.html          # Frontend UI (Data Annotation Tool markup)
-├── style.css           # Custom dark-theme styling, animations, flexbox layouts
-├── config.example.ini  # Environment variables & directory paths template
-├── config.ini          # Active local configuration file
-├── refactor.py         # Utility script for legacy dataset conversions
-├── requirements.txt    # Python dependencies (Flask, Ultralytics, PyTorch, Pillow)
-├── .gitignore          # Git exclusion rules
-├── LICENSE             # MIT License
-├── tests/              # Automated unit testing suite
-└── README.md           # Documentation & user guide</code></pre>
-
-                    <p>
-                        Configuration is managed securely via <code>config.ini</code> without hardcoded paths in source code:
-                    </p>
-
-                    <pre><code class="language-ini">[Paths]
-# Base directory where datasets reside
-BASE_DIR = D:\your_raw_images
-
-# Directory containing custom model weights (.pt, .onnx, .engine)
-MODELS_DIR = D:\model_train\models
+        <div class="code-label">
+          <span>config.ini</span>
+          <span>Dataset and Model Weights Configuration</span>
+        </div>
+<pre><code>[Paths]
+BASE_DIR = D:\datasets\raw_traffic_images
+MODELS_DIR = D:\models\custom_yolo_weights
 
 [Settings]
-CONF_THRESH = 0.25</code></pre>
+CONF_THRESH = 0.25
+AUTO_HARDLINK = True
+DEFAULT_DEVICE = cuda:0
+</code></pre>
+      </section>
 
-                    <!-- Section 8 -->
-                    <h2 id="benchmarks">8. Benchmark Comparisons</h2>
-                    <p>
-                        How the Data Annotation Tool compares against standard industry labeling solutions:
-                    </p>
+      <!-- Section 8 -->
+      <section class="art-sec" id="benchmarks">
+        <h2>8. Benchmark Comparisons Across Industry Tools</h2>
 
-                    <table class="spec-table">
-                        <thead>
-                            <tr>
-                                <th>Feature / Dimension</th>
-                                <th>Data Annotation Tool (Open Source)</th>
-                                <th>Roboflow (Cloud SaaS)</th>
-                                <th>CVAT (Self-Hosted)</th>
-                                <th>Labelme (Desktop)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Data Privacy &amp; Location</strong></td>
-                                <td><strong>100% Local / Zero Cloud</strong></td>
-                                <td>Cloud Hosted / Third-Party Servers</td>
-                                <td>Local Server (Complex Docker)</td>
-                                <td>Local Desktop File System</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Auto-Annotation Throughput</strong></td>
-                                <td><strong>100K images / 30 mins (Orin NX)</strong></td>
-                                <td>Cloud API credits throttled</td>
-                                <td>Depends on Nuclio Server</td>
-                                <td>None (Manual Only)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Setup Complexity</strong></td>
-                                <td><strong>1 Command (<code>python app.py</code>)</strong></td>
-                                <td>Web Account Registration</td>
-                                <td>Multi-Container Docker Compose</td>
-                                <td>Python Pip install</td>
-                            </tr>
-                            <tr>
-                                <td><strong>In-Browser Model Training</strong></td>
-                                <td><strong>Built-in with Live SSE Logs</strong></td>
-                                <td>Cloud Training (Paid Tier)</td>
-                                <td>None (Labeling Only)</td>
-                                <td>None</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Dataset Health QA</strong></td>
-                                <td><strong>Automated 5-Point Anomaly Check</strong></td>
-                                <td>Dataset Health Tab</td>
-                                <td>Basic Stats Only</td>
-                                <td>None</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Subscription Cost</strong></td>
-                                <td><strong>100% Free &amp; Open Source</strong></td>
-                                <td>$249+/mo for Enterprise Teams</td>
-                                <td>Free Community / Enterprise Cloud</td>
-                                <td>Free Open Source</td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <table class="why">
+          <thead>
+            <tr>
+              <th>Evaluation Metric</th>
+              <th>Data Annotation Tool (Ours)</th>
+              <th>Roboflow (Cloud SaaS)</th>
+              <th>CVAT (Self-Hosted)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Data Privacy</th>
+              <td><strong>100% Local / Zero Cloud</strong></td>
+              <td>Cloud Hosted / 3rd Party</td>
+              <td>Local Server (Docker)</td>
+            </tr>
+            <tr>
+              <th>Pre-Annotation Speed</th>
+              <td><strong>100K images / 30m (Orin NX)</strong></td>
+              <td>API Rate Throttled</td>
+              <td>Nuclio Worker Dependent</td>
+            </tr>
+            <tr>
+              <th>Setup Complexity</th>
+              <td><strong>1 Command (<code>python app.py</code>)</strong></td>
+              <td>Web Login</td>
+              <td>8+ Docker Containers</td>
+            </tr>
+            <tr>
+              <th>In-Browser Training</th>
+              <td><strong>Built-in with Live SSE</strong></td>
+              <td>Paid Cloud Tier Only</td>
+              <td>None (Labeling Only)</td>
+            </tr>
+            <tr>
+              <th>License &amp; Cost</th>
+              <td><strong>100% Free &amp; Open Source (MIT)</strong></td>
+              <td>$249+/month per team</td>
+              <td>Free Community</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
-                    <!-- Section 9 -->
-                    <h2 id="takeaways">9. Engineering Takeaways</h2>
-                    <div class="highlight-box">
-                        <h4 class="h5 fw-bold mb-3"><i class="fas fa-lightbulb text-success me-2"></i>Core Lessons from Building Dataset Systems</h4>
-                        <ul class="mb-0">
-                            <li><strong>Local-First is non-negotiable for enterprise CV:</strong> For edge vision, defense, medical, and industrial automation, retaining data sovereignty on local hardware is the primary blocker to using cloud annotation tools.</li>
-                            <li><strong>Model-assisted labeling creates a compounding feedback loop:</strong> Pre-annotating 100K images in 30 minutes on an NVIDIA Orin NX allows teams to ship fine-tuned models in hours rather than weeks.</li>
-                            <li><strong>Dataset QA prevents expensive GPU training failures:</strong> Catching corrupt images, out-of-bounds coordinates, and zero-area bounding boxes before triggering multi-hour training runs saves substantial compute and debugging time.</li>
-                            <li><strong>Unifying annotation with training closes the MLOps loop:</strong> Eliminating intermediary export/import steps between labeling and fine-tuning allows computer vision engineers to iterate rapidly on real-world datasets.</li>
-                        </ul>
-                    </div>
+      <!-- Section 9 -->
+      <section class="art-sec" id="takeaways">
+        <h2>9. Engineering Takeaways</h2>
 
-                    <!-- Share Section Bottom -->
-                    <div class="share-section my-5 p-4 rounded-4 text-center" style="background: var(--bg-surface); border: 1px solid var(--border-light);">
-                        <h5 class="fw-bold mb-3" style="color: var(--text-primary);">Found this technical deep dive valuable? Share it!</h5>
-                        <div class="d-flex justify-content-center flex-wrap gap-2">
-                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://shubhamkulkarni.me/blog/data-annotation-tool.html" target="_blank" rel="noopener noreferrer" class="btn btn-primary rounded-pill px-4"><i class="fab fa-linkedin me-2"></i>Share on LinkedIn</a>
-                            <a href="https://twitter.com/intent/tweet?text=Building an Open-Source Data Annotation Platform for Computer Vision&url=https://shubhamkulkarni.me/blog/data-annotation-tool.html" target="_blank" rel="noopener noreferrer" class="btn btn-outline-light rounded-pill px-4"><i class="fab fa-twitter me-2"></i>Post to X</a>
-                            <a href="https://api.whatsapp.com/send?text=Building an Open-Source Data Annotation Platform for Computer Vision https://shubhamkulkarni.me/blog/data-annotation-tool.html" target="_blank" rel="noopener noreferrer" class="btn btn-outline-success rounded-pill px-4"><i class="fab fa-whatsapp me-2"></i>Share via WhatsApp</a>
-                        </div>
-                    </div>
-
-                    <!-- Call To Action Box -->
-                    <div class="mt-5 p-4 text-center rounded-4" style="background: var(--bg-surface); border: 1px solid var(--border-light);">
-                        <h4 class="fw-bold mb-2" style="color: var(--text-primary);">Get the Open Source Data Annotation Tool</h4>
-                        <p class="text-secondary small mb-4">Start labeling, validating, and fine-tuning your computer vision models locally with zero cloud dependencies.</p>
-                        <div class="d-flex justify-content-center flex-wrap gap-3">
-                            <a href="https://github.com/kulkarnishub377/Data_Annotation_Tool" target="_blank" rel="noopener noreferrer" class="btn btn-success rounded-pill px-4">
-                                <i class="fab fa-github me-2"></i>View on GitHub &amp; Star
-                            </a>
-                            <a href="https://github.com/kulkarnishub377/Data_Annotation_Tool#readme" target="_blank" rel="noopener noreferrer" class="btn btn-outline-light rounded-pill px-4">
-                                <i class="fas fa-book me-2"></i>Read Full Documentation
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+        <div class="hl-grid">
+          <div class="hl">
+            <div class="hl-n">TAKEAWAY 01</div>
+            <h4>Local-First is Essential for Industrial CV</h4>
+            <p>Defense, medical, and manufacturing computer vision systems cannot legally upload raw imagery to external SaaS platforms. Retaining data on local storage unlocks enterprise deployment.</p>
+          </div>
+          <div class="hl">
+            <div class="hl-n">TAKEAWAY 02</div>
+            <h4>Model-Assisted Labeling Compounds Velocity</h4>
+            <p>Pre-annotating 100K images on an edge device in 30 minutes reduces human labeling effort by over 75%, transforming annotators from manual drawers into rapid review validators.</p>
+          </div>
+          <div class="hl">
+            <div class="hl-n">TAKEAWAY 03</div>
+            <h4>Automated QA Protects Expensive GPU Cycles</h4>
+            <p>Catching out-of-bounds boxes and corrupted headers prior to training prevents hours of wasted GPU backpropagation crashes.</p>
+          </div>
+          <div class="hl">
+            <div class="hl-n">TAKEAWAY 04</div>
+            <h4>Closing the Ingestion-to-Training Loop</h4>
+            <p>Unifying labeling, QA validation, data splitting, and model fine-tuning within a single browser canvas streamlines the entire computer vision development lifecycle.</p>
+          </div>
         </div>
-    </section>
 
-    <!-- Related Articles -->
-    <section class="container py-5 border-top" style="border-color: var(--border-light) !important;">
-        <h3 class="fw-bold mb-4 text-center" style="font-family: var(--font-heading);">Related Computer Vision &amp; AI Articles</h3>
-        <div class="row g-4 justify-content-center">
-            <div class="col-md-4">
-                <div class="card h-100 p-4 rounded-4" style="background: var(--bg-surface); border: 1px solid var(--border-light);">
-                    <span class="badge bg-primary-subtle text-primary mb-2 align-self-start">Production AI</span>
-                    <h5 class="fw-bold"><a href="vehicle-detection-system.html" class="text-decoration-none text-white">VIDES: Vehicle Detection System</a></h5>
-                    <p class="text-secondary small mb-0">Production-grade highway vehicle tracking processing 50K+ vehicles/day with YOLOv8 &amp; TensorRT.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 p-4 rounded-4" style="background: var(--bg-surface); border: 1px solid var(--border-light);">
-                    <span class="badge bg-info-subtle text-info mb-2 align-self-start">Computer Vision</span>
-                    <h5 class="fw-bold"><a href="vehicle-re-identification.html" class="text-decoration-none text-white">Vehicle Re-Identification Platform</a></h5>
-                    <p class="text-secondary small mb-0">In-memory forensic matching serving 150K+ daily queries at &lt;100ms latency via FAISS IVF.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 p-4 rounded-4" style="background: var(--bg-surface); border: 1px solid var(--border-light);">
-                    <span class="badge bg-success-subtle text-success mb-2 align-self-start">Edge AI</span>
-                    <h5 class="fw-bold"><a href="computer-vision.html" class="text-decoration-none text-white">Computer Vision Hub</a></h5>
-                    <p class="text-secondary small mb-0">Deep dive into real-time detection, tracking architectures, and edge deployment on NVIDIA Jetson.</p>
-                </div>
-            </div>
+        <!-- Project Links & Metadata -->
+        <dl class="cs-kv" style="margin-top:2.5rem;">
+          <div>
+            <dt>Stack</dt>
+            <dd>Python 3.11, Flask, Ultralytics YOLO, PyTorch, HTML5 Canvas, Server-Sent Events, SQLite</dd>
+          </div>
+          <div>
+            <dt>Hardware Tested</dt>
+            <dd>NVIDIA Jetson Orin NX 16GB &bull; RTX 4090 Workstations &bull; Apple Silicon M-Series</dd>
+          </div>
+          <div>
+            <dt>Repository</dt>
+            <dd>
+              <a href="https://github.com/kulkarnishub377/Data_Annotation_Tool" class="inline-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> github.com/kulkarnishub377/Data_Annotation_Tool</a>
+            </dd>
+          </div>
+        </dl>
+
+        <div class="confidential">
+          <i class="fas fa-shield-halved"></i>
+          <span>Open-source research and engineering conducted by Shubham Kulkarni. Released under the permissive MIT Open Source License.</span>
         </div>
-    </section>
+      </main>
+    </div>
+  </div>
 
-    <!-- Footer -->
-    <footer style="background: var(--bg-surface); border-top: 1px solid var(--border-light);" class="py-5 mt-5">
-        <div class="container text-center">
-            <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
-            <div class="d-flex justify-content-center gap-3 mb-4">
-                <a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="GitHub"><i class="fab fa-github fa-lg"></i></a>
-                <a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
-                <a href="mailto:kulkarnishub377@gmail.com" class="text-secondary hover-primary" aria-label="Email"><i class="fas fa-envelope fa-lg"></i></a>
-            </div>
-            <p class="text-secondary small mb-4">Engineering high-performance computer vision &amp; generative AI systems.</p>
-            <a href="index.html" class="btn btn-outline-light rounded-pill px-4 hover-lift">Back to Blog</a>
-        </div>
-    </footer>
+  <!-- Unified Footer -->
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>
+        <strong>Shubham Kulkarni</strong> — AI Engineer &amp; System Architect
+      </div>
+      <ul>
+        <li><a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
+        <li><a href="mailto:kulkarnishub377@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a></li>
+        <li><a href="index.html" class="inline-link">&larr; Back to All Posts</a></li>
+      </ul>
+    </div>
+  </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <script>
-        mermaid.initialize({
-            startOnLoad: true,
-            theme: 'dark',
-            themeVariables: {
-                darkMode: true,
-                background: '#0c0d14',
-                primaryColor: '#1e293b',
-                primaryTextColor: '#f8fafc',
-                primaryBorderColor: '#10b981',
-                lineColor: '#34d399',
-                secondaryColor: '#13141f',
-                tertiaryColor: '#1a1b2a'
-            }
-        });
-    </script>
-    <script src="js/script.js"></script>
+  <!-- Theme Toggle & Progress Scripts -->
+  <script>
+    // Theme Toggle Handler
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeToggle');
+    themeBtn?.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const target = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', target);
+      localStorage.setItem('theme', target);
+    });
+
+    // Reading Progress Indicator
+    const progress = document.getElementById('readProgress');
+    window.addEventListener('scroll', () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      if (total > 0) {
+        const pct = Math.min(1, Math.max(0, window.scrollY / total));
+        progress.style.transform = `scaleX(${pct})`;
+      }
+    }, { passive: true });
+
+    // Copy link helper
+    document.querySelector('.copy-link-btn')?.addEventListener('click', () => {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const btn = document.querySelector('.copy-link-btn');
+        const original = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check" style="color:var(--ok)"></i>';
+        setTimeout(() => { btn.innerHTML = original; }, 2000);
+      });
+    });
+
+    // Social share helpers
+    document.querySelectorAll('.share-btn[data-platform]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const p = btn.dataset.platform;
+        const u = encodeURIComponent(window.location.href);
+        const t = encodeURIComponent(document.title);
+        let url = '';
+        if (p === 'linkedin') url = `https://www.linkedin.com/sharing/share-offsite/?url=${u}`;
+        else if (p === 'twitter') url = `https://twitter.com/intent/tweet?url=${u}&text=${t}`;
+        else if (p === 'whatsapp') url = `https://api.whatsapp.com/send?text=${t}%20${u}`;
+        if (url) window.open(url, '_blank', 'width=600,height=500');
+      });
+    });
+  </script>
 </body>
-
 </html>

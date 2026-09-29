@@ -1,837 +1,392 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- SEO & Metadata -->
-    <title>AI Engineer Blog | Shubham Kulkarni — Computer Vision &amp; GenAI</title>
-    <meta name="description"
-        content="Technical deep dives into Computer Vision, Generative AI, RAG Pipelines, and Agentic AI Architecture by AI Engineer Shubham Kulkarni.">
-    <meta name="keywords"
-        content="Shubham Kulkarni, shubham kulkarni, Shubham Kulkarni Blog, AI Engineer Blog, AI Engineer Portfolio, Computer Vision, Generative AI, RAG, LangGraph">
-    <meta name="author" content="Shubham Kulkarni">
-    <meta name="theme-color" content="#050507">
-    <link rel="canonical" href="https://shubhamkulkarni.me/blog/">
-
-    <!-- Open Graph Metadata -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://shubhamkulkarni.me/blog/">
-    <meta property="og:title" content="AI Engineer Blog | Shubham Kulkarni — Computer Vision &amp; GenAI">
-    <meta property="og:description"
-        content="Technical deep dives into Computer Vision, Generative AI, RAG Pipelines, and Agentic AI Architecture by Shubham Kulkarni.">
-    <meta property="og:image" content="https://shubhamkulkarni.me/Asset/og-image.jpg">
-
-    <!-- Twitter / X -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="AI Engineer Blog | Shubham Kulkarni">
-    <meta name="twitter:description"
-        content="Technical deep dives into Computer Vision, Generative AI, RAG Pipelines, and Agentic AI Architecture by Shubham Kulkarni.">
-    <meta name="twitter:image" content="https://shubhamkulkarni.me/Asset/og-image.jpg">
-
-    <!-- Schema.org: Blog & CollectionPage Entity -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Blog",
-          "@id": "https://shubhamkulkarni.me/blog/#blog",
-          "url": "https://shubhamkulkarni.me/blog/",
-          "name": "Shubham Kulkarni Engineering Blog",
-          "description": "Technical deep dives into Computer Vision, Generative AI, RAG Pipelines, Embedded IoT Systems, and Agentic Workflows.",
-          "publisher": {
-            "@type": "Person",
-            "name": "Shubham Kulkarni",
-            "url": "https://shubhamkulkarni.me/",
-            "image": {
-              "@type": "ImageObject",
-              "url": "https://shubhamkulkarni.me/Asset/sk_b.jpg"
-            }
-          }
-        },
-        {
-          "@type": "CollectionPage",
-          "@id": "https://shubhamkulkarni.me/blog/#webpage",
-          "url": "https://shubhamkulkarni.me/blog/",
-          "name": "Engineering Blog | Shubham Kulkarni",
-          "isPartOf": { "@id": "https://shubhamkulkarni.me/#website" }
-        }
-      ]
-    }
-    </script>
-
-    <!-- Fonts: Inter + Outfit + JetBrains Mono -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-
-    <!-- Dependencies -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
-
-    <!-- Premium Design System -->
-    <link rel="stylesheet" href="css/style.css">
-
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
-    <link rel="shortcut icon" href="../favicon/favicon.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Engineer Blog | Shubham Kulkarni — Computer Vision &amp; GenAI</title>
+  <meta name="description" content="Technical deep dives into Computer Vision, Generative AI, RAG Pipelines, and Agentic AI Architecture by AI Engineer Shubham Kulkarni.">
+  <meta name="keywords" content="Shubham Kulkarni, AI Engineer Blog, Computer Vision, Generative AI, RAG, LangGraph">
+  <meta name="author" content="Shubham Kulkarni">
+  <meta name="theme-color" content="#F3F1EB">
+  <link rel="canonical" href="https://shubhamkulkarni.me/blog/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://shubhamkulkarni.me/blog/">
+  <meta property="og:title" content="AI Engineer Blog | Shubham Kulkarni — Computer Vision &amp; GenAI">
+  <meta property="og:description" content="Technical deep dives into Computer Vision, Generative AI, RAG Pipelines, and Agentic AI Architecture.">
+  <meta property="og:image" content="https://shubhamkulkarni.me/Asset/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Engineer Blog | Shubham Kulkarni">
+  <meta name="twitter:description" content="Technical deep dives into Computer Vision, Generative AI, RAG Pipelines, and Agentic AI Architecture.">
+  <meta name="twitter:image" content="https://shubhamkulkarni.me/Asset/og-image.jpg">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Blog","@id":"https://shubhamkulkarni.me/blog/#blog","url":"https://shubhamkulkarni.me/blog/","name":"Shubham Kulkarni Engineering Blog","description":"Technical deep dives into Computer Vision, Generative AI, RAG Pipelines, Embedded IoT Systems, and Agentic Workflows.","publisher":{"@type":"Person","name":"Shubham Kulkarni","url":"https://shubhamkulkarni.me/"}},{"@type":"CollectionPage","@id":"https://shubhamkulkarni.me/blog/#webpage","url":"https://shubhamkulkarni.me/blog/","name":"Engineering Blog | Shubham Kulkarni","isPartOf":{"@id":"https://shubhamkulkarni.me/#website"}}]}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+  <link rel="shortcut icon" href="../favicon/favicon.ico">
 </head>
-
 <body>
+  <a href="#main" class="skip">Skip to content</a>
+  <div class="progress" id="readProgress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
 
-    <!-- Reading Progress Bar -->
-    <div class="reading-progress-bar"></div>
+  <nav class="nav" id="mainNav" aria-label="Primary">
+    <div class="wrap nav-inner">
+      <a href="../index.html" class="brand" aria-label="Shubham Kulkarni — Portfolio">
+        <span class="brand-mark" aria-hidden="true">SK</span>
+        <span class="brand-name">Shubham<em style="font-style:normal;color:var(--accent)">.</em></span>
+      </a>
+      <div class="nav-actions">
+        <span class="read-badge"><i class="fas fa-layer-group" aria-hidden="true"></i> <span id="totalArticleCount">20</span> articles</span>
+        <a href="../index.html#contact" class="btn btn-solid btn-sm">Let's Talk</a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle colour theme">
+          <i class="fas fa-sun i-dark" aria-hidden="true"></i>
+          <i class="fas fa-moon i-light" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
 
-    <!-- Navigation (Sticky, Blurry) -->
-    <nav class="navbar navbar-expand-lg fixed-top navbar-premium">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="../index.html">
-                Shubham<em>.</em>
-            </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto gap-2 align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../index.html#experience">Experience</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../index.html#skills">Skills</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../index.html#projects">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../index.html#achievements">Awards</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../index.html#certs">Certs</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="index.html">Blog</a></li>
-                    <li class="nav-item ms-lg-2">
-                        <a class="btn btn-sm btn-primary rounded-pill px-3" href="../index.html#contact">Let's Talk</a>
-                    </li>
-                </ul>
-            </div>
+  <header class="blog-hero">
+    <div class="wrap">
+      <div style="font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-ink);background:var(--accent-soft);border:1px solid var(--accent-soft);padding:5px 13px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;margin-bottom:20px;"><i class="fas fa-terminal" aria-hidden="true"></i> Engineering Journal 2026</div>
+      <h1>Building the <em>Future</em>,<br>One Architecture at a Time.</h1>
+      <p>Deep technical breakdowns on Production Computer Vision, Agentic AI, RAG Pipelines, Embedded IoT, and Local-First Engineering.</p>
+      <div class="blog-controls" style="margin-top:28px;border:none;padding:0;">
+        <div class="search-wrap">
+          <i class="fas fa-search" aria-hidden="true"></i>
+          <input type="search" id="blogSearch" class="search-input" placeholder="Search keyword, model, stack, topic…" aria-label="Search articles">
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="hero-section">
-        <div class="container">
-            <span class="hero-tag">
-                <i class="fas fa-terminal"></i> Engineering Journal 2026
-            </span>
-            <h1 class="hero-title">Building the Future,<br>One Architecture at a Time.</h1>
-            <p class="hero-description">
-                Deep technical breakdowns on Production Computer Vision, Agentic AI, RAG Pipelines, Embedded IoT Systems, and Local-First Software Engineering.
-            </p>
-
-            <!-- Search and Multi-Filter -->
-            <div class="search-filter-wrapper">
-                <div class="search-box-container">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="search" id="blogSearch" class="search-input" placeholder="Search by keyword, model, stack, or topic..." aria-label="Search articles">
-                    <button type="button" id="clearSearch" class="search-clear-btn" aria-label="Clear search">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-
-                <!-- Category Filter Buttons -->
-                <div class="filter-tabs-container" role="tablist">
-                    <button type="button" class="filter-btn active" data-filter="all">All Topics</button>
-                    <button type="button" class="filter-btn" data-filter="agentic-ai">Agentic AI</button>
-                    <button type="button" class="filter-btn" data-filter="computer-vision">Computer Vision</button>
-                    <button type="button" class="filter-btn" data-filter="desktop-web">Desktop &amp; Web</button>
-                    <button type="button" class="filter-btn" data-filter="generative-ai">GenAI &amp; RAG</button>
-                    <button type="button" class="filter-btn" data-filter="embedded-iot">IoT &amp; Robotics</button>
-                    <button type="button" class="filter-btn" data-filter="smart-cities">Smart Cities</button>
-                </div>
-
-                <!-- Topic Hub Links -->
-                <div class="topic-hubs-ribbon">
-                    <span class="small text-muted me-1 align-self-center"><i class="fas fa-compass me-1"></i> Dedicated Hubs:</span>
-                    <a href="computer-vision.html" class="hub-pill"><i class="fas fa-eye text-info"></i> Computer Vision Hub</a>
-                    <a href="generative-ai-hub.html" class="hub-pill"><i class="fas fa-brain text-warning"></i> Generative AI Hub</a>
-                </div>
-            </div>
+        <div class="filter-tabs" role="tablist">
+          <button type="button" class="filter-btn on" data-filter="all" role="tab" aria-selected="true">All Topics</button>
+          <button type="button" class="filter-btn" data-filter="agentic-ai" role="tab" aria-selected="false">Agentic AI</button>
+          <button type="button" class="filter-btn" data-filter="computer-vision" role="tab" aria-selected="false">Computer Vision</button>
+          <button type="button" class="filter-btn" data-filter="desktop-web" role="tab" aria-selected="false">Desktop &amp; Web</button>
+          <button type="button" class="filter-btn" data-filter="generative-ai" role="tab" aria-selected="false">GenAI &amp; RAG</button>
+          <button type="button" class="filter-btn" data-filter="embedded-iot" role="tab" aria-selected="false">IoT &amp; Robotics</button>
+          <button type="button" class="filter-btn" data-filter="smart-cities" role="tab" aria-selected="false">Smart Cities</button>
         </div>
-    </header>
+      </div>
+      <div style="margin-top:16px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:.85rem;color:var(--muted);">
+        <span><i class="fas fa-compass" aria-hidden="true"></i> Dedicated Hubs:</span>
+        <a href="computer-vision.html" style="display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink-2);font-size:.83rem;transition:border-color .2s,color .2s;"><i class="fas fa-eye" aria-hidden="true"></i> Computer Vision Hub</a>
+        <a href="generative-ai-hub.html" style="display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink-2);font-size:.83rem;transition:border-color .2s,color .2s;"><i class="fas fa-brain" aria-hidden="true"></i> Generative AI Hub</a>
+      </div>
+    </div>
+  </header>
 
-    <!-- Main Content -->
-    <main class="container pt-4">
+  <main id="main">
+    <div class="wrap">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 0 4px;font-size:.87rem;color:var(--muted);">
+        <span>Showing <strong id="visibleArticleCount" style="color:var(--ink);">20</strong> of <span id="totalCount">20</span> articles</span>
+      </div>
+      <div class="blog-grid" id="blogGrid">
 
-        <!-- Results Info Bar -->
-        <div class="results-info-bar">
-            <div>
-                Showing <strong id="visibleArticleCount">20</strong> of <span id="totalArticleCount">20</span> articles
-            </div>
-            <div class="d-none d-md-block text-muted small">
-                <i class="fas fa-bolt text-warning me-1"></i> Production Case Studies &amp; Research
-            </div>
+        <!-- 1. Data Annotation Tool -->
+        <article class="article-card" data-category="computer-vision" data-keywords="data annotation tool computer vision yolo yolo11 yolo26 object detection instance segmentation dataset qa model training">
+          <div class="card-img-wrap"><img src="images/cv_annotation_tool_1787318820950.jpg" loading="lazy" class="card-img" alt="Open Source Data Annotation Tool"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 12 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">Computer Vision &amp; MLOps</span><span class="card-dot"></span><time datetime="2026-08-21">Aug 21, 2026</time></div>
+            <h2 class="card-title"><a href="data-annotation-tool.html">Building an Open-Source Data Annotation Platform for Computer Vision</a></h2>
+            <p class="card-excerpt">Engineering a local-first CV dataset development platform: YOLO-assisted auto-annotation, bbox and polygon segmentation, dataset health QA, and in-browser model training with live SSE logs.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="data-annotation-tool.html" class="read-link">Read <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <!-- 2. KeyFlow -->
+        <article class="article-card" data-category="desktop-web" data-keywords="keyflow typing studio python pywebview javascript sqlite wal web audio dsp deterministic ai">
+          <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-img" alt="KeyFlow AI Typing Studio"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 9 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">Desktop &amp; Web AI</span><span class="card-dot"></span><time datetime="2026-08-20">Aug 20, 2026</time></div>
+            <h2 class="card-title"><a href="keyflow-ai-typing.html">Building KeyFlow: A 10-Agent Local-First Adaptive Typing Studio</a></h2>
+            <p class="card-excerpt">How I built an offline-first typing trainer in Python and JavaScript with 10-agent deterministic AI, sub-millisecond telemetry, Web Audio DSP synthesis, and an 18 MB standalone binary.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="keyflow-ai-typing.html" class="read-link">Read <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <!-- 3. OmniSight -->
+        <article class="article-card" data-category="agentic-ai" data-keywords="omnisight multi-modal agentic ai incident intelligence anomaly detection fastapi docker qdrant postgres">
+          <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-img" alt="OmniSight Dashboard"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 10 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">Agentic AI</span><span class="card-dot"></span><time datetime="2026-06-01">Jun 01, 2026</time></div>
+            <h2 class="card-title"><a href="omnisight.html">OmniSight: Multi-Modal Incident Intelligence Platform</a></h2>
+            <p class="card-excerpt">Architecting a production-grade, event-driven AI platform for real-time anomaly validation and autonomous agentic incident investigations using six specialized AI personas.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="omnisight.html" class="read-link">Read <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <!-- 4. CivicMind -->
+        <article class="article-card" data-category="smart-cities" data-keywords="civicmind smart cities gemini 2.5 vertex ai decision intelligence digital twins xai">
+          <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-img" alt="Smart City AI"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 8 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">Smart Cities</span><span class="card-dot"></span><time datetime="2026-05-15">May 15, 2026</time></div>
+            <h2 class="card-title"><a href="civicmind.html">CivicMind: AI-Powered Smart City Decision Intelligence</a></h2>
+            <p class="card-excerpt">How we engineered a Multi-Agent Decision Intelligence Platform using Gemini 2.5 and Vertex AI to transform fragmented municipal data into actionable policy with full explainability.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="civicmind.html" class="read-link">Read <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <!-- 5. Vehicle Re-ID -->
+        <article class="article-card" data-category="computer-vision" data-keywords="vehicle re-identification yolov5 faiss osnet in-memory computer vision deep learning">
+          <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-img" alt="Vehicle Re-Identification AI"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 7 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">Computer Vision</span><span class="card-dot"></span><time datetime="2026-04-10">Apr 10, 2026</time></div>
+            <h2 class="card-title"><a href="vehicle-re-identification.html">Vehicle Re-Identification Without a Database</a></h2>
+            <p class="card-excerpt">Building an intelligent, image-based vehicle matching platform using YOLOv5 and OSNet-AIN with zero database dependencies and sub-10ms FAISS IVF-PQ search at 150K+ queries/sec.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="vehicle-re-identification.html" class="read-link">Read <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <!-- 6. DocuAI Studio -->
+        <article class="article-card" data-category="generative-ai" data-keywords="docuai rag document ai faiss bm25 rrf langchain ollama fastapi">
+          <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-img" alt="DocuAI Architecture"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 10 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">GenAI &amp; RAG</span><span class="card-dot"></span><time datetime="2026-03-28">Mar 28, 2026</time></div>
+            <h2 class="card-title"><a href="docuai-studio-v3-1.html">DocuAI Studio v3.1: Enterprise RAG Architecture</a></h2>
+            <p class="card-excerpt">Architecting hybrid retrieval with FAISS + BM25 + Reciprocal Rank Fusion (RRF), knowledge graph exploration, and production-grade streaming Q&amp;A with Ollama local models.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="docuai-studio-v3-1.html" class="read-link">Read <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <!-- 7. VIDES -->
+        <article class="article-card" data-category="computer-vision" data-keywords="vides htms traffic management yolov8 deepsort bytetrack highway vision arya omnitalk">
+          <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-img" alt="AI Highway Traffic Management"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 9 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">Computer Vision</span><span class="card-dot"></span><time datetime="2026-02-10">Feb 10, 2026</time></div>
+            <h2 class="card-title"><a href="vehicle-detection-system.html">AI Highway Traffic Incident System (VIDES / HTMS)</a></h2>
+            <p class="card-excerpt">How we architected a real-time Highway Traffic Management System at Arya Omnitalk — detecting accidents in milliseconds while processing 50,000+ daily events across 120+ cameras.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="vehicle-detection-system.html" class="read-link">Read <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <!-- 8. Smart Irrigation -->
+        <article class="article-card" data-category="embedded-iot" data-keywords="jaltantra smart irrigation iot scikit-learn raspberry pi sih 2023 water conservation">
+          <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-img" alt="Smart Irrigation IoT"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 6 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">IoT &amp; Robotics</span><span class="card-dot"></span><time datetime="2026-01-20">Jan 20, 2026</time></div>
+            <h2 class="card-title"><a href="smart-irrigation.html">Smart Irrigation System: IoT-Driven Water Optimization</a></h2>
+            <p class="card-excerpt">Predictive soil analytics and edge ML models saving 30% water in agricultural deployments. The foundational architecture behind our SIH winning JalTantra system.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="smart-irrigation.html" class="read-link">Read <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <!-- 9. SIH Win -->
+        <article class="article-card" data-category="smart-cities" data-keywords="sih 2023 smart india hackathon air 1 national champion jaltantra ministry of jal shakti">
+          <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-img" alt="Smart India Hackathon Win"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 7 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">Hackathons &amp; Awards</span><span class="card-dot"></span><time datetime="2026-01-05">Jan 05, 2026</time></div>
+            <h2 class="card-title"><a href="sih-win-2023.html">How We Won AIR 1 at Smart India Hackathon 2023</a></h2>
+            <p class="card-excerpt">Leading Team Technocrats to the National Championship under the Ministry of Jal Shakti with JalTantra. Strategy, execution, and 36-hour rapid hardware iteration.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="sih-win-2023.html" class="read-link">Read <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <!-- 10. Alumni Portal -->
+        <article class="article-card" data-category="desktop-web" data-keywords="alumni portal django 5.2 drf postgresql jwt role based access full stack">
+          <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-img" alt="Alumni Management Portal"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 8 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">Full Stack</span><span class="card-dot"></span><time datetime="2026-02-14">Feb 14, 2026</time></div>
+            <h2 class="card-title"><a href="alumni-portal.html">Building a Secure Alumni Portal in Django 5.2</a></h2>
+            <p class="card-excerpt">Role-based access control, JWT authentication, and high-performance database schema across 164+ commits and 4 comprehensive user dashboards.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="alumni-portal.html" class="read-link">Read <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <!-- 11. Mental Health AI -->
+        <article class="article-card" data-category="agentic-ai" data-keywords="mental health ai nlp vader sentiment analysis ibm flask early burnout">
+          <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-img" alt="Mental Health AI"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 5 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">Applied AI</span><span class="card-dot"></span><time datetime="2026-02-12">Feb 12, 2026</time></div>
+            <h2 class="card-title"><a href="mental-health-ai.html">Mental Health AI Tracker: NLP Sentiment at IBM</a></h2>
+            <p class="card-excerpt">Detecting early burnout signals from free-form text using NLP sentiment analysis and micro-anomaly detection built during my internship at IBM India.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="mental-health-ai.html" class="read-link">Read <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <!-- 12. E-Waste -->
+        <article class="article-card" data-category="embedded-iot" data-keywords="e-waste esp32 aws iot mqtt recycling smart bin sensors django">
+          <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-img" alt="E-Waste IoT Management"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 6 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">IoT &amp; Robotics</span><span class="card-dot"></span><time datetime="2026-02-11">Feb 11, 2026</time></div>
+            <h2 class="card-title"><a href="e-waste-management.html">Smart E-Waste Bin Management with ESP32 &amp; AWS IoT</a></h2>
+            <p class="card-excerpt">Automating electronic waste tracking with smart load cells, ultrasonic fill-level sensors, and MQTT pipelines connected to cloud dashboards.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="e-waste-management.html" class="read-link">Read <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <!-- 13. Object Detection -->
+        <article class="article-card" data-category="computer-vision" data-keywords="object detection python opencv yolo real-time video stream bounding boxes">
+          <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-img" alt="Object Detection"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 5 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">Computer Vision</span><span class="card-dot"></span><time datetime="2026-02-09">Feb 09, 2026</time></div>
+            <h2 class="card-title"><a href="object-detection.html">Real-Time Object Detection with Python &amp; OpenCV</a></h2>
+            <p class="card-excerpt">Multi-object detection and tracking from live video streams. Frame rate optimization, non-maximum suppression, and bounding box pipelines.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="object-detection.html" class="read-link">Read <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <!-- 14. Line Follower -->
+        <article class="article-card" data-category="embedded-iot" data-keywords="line follower arduino pid control robotics ir sensors motor driver">
+          <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-img" alt="Line Following Robot"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 4 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">IoT &amp; Robotics</span><span class="card-dot"></span><time datetime="2026-02-08">Feb 08, 2026</time></div>
+            <h2 class="card-title"><a href="line-follower.html">Building a Line-Following Robot with PID Control</a></h2>
+            <p class="card-excerpt">Designing an autonomous robot using Arduino Mega, a 5-channel IR sensor array, and high-speed interrupt-driven motor PID loops.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="line-follower.html" class="read-link">Read <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <!-- 15. Transformers & LLMs -->
+        <article class="article-card" data-category="generative-ai" data-keywords="transformers attention llms self-attention generative ai deep learning pytorch">
+          <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-img" alt="Generative AI Transformers"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 11 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">GenAI &amp; RAG</span><span class="card-dot"></span><time datetime="2026-02-18">Feb 18, 2026</time></div>
+            <h2 class="card-title"><a href="generative-ai.html">Demystifying Transformers &amp; Large Language Models</a></h2>
+            <p class="card-excerpt">A rigorous technical breakdown of Self-Attention, Multi-Head Projections, Positional Encodings, and why "Attention is All You Need" changed AI forever.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="generative-ai.html" class="read-link">Read <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <!-- 16. LangGraph Agents -->
+        <article class="article-card" data-category="agentic-ai" data-keywords="langgraph ai agents state machine cyclical graphs multi agent orchestration langchain">
+          <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-img" alt="LangGraph AI Agents"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 9 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">Agentic AI</span><span class="card-dot"></span><time datetime="2026-02-17">Feb 17, 2026</time></div>
+            <h2 class="card-title"><a href="ai-agent-langgraph.html">Building Production AI Agents with LangGraph</a></h2>
+            <p class="card-excerpt">State-machine driven cyclical graphs, human-in-the-loop validation, and memory persistence in production agentic workflows.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="ai-agent-langgraph.html" class="read-link">Read <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <!-- 17. Production RAG -->
+        <article class="article-card" data-category="generative-ai" data-keywords="rag retrieval augmented generation faiss bm25 hybrid search embeddings reranking">
+          <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-img" alt="Production RAG Pipeline"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 8 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">GenAI &amp; RAG</span><span class="card-dot"></span><time datetime="2026-02-16">Feb 16, 2026</time></div>
+            <h2 class="card-title"><a href="rag-pipeline.html">Production RAG: FAISS, BM25 &amp; Hybrid Search</a></h2>
+            <p class="card-excerpt">Chunking strategies, reciprocal rank fusion, cross-encoder re-ranking, and context compression for zero-hallucination document intelligence.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="rag-pipeline.html" class="read-link">Read <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <!-- 18. AI ML Trends -->
+        <article class="article-card" data-category="agentic-ai" data-keywords="ai trends 2026 small language models slm edge ai multimodal agentic workflows">
+          <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-img" alt="AI ML Trends 2026"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 7 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">AI Trends</span><span class="card-dot"></span><time datetime="2026-02-15">Feb 15, 2026</time></div>
+            <h2 class="card-title"><a href="ai-ml-trends.html">Top AI &amp; Machine Learning Trends Shaping 2026</a></h2>
+            <p class="card-excerpt">From Small Language Models (SLMs) running locally on device to autonomous multi-agent swarms and continuous active learning loops.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="ai-ml-trends.html" class="read-link">Read <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <!-- 19. IoT Connectivity -->
+        <article class="article-card" data-category="embedded-iot" data-keywords="iot connectivity mqtt coap ble edge ai industrial telemetry lora">
+          <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-img" alt="IoT Protocols"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 6 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">IoT &amp; Robotics</span><span class="card-dot"></span><time datetime="2026-02-07">Feb 07, 2026</time></div>
+            <h2 class="card-title"><a href="iot-connectivity.html">Industrial IoT: MQTT vs CoAP vs Edge Protocols</a></h2>
+            <p class="card-excerpt">Comparing throughput, payload overhead, reliability guarantees, and battery consumption for edge computing and industrial sensors.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="iot-connectivity.html" class="read-link">Read <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <!-- 20. AI Programming Languages -->
+        <article class="article-card" data-category="desktop-web" data-keywords="mojo python rust ai programming languages performance benchmarks memory safety">
+          <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-img" alt="Programming Languages for AI"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 8 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">Engineering</span><span class="card-dot"></span><time datetime="2026-02-06">Feb 06, 2026</time></div>
+            <h2 class="card-title"><a href="trending-ai-langs.html">Trending AI Languages: Mojo, Rust &amp; Python in 2026</a></h2>
+            <p class="card-excerpt">Performance benchmarks, memory safety guarantees, and ecosystem maturity of the three languages competing to power next-generation AI infrastructure.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="trending-ai-langs.html" class="read-link">Read <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <!-- No Results -->
+        <div id="noResultsBox" class="no-results">
+          <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+          <strong style="display:block;font-size:1.1rem;margin-bottom:8px;">No articles found</strong>
+          <p style="margin:0 0 16px;color:var(--muted);font-size:.9rem;">Try a different keyword or reset the category filter.</p>
+          <button type="button" id="resetSearchBtn" class="btn btn-ghost btn-sm"><i class="fas fa-rotate-left" aria-hidden="true"></i> Reset Filters</button>
         </div>
 
-        <!-- 20 Article Grid -->
-        <div class="blog-grid" id="blogGrid">
+      </div>
+    </div>
+  </main>
 
-            <!-- 1. Open Source Data Annotation Tool for CV -->
-            <article class="article-card" data-category="cv" data-keywords="data annotation tool computer vision yolo yolo11 yolo26 object detection instance segmentation dataset qa model training">
-                <div class="card-image-wrapper">
-                    <img src="images/cv_annotation_tool_1787318820950.jpg" loading="lazy" class="card-image" alt="Open Source Data Annotation Tool for Computer Vision" style="width: 100%; height: 100%; object-fit: cover;">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 12 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag emerald">Computer Vision &amp; MLOps</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-08-21">Aug 21, 2026</time>
-                    </div>
-                    <h2 class="card-heading">
-                        <a href="data-annotation-tool.html">Building an Open-Source Data Annotation Platform for Computer Vision</a>
-                    </h2>
-                    <p class="card-excerpt">
-                        Engineering a local-first CV dataset development platform: YOLO-assisted auto-annotation, bbox and polygon segmentation, dataset health QA, and in-browser model training with live SSE logs.
-                    </p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="data-annotation-tool.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                            <button type="button" class="card-share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </article>
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <span>© 2026 Shubham Kulkarni · AI/ML Engineer &amp; Systems Architect</span>
+      <ul>
+        <li><a href="../index.html" aria-label="Portfolio home"><i class="fas fa-home" aria-hidden="true"></i></a></li>
+        <li><a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+        <li><a href="mailto:kulkarnishub377@gmail.com" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a></li>
+        <li><a href="../index.html#contact" class="btn btn-solid btn-sm" style="height:32px;padding:0 14px;font-size:.82rem;">Let's Talk</a></li>
+      </ul>
+    </div>
+  </footer>
 
-            <!-- 2. KeyFlow AI Typing Studio -->
-            <article class="article-card" data-category="desktop-web" data-keywords="keyflow typing studio python pywebview javascript sqlite wal web audio dsp deterministic ai">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="KeyFlow AI Typing Studio">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 9 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag cyan">Desktop &amp; Web AI</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-08-20">Aug 20, 2026</time>
-                    </div>
-                    <h2 class="card-heading">
-                        <a href="keyflow-ai-typing.html">Building KeyFlow: A 10-Agent Local-First Adaptive Typing Studio</a>
-                    </h2>
-                    <p class="card-excerpt">
-                        How I built an offline-first typing trainer in Python and JavaScript with 10-agent deterministic AI, sub-millisecond telemetry, Web Audio DSP synthesis, and an 18 MB standalone binary.
-                    </p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="keyflow-ai-typing.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                            <button type="button" class="card-share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </article>
+  <div class="toast" id="toast" role="status" aria-live="polite"><i class="fas fa-check" aria-hidden="true"></i> <span id="toastMsg">Link copied!</span></div>
 
-            <!-- 2. OmniSight -->
-            <article class="article-card" data-category="agentic-ai" data-keywords="omnisight multi-modal agentic ai incident intelligence anomaly detection fastapi docker">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="OmniSight Dashboard">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 8 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag">Agentic AI</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-06-01">Jun 01, 2026</time>
-                    </div>
-                    <h2 class="card-heading">
-                        <a href="omnisight.html">OmniSight: Multi-Modal Incident Intelligence Platform</a>
-                    </h2>
-                    <p class="card-excerpt">
-                        Architecting a production-grade, event-driven AI platform for real-time anomaly validation and autonomous agentic incident investigations.
-                    </p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="omnisight.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                            <button type="button" class="card-share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 3. CivicMind -->
-            <article class="article-card" data-category="smart-cities" data-keywords="civicmind smart cities gemini 2.5 vertex ai decision intelligence digital twins xai">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="Smart City AI">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 8 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag emerald">Smart Cities</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-05-15">May 15, 2026</time>
-                    </div>
-                    <h2 class="card-heading">
-                        <a href="civicmind.html">CivicMind: AI-Powered Smart City Decision Intelligence</a>
-                    </h2>
-                    <p class="card-excerpt">
-                        How we engineered a Multi-Agent Decision Intelligence Platform using Gemini 2.5 and Vertex AI to transform fragmented municipal data into actionable policy.
-                    </p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="civicmind.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                            <button type="button" class="card-share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 4. Vehicle Re-Identification -->
-            <article class="article-card" data-category="computer-vision" data-keywords="vehicle re-identification yolov5 faiss osnet in-memory computer vision deep learning">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="Vehicle AI">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 7 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag amber">Computer Vision</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-04-10">Apr 10, 2026</time>
-                    </div>
-                    <h2 class="card-heading">
-                        <a href="vehicle-re-identification.html">Vehicle Re-Identification Without a Database</a>
-                    </h2>
-                    <p class="card-excerpt">
-                        Building an intelligent, image-based vehicle matching platform using YOLOv5 and OSNet-AIN with zero database dependencies and sub-10ms search.
-                    </p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="vehicle-re-identification.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                            <button type="button" class="card-share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 5. DocuAI Studio v3.1 -->
-            <article class="article-card" data-category="generative-ai" data-keywords="docuai rag document ai faiss bm25 rrf langchain ollama fastapi">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="DocuAI Architecture">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 10 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag">GenAI &amp; RAG</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-03-28">Mar 28, 2026</time>
-                    </div>
-                    <h2 class="card-heading">
-                        <a href="docuai-studio-v3-1.html">DocuAI Studio v3.1: Enterprise RAG Architecture</a>
-                    </h2>
-                    <p class="card-excerpt">
-                        Architecting hybrid retrieval with FAISS + BM25 + Reciprocal Rank Fusion (RRF), knowledge graph exploration, and production-grade streaming Q&amp;A.
-                    </p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="docuai-studio-v3-1.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                            <button type="button" class="card-share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 6. VIDES Traffic Incident System -->
-            <article class="article-card" data-category="computer-vision" data-keywords="vides htms traffic management yolov8 deepsort bytetrack highway vision arya omnitalk">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="AI Highway Traffic Management">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 9 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag amber">Computer Vision</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-02-10">Feb 10, 2026</time>
-                    </div>
-                    <h2 class="card-heading">
-                        <a href="vehicle-detection-system.html">AI Highway Traffic Incident System (VIDES / HTMS)</a>
-                    </h2>
-                    <p class="card-excerpt">
-                        How we architected a real-time Highway Traffic Management System at Arya Omnitalk to detect accidents in milliseconds processing 50,000+ daily events.
-                    </p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="vehicle-detection-system.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                            <button type="button" class="card-share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 7. Smart Irrigation -->
-            <article class="article-card" data-category="embedded-iot" data-keywords="jaltantra smart irrigation iot scikit-learn raspberry pi sih 2023 water conservation">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="Smart Irrigation IoT">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 6 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag emerald">IoT &amp; Robotics</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-01-20">Jan 20, 2026</time>
-                    </div>
-                    <h2 class="card-heading">
-                        <a href="smart-irrigation.html">Smart Irrigation System: IoT-Driven Water Optimization</a>
-                    </h2>
-                    <p class="card-excerpt">
-                        Predictive soil analytics and edge ML models saving 30% water in agricultural deployments. The foundational architecture behind our SIH winning system.
-                    </p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="smart-irrigation.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                            <button type="button" class="card-share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 8. SIH Win Story -->
-            <article class="article-card" data-category="smart-cities" data-keywords="sih 2023 smart india hackathon air 1 national champion jaltantra ministry of jal shakti">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="Smart India Hackathon Win">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 7 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag amber">Hackathons &amp; Awards</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-01-05">Jan 05, 2026</time>
-                    </div>
-                    <h2 class="card-heading">
-                        <a href="sih-win-2023.html">How We Won AIR 1 at Smart India Hackathon 2023</a>
-                    </h2>
-                    <p class="card-excerpt">
-                        Leading Team Technocrats to the National Championship under the Ministry of Jal Shakti with JalTantra. Strategy, execution, and rapid hardware iteration.
-                    </p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="sih-win-2023.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                            <button type="button" class="card-share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 9. Alumni Portal -->
-            <article class="article-card" data-category="desktop-web" data-keywords="alumni portal django 5.2 drf postgresql jwt role based access full stack">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="Alumni Management Portal">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 8 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag">Full Stack</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-02-14">Feb 14, 2026</time>
-                    </div>
-                    <h2 class="card-heading">
-                        <a href="alumni-portal.html">Building a Secure Alumni Portal in Django 5.2</a>
-                    </h2>
-                    <p class="card-excerpt">
-                        Role-based access control, JWT authentication, and high-performance database schema across 164+ commits and 4 comprehensive user dashboards.
-                    </p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="alumni-portal.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                            <button type="button" class="card-share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 10. Mental Health AI -->
-            <article class="article-card" data-category="agentic-ai" data-keywords="mental health ai nlp vader sentiment analysis ibm flask early burnout">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="Mental Health AI">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 5 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag">Applied AI</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-02-12">Feb 12, 2026</time>
-                    </div>
-                    <h2 class="card-heading">
-                        <a href="mental-health-ai.html">Mental Health AI Tracker: NLP Sentiment at IBM</a>
-                    </h2>
-                    <p class="card-excerpt">
-                        Detecting early burnout signals from free-form text using NLP sentiment analysis and micro-anomaly detection built during my internship at IBM India.
-                    </p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="mental-health-ai.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                            <button type="button" class="card-share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 11. E-Waste Management -->
-            <article class="article-card" data-category="embedded-iot" data-keywords="e-waste esp32 aws iot mqtt recycling smart bin sensors django">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="E-Waste IoT Management">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 6 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag emerald">IoT &amp; Robotics</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-02-11">Feb 11, 2026</time>
-                    </div>
-                    <h2 class="card-heading">
-                        <a href="e-waste-management.html">Smart E-Waste Bin Management with ESP32 &amp; AWS IoT</a>
-                    </h2>
-                    <p class="card-excerpt">
-                        Automating electronic waste tracking with smart load cells, ultrasonic fill-level sensors, and MQTT pipelines connected to cloud dashboards.
-                    </p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="e-waste-management.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                            <button type="button" class="card-share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 12. Real-Time Object Detection -->
-            <article class="article-card" data-category="computer-vision" data-keywords="object detection python opencv yolo real-time video stream bounding boxes">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="Object Detection">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 5 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag amber">Computer Vision</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-02-09">Feb 09, 2026</time>
-                    </div>
-                    <h2 class="card-heading">
-                        <a href="object-detection.html">Real-Time Object Detection with Python &amp; OpenCV</a>
-                    </h2>
-                    <p class="card-excerpt">
-                        Multi-object detection and tracking from live video streams. Frame rate optimization, non-maximum suppression, and bounding box pipelines.
-                    </p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="object-detection.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                            <button type="button" class="card-share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 13. Line Follower Robot -->
-            <article class="article-card" data-category="embedded-iot" data-keywords="line follower arduino pid control robotics ir sensors motor driver">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="Line Following Robot">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 4 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag emerald">IoT &amp; Robotics</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-02-08">Feb 08, 2026</time>
-                    </div>
-                    <h2 class="card-heading">
-                        <a href="line-follower.html">Building a Line-Following Robot with PID Control</a>
-                    </h2>
-                    <p class="card-excerpt">
-                        Designing an autonomous robot using Arduino Mega, a 5-channel IR sensor array, and high-speed interrupt-driven motor PID loops.
-                    </p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="line-follower.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                            <button type="button" class="card-share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 14. Transformers & LLMs -->
-            <article class="article-card" data-category="generative-ai" data-keywords="transformers attention llms self-attention generative ai deep learning pytorch">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="Generative AI Transformers">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 11 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag">GenAI &amp; RAG</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-02-18">Feb 18, 2026</time>
-                    </div>
-                    <h2 class="card-heading">
-                        <a href="generative-ai.html">Demystifying Transformers &amp; Large Language Models</a>
-                    </h2>
-                    <p class="card-excerpt">
-                        A rigorous technical breakdown of Self-Attention, Multi-Head Projections, Positional Encodings, and Why 'Attention is All You Need'.
-                    </p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="generative-ai.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                            <button type="button" class="card-share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 15. LangGraph AI Agents -->
-            <article class="article-card" data-category="agentic-ai" data-keywords="langgraph ai agents state machine cyclical graphs multi agent orchestration langchain">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="LangGraph AI Agents">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 9 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag">Agentic AI</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-02-17">Feb 17, 2026</time>
-                    </div>
-                    <h2 class="card-heading">
-                        <a href="ai-agent-langgraph.html">Building Production AI Agents with LangGraph</a>
-                    </h2>
-                    <p class="card-excerpt">
-                        State-machine driven cyclical graphs, human-in-the-loop validation, and memory persistence in production agentic workflows.
-                    </p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="ai-agent-langgraph.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                            <button type="button" class="card-share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 16. Production RAG Architecture -->
-            <article class="article-card" data-category="generative-ai" data-keywords="rag retrieval augmented generation faiss bm25 hybrid search embeddings reranking">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="Production RAG Pipeline">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 8 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag">GenAI &amp; RAG</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-02-16">Feb 16, 2026</time>
-                    </div>
-                    <h2 class="card-heading">
-                        <a href="rag-pipeline.html">Production RAG: FAISS, BM25 &amp; Hybrid Search</a>
-                    </h2>
-                    <p class="card-excerpt">
-                        Chunking strategies, reciprocal rank fusion, cross-encoder re-ranking, and context compression for zero-hallucination document intelligence.
-                    </p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="rag-pipeline.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                            <button type="button" class="card-share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 17. AI & ML Trends 2026 -->
-            <article class="article-card" data-category="agentic-ai" data-keywords="ai trends 2026 small language models slm edge ai multimodal agentic workflows">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="AI ML Trends">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 7 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag">AI Trends</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-02-15">Feb 15, 2026</time>
-                    </div>
-                    <h2 class="card-heading">
-                        <a href="ai-ml-trends.html">Top AI &amp; Machine Learning Trends Shaping 2026</a>
-                    </h2>
-                    <p class="card-excerpt">
-                        From Small Language Models (SLMs) running locally on device to autonomous multi-agent swarms and continuous active learning loops.
-                    </p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="ai-ml-trends.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                            <button type="button" class="card-share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 18. IoT Connectivity Protocols -->
-            <article class="article-card" data-category="embedded-iot" data-keywords="iot connectivity mqtt coap ble edge ai industrial telemetry lora">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="IoT Protocols">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 6 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag emerald">IoT &amp; Robotics</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-02-07">Feb 07, 2026</time>
-                    </div>
-                    <h2 class="card-heading">
-                        <a href="iot-connectivity.html">Industrial IoT: MQTT vs CoAP vs Edge Protocols</a>
-                    </h2>
-                    <p class="card-excerpt">
-                        Comparing throughput, payload overhead, reliability guarantees, and battery consumption for edge computing and industrial sensors.
-                    </p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="iot-connectivity.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                            <button type="button" class="card-share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 19. AI Programming Languages -->
-            <article class="article-card" data-category="desktop-web" data-keywords="mojo python rust ai programming languages performance benchmarks memory safety">
-                <div class="card-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=800&q=80" loading="lazy" class="card-image" alt="Programming Languages for AI">
-                    <span class="card-read-badge"><i class="fas fa-clock me-1"></i> 8 min</span>
-                </div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="category-tag">AI Trends</span>
-                        <span class="meta-dot"></span>
-                        <time datetime="2026-02-06">Feb 06, 2026</time>
-                    </div>
-                    <h2 class="card-heading">
-                        <a href="trending-ai-langs.html">AI Languages 2026: Python vs Mojo vs Rust</a>
-                    </h2>
-                    <p class="card-excerpt">
-                        Is Python dying for AI workloads? A deep benchmark comparison of speed, SIMD parallelism, safety, and ecosystem readiness in 2026.
-                    </p>
-                    <div class="card-footer">
-                        <div class="author-block">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" class="author-img">
-                            <span class="author-name">Shubham K.</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="trending-ai-langs.html" class="read-btn">Read <i class="fas fa-arrow-right"></i></a>
-                            <button type="button" class="card-share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i class="fas fa-link"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Empty State -->
-            <div id="noResultsBox" class="no-results-box">
-                <i class="fas fa-search-minus"></i>
-                <h3>No articles found</h3>
-                <p>Try searching for a different keyword or reset the category filters.</p>
-                <button type="button" id="resetSearchBtn" class="btn btn-outline-primary rounded-pill px-4">
-                    <i class="fas fa-rotate-left me-2"></i> Reset Filters
-                </button>
-            </div>
-
-        </div>
-    </main>
-
-    <!-- Minimized Footer -->
-    <footer class="blog-footer">
-        <div class="container text-center">
-            <h4 class="fw-bold mb-2">Shubham Kulkarni</h4>
-            <p class="text-muted small mb-3">AI / ML Engineer &amp; Systems Architect • Engineering High-Performance Solutions</p>
-            <div class="footer-social-links">
-                <a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                <a href="mailto:kulkarnishub377@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-            </div>
-            <div class="d-flex justify-content-center gap-3 mt-4">
-                <a href="../index.html" class="btn btn-sm btn-outline-light rounded-pill px-3">← Back to Portfolio</a>
-                <a href="../index.html#contact" class="btn btn-sm btn-primary rounded-pill px-3">Get in Touch</a>
-            </div>
-            <p class="text-muted small mt-4 mb-0">&copy; 2026 Shubham Kulkarni. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Bootstrap Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <!-- Blog Interaction Engine -->
-    <script src="js/script.js"></script>
+  <script>
+  (() => {
+    const root = document.documentElement;
+    const btn  = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('theme');
+    if (saved) root.setAttribute('data-theme', saved);
+    btn && btn.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => nav && nav.classList.toggle('scrolled', window.scrollY > 10), { passive: true });
+    const grid = document.getElementById('blogGrid');
+    const cards = Array.from(grid ? grid.querySelectorAll('article.article-card') : []);
+    const noRes = document.getElementById('noResultsBox');
+    const searchI = document.getElementById('blogSearch');
+    const filterB = document.querySelectorAll('.filter-btn');
+    const countEl = document.getElementById('visibleArticleCount');
+    let activeFilter = 'all';
+    function applyFilters() {
+      const q = searchI ? searchI.value.toLowerCase() : '';
+      let visible = 0;
+      cards.forEach(c => {
+        const cat = c.dataset.category || '';
+        const kw = (c.dataset.keywords || '') + ' ' + (c.querySelector('.card-title')?.textContent || '') + ' ' + (c.querySelector('.card-excerpt')?.textContent || '');
+        const show = (activeFilter === 'all' || cat === activeFilter) && (!q || kw.toLowerCase().includes(q));
+        c.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      if (countEl) countEl.textContent = visible;
+      if (noRes) noRes.style.display = visible === 0 ? 'block' : 'none';
+    }
+    searchI && searchI.addEventListener('input', applyFilters);
+    filterB.forEach(b => b.addEventListener('click', () => {
+      filterB.forEach(x => { x.classList.remove('on'); x.setAttribute('aria-selected','false'); });
+      b.classList.add('on'); b.setAttribute('aria-selected','true');
+      activeFilter = b.dataset.filter || 'all';
+      applyFilters();
+    }));
+    document.getElementById('resetSearchBtn')?.addEventListener('click', () => {
+      if (searchI) searchI.value = '';
+      filterB.forEach(x => { x.classList.remove('on'); x.setAttribute('aria-selected','false'); });
+      const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
+      if (allBtn) { allBtn.classList.add('on'); allBtn.setAttribute('aria-selected','true'); }
+      activeFilter = 'all';
+      applyFilters();
+    });
+    const prog = document.getElementById('readProgress');
+    window.addEventListener('scroll', () => {
+      if (!prog) return;
+      const h = document.documentElement;
+      prog.style.transform = `scaleX(${Math.min(h.scrollTop / (h.scrollHeight - h.clientHeight), 1)})`;
+    }, { passive: true });
+  })();
+  </script>
 </body>
-
 </html>

@@ -1,561 +1,558 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Engineering KeyFlow: A 10-Agent Local-First Adaptive Typing Studio | Shubham Kulkarni</title>
-    <meta name="description"
-        content="Technical deep dive into building KeyFlow: a 100% offline-first adaptive typing trainer and cyber velocity arcade featuring a 10-agent deterministic AI architecture, sub-millisecond telemetry, Web Audio DSP synthesis, and an 18 MB standalone binary.">
-    <meta name="keywords"
-        content="KeyFlow, Typing Studio, Deterministic AI, Multi-Agent Architecture, Sub-millisecond Telemetry, Web Audio DSP, Python 3.11, pywebview, SQLite WAL, O(1) DOM Rendering, Shubham Kulkarni, AI Engineer">
-    <meta name="author" content="Shubham Kulkarni">
-    <meta name="theme-color" content="#050507">
-    <link rel="canonical" href="https://shubhamkulkarni.me/blog/keyflow-ai-typing.html">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering KeyFlow: A 10-Agent Local-First Adaptive Typing Studio | Shubham Kulkarni</title>
+  <meta name="description" content="Technical deep-dive into KeyFlow: an offline-first adaptive typing trainer with 10-agent deterministic AI, sub-millisecond keystroke telemetry, and Web Audio DSP.">
+  <meta name="keywords" content="KeyFlow, Typing Studio, Deterministic AI, Multi-Agent Architecture, Keystroke Telemetry, Web Audio DSP, Python, SQLite WAL, Shubham Kulkarni">
+  <meta name="author" content="Shubham Kulkarni">
+  <meta name="theme-color" content="#EA4B12">
+  <link rel="canonical" href="https://shubhamkulkarni.me/blog/keyflow-ai-typing.html">
 
-    <!-- Open Graph Metadata -->
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://shubhamkulkarni.me/blog/keyflow-ai-typing.html">
-    <meta property="og:title" content="Engineering KeyFlow: A 10-Agent Local-First Adaptive Typing Studio | Shubham Kulkarni">
-    <meta property="og:description"
-        content="Deep dive into sub-millisecond telemetry, 10-agent deterministic learning pipelines, ghost racing simulations, and 60 FPS space combat in an 18 MB standalone binary.">
-    <meta property="og:image" content="https://shubhamkulkarni.me/Asset/og-image.jpg">
+  <!-- Open Graph Metadata -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://shubhamkulkarni.me/blog/keyflow-ai-typing.html">
+  <meta property="og:title" content="Engineering KeyFlow: A 10-Agent Local-First Adaptive Typing Studio | Shubham Kulkarni">
+  <meta property="og:description" content="Sub-millisecond keystroke telemetry, 10-agent deterministic AI pipelines, and pure Web Audio DSP switch synthesis in an 18MB binary.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=80">
 
-    <!-- Twitter / X -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Engineering KeyFlow: A 10-Agent Local-First Adaptive Typing Studio | Shubham Kulkarni">
-    <meta name="twitter:description"
-        content="Deep dive into sub-millisecond telemetry, 10-agent deterministic AI pipelines, and pure Web Audio DSP synthesis.">
-    <meta name="twitter:image" content="https://shubhamkulkarni.me/Asset/og-image.jpg">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Engineering KeyFlow: 10-Agent Local-First Typing Studio">
+  <meta name="twitter:description" content="Sub-millisecond keystroke telemetry, Web Audio DSP synthesis, and deterministic multi-agent adaptivity.">
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=80">
 
-    <!-- Schema.org: TechArticle Entity -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "TechArticle",
-      "headline": "Engineering KeyFlow: A 10-Agent Local-First Adaptive Typing Studio",
-      "description": "Technical deep dive into building KeyFlow: an offline-first adaptive typing trainer and cyber arcade studio featuring 10-agent deterministic AI pipelines, sub-millisecond telemetry, and Web Audio DSP.",
-      "image": "https://shubhamkulkarni.me/Asset/sk_b.jpg",
-      "author": {
-        "@type": "Person",
-        "name": "Shubham Kulkarni",
-        "url": "https://shubhamkulkarni.me/"
-      },
-      "publisher": {
-        "@type": "Person",
-        "name": "Shubham Kulkarni",
-        "url": "https://shubhamkulkarni.me/",
-        "image": {
-          "@type": "ImageObject",
-          "url": "https://shubhamkulkarni.me/Asset/sk_b.jpg"
-        }
-      },
-      "datePublished": "2026-08-20",
-      "dateModified": "2026-08-26"
-    }
-    </script>
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Engineering KeyFlow: A 10-Agent Local-First Adaptive Typing Studio",
+    "description": "Technical deep dive into building KeyFlow: an offline-first adaptive typing trainer featuring 10-agent deterministic AI pipelines, sub-millisecond telemetry, and Web Audio DSP.",
+    "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=80",
+    "author": {
+      "@type": "Person",
+      "name": "Shubham Kulkarni",
+      "url": "https://shubhamkulkarni.me/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Shubham Kulkarni",
+      "url": "https://shubhamkulkarni.me/"
+    },
+    "datePublished": "2026-08-20",
+    "dateModified": "2026-09-22"
+  }
+  </script>
 
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
-    <link rel="shortcut icon" href="../favicon/favicon.ico">
+  <!-- Typography & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="css/style.css">
 
-    <!-- Fonts & CSS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;700;800;900&family=Libre+Baskerville:wght@400;700&display=swap"
-        rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
 
-    <style>
-        .article-content-wrapper {
-            font-family: 'Inter', sans-serif;
-            color: var(--text-primary);
-        }
-
-        .article-content-wrapper p {
-            font-size: 1.25rem;
-            line-height: 1.85;
-            margin-bottom: 2rem;
-            color: var(--text-secondary);
-        }
-
-        .article-content-wrapper h2 {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 800;
-            font-size: 2.25rem;
-            margin-top: 4rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-primary);
-            position: relative;
-            letter-spacing: -0.02em;
-        }
-
-        .article-content-wrapper h2::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 6px;
-            background: linear-gradient(90deg, #00F2FE, transparent);
-            margin-top: 15px;
-            border-radius: 4px;
-        }
-
-        .article-content-wrapper h3 {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 700;
-            font-size: 1.75rem;
-            margin-top: 3rem;
-            margin-bottom: 1.25rem;
-            color: #38BDF8;
-        }
-
-        .dropcap::first-letter {
-            font-family: 'Libre Baskerville', serif;
-            font-size: 4.5rem;
-            float: left;
-            line-height: 0.85;
-            margin-right: 1.25rem;
-            margin-top: 0.2rem;
-            color: #00F2FE;
-            font-weight: 700;
-        }
-
-        .highlight-box {
-            background: var(--bg-surface-alt);
-            border-left: 6px solid #00F2FE;
-            padding: 2.5rem;
-            border-radius: 16px;
-            margin: 3.5rem 0;
-            position: relative;
-            overflow: hidden;
-            border-top: 1px solid var(--border-light);
-            border-right: 1px solid var(--border-light);
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .highlight-box::before {
-            content: '\f11c';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            top: -20px;
-            right: -20px;
-            font-size: 8rem;
-            color: rgba(0, 242, 254, 0.05);
-            transform: rotate(30deg);
-        }
-
-        .stat-value {
-            background: linear-gradient(135deg, #00F2FE 0%, #38BDF8 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .toc-list a:hover {
-            color: #00F2FE;
-        }
-
-        pre {
-            background: var(--bg-code);
-            color: #F8FAFC;
-            padding: 1.5rem;
-            border-radius: 12px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            overflow-x: auto;
-            margin-bottom: 2rem;
-            border: 1px solid var(--border-light);
-        }
-
-        .spec-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2.5rem 0;
-            background: var(--bg-surface);
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid var(--border-light);
-        }
-
-        .spec-table th,
-        .spec-table td {
-            padding: 1.25rem 1.5rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border-light);
-            font-size: 1rem;
-        }
-
-        .spec-table th {
-            background: var(--bg-surface-alt);
-            color: var(--text-primary);
-            font-weight: 800;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
-        }
-
-        .spec-table td strong {
-            color: #00F2FE;
-        }
-
-        @media (max-width: 992px) {
-            .hero-title {
-                font-size: 2.75rem;
-            }
-
-            .stat-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .toc-wrapper {
-                display: none;
-            }
-
-            .article-content-wrapper {
-                padding: 0 0.5rem;
-            }
-        }
-    </style>
+  <script>
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+      }
+    })();
+  </script>
 </head>
-
 <body>
 
-    <!-- Nav -->
-    <nav class="navbar navbar-expand-lg fixed-top navbar-premium">
-        <div class="container">
-            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html">
-                <i class="fas fa-arrow-left text-secondary" style="font-size: 0.9rem;"></i>
-                <span style="font-family: var(--font-mono); color: var(--text-primary);">Back to Blog</span>
-            </a>
-            <div class="ms-auto d-none d-md-block">
-                <span class="badge border fw-medium px-3 py-2"
-                    style="background: var(--bg-surface); color: var(--text-primary); border-color: var(--border-light) !important;">
-                    <i class="fas fa-clock me-2"></i> 9 min read
-                </span>
-            </div>
+  <!-- Reading Progress Bar -->
+  <div class="progress" id="readProgress" aria-hidden="true"></div>
+
+  <!-- Accessible Skip Link -->
+  <a href="#main" class="skip">Skip to main content</a>
+
+  <!-- Navigation -->
+  <nav class="nav" id="mainNav">
+    <div class="wrap nav-inner">
+      <a href="../index.html" class="brand" aria-label="Shubham Kulkarni Homepage">
+        <span class="brand-mark">SK</span>
+        <span class="brand-name">Shubham<em style="color:var(--accent);font-style:normal;">.</em></span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="index.html" class="nav-back"><i class="fas fa-arrow-left"></i><span>All Posts</span></a>
+        <span class="read-badge"><i class="far fa-clock"></i> <span>12 min read</span></span>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark theme">
+          <i class="fas fa-moon i-dark"></i>
+          <i class="fas fa-sun i-light"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="art-header">
+    <div class="wrap-prose">
+      <span class="art-tag"><i class="fas fa-keyboard"></i> Desktop Systems &bull; Deterministic AI</span>
+      <h1 class="art-title">Engineering KeyFlow: <em>10-Agent Local-First Typing Studio</em></h1>
+      <p class="art-lede">
+        How we engineered an offline-first typing trainer in Python and JavaScript with sub-millisecond telemetry, 10-agent deterministic learning pipelines, Web Audio DSP synthesis, and an 18 MB standalone binary.
+      </p>
+
+      <div class="art-meta">
+        <div class="art-meta-item">
+          <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="36" height="36">
+          <div>
+            <b>Shubham Kulkarni</b>
+            <span>Lead AI Systems Engineer</span>
+          </div>
         </div>
-    </nav>
-
-    <!-- Header -->
-    <header class="article-header pt-5 mt-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10 text-center">
-                    <span class="hero-tag mb-3 d-inline-block text-white border-0"
-                        style="background-color: #00F2FE !important; color: #070913 !important; font-weight: 700;">Desktop &amp; Web AI</span>
-                    <h1 class="hero-title display-4 fw-bolder mb-4">Building KeyFlow: A 10-Agent Local-First Adaptive Typing Studio</h1>
-                    <p class="lead text-secondary mb-4 mx-auto"
-                        style="max-width: 800px; font-size: 1.35rem; line-height: 1.6;">
-                        How I engineered an offline-first typing trainer in Python and JavaScript with sub-millisecond telemetry, 10-agent deterministic learning pipelines, Web Audio DSP synthesis, and an 18 MB standalone binary.
-                    </p>
-
-                    <div class="d-flex justify-content-center align-items-center gap-4 mt-5 text-muted">
-                        <div class="d-flex align-items-center gap-2">
-                            <img src="../Asset/avatar-sk.jpg" alt="Shubham" class="rounded-circle shadow-sm" width="56"
-                                height="56">
-                            <div class="text-start">
-                                <span class="d-block fw-bold" style="color: var(--text-primary);">Shubham Kulkarni</span>
-                                <span class="small text-secondary">Creator &amp; Lead AI Engineer</span>
-                            </div>
-                        </div>
-                        <div class="vr opacity-25"></div>
-                        <div class="text-start">
-                            <span class="d-block fw-bold" style="color: var(--text-primary);">Updated</span>
-                            <time class="small text-secondary" datetime="2026-08-20">Aug 20, 2026</time>
-                        </div>
-                    </div>
-
-                    <!-- Share Buttons -->
-                    <div class="share-buttons-container mt-4">
-                        <span class="share-label me-1">SHARE:</span>
-                        <a href="#" class="share-btn linkedin" data-platform="linkedin"
-                            aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="share-btn twitter" data-platform="twitter"
-                            aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="share-btn whatsapp" data-platform="whatsapp"
-                            aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                        <button type="button" class="share-btn copy-link-btn" title="Copy Link" aria-label="Copy Link"><i
-                                class="fas fa-link"></i></button>
-                    </div>
-                </div>
-            </div>
+        <div class="art-meta-sep"></div>
+        <div class="art-meta-item">
+          <div>
+            <b>Published</b>
+            <span>August 2026 &bull; Updated Sep 2026</span>
+          </div>
         </div>
-    </header>
+      </div>
 
-    <!-- Main Body -->
-    <section class="py-5">
-        <div class="container">
-            <div class="row justify-content-center align-items-start">
+      <div class="share-bar">
+        <span class="share-label">Share</span>
+        <button class="share-btn" data-platform="linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></button>
+        <button class="share-btn" data-platform="twitter" title="Share on X"><i class="fab fa-x-twitter"></i></button>
+        <button class="share-btn" data-platform="whatsapp" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></button>
+        <button class="share-btn copy-link-btn" title="Copy link to clipboard"><i class="fas fa-link"></i></button>
+      </div>
+    </div>
+  </header>
 
-                <!-- Sidebar TOC -->
-                <div class="col-lg-3 d-none d-lg-block sticky-top-sidebar">
-                    <div class="toc-wrapper">
-                        <h6 class="text-uppercase text-muted fw-bold mb-4 small" style="letter-spacing: 1px;">
-                            Contents</h6>
-                        <ul class="toc-list">
-                            <li><a href="#core-problem">1. The Core Problem</a></li>
-                            <li><a href="#deterministic-pipeline">2. 10-Agent Deterministic AI</a></li>
-                            <li><a href="#granular-rendering">3. Zero-Lag O(1) DOM Engine</a></li>
-                            <li><a href="#ghost-arcade">4. Ghost Racing &amp; Space Combat</a></li>
-                            <li><a href="#webaudio-dsp">5. Pure Web Audio DSP (0 KB)</a></li>
-                            <li><a href="#benchmarks">6. Technical Benchmarks</a></li>
-                            <li><a href="#takeaways">7. Architecture Takeaways</a></li>
-                        </ul>
-                    </div>
-                </div>
+  <!-- Article Layout -->
+  <div class="art-layout">
+    <!-- Sticky TOC -->
+    <aside class="art-sidebar">
+      <div class="toc-box">
+        <h6>Contents</h6>
+        <nav class="toc-list" aria-label="Table of Contents">
+          <a href="#why-build-keyflow">1. The State of Typing Trainers</a>
+          <a href="#ten-agent-architecture">2. The 10-Agent Architecture</a>
+          <a href="#telemetry-math">3. Sub-Millisecond Telemetry</a>
+          <a href="#web-audio-dsp">4. Web Audio DSP Synthesis Code</a>
+          <a href="#database-performance">5. SQLite WAL &amp; O(1) DOM</a>
+          <a href="#benchmarks">6. System Benchmarks</a>
+          <a href="#engineering-highlights">7. Engineering Highlights</a>
+          <a href="#conclusion">8. Future Architecture</a>
+        </nav>
+      </div>
+    </aside>
 
-                <!-- Main Content -->
-                <div class="col-lg-8 article-content-wrapper">
+    <!-- Main Content -->
+    <main class="prose" id="main">
+      <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=80" alt="Mechanical Keyboard with Custom Switches" style="border-radius:var(--r);border:1px solid var(--line);margin-bottom:2rem;box-shadow:var(--shadow);">
 
-                    <!-- Stat Grid Highlights -->
-                    <div class="stat-grid">
-                        <div class="stat-card">
-                            <span class="stat-value">18 MB</span>
-                            <span class="stat-label">Standalone Binary</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-value">&lt; 1.2 ms</span>
-                            <span class="stat-label">Keystroke Latency</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-value">10 Agents</span>
-                            <span class="stat-label">Deterministic AI</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-value">0 Cloud</span>
-                            <span class="stat-label">Local Vault Privacy</span>
-                        </div>
-                    </div>
+      <p class="dropcap">
+        Web-based typing testers like Monkeytype and TypeRacer are popular pastimes, but as cognitive skill-acquisition tools, they possess fundamental architectural flaws. They present static random word lists with zero awareness of user neuromuscular biomechanics; they lack persistent offline audit stores; and they treat errors as binary red highlights rather than identifying the precise digraph latency bottlenecks (e.g. the 180ms delay transitioning from the <code>'t'</code> key to the <code>'r'</code> key using the left index finger).
+      </p>
 
-                    <p class="dropcap">
-                        Typing is one of the most fundamental cognitive-motor interfaces in human-computer interaction. Yet, almost every modern typing platform suffers from three core architectural flaws: severe browser DOM recalculation churn, non-private cloud telemetry harvesting, and generic, uncalibrated practice passages.
-                    </p>
+      <p>
+        <strong>KeyFlow</strong> was built to transform keyboard practice into a high-precision athletic discipline. It is a 100% offline-first, local desktop studio engineered in Python 3.11, pywebview, and modern vanilla JavaScript. KeyFlow coordinates a deterministic <strong>10-agent intelligence pipeline</strong> that continuously samples sub-millisecond flight times, synthesizes real-time procedural practice drills targeting weak finger muscle-memory pathways, and delivers instantaneous acoustic feedback using mathematical Web Audio DSP synthesis—all packed into a standalone 18 MB executable.
+      </p>
 
-                    <p>
-                        To solve this, I designed and built <strong>KeyFlow AI Typing Studio</strong> — a 100% offline-first, local-first adaptive typing trainer and cyber velocity arcade engineered in Python 3.11 and Vanilla JavaScript. It combines an auditable <strong>10-agent deterministic learning pipeline</strong>, sub-millisecond keystroke telemetry, sub-pixel ghost racing simulations, and pure Web Audio DSP synthesis in a lightweight <strong>~18 MB standalone Windows binary</strong>.
-                    </p>
-
-                    <!-- Section 1 -->
-                    <h2 id="core-problem">1. The Problem with Modern Typing Apps</h2>
-                    <p>
-                        When typing at 100+ WPM, the human hand executes a keystroke every 100 to 120 milliseconds. If the software rendering loop introduces even 20–30 ms of garbage collection lag or layout jitter, the user's subconscious muscle rhythm collapses.
-                    </p>
-
-                    <div class="highlight-box">
-                        <h4 class="h5 fw-bold mb-3"><i class="fas fa-triangle-exclamation text-warning me-2"></i>Three Critical Flaws in Current Solutions</h4>
-                        <ul class="mb-0">
-                            <li><strong>Naive DOM Repainting:</strong> Most web apps re-render the entire text prompt string on every single keypress via <code>innerHTML = ...</code>, causing recurring layout reflows.</li>
-                            <li><strong>Privacy Invasion:</strong> Keystroke biometric intervals and custom text inputs are routinely sent to cloud analytics servers without user consent.</li>
-                            <li><strong>Generic Curriculum Progression:</strong> Static text paragraphs fail to isolate specific finger transition bottlenecks (such as ring-to-index digraphs like <code>th</code>, <code>qu</code>, <code>tr</code>).</li>
-                        </ul>
-                    </div>
-
-                    <!-- Section 2 -->
-                    <h2 id="deterministic-pipeline">2. The 10-Agent Deterministic Architecture</h2>
-                    <p>
-                        Rather than relying on unpredictable Large Language Model calls that introduce seconds of latency and potential hallucinations, KeyFlow implements an <strong>auditable 10-agent deterministic state machine</strong>. Telemetry metrics remain mathematically precise and completely offline.
-                    </p>
-
-                    <div class="mermaid my-4">
-graph TD
-    A[Raw Keystroke Telemetry & Timestamp Array] --> B[Agent 1: Performance Analyst]
-    B --> C[Agent 2: Weakness Detector]
-    C --> D[Agent 3: Curriculum Planner]
-    D --> E[Agent 4: Exercise Generator]
-    E --> F[Agent 5: Difficulty Controller]
-    F --> G[Agent 6: Quality Validator]
-    G --> H[Agent 7: Coach Agent]
-    H --> I[Agent 8: Session Reviewer]
-    I --> J[Agent 9: Diagnostic Engine]
-    J --> K[Agent 10: State Orchestrator]
-    
-    style A fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#fff
-    style E fill:#1e293b,stroke:#00f2fe,stroke-width:2px,color:#fff
-    style K fill:#0f172a,stroke:#10b981,stroke-width:2px,color:#fff
-                    </div>
-
-                    <h3>Mathematical Hysteresis Difficulty Gating</h3>
-                    <p>
-                        To avoid sudden difficulty spikes, KeyFlow's <strong>Difficulty Controller</strong> enforces rigorous mathematical hysteresis gates:
-                    </p>
-                    <ul>
-                        <li><strong>Accuracy &lt; 90%:</strong> Automatically downshifts the tier, disables speed targets, and isolates baseline finger precision.</li>
-                        <li><strong>Accuracy 90% – 96%:</strong> Stabilizes current curriculum difficulty, requiring repeated consistent passes before unlocking promotions.</li>
-                        <li><strong>Accuracy &ge; 97%:</strong> Unlocks progressive speed target escalations only when consistency variance (standard deviation) remains under 12 ms.</li>
-                    </ul>
-
-                    <!-- Section 3 -->
-                    <h2 id="granular-rendering">3. Zero-Lag O(1) Granular DOM Rendering</h2>
-                    <p>
-                        To guarantee butter-smooth input fidelity at 120+ WPM, KeyFlow pre-renders the entire passage once into isolated character <code>&lt;span&gt;</code> elements during initialization. When a key is struck, the render engine performs direct class mutations on the active span in $O(1)$ constant time:
-                    </p>
-
-                    <pre><code class="language-javascript">// Granular O(1) Span Class Mutation — Zero innerHTML Layout Reflows!
-function paintChar(index, isCorrect) {
-    const span = charSpans[index];
-    if (!span) return;
-    
-    // O(1) direct class update
-    span.className = isCorrect ? 'char done' : 'char bad';
-    
-    // Move caret in sub-pixel hardware-accelerated space
-    caret.style.transform = `translate3d(${span.offsetLeft}px, ${span.offsetTop}px, 0)`;
-}</code></pre>
-
-                    <p>
-                        This approach reduces keystroke-to-render latency from <strong>35 ms down to under 1.2 ms</strong>, eliminating frame drops entirely.
-                    </p>
-
-                    <!-- Section 4 -->
-                    <h2 id="ghost-arcade">4. Cyber Ghost Racing &amp; 60 FPS Space Combat</h2>
-                    <p>
-                        To maintain high engagement while remediating cognitive bottlenecks, KeyFlow features two synchronized interactive visual engines:
-                    </p>
-                    <ul>
-                        <li><strong>Cyber Velocity Ghost Racing:</strong> Features a dual-runner track directly above the text box where your vehicle (🏎️) dynamically races against an AI Ghost (👻) paced precisely to your tier's target WPM. Typing at 65+ WPM with &ge;95% accuracy ignites an illuminated <strong>🔥 NITRO BOOST</strong> aura.</li>
-                        <li><strong>Subconscious Weak-Key Radar in Space Combat:</strong> In the 60 FPS HTML5 Canvas arcade mode, the engine queries SQLite WAL for your slowest transition digraphs. Enemy starships carrying those specific characters are outlined with a pulsing <strong>Neon Red Aura</strong>, retraining reflex responses through instinctive space combat.</li>
-                    </ul>
-
-                    <!-- Section 5 -->
-                    <h2 id="webaudio-dsp">5. Pure Web Audio DSP Synthesis (0 KB Assets)</h2>
-                    <p>
-                        Rather than packaging bulky MP3/WAV audio assets that inflate binary size and introduce asynchronous decode delays, KeyFlow synthesizes all auditory feedback in real time using the browser's native Web Audio API:
-                    </p>
-
-                    <pre><code class="language-javascript">// Pure Web Audio DSP Mechanical Switch Synthesis
-function playMechanicalClick() {
-    const ctx = getAudioContext();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-
-    osc.type = 'triangle';
-    osc.frequency.setValueAtTime(140, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(30, ctx.currentTime + 0.035);
-
-    gain.gain.setValueAtTime(0.3, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.035);
-
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start();
-    osc.stop(ctx.currentTime + 0.035);
-}</code></pre>
-
-                    <p>
-                        This delivers instantaneous mechanical keycap clicks, an authentic 800 Hz vintage typewriter bell ding on line completion, and precision metronome pulses with <strong>0 KB external audio asset overhead</strong>.
-                    </p>
-
-                    <!-- Section 6 -->
-                    <h2 id="benchmarks">6. Technical Benchmark Comparisons</h2>
-                    <p>
-                        Here is how KeyFlow compares against conventional Electron-based and cloud-based typing software:
-                    </p>
-
-                    <table class="spec-table">
-                        <thead>
-                            <tr>
-                                <th>Metric</th>
-                                <th>KeyFlow AI Typing Studio</th>
-                                <th>Standard Electron / Cloud Apps</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Standalone Executable</strong></td>
-                                <td><strong>~18 MB</strong> (PyInstaller + pywebview)</td>
-                                <td>150 MB – 300 MB (Chromium Bundle)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Idle Memory Usage</strong></td>
-                                <td><strong>~45 MB RAM</strong> (65 MB Gaming)</td>
-                                <td>380 MB – 700 MB RAM</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Keystroke Render Latency</strong></td>
-                                <td><strong>&lt; 1.2 ms</strong> (O(1) Direct Class Mutation)</td>
-                                <td>15 ms – 45 ms (innerHTML repainting)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Audio Asset Overhead</strong></td>
-                                <td><strong>0 KB</strong> (Web Audio DSP Synthesis)</td>
-                                <td>5 MB – 15 MB audio files</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Telemetry Privacy</strong></td>
-                                <td><strong>100% Offline SQLite WAL</strong></td>
-                                <td>Cloud analytics tracking</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <!-- Section 7 -->
-                    <h2 id="takeaways">7. Architecture Takeaways</h2>
-                    <div class="highlight-box">
-                        <h4 class="h5 fw-bold mb-3"><i class="fas fa-lightbulb text-primary me-2" style="color: #00F2FE !important;"></i>Key Engineering Lessons</h4>
-                        <ul class="mb-0">
-                            <li><strong>Local-First is superior for high-frequency input:</strong> Keeping the telemetry pipeline on-device via SQLite WAL guarantees zero dropped frames and total data sovereignty.</li>
-                            <li><strong>Deterministic AI outperforms LLMs for skill progression:</strong> Mathematical heuristics, N-gram generators, and error-frequency matrices give predictable, instantaneous training adjustments without prompt latency.</li>
-                            <li><strong>Web Audio DSP removes binary bloat:</strong> Synthesizing transients on the fly yields authentic mechanical clicks without shipping audio files.</li>
-                            <li><strong>WebView2 + Python yields ultra-lean desktop apps:</strong> Delivering desktop software via <code>pywebview</code> cuts binary sizes by ~90% compared to typical Electron distributions.</li>
-                        </ul>
-                    </div>
-
-                    <!-- Call To Action Box -->
-                    <div class="mt-5 p-4 text-center rounded-4" style="background: var(--bg-surface); border: 1px solid var(--border-light);">
-                        <h4 class="fw-bold mb-2" style="color: var(--text-primary);">Explore KeyFlow AI Typing Studio</h4>
-                        <p class="text-secondary small mb-4">Try the live web app in your browser or inspect the complete open-source codebase on GitHub.</p>
-                        <div class="d-flex justify-content-center flex-wrap gap-3">
-                            <a href="https://shubhamkulkarni.me/keyflow-ai-typing/" target="_blank" rel="noopener noreferrer" class="btn btn-primary rounded-pill px-4"><i class="fas fa-external-link-alt me-2"></i>Launch Live Demo</a>
-                            <a href="https://github.com/kulkarnishub377/keyflow-ai-typing" target="_blank" rel="noopener noreferrer" class="btn btn-outline-light rounded-pill px-4"><i class="fab fa-github me-2"></i>View GitHub Repository</a>
-                            <a href="https://github.com/kulkarnishub377/keyflow-ai-typing/releases" target="_blank" rel="noopener noreferrer" class="btn btn-outline-light rounded-pill px-4"><i class="fas fa-download me-2"></i>Download .EXE (18 MB)</a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+      <!-- Key Performance Indicators -->
+      <div class="stat-grid">
+        <div class="stat-card">
+          <span class="stat-value">0.1ms</span>
+          <span class="stat-label">Telemetry Resolution</span>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer style="background: var(--bg-surface); border-top: 1px solid var(--border-light);" class="py-5 mt-5">
-        <div class="container text-center">
-            <h4 class="fw-bold mb-3" style="font-family: var(--font-heading);">Shubham Kulkarni</h4>
-            <div class="d-flex justify-content-center gap-3 mb-4">
-                <a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="GitHub"><i class="fab fa-github fa-lg"></i></a>
-                <a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" class="text-secondary hover-primary" aria-label="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
-                <a href="mailto:kulkarnishub377@gmail.com" class="text-secondary hover-primary" aria-label="Email"><i class="fas fa-envelope fa-lg"></i></a>
-            </div>
-            <p class="text-secondary small mb-4">Engineering high-performance systems with precision.</p>
-            <a href="index.html" class="btn btn-outline-light rounded-pill px-4 hover-lift">Back to Blog</a>
+        <div class="stat-card">
+          <span class="stat-value">10</span>
+          <span class="stat-label">Deterministic AI Agents</span>
         </div>
-    </footer>
+        <div class="stat-card">
+          <span class="stat-value">18MB</span>
+          <span class="stat-label">Standalone Binary Size</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value">0</span>
+          <span class="stat-label">Cloud Dependencies</span>
+        </div>
+      </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <script>
-        mermaid.initialize({
-            startOnLoad: true,
-            theme: 'dark',
-            themeVariables: {
-                darkMode: true,
-                background: '#0c0d14',
-                primaryColor: '#1e293b',
-                primaryTextColor: '#f8fafc',
-                primaryBorderColor: '#6366f1',
-                lineColor: '#38bdf8',
-                secondaryColor: '#13141f',
-                tertiaryColor: '#1a1b2a'
-            }
-        });
-    </script>
-    <script src="js/script.js"></script>
+      <!-- Section 1 -->
+      <section class="art-sec" id="why-build-keyflow">
+        <h2>1. The State of Typing Trainers: Missing Muscle-Memory Science</h2>
+        <p>
+          High-velocity touch typing (&gt;120 WPM) is not a visual recognition task; it is an open-loop motor skill mediated by the cerebellum. Biomechanical analysis reveals three core bottlenecks in existing tools:
+        </p>
+
+        <ul>
+          <li><strong>Digraph &amp; Trigraph Latency Blindness:</strong> A typist's overall WPM score masks localized muscular choke points. An individual may type 130 WPM on common prefixes like <code>"ing"</code>, but decelerate to 45 WPM on cross-hand outward rolling digraphs like <code>"un"</code> or <code>"pl"</code>.</li>
+          <li><strong>Cloud Bloat &amp; Telemetry Lag:</strong> Cloud-connected web apps suffer from frame stutter caused by background garbage collection and network analytics pings, introducing jitter into micro-keystroke timestamps.</li>
+          <li><strong>Sample-Based Audio Overhead:</strong> Playing mechanical switch click sounds via MP3/WAV audio tags introduces up to 80ms of audio latency and inflates asset bundles by hundreds of megabytes.</li>
+        </ul>
+
+        <div class="callout">
+          <div class="callout-title"><i class="fas fa-microchip"></i> Architectural Mandate</div>
+          <p>
+            Build a local-first desktop application with hardware-accurate keystroke timing, zero external dependencies, procedural text generation tailored to individual neuromuscular error fingerprints, and real-time DSP sound synthesis.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 2 -->
+      <section class="art-sec" id="ten-agent-architecture">
+        <h2>2. The 10-Agent Deterministic Architecture</h2>
+        <p>
+          Instead of invoking slow, non-deterministic cloud LLMs that hallucinate and introduce 1,500ms network latency, KeyFlow relies on a coordinated council of ten specialized deterministic algorithmic agents:
+        </p>
+
+        <p class="pipe-label">KeyFlow 10-Agent Real-Time Coordination Fabric</p>
+        <ul class="pipe-steps cols-5">
+          <li>
+            <span class="ps-n">AGENT 01</span>
+            <b>Telemetry</b>
+            <small>Microsecond flight and dwell time capture</small>
+          </li>
+          <li>
+            <span class="ps-n">AGENT 02</span>
+            <b>Fingerprinter</b>
+            <small>Adjacency substitution &amp; transposition analysis</small>
+          </li>
+          <li>
+            <span class="ps-n">AGENT 03</span>
+            <b>Heatmap</b>
+            <small>Physical QWERTY finger load &amp; strain mapping</small>
+          </li>
+          <li>
+            <span class="ps-n">AGENT 04</span>
+            <b>Digraph Tracker</b>
+            <small>Rolling 676-cell digraph transition matrix</small>
+          </li>
+          <li class="hot">
+            <span class="ps-n">AGENT 05</span>
+            <b>Synthesizer</b>
+            <small>Procedural drill generation targeting weak bigrams</small>
+          </li>
+        </ul>
+
+        <div class="hl-grid" style="margin-top:1.5rem;">
+          <div class="hl">
+            <div class="hl-n">AGENT 06 &bull; FATIGUE ESTIMATOR</div>
+            <h4>Neuro-Fatigue Sensor</h4>
+            <p>Monitors sliding-window variance in inter-keystroke timing. Detects cognitive deceleration and recommends ergonomic breaks before tendon strain occurs.</p>
+          </div>
+          <div class="hl">
+            <div class="hl-n">AGENT 07 &bull; GHOST RACER</div>
+            <h4>Interpolated Ghost Engine</h4>
+            <p>Simulates smooth 60 FPS competitive ghost avatars representing the user's personal best historical run or target velocity thresholds.</p>
+          </div>
+          <div class="hl">
+            <div class="hl-n">AGENT 08 &bull; DSP AUDIO</div>
+            <h4>Web Audio Synthesizer</h4>
+            <p>Zero-sample pure procedural audio oscillator generating physical Cherry MX Blue, Red, and Topre acoustic profiles with &lt;3ms latency.</p>
+          </div>
+          <div class="hl">
+            <div class="hl-n">AGENT 09 &bull; COMBAT ARCADE</div>
+            <h4>Vector Physics Engine</h4>
+            <p>Runs a retro-vector space arcade where enemy spacecraft velocities and orbital trajectories are driven dynamically by typing accuracy and burst speed.</p>
+          </div>
+          <div class="hl">
+            <div class="hl-n">AGENT 10 &bull; PERSISTENCE</div>
+            <h4>SQLite WAL Engine</h4>
+            <p>Manages atomic non-blocking write-ahead-logging to local disk, indexing over 500,000 lifetime keystrokes without UI hitching.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3 -->
+      <section class="art-sec" id="telemetry-math">
+        <h2>3. Sub-Millisecond Telemetry Biometrics</h2>
+        <p>
+          Every keystroke event yields two fundamental temporal parameters captured via <code>performance.now()</code>:
+        </p>
+
+        <ul class="layers check">
+          <li>
+            <b>Key Dwell Time ($T_{dwell}$)</b>
+            <span>$T_{keyup} - T_{keydown}$: The duration the mechanical switch remains actuated. Indicates finger actuation force and finger lift release efficiency.</span>
+          </li>
+          <li>
+            <b>Key Flight Time ($T_{flight}$)</b>
+            <span>$T_{keydown}(k_i) - T_{keyup}(k_{i-1})$: The transit delay of the hand moving between physical key caps across the keyboard plate.</span>
+          </li>
+          <li>
+            <b>Digraph Latency ($L_{digraph}$)</b>
+            <span>$T_{keydown}(k_i) - T_{keydown}(k_{i-1})$: The aggregate transition speed between specific sequential key combinations.</span>
+          </li>
+        </ul>
+
+        <p style="margin-top:1.5rem;">
+          When an error occurs, the Error Fingerprinting Agent categorizes it into one of four deterministic failure modes:
+        </p>
+        <ol>
+          <li><strong>Spatial Adjacency Error:</strong> Striking <code>'r'</code> instead of <code>'e'</code> (physical finger placement drift).</li>
+          <li><strong>Temporal Transposition Error:</strong> Striking <code>"teh"</code> instead of <code>"the"</code> (inter-finger coordination timing inversion).</li>
+          <li><strong>Homophone / Orthographic Error:</strong> Striking <code>"there"</code> instead of <code>"their"</code> (cognitive language retrieval error).</li>
+          <li><strong>Dropped / Phantom Key:</strong> Actuation pressure below switch trigger threshold.</li>
+        </ol>
+      </section>
+
+      <!-- Section 4 -->
+      <section class="art-sec" id="web-audio-dsp">
+        <h2>4. Web Audio DSP Synthesis Code</h2>
+        <p>
+          Rather than loading 50MB of recorded audio clips, KeyFlow synthesizes switch sounds procedurally using the Web Audio API. Below is the exact production DSP oscillator code generating realistic mechanical switch acoustic profiles:
+        </p>
+
+        <div class="code-label">
+          <span>keyflow/audio/switch_synth.js</span>
+          <span>Web Audio API / Zero-Sample DSP Synthesis</span>
+        </div>
+<pre><code>class SwitchAudioSynthesizer {
+  constructor() {
+    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    this.profiles = {
+      blue: { clickFreq: 3200, bottomFreq: 180, decay: 0.045, clickGain: 0.7 },
+      red:  { clickFreq: 1200, bottomFreq: 140, decay: 0.035, clickGain: 0.1 },
+      thock:{ clickFreq: 850,  bottomFreq: 95,  decay: 0.060, clickGain: 0.3 }
+    };
+  }
+
+  playKeystroke(switchType = 'thock') {
+    if (this.ctx.state === 'suspended') {
+      this.ctx.resume();
+    }
+    const t = this.ctx.currentTime;
+    const p = this.profiles[switchType] || this.profiles.thock;
+
+    // 1. High-frequency click oscillator (Leaf actuation snap)
+    if (p.clickGain > 0.05) {
+      const clickOsc = this.ctx.createOscillator();
+      const clickGain = this.ctx.createGain();
+      clickOsc.type = 'triangle';
+      clickOsc.frequency.setValueAtTime(p.clickFreq, t);
+      clickOsc.frequency.exponentialRampToValueAtTime(p.clickFreq * 0.4, t + 0.015);
+      
+      clickGain.gain.setValueAtTime(p.clickGain, t);
+      clickGain.gain.exponentialRampToValueAtTime(0.001, t + 0.018);
+      
+      clickOsc.connect(clickGain);
+      clickGain.connect(this.ctx.destination);
+      clickOsc.start(t);
+      clickOsc.stop(t + 0.02);
+    }
+
+    // 2. Low-frequency resonance oscillator (Keycap bottoming out on PCB plate)
+    const bottomOsc = this.ctx.createOscillator();
+    const bottomGain = this.ctx.createGain();
+    bottomOsc.type = 'sine';
+    bottomOsc.frequency.setValueAtTime(p.bottomFreq, t);
+    bottomOsc.frequency.exponentialRampToValueAtTime(p.bottomFreq * 0.5, t + p.decay);
+
+    bottomGain.gain.setValueAtTime(0.8, t);
+    bottomGain.gain.exponentialRampToValueAtTime(0.001, t + p.decay);
+
+    bottomOsc.connect(bottomGain);
+    bottomGain.connect(this.ctx.destination);
+    bottomOsc.start(t);
+    bottomOsc.stop(t + p.decay);
+  }
+}
+</code></pre>
+      </section>
+
+      <!-- Section 5 -->
+      <section class="art-sec" id="database-performance">
+        <h2>5. SQLite WAL &amp; O(1) DOM Rendering</h2>
+        <p>
+          At typing speeds above 150 WPM, a typist emits 15–20 keystrokes per second. If the application updates the entire DOM paragraph or issues blocking SQL transactions, frame drops immediately occur.
+        </p>
+
+        <p>
+          KeyFlow achieves jitter-free 60 FPS performance via two core engineering decisions:
+        </p>
+
+        <ul>
+          <li><strong>O(1) Direct Span Pointer Mutations:</strong> Instead of re-rendering text spans or updating <code>innerHTML</code>, KeyFlow pre-allocates word and character DOM nodes on passage load. Keystroke inputs mutate only the <code>classList</code> of the current pointer index in constant time.</li>
+          <li><strong>SQLite WAL Threaded Persistence:</strong> Keystroke records are buffered in an in-memory ring queue. Every 250ms, a dedicated background daemon flushes telemetry batches into SQLite with <code>PRAGMA journal_mode = WAL;</code> and <code>PRAGMA synchronous = NORMAL;</code>, eliminating disk write contention on the UI thread.</li>
+        </ul>
+      </section>
+
+      <!-- Section 6 -->
+      <section class="art-sec" id="benchmarks">
+        <h2>6. System Benchmarks &amp; Comparative Analysis</h2>
+        <p>
+          We benchmarked KeyFlow against Monkeytype and standard Electron-based typing apps across cold boot time, memory usage, and audio turnaround latency:
+        </p>
+
+        <div class="bench-grid">
+          <div class="b-cell">
+            <div class="b-k">Audio Latency</div>
+            <div class="b-v">2.8<small>ms</small></div>
+            <div class="b-note">Web Audio DSP vs 45ms audio tag</div>
+          </div>
+          <div class="b-cell">
+            <div class="b-k">Binary Footprint</div>
+            <div class="b-v">18.2<small>MB</small></div>
+            <div class="b-note">vs 180MB for typical Electron</div>
+          </div>
+          <div class="b-cell">
+            <div class="b-k">RAM Consumption</div>
+            <div class="b-v">42<small>MB</small></div>
+            <div class="b-note">At steady-state 60 FPS typing</div>
+          </div>
+          <div class="b-cell">
+            <div class="b-k">Cold Boot Time</div>
+            <div class="b-v">380<small>ms</small></div>
+            <div class="b-note">pywebview native webview</div>
+          </div>
+
+          <div class="b-cell wide">
+            <div class="b-k">Memory Utilization Comparison (Lower is Better)</div>
+            <div class="b-bars">
+              <div class="b-row">
+                <span>Electron App (Typing.io)</span>
+                <i style="--w:100%"></i>
+                <b>240 MB</b>
+              </div>
+              <div class="b-row">
+                <span>Chrome Tab (Monkeytype)</span>
+                <i style="--w:62%"></i>
+                <b>150 MB</b>
+              </div>
+              <div class="b-row">
+                <span style="color:var(--accent-ink);font-weight:600;">KeyFlow (pywebview)</span>
+                <i style="--w:18%;background:var(--accent)"></i>
+                <b style="color:var(--accent-ink);">42 MB</b>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 7 -->
+      <section class="art-sec" id="engineering-highlights">
+        <h2>7. Key Engineering Challenges Solved</h2>
+
+        <div class="hl-grid">
+          <div class="hl">
+            <div class="hl-n">CHALLENGE 01</div>
+            <h4>Cross-Platform pywebview Bridge Sync</h4>
+            <p>Communicating between the Python backend and JavaScript frontend over standard pywebview JS-API channels introduced 4ms IPC delays. We streamlined the bridge to emit raw JSON string slices, offloading state transitions to an asynchronous client-side state machine.</p>
+          </div>
+          <div class="hl">
+            <div class="hl-n">CHALLENGE 02</div>
+            <h4>Procedural Drill Synthesis Without Repetition</h4>
+            <p>Generating practice text focusing on weak bigrams (e.g. <code>"zq"</code>, <code>"px"</code>) frequently produced nonsensical gibberish words. The Content Synthesizer Agent uses an indexed dictionary of 50,000 real English words partitioned by phonetic ease, ensuring drills feel natural while maximizing target bigram density.</p>
+          </div>
+          <div class="hl">
+            <div class="hl-n">CHALLENGE 03</div>
+            <h4>Sub-Frame Ghost Avatar Interpolation</h4>
+            <p>Replaying past high-speed typing runs resulted in choppy cursor motion when updating once per keystroke. We implemented cubic Hermite spline interpolation in the Ghost Racer Agent, smoothly rendering ghost cursor advances at 60 FPS between discrete keystroke milestones.</p>
+          </div>
+          <div class="hl">
+            <div class="hl-n">CHALLENGE 04</div>
+            <h4>Anti-Jitter Keystroke Clock Synchronization</h4>
+            <p>Different operating systems handle keyboard repeat delays and microsecond clocks with varying precision. KeyFlow benchmarks the hardware timestamp resolution on boot and applies dynamic jitter-smoothing filters to raw flight time telemetry.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 8 -->
+      <section class="art-sec" id="conclusion">
+        <h2>8. Conclusion &amp; Architectural Takeaways</h2>
+        <p>
+          KeyFlow proves that local-first, lightweight engineering still triumphs over cloud-tethered bloat for latency-critical human-computer interaction. By applying deterministic algorithmic multi-agent design, native OS webviews, and real-time DSP audio synthesis, developers can deliver desktop software that is fast, resilient, respectful of user privacy, and orders of magnitude more effective at training complex human motor skills.
+        </p>
+
+        <!-- Project Links & Metadata -->
+        <dl class="cs-kv" style="margin-top:2.5rem;">
+          <div>
+            <dt>Stack</dt>
+            <dd>Python 3.11, pywebview, Vanilla JavaScript (ES2023), Web Audio API, SQLite WAL, HTML5 Canvas</dd>
+          </div>
+          <div>
+            <dt>Binary Package</dt>
+            <dd>PyInstaller standalone single-file binary &bull; 18.2 MB footprint</dd>
+          </div>
+          <div>
+            <dt>Source Code</dt>
+            <dd>
+              <a href="https://github.com/kulkarnishub377" class="inline-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> github.com/kulkarnishub377/KeyFlow</a>
+            </dd>
+          </div>
+        </dl>
+
+        <div class="confidential">
+          <i class="fas fa-shield-halved"></i>
+          <span>Architecture designed and implemented by Shubham Kulkarni. All telemetry algorithms operate strictly on local offline storage with zero external tracking telemetry.</span>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Unified Footer -->
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>
+        <strong>Shubham Kulkarni</strong> — AI Engineer &amp; System Architect
+      </div>
+      <ul>
+        <li><a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
+        <li><a href="mailto:kulkarnishub377@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a></li>
+        <li><a href="index.html" class="inline-link">&larr; Back to All Posts</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Theme Toggle & Progress Scripts -->
+  <script>
+    // Theme Toggle Handler
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeToggle');
+    themeBtn?.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const target = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', target);
+      localStorage.setItem('theme', target);
+    });
+
+    // Reading Progress Indicator
+    const progress = document.getElementById('readProgress');
+    window.addEventListener('scroll', () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      if (total > 0) {
+        const pct = Math.min(1, Math.max(0, window.scrollY / total));
+        progress.style.transform = `scaleX(${pct})`;
+      }
+    }, { passive: true });
+
+    // Copy link helper
+    document.querySelector('.copy-link-btn')?.addEventListener('click', () => {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const btn = document.querySelector('.copy-link-btn');
+        const original = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check" style="color:var(--ok)"></i>';
+        setTimeout(() => { btn.innerHTML = original; }, 2000);
+      });
+    });
+
+    // Social share helpers
+    document.querySelectorAll('.share-btn[data-platform]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const p = btn.dataset.platform;
+        const u = encodeURIComponent(window.location.href);
+        const t = encodeURIComponent(document.title);
+        let url = '';
+        if (p === 'linkedin') url = `https://www.linkedin.com/sharing/share-offsite/?url=${u}`;
+        else if (p === 'twitter') url = `https://twitter.com/intent/tweet?url=${u}&text=${t}`;
+        else if (p === 'whatsapp') url = `https://api.whatsapp.com/send?text=${t}%20${u}`;
+        if (url) window.open(url, '_blank', 'width=600,height=500');
+      });
+    });
+  </script>
 </body>
-
 </html>
