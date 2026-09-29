@@ -52,6 +52,7 @@
 
 ## Technical Blog & Deep Dives
 
+- [TMCS Highway Incident Detection with PTZ Cameras](https://shubhamkulkarni.me/blog/tmcs.html): Technical deep dive into building NHAI ATMS-aligned incident detection across multi-vendor ONVIF PTZ cameras, dual-model YOLOv8 + RT-DETR TensorRT scheduling, occlusion-resilient tracking, 7 incident rules, and SHA-256 evidence integrity.
 - [Open Source Data Annotation Platform](https://shubhamkulkarni.me/blog/data-annotation-tool.html): Technical deep dive into local-first CV dataset engineering, YOLO-assisted auto-annotation, dataset health QA, and in-browser model training with live SSE logs.
 - [LangGraph Multi-Agent Workflows](https://shubhamkulkarni.me/blog/ai-agent-langgraph.html): Architectural guide to designing cyclical, stateful AI agent networks with human-in-the-loop validation.
 - [Production RAG Pipeline Architecture](https://shubhamkulkarni.me/blog/rag-pipeline.html): Implementing Hybrid Retrieval (Dense Vector + BM25 Sparse + Reciprocal Rank Fusion) and evaluation with Ragas.

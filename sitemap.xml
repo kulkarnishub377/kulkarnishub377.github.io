@@ -31,6 +31,12 @@
 
   <!-- ═══ Core AI / Production Blog Articles (High Priority) ═══ -->
   <url>
+    <loc>https://shubhamkulkarni.me/blog/tmcs.html</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
     <loc>https://shubhamkulkarni.me/blog/data-annotation-tool.html</loc>
     <lastmod>2026-08-26</lastmod>
     <changefreq>monthly</changefreq>
