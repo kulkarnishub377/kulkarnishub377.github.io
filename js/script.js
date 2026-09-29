@@ -200,9 +200,61 @@
     const pick = arr => arr[Math.floor(Math.random() * arr.length)];
     const clock = () => new Date().toLocaleTimeString('en-GB', { hour12: false });
     const hex = n => Array.from({ length: n }, () => '0123456789abcdef'[Math.floor(Math.random() * 16)]).join('');
-    const plate = () => {
-      const L = 'ABCDEFGHJKLMNPRSTUVWXYZ', d = n => String(Math.floor(Math.random() * 10 ** n)).padStart(n, '0');
-      return `MH${d(2)} ${pick(L)}${pick(L)} ${d(4)}`;
+    const plate = (type) => {
+      // Real-world Maharashtra RTO codes (weighted towards Pune & Mumbai corridors)
+      const MH_RTO = [
+        '12', '12', '12', '12', // Pune (Central / NH-48 corridor)
+        '14', '14', '14',       // Pimpri-Chinchwad (PCMC)
+        '01', '02', '03',       // Mumbai (South, West, East)
+        '04',                   // Thane
+        '05',                   // Kalyan
+        '06',                   // Raigad (Panvel / Expressway)
+        '09',                   // Kolhapur (NH-48)
+        '10',                   // Sangli
+        '11',                   // Satara (NH-48)
+        '15',                   // Nashik
+        '16',                   // Ahilyanagar
+        '17',                   // Shrirampur
+        '20',                   // Chhatrapati Sambhajinagar
+        '31',                   // Nagpur
+        '43', '46',             // Navi Mumbai / Panvel
+        '47', '48'              // Borivali / Vasai-Virar
+      ];
+      const TRANSIT = ['KA 01', 'KA 03', 'KA 05', 'GJ 01', 'GJ 06', 'DL 01', 'DL 08', 'HR 26'];
+
+      // Real vehicle series codes (excluding invalid letters I and O)
+      const CAR_SERIES = ['AB', 'AF', 'BK', 'BT', 'CK', 'CR', 'DE', 'DN', 'EQ', 'FA', 'FR', 'HB', 'JC', 'KM', 'LQ', 'MC', 'NA', 'NB', 'PD', 'QM', 'RN', 'SP', 'VB', 'WA', 'ZA'];
+      const BIKE_SERIES = ['EB', 'EZ', 'FB', 'HM', 'JN', 'KN', 'LU', 'MS', 'NX', 'PS', 'QU', 'RV', 'SM', 'TZ', 'UB', 'VL', 'WS', 'XJ', 'YR', 'ZS'];
+      const COMM_SERIES = ['TA', 'TB', 'TC', 'TD', 'TR', 'TT', 'AA', 'G', 'Y'];
+
+      const num = String(Math.floor(1 + Math.random() * 9998)).padStart(4, '0');
+
+      // Modern Bharat (BH) series seen on expressways (e.g. 24 BH 4821 AA)
+      if (Math.random() < 0.06 && (type === 'car' || !type)) {
+        const yr = pick(['23', '24', '25', '26']);
+        const s = pick(['AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AK', 'AL']);
+        return `${yr} BH ${num} ${s}`;
+      }
+
+      // Highway interstate transit vehicles (Karnataka, Gujarat, Delhi, Haryana)
+      if (Math.random() < 0.08) {
+        const prefix = pick(TRANSIT);
+        const s = pick(['A', 'B', 'C', 'AB', 'AC', 'AE', 'AF', 'AK', 'BA', 'CA']);
+        return `${prefix} ${s} ${num}`;
+      }
+
+      // Default: Real Maharashtra RTO registration
+      const rto = pick(MH_RTO);
+      let series;
+      if (type === 'truck' || type === 'bus') {
+        series = pick(COMM_SERIES);
+      } else if (type === 'motorcycle') {
+        series = pick(BIKE_SERIES);
+      } else {
+        series = pick(CAR_SERIES);
+      }
+
+      return `MH ${rto} ${series} ${num}`;
     };
     const shade = (c, a) => {
       const n = parseInt(c.slice(1), 16), k = v => Math.max(0, Math.min(255, Math.round(v + 255 * a)));
@@ -233,7 +285,8 @@
       const obj = Object.assign({
         type, w: d.w, h: d.h, id: 0, conf: rnd(0.84, 0.97), spd: 0, dir: 1,
         color: type === 'bus' ? pick(BUS) : pick(PAINT), cargo: pick(CARGO), shirt: pick(SHIRT),
-        helmet: true, state: 'drive', dwell: 0, incident: null, seen: 0, alpha: 1, brake: false
+        helmet: true, state: 'drive', dwell: 0, incident: null, seen: 0, alpha: 1, brake: false,
+        plate: plate(type)
       }, o);
       obj.cruise = obj.spd;
       objs.push(obj);
@@ -310,12 +363,13 @@
 
     function onGate(o) {
       if (o.kmh < 20) { o.kmh = null; return; }
+      if (!o.plate) o.plate = plate(o.type);
       if (o.kmh > LIMIT) {
         o.incident = 'OVERSPEED';
-        log('OVERSPEEDING', 'ev-speed', `ID ${o.id} · ${o.kmh} km/h · limit ${LIMIT} · ${plate()}`);
+        log('OVERSPEEDING', 'ev-speed', `ID ${o.id} · ${o.kmh} km/h · limit ${LIMIT} · ${o.plate}`);
       } else if (t - lastAnpr > 3.2 && Math.random() < 0.6) {
         lastAnpr = t;
-        log('ANPR', 'ev-ok', `ID ${o.id} · ${LABEL[o.type]} · ${plate()} · ${o.kmh} km/h`);
+        log('ANPR', 'ev-ok', `ID ${o.id} · ${LABEL[o.type]} · ${o.plate} · ${o.kmh} km/h`);
       }
     }
 
