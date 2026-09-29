@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="13" fill="#121211"/>
+  <text x="32" y="30" dominant-baseline="central" text-anchor="middle" font-family="Consolas, 'Geist Mono', ui-monospace, monospace" font-weight="700" font-size="34" fill="#F3F1EB">SK</text>
+  <rect x="13" y="49" width="38" height="6" fill="#EA4B12"/>
+</svg>

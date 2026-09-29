@@ -1,0 +1,145 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&family=Instrument+Serif:ital@0;1&display=block" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1584px; height: 396px; overflow: hidden; background: #0A0B0D; }
+  .b {
+    position: relative; width: 1584px; height: 396px; overflow: hidden; color: #F1EFEA; font-family: Geist, sans-serif;
+    background:
+      radial-gradient(520px 300px at 1330px 130px, rgba(255, 110, 50, .16), transparent 70%),
+      radial-gradient(700px 380px at 0 0, rgba(255, 90, 31, .07), transparent 70%),
+      linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px) 0 0 / 44px 44px,
+      linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px) 0 0 / 44px 44px,
+      #0A0B0D;
+  }
+  svg { position: absolute; inset: 0; }
+  .txt { position: absolute; left: 500px; top: 56px; width: 600px; }
+  .kick { font-family: 'Geist Mono', monospace; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: #FF7C4A; display: flex; align-items: center; gap: 10px; }
+  .kick i { width: 8px; height: 8px; border-radius: 50%; background: #2BD4A0; box-shadow: 0 0 0 4px rgba(43,212,160,.15); }
+  h1 { margin-top: 18px; font-size: 54px; line-height: 1.02; letter-spacing: -.045em; font-weight: 600; }
+  h1 em { font-family: 'Instrument Serif', serif; font-weight: 400; letter-spacing: -.01em; color: #FF5A1F; }
+  .sub { margin-top: 16px; font-size: 18px; color: #C9CBCF; letter-spacing: -.005em; }
+  .sub b { color: #F1EFEA; font-weight: 600; }
+  .chips { margin-top: 20px; display: flex; gap: 8px; flex-wrap: nowrap; }
+  .chips span { font-family: 'Geist Mono', monospace; font-size: 12.5px; color: #C9CBCF; padding: 5px 11px; border: 1px solid #34343A; border-radius: 999px; background: rgba(20,21,24,.7); white-space: nowrap; }
+  .chips span.hot { border-color: rgba(255,90,31,.55); color: #FFB08F; }
+  .url { display: inline-block; margin-top: 18px; font-family: 'Geist Mono', monospace; font-size: 15px; color: #F1EFEA; background: rgba(10,11,13,.75); padding: 6px 12px; border-radius: 8px; border: 1px solid #2C3138; }
+  .url span { color: #FF7C4A; }
+  .hud { position: absolute; top: 22px; right: 44px; font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: .08em; color: rgba(235,240,245,.8); background: rgba(8,10,12,.6); border: 1px solid #22262C; padding: 5px 10px; border-radius: 6px; display: flex; gap: 8px; align-items: center; }
+  .hud i { width: 7px; height: 7px; border-radius: 50%; background: #FF4D4D; }
+  .lbl { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 500; }
+</style></head>
+<body><div class="b">
+  <svg width="1584" height="396" viewBox="0 0 1584 396">
+    <defs>
+      <linearGradient id="fade" x1="0" x2="1" y1="0" y2="0">
+        <stop offset="0" stop-color="#0A0B0D" stop-opacity="1"/><stop offset="1" stop-color="#0A0B0D" stop-opacity="0"/>
+      </linearGradient>
+      <radialGradient id="hl"><stop offset="0" stop-color="#FFF1CC" stop-opacity=".55"/><stop offset="1" stop-color="#FFF1CC" stop-opacity="0"/></radialGradient>
+      <radialGradient id="tl"><stop offset="0" stop-color="#FF3B30" stop-opacity=".6"/><stop offset="1" stop-color="#FF3B30" stop-opacity="0"/></radialGradient>
+      <radialGradient id="hz"><stop offset="0" stop-color="#FFB060" stop-opacity=".6"/><stop offset="1" stop-color="#FFB060" stop-opacity="0"/></radialGradient>
+    </defs>
+    <g transform="translate(78,0)">
+    <!-- road -->
+    <polygon points="1316,118 1344,118 1700,396 960,396" fill="#171B21"/>
+    <polygon points="1316,118 1322,118 1030,396 960,396" fill="#12151A"/>
+    <polygon points="1338,118 1344,118 1700,396 1630,396" fill="#12151A"/>
+    <polygon points="1328,118 1332,118 1352,396 1308,396" fill="#252A31"/>
+    <line x1="1322" y1="118" x2="1030" y2="396" stroke="rgba(230,232,235,.55)" stroke-width="2.5"/>
+    <line x1="1338" y1="118" x2="1630" y2="396" stroke="rgba(230,232,235,.55)" stroke-width="2.5"/>
+    <line x1="1328" y1="118" x2="1308" y2="396" stroke="rgba(255,196,71,.5)" stroke-width="2"/>
+    <line x1="1332" y1="118" x2="1352" y2="396" stroke="rgba(255,196,71,.5)" stroke-width="2"/>
+    <line x1="1325" y1="118" x2="1169" y2="396" stroke="rgba(230,232,235,.4)" stroke-width="2.5" stroke-dasharray="16 22"/>
+    <line x1="1335" y1="118" x2="1491" y2="396" stroke="rgba(230,232,235,.4)" stroke-width="2.5" stroke-dasharray="16 22"/>
+    <ellipse cx="1330" cy="118" rx="120" ry="16" fill="url(#hz)" opacity=".5"/>
+    <!-- speed gates -->
+    <line x1="1098" y1="330" x2="1312" y2="330" stroke="rgba(127,168,255,.6)" stroke-width="1.2" stroke-dasharray="4 4"/>
+    <line x1="1216" y1="218" x2="1319" y2="218" stroke="rgba(127,168,255,.6)" stroke-width="1.2" stroke-dasharray="4 4"/>
+    <text x="1090" y="326" text-anchor="end" class="lbl" fill="rgba(127,168,255,.85)">T-ENTRY</text>
+    <text x="1210" y="214" text-anchor="end" class="lbl" fill="rgba(127,168,255,.85)">T-EXIT</text>
+
+    <!-- far traffic -->
+    <rect x="1304" y="136" width="12" height="8" rx="2" fill="#6E83A0"/><rect x="1343" y="140" width="11" height="8" rx="2" fill="#9AA3AE"/>
+    <circle cx="1346" cy="146" r="4" fill="url(#hl)"/><circle cx="1352" cy="146" r="4" fill="url(#hl)"/>
+
+    <!-- truck (away, mid) -->
+    <g>
+      <rect x="1238" y="172" width="44" height="48" rx="3" fill="#C9B48A"/>
+      <rect x="1238" y="210" width="44" height="3" fill="#E8E1D0"/>
+      <rect x="1237" y="220" width="46" height="5" fill="#1B1E23"/>
+      <rect x="1240" y="214" width="6" height="3" fill="#A8231C"/><rect x="1274" y="214" width="6" height="3" fill="#A8231C"/>
+      <path d="M1233 180v-12h10 M1277 168h10v12 M1287 218v10h-10 M1243 228h-10v-10" stroke="#34D3A0" stroke-width="1.6" fill="none"/>
+      <rect x="1233" y="154" width="98" height="14" fill="#34D3A0"/>
+      <text x="1237" y="164.5" class="lbl" fill="#0A0B0D">truck 0.93 #07</text>
+    </g>
+
+    <!-- stopped car on left shoulder -->
+    <g>
+      <ellipse cx="1105" cy="292" rx="40" ry="5" fill="rgba(0,0,0,.5)"/>
+      <path d="M1080 268 L1087 250 H1123 L1130 268 Z" fill="#8C939C"/>
+      <path d="M1085 264 L1090 253 H1120 L1125 264 Z" fill="#121820"/>
+      <rect x="1072" y="264" width="66" height="26" rx="5" fill="#9AA3AE"/>
+      <rect x="1075" y="272" width="10" height="4" fill="#FFB020"/><rect x="1125" y="272" width="10" height="4" fill="#FFB020"/>
+      <circle cx="1080" cy="274" r="12" fill="url(#hz)" opacity=".7"/><circle cx="1130" cy="274" r="12" fill="url(#hz)" opacity=".7"/>
+      <rect x="1066" y="244" width="78" height="52" fill="none" stroke="#FF5A1F" stroke-width="1.8"/>
+      <rect x="1066" y="228" width="132" height="16" fill="#FF5A1F"/>
+      <text x="1071" y="240" class="lbl" fill="#0A0B0D">STOPPED · #4 · 41s</text>
+    </g>
+
+    <!-- near car (away, lane 2) -->
+    <g>
+      <ellipse cx="1230" cy="377" rx="58" ry="7" fill="rgba(0,0,0,.5)"/>
+      <path d="M1192 344 L1203 316 H1257 L1268 344 Z" fill="#5E6672"/>
+      <path d="M1199 339 L1207 320 H1253 L1261 339 Z" fill="#121820"/>
+      <rect x="1180" y="338" width="100" height="38" rx="7" fill="#6E83A0"/>
+      <rect x="1184" y="350" width="14" height="5" fill="#FF3B30"/><rect x="1262" y="350" width="14" height="5" fill="#FF3B30"/>
+      <circle cx="1191" cy="352" r="16" fill="url(#tl)"/><circle cx="1269" cy="352" r="16" fill="url(#tl)"/>
+      <rect x="1216" y="362" width="28" height="7" rx="1" fill="#E8E4D6"/>
+      <path d="M1173 324v-14h14 M1273 310h14v14 M1287 372v14h-14 M1187 386h-14v-14" stroke="#34D3A0" stroke-width="1.8" fill="none"/>
+      <rect x="1173" y="292" width="170" height="16" fill="#34D3A0"/>
+      <text x="1178" y="304" class="lbl" fill="#0A0B0D">car 0.96 #12 · 84 km/h</text>
+    </g>
+
+    <!-- oncoming car (toward, right carriageway) -->
+    <g>
+      <ellipse cx="1420" cy="262" rx="36" ry="5" fill="rgba(0,0,0,.5)"/>
+      <ellipse cx="1420" cy="276" rx="60" ry="12" fill="url(#hl)" opacity=".35"/>
+      <path d="M1398 240 L1405 222 H1435 L1442 240 Z" fill="#B7A98A"/>
+      <path d="M1403 236 L1408 225 H1432 L1437 236 Z" fill="#121820"/>
+      <rect x="1390" y="236" width="60" height="24" rx="5" fill="#C9CED4"/>
+      <rect x="1393" y="245" width="9" height="4" fill="#FFF4D6"/><rect x="1438" y="245" width="9" height="4" fill="#FFF4D6"/>
+      <circle cx="1397" cy="247" r="11" fill="url(#hl)"/><circle cx="1443" cy="247" r="11" fill="url(#hl)"/>
+      <path d="M1385 226v-10h10 M1445 216h10v10 M1455 256v10h-10 M1395 266h-10v-10" stroke="#7FA8FF" stroke-width="1.6" fill="none"/>
+      <rect x="1318" y="268" width="137" height="16" fill="#7FA8FF"/>
+      <text x="1323" y="280" class="lbl" fill="#0A0B0D">ANPR · MH12AB1234</text>
+    </g>
+
+    <!-- pedestrian near median -->
+    <g>
+      <line x1="1365" y1="206" x2="1361" y2="222" stroke="#2B3340" stroke-width="3" stroke-linecap="round"/>
+      <line x1="1365" y1="206" x2="1370" y2="222" stroke="#2B3340" stroke-width="3" stroke-linecap="round"/>
+      <rect x="1360" y="190" width="11" height="17" rx="3" fill="#D9B24A"/>
+      <circle cx="1365.5" cy="185" r="4.5" fill="#B98C66"/>
+      <rect x="1354" y="176" width="23" height="51" fill="none" stroke="#FFC247" stroke-width="1.6"/>
+      <rect x="1354" y="160" width="120" height="16" fill="#FFC247"/>
+      <text x="1359" y="172" class="lbl" fill="#0A0B0D">PEDESTRIAN · #13</text>
+    </g>
+
+    </g>
+    <!-- blend road into the text area -->
+    <rect x="980" y="0" width="240" height="396" fill="url(#fade)"/>
+  </svg>
+
+  <div class="hud"><i></i> VIDES EDGE NODE · 14 DETECTORS · &lt;40 MS</div>
+
+  <div class="txt">
+    <p class="kick"><i></i> AI Engineer · Arya Omnitalk (Arvind Group)</p>
+    <h1>Computer vision that<br>watches <em>real highways.</em></h1>
+    <p class="sub">Production AI on live highways · <b>50,000+ events a day</b> · 95% accuracy</p>
+    <div class="chips">
+      <span class="hot">VIDES · edge enforcement</span><span class="hot">TMCS · incident detection</span><span>AIR 1 · SIH 2023</span>
+    </div>
+    <div class="url"><span>→</span> shubhamkulkarni.me</div>
+  </div>
+</div></body></html>
