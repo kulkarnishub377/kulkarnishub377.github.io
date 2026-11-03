@@ -15,7 +15,7 @@
   <link rel="canonical" href="https://shubhamkulkarni.me/" />
 
   <meta name="description"
-    content="Shubham Kulkarni is an AI Engineer building production computer vision for live highways — VIDES edge enforcement on NVIDIA Jetson (14 detection types, 50,000+ events a day) and TMCS incident detection. GenAI, RAG, Edge AI and MLOps.">
+    content="Shubham Kulkarni is an AI Engineer building production computer vision for live highways — VIDES edge enforcement on NVIDIA Jetson (14 detectors, 50K+ unique vehicles a day across a ~100 km highway corridor, 90%+ ANPR accuracy) and TMCS incident detection. GenAI, RAG, Edge AI and MLOps.">
   <meta name="keywords"
     content="Shubham Kulkarni, AI Engineer, Computer Vision Engineer, VIDES, ANPR, NVIDIA Jetson, GStreamer, PaddleOCR, TMCS, Traffic Monitoring Camera System, ATMS, VIDES, YOLOv8, RT-DETR, ByteTrack, TensorRT, FastAPI, RAG, LangChain, FAISS, Edge AI, MLOps, Pune, India">
   <meta name="author" content="Shubham Kulkarni">
@@ -48,7 +48,7 @@
   <meta property="og:url" content="https://shubhamkulkarni.me/">
   <meta property="og:title" content="Shubham Kulkarni — AI Engineer | Computer Vision, GenAI &amp; MLOps">
   <meta property="og:description"
-    content="Production computer vision on live highways: VIDES edge enforcement on NVIDIA Jetson, TMCS incident detection, 50K+ events/day. AIR 1, Smart India Hackathon 2023.">
+    content="Production computer vision on live highways: VIDES edge enforcement on NVIDIA Jetson, TMCS incident detection, 50K+ unique vehicles a day across a ~100 km highway corridor. AIR 1, Smart India Hackathon 2023.">
   <meta property="og:site_name" content="Shubham Kulkarni">
   <meta property="og:locale" content="en_IN">
   <meta property="og:image" content="https://shubhamkulkarni.me/Asset/og-image.jpg">
@@ -61,7 +61,7 @@
   <meta name="twitter:creator" content="@kulkarnishub377">
   <meta name="twitter:title" content="Shubham Kulkarni — AI Engineer">
   <meta name="twitter:description"
-    content="Computer vision that runs on real highways — 50K+ events/day, 95% accuracy, sub-100 ms inference.">
+    content="Computer vision that runs on real highways — 50K+ unique vehicles a day across a ~100 km highway corridor, 90%+ ANPR accuracy.">
   <meta name="twitter:image" content="https://shubhamkulkarni.me/Asset/og-image.jpg">
 
   <link rel="preload" as="image" href="Asset/sk_b.jpg">
@@ -129,7 +129,7 @@
       "telephone": "+918308003684",
       "jobTitle": "AI Engineer",
       "disambiguatingDescription": "AI Engineer in Pune, India at Arya Omnitalk Wireless Solutions (Arvind Group). Core engineer on the VIDES edge traffic-enforcement network and the TMCS highway incident-detection platform. Smart India Hackathon 2023 winner (AIR 1).",
-      "description": "Shubham Kulkarni is an AI Engineer at Arya Omnitalk Wireless Solutions (Arvind Group), Pune. He builds production computer vision for national highways — VIDES edge enforcement on NVIDIA Jetson (14 detection types, 50,000+ events/day at 95% accuracy) and TMCS incident detection aligned with NHAI's ATMS standards — plus generative AI, RAG and multi-agent platforms.",
+      "description": "Shubham Kulkarni is an AI Engineer at Arya Omnitalk Wireless Solutions (Arvind Group), Pune. He builds production computer vision for national highways — VIDES edge enforcement on NVIDIA Jetson (14 violation and incident detectors; 50,000+ unique vehicles a day across a ~100 km highway corridor; a single gantry logged 620,000+ in 30 days; 90%+ ANPR accuracy) and TMCS incident detection aligned with NHAI's ATMS standards — plus generative AI, RAG and multi-agent platforms.",
       "worksFor": {
         "@type": "Organization",
         "name": "Arya Omnitalk Wireless Solutions",
@@ -214,7 +214,7 @@
           "name": "What is VIDES?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "VIDES (Vehicle Identification & Detection System) is an edge ATCC and traffic-enforcement network that runs 7 AI models on an NVIDIA Jetson at each highway gantry, covering 14 detection types — ANPR, helmet, triple riding, seatbelt, speed, wrong-way, stopped vehicle, accident, pedestrian, animal and pothole — at 50,000+ events a day with sub-40 ms frame processing."
+            "text": "VIDES (Video Incident Detection & Enforcement System) is an edge ATCC and traffic-enforcement network that runs 7 AI models on an NVIDIA Jetson at each highway gantry, covering ANPR, speed measurement and 14 violation and incident detectors — helmet, triple riding, seatbelt, wrong lane, banned vehicle, wrong-way, stopped vehicle, accident, queue, pedestrian, animal, debris, pothole and low visibility — logging 50,000+ unique vehicles a day across a ~100 km highway corridor (a single gantry logged 620,000+ in 30 days) at 90%+ ANPR accuracy, with a median 126 ms detect-and-track per frame on a Jetson Orin Nano."
           }
         },
         {
@@ -368,10 +368,10 @@
           <h1 class="hero-name">Shubham Kulkarni <span>— AI Engineer</span></h1>
           <p class="display">I build computer vision that watches <em>real highways</em>.</p>
           <p class="lede">
-            Software Engineer (AI/ML) at <strong>Arya Omnitalk</strong> (Arvind Group). I design the detection, tracking and
+            AI Engineer at <strong>Arya Omnitalk</strong> (Arvind Group). I design the detection, tracking and
             incident pipelines behind live highway traffic management — <strong>VIDES</strong>,
-            <strong>ATMS</strong> and <strong>TMCS</strong> — processing <strong>50,000+ events a day</strong> at
-            95% model accuracy.
+            <strong>ATMS</strong> and <strong>TMCS</strong> — logging <strong>50K+ unique vehicles a day</strong> across a ~100 km highway corridor at
+            <strong>90%+ ANPR accuracy</strong>.
           </p>
           <div class="cta-row">
             <a class="btn btn-solid" href="Asset/Shubham_Kulkarni_Resume.pdf" target="_blank" rel="noopener"><i
@@ -411,16 +411,16 @@
       <div class="wrap">
         <dl class="metrics">
           <div class="metric">
-            <dt>Events / day</dt>
-            <dd><span class="counter" data-target="50000" data-suffix="+">50,000+</span></dd>
+            <dt>Unique vehicles / day · ~100 km corridor</dt>
+            <dd><span class="counter" data-target="50" data-suffix="K+">50K+</span></dd>
           </div>
           <div class="metric">
-            <dt>Model accuracy</dt>
-            <dd><span class="counter" data-target="95" data-suffix="%">95%</span></dd>
+            <dt>ANPR accuracy</dt>
+            <dd><span class="counter" data-target="90" data-suffix="%+">90%+</span></dd>
           </div>
           <div class="metric">
-            <dt>Inference latency</dt>
-            <dd>&lt;100<small>ms</small></dd>
+            <dt>Detections in 30 days · one gantry</dt>
+            <dd><span class="counter" data-target="620" data-suffix="K+">620K+</span></dd>
           </div>
           <div class="metric">
             <dt>Forensic queries / day</dt>
@@ -458,8 +458,9 @@
             <p class="about-lead">I'm an AI Engineer at <strong>Arya Omnitalk Wireless Solutions</strong> (part of the Arvind Group), where I
               design and deploy computer vision and generative AI systems for India's live highway infrastructure.</p>
             <p>My work sits where models meet messy reality: PTZ cameras that move, headlights at 2 a.m., riders
-              who look like pedestrians, cameras that drop off the network. My systems handle <strong>50,000+
-                events daily</strong> at <strong>95% accuracy</strong> with inference under 100 ms, and I engineered
+              who look like pedestrians, cameras that drop off the network. My VIDES deployment sees <strong>50,000+ unique vehicles a day</strong> across a ~100 km highway corridor
+              (a gantry every ~10 km, with repeat sightings counted once) at <strong>90%+ ANPR accuracy</strong>; a single
+              gantry on one Jetson Orin Nano recorded <strong>620,000+ detections in 30 days</strong> (about 20,000 a day). I also engineered
               <strong>30× faster</strong> vector retrieval with FAISS IVF indexing to serve <strong>150,000+ forensic
                 vehicle queries a day</strong>.</p>
             <p>Before that I was a National Champion (<strong>AIR 1</strong>) at Smart India Hackathon 2023 as team
@@ -467,7 +468,7 @@
               college still runs. B.E. in Electronics &amp; Telecommunication, SPPU, 2025.</p>
 
             <dl class="facts">
-              <div><dt>Current</dt><dd>Software Engineer — AI/ML, Arya Omnitalk (Arvind Group)</dd></div>
+              <div><dt>Current</dt><dd>AI Engineer, Arya Omnitalk (Arvind Group)</dd></div>
               <div><dt>Focus</dt><dd>Computer vision · Multi-object tracking · RAG · Edge AI</dd></div>
               <div><dt>Education</dt><dd>B.E. E&amp;TC, SPPU '25</dd></div>
               <div><dt>Recognition</dt><dd>AIR 1 — Smart India Hackathon 2023</dd></div>
@@ -495,20 +496,21 @@
           <li class="job job-lead rv">
             <div class="job-when">Aug 2025 — Present</div>
             <div class="job-main">
-              <h3>Software Engineer — AI/ML</h3>
+              <h3>AI Engineer</h3>
               <p class="job-co">Arya Omnitalk Wireless Solutions Pvt. Ltd. (Arvind Group) · Pune · Full-time, on-site</p>
               <ul class="job-points">
                 <li>Core engineer on <strong>VIDES</strong>, an edge ATCC &amp; enforcement network running on NVIDIA
-                  Jetson Orin at highway gantries: <strong>14 detection types</strong> — ANPR, helmet, triple riding,
-                  seatbelt, speed, wrong-way, stopped vehicle, accident, pedestrian, animal, pothole — across
-                  <strong>50,000+ events/day at 95% accuracy</strong>. <a href="#vides" class="inline-link">Case
+                  Jetson Orin at highway gantries: <strong>14 violation &amp; incident detectors</strong> plus ANPR and speed
+                  measurement — helmet, triple riding, seatbelt, wrong lane, banned vehicle, wrong-way, stopped vehicle,
+                  accident, queue, pedestrian, animal, debris, pothole, low visibility — across
+                  <strong>50K+ unique vehicles/day across a ~100 km corridor (a gantry every ~10 km; one gantry: 620K+ detections in 30 days), 90%+ ANPR accuracy</strong>. <a href="#vides" class="inline-link">Case
                     study ↓</a></li>
                 <li>Engineered <strong>TMCS</strong>, the incident-detection layer for NHAI ATMS-aligned corridors:
                   dual-model detection, occlusion-resilient tracking, a 7-rule incident engine and tamper-evident
                   evidence. <a href="#tmcs" class="inline-link">Case study ↓</a></li>
                 <li>Ran <strong>7 models</strong> (6 TensorRT FP16 engines + PP-OCRv4) side by side on one Jetson with
-                  GPU-direct GStreamer decode, holding frame processing under <strong>40 ms</strong> across up to 6
-                  concurrent 1080p streams.</li>
+                  GPU-direct GStreamer decode, sustaining ~7 FPS on each of <strong>3 ANPR lane cameras</strong> (one per lane of the gantry, plus 1 overview camera) with a
+                  median <strong>126 ms</strong> detect-and-track per frame on a single Jetson Orin Nano (~7 W).</li>
                 <li>Built the ANPR path — plate localizer, PaddleOCR, blur penalties and 2-read consensus — plus
                   parallel helmet and seatbelt pipelines fused by a per-vehicle decision finalizer.</li>
                 <li>Integrated NVIDIA Jetson edge nodes with backend microservices over async REST and an SSE →
@@ -610,7 +612,7 @@
 
         <div class="cs-intro rv">
           <div>
-            <p class="cs-lead">VIDES (Vehicle Identification &amp; Detection System) is the ATCC and traffic-enforcement
+            <p class="cs-lead">VIDES (Video Incident Detection &amp; Enforcement System) is the ATCC and traffic-enforcement
               platform for expressway gantries and toll corridors. Each gantry runs its own NVIDIA Jetson Orin node:
               camera streams are decoded straight into GPU memory, every vehicle is detected, tracked, classified and
               plate-read, and violations and incidents are confirmed at the roadside. The control room receives
@@ -622,8 +624,8 @@
           <dl class="cs-kv">
             <div><dt>Role</dt><dd>Core engineer — edge pipeline, tracking, ANPR, violation &amp; incident engines,
                 real-time relay</dd></div>
-            <div><dt>Hardware</dt><dd>NVIDIA Jetson Orin NX / Nano · TensorRT FP16</dd></div>
-            <div><dt>Per node</dt><dd>Up to 6 concurrent 1080p RTSP streams</dd></div>
+            <div><dt>Hardware</dt><dd>NVIDIA Jetson Orin Nano (8 GB) · TensorRT FP16 · ~7 W</dd></div>
+            <div><dt>Per node</dt><dd>3 ANPR lane cameras (one per lane) at ~7 FPS each, plus 1 overview camera, on one GPU</dd></div>
             <div><dt>Status</dt><dd>Production system · proprietary</dd></div>
           </dl>
         </div>
@@ -632,12 +634,12 @@
           <div class="bench-grid bench-stats">
             <div class="b-cell"><p class="b-k">Detection types</p><p class="b-v">14</p><p class="b-note">violations, incidents &amp; audit</p></div>
             <div class="b-cell"><p class="b-k">Models on one node</p><p class="b-v">7</p><p class="b-note">6 TensorRT FP16 engines + PP-OCRv4</p></div>
-            <div class="b-cell"><p class="b-k">Frame processing</p><p class="b-v">&lt;40<small>ms</small></p><p class="b-note">on-device, per stream</p></div>
+            <div class="b-cell"><p class="b-k">Detect + track / frame</p><p class="b-v">126<small>ms</small></p><p class="b-note">median, 3 ANPR cameras sharing one GPU</p></div>
             <div class="b-cell"><p class="b-k">Edge → operator</p><p class="b-v">&lt;150<small>ms</small></p><p class="b-note">SSE → Socket.IO alert</p></div>
-            <div class="b-cell"><p class="b-k">Events per day</p><p class="b-v">50K<small>+</small></p><p class="b-note">at 95% model accuracy</p></div>
+            <div class="b-cell"><p class="b-k">Unique vehicles per day</p><p class="b-v">50K<small>+</small></p><p class="b-note">~100 km corridor, a gantry every ~10 km · repeat sightings counted once · ANPR 90%+</p></div>
             <div class="b-cell"><p class="b-k">Vehicle classes</p><p class="b-v">7</p><p class="b-note">car · truck · bus · mini bus · auto · bike · tractor</p></div>
             <div class="b-cell"><p class="b-k">Plate lock</p><p class="b-v">2<small>-read</small></p><p class="b-note">OCR consensus before a plate is final</p></div>
-            <div class="b-cell"><p class="b-k">Decision timeout</p><p class="b-v">6<small>s</small></p><p class="b-note">finalizer never waits on a slow model</p></div>
+            <div class="b-cell"><p class="b-k">Decision timeout</p><p class="b-v">20<small>s</small></p><p class="b-note">finalizer never waits on a slow model</p></div>
           </div>
         </div>
 
@@ -647,7 +649,7 @@
           <p class="pipe-label">Two camera roles share one perception core, then split into enforcement and incident
             paths.</p>
           <ol class="pipe-steps p4">
-            <li><span class="ps-n">01</span><b>RTSP → GPU decode</b><small>GStreamer nvv4l2decoder · latest-3-frame buffer</small></li>
+            <li><span class="ps-n">01</span><b>RTSP → GPU decode</b><small>GStreamer nvv4l2decoder · latest-frame buffer</small></li>
             <li class="hot"><span class="ps-n">02</span><b>Vehicle detection</b><small>YOLOv8 · TensorRT FP16 · 7 classes</small></li>
             <li class="hot"><span class="ps-n">03</span><b>Tracking</b><small>ByteTrack · trajectories · speed gates</small></li>
             <li><span class="ps-n">04</span><b>Early rejection</b><small>ROI · lane · direction · size · track quality</small></li>
@@ -655,9 +657,9 @@
           <div class="arch-fork" aria-hidden="true"></div>
           <div class="arch-split">
             <div class="lane">
-              <p class="lane-h"><i class="fas fa-id-card" aria-hidden="true"></i> ANPR / enforcement cameras</p>
+              <p class="lane-h"><i class="fas fa-id-card" aria-hidden="true"></i> ANPR / enforcement cameras · 3 per gantry, one per lane</p>
               <ul class="lane-par">
-                <li><b>ANPR</b><small>plate localizer → PP-OCRv4 · 4 workers · 2-read consensus</small></li>
+                <li><b>ANPR</b><small>plate localizer → PP-OCRv4 · 2 workers · 2-read consensus</small></li>
                 <li><b>Helmet &amp; triple riding</b><small>two-wheelers only</small></li>
                 <li><b>Seatbelt</b><small>windshield region · 4+ wheelers</small></li>
               </ul>
@@ -665,13 +667,14 @@
                   clean audited passage</small></div>
             </div>
             <div class="lane">
-              <p class="lane-h"><i class="fas fa-binoculars" aria-hidden="true"></i> Overview / incident cameras</p>
+              <p class="lane-h"><i class="fas fa-binoculars" aria-hidden="true"></i> Overview camera · 1 per gantry</p>
               <ul class="lane-par">
-                <li><b>Trajectory rules</b><small>wrong-way · stopped · queue · accident</small></li>
-                <li><b>RT-DETR</b><small>pedestrians &amp; animals · every 3rd frame</small></li>
+                <li><b>Trajectory rules</b><small>accident · stopped vehicle · queue · wrong-way</small></li>
+                <li><b>RT-DETR</b><small>pedestrians, animals &amp; debris · every 3rd frame</small></li>
                 <li><b>Pothole scan</b><small>hourly · daylight only</small></li>
+                <li><b>Visibility check</b><small>sharpness + contrast · every 60 s</small></li>
               </ul>
-              <div class="lane-out"><b>Incident manager</b><small>event fusion · 5-minute dedup cooldown</small></div>
+              <div class="lane-out"><b>Incident manager</b><small>event fusion · 5-minute dedup cooldown · low volume: the detection counts come from the ANPR cameras</small></div>
             </div>
           </div>
           <div class="arch-join" aria-hidden="true"></div>
@@ -685,39 +688,40 @@
         <div class="rv">
           <h3 class="sub-h">14 detection types <span>and the rule behind each</span></h3>
         </div>
+        <p class="rv" style="margin-bottom:1.25rem;color:var(--muted,inherit)">Alongside the 14 detectors, every counted vehicle gets ANPR and a measured speed (against the lane or class limit) stored with its record, and every clean pass is logged as an audited passage — so the corridor has complete counts, not just violations.</p>
         <div class="tax">
           <article class="tx tx-crit rv">
             <h4>Critical hazards</h4>
             <ul>
-              <li><b>Wrong-way driving</b><span>moves against the lane vector for 5 consecutive frames → critical alarm</span></li>
+              <li><b>Wrong-way driving</b><span>≥50 px travel against the lane direction, confirmed by 5 net direction votes → critical alarm</span></li>
               <li><b>Stopped vehicle</b><span>&lt;10 px movement for 40 s at ≤2 km/h inside a lane</span></li>
-              <li><b>Vehicle accident</b><span>≥3 vehicles stopped within a tight spatial cluster</span></li>
+              <li><b>Vehicle accident</b><span>≥3 stopped vehicles clustered within a tight spatial radius</span></li>
             </ul>
           </article>
           <article class="tx tx-env rv">
-            <h4>Environmental &amp; lane hazards</h4>
+            <h4>Environmental &amp; road hazards</h4>
             <ul>
-              <li><b>Pedestrian on highway</b><span>RT-DETR, 0.65 confidence held for 8 frames; safe zones excluded</span></li>
-              <li><b>Animal on road</b><span>dog, cow, buffalo, sheep — same confirmation gate</span></li>
-              <li><b>Wrong-lane usage</b><span>vehicle class checked against the lane's allowed classes</span></li>
-              <li><b>Pothole / road damage</b><span>scheduled daylight scans; evidence for maintenance crews</span></li>
+              <li><b>Pedestrian on highway</b><span>RT-DETR, ≥0.70 confidence, inside the lane for 8 consecutive frames</span></li>
+              <li><b>Animal on road</b><span>dog, cat, cow, horse, sheep — ≥0.65 confidence, same 8-frame gate</span></li>
+              <li><b>Road debris</b><span>RT-DETR, ≥0.55 confidence, contact point in lane for 5 frames</span></li>
+              <li><b>Pothole / road damage</b><span>hourly daylight scan (06:00–18:00); evidence for maintenance crews</span></li>
+              <li><b>Low visibility</b><span>fog or lens-blur check on sharpness and contrast, every 60 s</span></li>
             </ul>
           </article>
           <article class="tx tx-flow rv">
-            <h4>Flow &amp; audit</h4>
+            <h4>Lane &amp; traffic flow</h4>
             <ul>
-              <li><b>Audited passage</b><span>every clean vehicle logged with class, plate and evidence</span></li>
-              <li><b>Overspeeding</b><span>perspective-corrected gate timing vs the lane limit; impossible speeds discarded</span></li>
-              <li><b>Slow-moving vehicle</b><span>below the lane's minimum speed in fast lanes</span></li>
-              <li><b>Congestion</b><span>≥5 tracks averaging under 15 km/h</span></li>
+              <li><b>Wrong-lane usage</b><span>vehicle class checked against the lane's allowed classes</span></li>
+              <li><b>Banned vehicle</b><span>classes flagged per site (e.g. tractors on an expressway); list reloads without a restart</span></li>
+              <li><b>Queue / congestion</b><span>≥3 vehicles filling more than 70% of a lane</span></li>
             </ul>
           </article>
           <article class="tx tx-occ rv">
             <h4>Occupant compliance</h4>
             <ul>
-              <li><b>Helmet missing</b><span>no-helmet ratio over a 5-second window</span></li>
-              <li><b>Triple riding</b><span>≥3 riders tied to one two-wheeler track</span></li>
-              <li><b>Seatbelt missing</b><span>≥2 driver votes; configurable rule for occluded windshields</span></li>
+              <li><b>Helmet missing</b><span>specialist model on the rider crop, confirmed over multiple frames</span></li>
+              <li><b>Triple riding</b><span>≥3 riders on one two-wheeler, multi-frame vote</span></li>
+              <li><b>Seatbelt missing</b><span>cars only; ≥2 driver votes before a violation is raised</span></li>
             </ul>
           </article>
         </div>
@@ -735,7 +739,7 @@
           <article class="hl rv">
             <p class="hl-n">B</p>
             <h4>Capture never waits</h4>
-            <p>Each camera keeps only its latest 3 frames. If inference hiccups, stale frames are dropped rather than
+            <p>Each camera keeps only its freshest frame. If inference hiccups, stale frames are dropped rather than
               queued, so latency stays bounded instead of drifting behind real time.</p>
           </article>
           <article class="hl rv">
@@ -754,7 +758,7 @@
             <p class="hl-n">E</p>
             <h4>Fan-out, fan-in decisions</h4>
             <p>ANPR, helmet and seatbelt run in parallel worker pools on bounded queues. A finalizer fuses their
-              results per vehicle with a <strong>6 s timeout</strong>, so one slow model never stalls a record.</p>
+              results per vehicle with a <strong>20 s timeout</strong>, so one slow model never stalls a record.</p>
           </article>
           <article class="hl rv">
             <p class="hl-n">F</p>
@@ -765,8 +769,9 @@
           <article class="hl rv">
             <p class="hl-n">G</p>
             <h4>The hot path never touches SQL</h4>
-            <p>All writes go through an async DB writer. The dashboard relay reconnects with exponential backoff and
-              keeps a rolling per-camera cache, so operator screens load instantly without hitting the database.</p>
+            <p>Per-vehicle writes go through a single async DB writer, and incident persistence runs on its own consumer
+              thread, so tracking never blocks on SQL. The dashboard relay reconnects automatically, so operator screens
+              keep receiving live events after a network blip.</p>
           </article>
           <article class="hl rv">
             <p class="hl-n">H</p>
@@ -782,7 +787,7 @@
             <table class="why">
               <thead><tr><th scope="col"></th><th scope="col">Central / cloud ATCC</th><th scope="col">VIDES edge node</th></tr></thead>
               <tbody>
-                <tr><th scope="row">Latency</th><td>network round-trip before any decision</td><td>decided at the gantry in &lt;40 ms</td></tr>
+                <tr><th scope="row">Latency</th><td>network round-trip before any decision</td><td>decided at the gantry, ~126 ms median detect + track</td></tr>
                 <tr><th scope="row">Bandwidth</th><td>continuous raw-video uplink</td><td>structured events + evidence crops</td></tr>
                 <tr><th scope="row">Privacy</th><td>raw footage leaves the site</td><td>frames processed on-site; only evidence kept</td></tr>
               </tbody>
@@ -793,7 +798,7 @@
             <ul class="tags tags-dark">
               <li>Python</li><li>Flask</li><li>GStreamer</li><li>OpenCV</li><li>YOLOv8</li><li>RT-DETR</li>
               <li>ByteTrack</li><li>PaddleOCR PP-OCRv4</li><li>TensorRT FP16</li><li>CUDA</li><li>NVIDIA Jetson Orin</li>
-              <li>PostgreSQL</li><li>SSE</li><li>Socket.IO</li><li>MediaMTX</li><li>systemd</li>
+              <li>PostgreSQL</li><li>SSE</li><li>Socket.IO</li><li>MJPEG</li><li>systemd</li>
             </ul>
           </div>
         </div>
@@ -1002,14 +1007,14 @@
           <article class="proj proj-feature rv" data-cat="cv">
             <div class="proj-top"><span class="proj-no">01</span><span class="badge badge-accent">Flagship · Production</span></div>
             <h3>VIDES — Edge Traffic Enforcement Network</h3>
-            <p>ATCC and enforcement on NVIDIA Jetson Orin at every gantry: detection, tracking, ANPR, helmet, triple
-              riding, seatbelt, speed, wrong-way, accident, pedestrian, animal and pothole detection — confirmed at the
+            <p>ATCC and enforcement on NVIDIA Jetson Orin at every gantry: detection, tracking, ANPR, speed, helmet,
+              triple riding, seatbelt, wrong-way, accident, pedestrian, animal, debris and pothole detection — confirmed at the
               roadside and streamed to operators in under 150 ms.</p>
             <dl class="kpis">
               <div><dt>Detection types</dt><dd>14</dd></div>
               <div><dt>Models per node</dt><dd>7</dd></div>
-              <div><dt>Frame budget</dt><dd>&lt;40 ms</dd></div>
-              <div><dt>Events/day</dt><dd>50K+</dd></div>
+              <div><dt>Detect + track</dt><dd>126 ms median</dd></div>
+              <div><dt>Unique vehicles/day</dt><dd>50K+ (100 km)</dd></div>
             </dl>
             <ul class="stack"><li>YOLOv8</li><li>RT-DETR</li><li>ByteTrack</li><li>PP-OCRv4</li><li>TensorRT</li><li>GStreamer</li><li>Jetson Orin</li></ul>
             <div class="proj-links"><a href="#vides"><i class="fas fa-arrow-up-right-dots" aria-hidden="true"></i> Case study</a><a href="blog/vehicle-detection-system.html"><i class="fas fa-book-open" aria-hidden="true"></i> Article</a><span class="muted-s">Proprietary</span></div>

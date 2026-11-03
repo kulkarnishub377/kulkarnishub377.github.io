@@ -21,8 +21,8 @@ CONTACT = [
 SUMMARY = [
     ('AI Engineer who designs and ships production computer vision and generative AI systems for national highway '
      'infrastructure. Core engineer on ', False), ('VIDES', True),
-    (', an edge traffic-enforcement network on NVIDIA Jetson (14 detection types, 7 models per node, 50,000+ events/day '
-     'at 95% accuracy, sub-40 ms frame processing), and ', False), ('TMCS', True),
+    (', an edge traffic-enforcement network on NVIDIA Jetson (14 detectors, 7 models per node, 50,000+ unique vehicles/day across a ~100 km highway corridor '
+     'at 90%+ ANPR accuracy, 126 ms median detect-and-track), and ', False), ('TMCS', True),
     (', an NHAI ATMS-aligned incident-detection platform with court-grade evidence. Owns systems end to end — TensorRT '
      'model optimization, multi-object tracking, real-time streaming, data pipelines, access control and CI/CD — and '
      'builds RAG, hybrid-search and multi-agent platforms. National Champion (AIR 1), Smart India Hackathon 2023.', False),
@@ -46,7 +46,7 @@ SKILLS = [
      'MongoDB, MySQL, RBAC, Automated Testing'),
 ]
 EXPERIENCE = {
-    'title': 'Software Engineer — AI/ML',
+    'title': 'AI Engineer',
     'org': 'Arya Omnitalk Wireless Solutions Pvt. Ltd. (Arvind Group), Pune',
     'dates': 'Aug 2025 – Present',
     'groups': [
@@ -54,15 +54,15 @@ EXPERIENCE = {
          'NVIDIA Jetson Orin, TensorRT, GStreamer, YOLOv8, RT-DETR, PaddleOCR', [
             ('Architected the multi-model edge pipeline',
              'ran 7 models (6 TensorRT FP16 engines + PP-OCRv4) concurrently on one Jetson to deliver 14 detection '
-             'types — ANPR, helmet, triple riding, seatbelt, speed, wrong-way, stopped vehicle, accident, pedestrian, '
-             'animal and pothole — at 50,000+ events/day and 95% accuracy.'),
+             'types — helmet, triple riding, seatbelt, wrong lane, banned vehicle, wrong-way, stopped vehicle, accident, queue, pedestrian, '
+             'animal, debris, pothole and low visibility, plus ANPR and speed — with 50,000+ unique vehicles/day across a ~100 km highway corridor (620,000+ in 30 days from a single gantry) at 90%+ ANPR accuracy.'),
             ('Removed the CPU bottleneck',
              'built GPU-direct ingestion with GStreamer and nvv4l2decoder plus a tee-based H.264 passthrough (no '
-             're-encode on the encoder-less Orin Nano), sustaining sub-40 ms frame processing across 6 concurrent '
-             '1080p RTSP streams.'),
+             're-encode on the encoder-less Orin Nano), sustaining ~7 FPS on each of 3 ANPR lane cameras per gantry with a 126 ms median detect-and-track on one Orin Nano.'
+            ''),
             ('Designed a fan-out/fan-in decision layer',
              'parallel ANPR, helmet and seatbelt worker pools on bounded queues, fused per vehicle by a detection '
-             'finalizer with a 6 s timeout, so no single slow model can stall a record.'),
+             'finalizer with a 20 s timeout, so no single slow model can stall a record.'),
             ('Automated highway toll auditing',
              'built the ANPR path — YOLO plate localization, CLAHE preprocessing, Laplacian blur penalties and 2-read '
              'OCR consensus — logging every vehicle passage with evidence and eliminating manual reporting.'),

@@ -17,12 +17,12 @@
 
 ## Production Impact & Key Metrics
 
-- **50,000+ Events / Day:** VIDES edge traffic-enforcement network on live national highways — 14 detection types (ANPR, helmet, triple riding, seatbelt, speed, wrong-way, stopped vehicle, accident, pedestrian, animal, pothole) from 7 models on one NVIDIA Jetson.
-- **<40 ms Frame Processing / <150 ms Alerts:** GPU-direct GStreamer ingest across 6 concurrent 1080p RTSP streams; SSE → Socket.IO operator alerting.
+- **50K+ Unique Vehicles / Day (~100 km highway corridor with a VIDES gantry every ~10 km; repeat sightings counted once; one gantry alone: 620K+ detections in 30 days, ~20K a day):** VIDES edge traffic-enforcement network on live national highways — ANPR, speed measurement and 14 violation and incident detectors (helmet, triple riding, seatbelt, wrong lane, banned vehicle, wrong-way, stopped vehicle, accident, queue, pedestrian, animal, debris, pothole, low visibility) from 7 models on one NVIDIA Jetson.
+- **126 ms Median Detect + Track / <150 ms Alerts:** 3 ANPR lane cameras (one per lane of the gantry, plus 1 overview camera) at ~7 FPS each on one Jetson Orin Nano (~7 W); SSE → Socket.IO operator alerting.
 - **TMCS Incident Detection:** 7 incident rules, 11 object classes, 1.5 ms p50 tracking + rules latency, SHA-256 write-once evidence, 298+ automated tests.
-- **12ms Inference Latency:** YOLOv8 + ByteTrack optimized with NVIDIA TensorRT on edge hardware.
+- **TensorRT FP16 Edge Inference:** YOLOv8 + ByteTrack on NVIDIA Jetson Orin Nano, ~21 FPS aggregate across the gantry's 3 lane cameras.
 - **150,000+ Queries / Day:** ATMS vehicle forensic re-identification powered by OSNet deep appearance embeddings and FAISS IVF-PQ vector indexing (30× faster than baseline).
-- **95% Model Accuracy:** Real-time multi-camera detection across 7 vehicle classes with zero-duplicate Kalman filtering.
+- **90%+ ANPR Accuracy:** Real-time multi-camera detection across 7 vehicle classes with plate voting and cross-camera duplicate suppression.
 - **99.9% Uptime:** Mission-critical highway and enterprise AI services.
 - **AIR 1 National Champion:** Smart India Hackathon 2023 (Team Lead for AI E-Waste Management System).
 
@@ -37,7 +37,7 @@
 
 ## Featured Production Systems & Projects
 
-- [VIDES — Edge Traffic Enforcement Network](https://shubhamkulkarni.me/#vides): ATCC and enforcement on NVIDIA Jetson Orin at every gantry — detection, ByteTrack tracking, ANPR with 2-read OCR consensus, helmet/seatbelt/speed/wrong-way/accident/pedestrian/animal/pothole detection, 50K+ events/day at 95% accuracy. [Article](https://shubhamkulkarni.me/blog/vehicle-detection-system.html)
+- [VIDES — Edge Traffic Enforcement Network](https://shubhamkulkarni.me/#vides): ATCC and enforcement on NVIDIA Jetson Orin at every gantry — detection, ByteTrack tracking, ANPR with 2-read OCR consensus, helmet/seatbelt/speed/wrong-way/accident/pedestrian/animal/pothole detection, 50K+ unique vehicles/day across a ~100 km corridor (one gantry: 620K+ in 30 days), 90%+ ANPR accuracy. [Article](https://shubhamkulkarni.me/blog/vehicle-detection-system.html)
 - [TMCS — Highway Incident Detection](https://shubhamkulkarni.me/#tmcs): Turns PTZ highway cameras into automated incident detectors aligned with NHAI ATMS Standards (2023) — dual-model YOLOv8 + RT-DETR, occlusion-resilient tracking, 7 incident rules, court-grade evidence. [Solution overview (PDF)](https://shubhamkulkarni.me/Asset/TMCS_Client_Solution_Overview.pdf)
 - [ATMS Vehicle Forensic Re-Identification](https://shubhamkulkarni.me/blog/vehicle-re-identification.html): In-memory forensic vehicle matching system serving 150K+ daily queries at <100ms latency using OSNet + FAISS IVF-PQ without database overhead.
 - [Open Source Data Annotation Tool for CV](https://github.com/kulkarnishub377/Data_Annotation_Tool): Local-first, privacy-focused alternative to CVAT & Roboflow. End-to-end dataset platform featuring model-assisted auto-annotation (100,000 images in 30 mins on NVIDIA Orin NX 16GB), bbox & polygon segmentation, 5-point dataset health QA dashboard, multi-format inference (.pt, .onnx, .engine), auto splitting, and in-browser model fine-tuning with live SSE logs. [GitHub](https://github.com/kulkarnishub377/Data_Annotation_Tool) | [Case Study](https://shubhamkulkarni.me/blog/data-annotation-tool.html)
@@ -70,9 +70,9 @@
 
 ## Professional Experience
 
-1. **Software Engineer — AI/ML** (Aug 2025 — Present)
+1. **AI Engineer** (Aug 2025 — Present)
    *Arya Omnitalk Wireless Solutions Pvt. Ltd. (Arvind Group), Pune, India*
-   - VIDES edge enforcement network (14 detection types, 7 models per Jetson, 50K+ daily events, <40 ms frames).
+   - VIDES edge enforcement network (14 detectors, 7 models per Jetson, 50K+ unique vehicles/day on a ~100 km corridor, 126 ms median detect + track).
    - TMCS highway incident detection (NHAI ATMS 2023; 7 rules, 11 classes, SHA-256 evidence, 298+ tests).
    - Vehicle re-identification (150K+ forensic queries/day, <100 ms FAISS search, 30× faster, 99.9% uptime).
 2. **Data Analytics Trainee** (Oct 2024 — Dec 2024)
