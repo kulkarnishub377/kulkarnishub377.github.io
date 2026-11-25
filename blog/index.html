@@ -51,7 +51,7 @@
         <span class="brand-name">Shubham<em style="font-style:normal;color:var(--accent)">.</em></span>
       </a>
       <div class="nav-actions">
-        <span class="read-badge"><i class="fas fa-layer-group" aria-hidden="true"></i> <span id="totalArticleCount">20</span> articles</span>
+        <span class="read-badge"><i class="fas fa-layer-group" aria-hidden="true"></i> <span id="totalArticleCount">24</span> articles</span>
         <a href="../index.html#contact" class="btn btn-solid btn-sm">Let's Talk</a>
         <button class="icon-btn" id="themeToggle" aria-label="Toggle colour theme">
           <i class="fas fa-sun i-dark" aria-hidden="true"></i>
@@ -92,9 +92,40 @@
   <main id="main">
     <div class="wrap">
       <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 0 4px;font-size:.87rem;color:var(--muted);">
-        <span>Showing <strong id="visibleArticleCount" style="color:var(--ink);">21</strong> of <span id="totalCount">21</span> articles</span>
+        <span>Showing <strong id="visibleArticleCount" style="color:var(--ink);">24</strong> of <span id="totalCount">24</span> articles</span>
       </div>
       <div class="blog-grid" id="blogGrid">
+
+        <!-- New: Nov 2026 -->
+        <article class="article-card" data-category="computer-vision" data-keywords="vids vides gpu scheduling tensorrt rt-detr engine pool rtx 5060 ti jetson multi camera scaling performance">
+          <div class="card-img-wrap"><img src="images/vids-12-cameras.svg" loading="lazy" class="card-img" alt="12 camera tiles sharing one GPU"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 9 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">Computer Vision &bull; Performance</span><span class="card-dot"></span><time datetime="2026-11-25">Nov 25, 2026</time></div>
+            <h2 class="card-title"><a href="vids-12-cameras-one-gpu.html">Twelve Cameras, One GPU: The Lock That Ate 90% of Our Frame Time</a></h2>
+            <p class="card-excerpt">Scaling VIDS from a Jetson Orin Nano to 12 cameras on one RTX 5060 Ti. Profiling showed cameras waiting on the GPU lock, so I replaced per-camera RT-DETR engines with a shared engine pool.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="vids-12-cameras-one-gpu.html" class="read-link">Read Article <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <article class="article-card" data-category="computer-vision" data-keywords="debugging object tracking bytetrack fuse_score small object detection tiling rt-detr missed detection field bug">
+          <div class="card-img-wrap"><img src="images/dog-small-object.svg" loading="lazy" class="card-img" alt="Same dog detected two ways"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 8 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">Computer Vision &bull; Debugging</span><span class="card-dot"></span><time datetime="2026-11-25">Nov 25, 2026</time></div>
+            <h2 class="card-title"><a href="dog-that-never-alerted.html">The Dog That Never Raised an Alert: Debugging a Silent Miss</a></h2>
+            <p class="card-excerpt">An animal stood in a highway lane and the incident system said nothing. Two root causes (tracker score fusion and a 14×20 px object) and how every dropped detection is now counted.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="dog-that-never-alerted.html" class="read-link">Read Article <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
+
+        <article class="article-card" data-category="desktop-web" data-keywords="mhada pune explorer static site cloudflare workers seo structured data llms.txt google search console copilot citations side project">
+          <div class="card-img-wrap"><img src="images/mhada-explorer.svg" loading="lazy" class="card-img" alt="MHADA Pune Explorer traffic chart"><span class="card-badge"><i class="fas fa-clock" aria-hidden="true"></i> 9 min</span></div>
+          <div class="card-body">
+            <div class="card-meta"><span class="card-cat">Web &bull; Side Project</span><span class="card-dot"></span><time datetime="2026-11-25">Nov 25, 2026</time></div>
+            <h2 class="card-title"><a href="mhada-explorer-141k-clicks.html">141K Google Clicks in Three Months: Building MHADA Pune Explorer</a></h2>
+            <p class="card-excerpt">A static, bilingual guide to the MHADA Pune 2026 housing lottery: 207 pre-rendered pages, search across 2.68 lakh applications with no backend, and 34.8K Copilot citations.</p>
+            <div class="card-foot"><div class="card-author"><img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="24" height="24"><span>Shubham K.</span></div><a href="mhada-explorer-141k-clicks.html" class="read-link">Read Article <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+        </article>
 
         <!-- 0. TMCS Flagship Incident Detection -->
         <article class="article-card" data-category="computer-vision" data-keywords="tmcs traffic monitoring camera system nhai atms incident detection ptz onvif yolov8 rt-detr bytetrack tensorrt arya omnitalk">

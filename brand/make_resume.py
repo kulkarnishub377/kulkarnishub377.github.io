@@ -115,7 +115,7 @@ PROJECTS = [
      ('mhadaexplore.app', 'https://mhadaexplore.app'),
      ['Independent English/Marathi guide to the MHADA Pune 2026 housing lottery: scheme finder, search across 2.68 lakh '
       'draft-list applications, EMI calculator. 141K Google clicks and 1.56M impressions in 3 months (avg. position '
-      '4.9); 108K visits in the last 30 days.']),
+      '4.9), 34.8K citations in Microsoft Copilot answers and 238K impressions in Google AI features; 108K visits in 30 days.']),
     ('DocuAI Studio v3.1 — Document AI + RAG', 'FastAPI, LangChain, FAISS, BM25, PaddleOCR, Ollama', '2026',
      ('github.com/kulkarnishub377/Document-AI---RAG-Pipeline', 'https://github.com/kulkarnishub377/Document-AI---RAG-Pipeline'),
      ['Local RAG app with cited answers: hybrid retrieval (FAISS + BM25 + RRF) with cross-encoder reranking, OCR for '

@@ -190,11 +190,11 @@
           </div>
           <div class="stat-card">
             <span class="stat-num">&le;45 ms</span>
-            <span class="stat-lbl">p95 Dual-Model TensorRT Engine Latency</span>
+            <span class="stat-lbl">p95 dual-model inference target</span>
           </div>
           <div class="stat-card">
-            <span class="stat-num">-95%+</span>
-            <span class="stat-lbl">False Pedestrian Alarms via Rider Tagging</span>
+            <span class="stat-num">26</span>
+            <span class="stat-lbl">Concurrent camera streams on one GPU server</span>
           </div>
           <div class="stat-card">
             <span class="stat-num">60 s</span>
@@ -222,7 +222,7 @@
             <div class="p-num">02</div>
             <div>
               <strong>RTSP Ingest &amp; Frame Synchronization</strong>
-              <p>25–30 FPS hardware-accelerated GStreamer/MediaMTX decode with frame timestamp monotonicity enforcement and 0.1 ms circuit-breaker dead-camera ejection.</p>
+              <p>25–30 FPS hardware-accelerated GStreamer/MediaMTX decode with frame timestamp monotonicity enforcement and a circuit breaker that skips dead cameras instead of waiting on socket timeouts.</p>
             </div>
           </div>
           <div class="pipe-step">
@@ -316,7 +316,7 @@ $$\mathbf{P}_{k|k-1} = \mathbf{F}(\Delta t_k) \mathbf{P}_{k-1|k-1} \mathbf{F}^T(
       </section>
 
       <section id="rider-tagging-math">
-        <h2>5. Rider-Aware Occupant Tagging (-95%+ False Alarms)</h2>
+        <h2>5. Rider-Aware Occupant Tagging</h2>
         <p>
           One of the largest operational headaches in Indian highway surveillance is the "Pedestrian Alarm Storm." Because object detectors output independent classes for `person` and `motorcycle`, a motorcycle carrying two passengers regularly fires two simultaneous "Pedestrian on Highway" alerts to the control room.
         </p>
@@ -333,7 +333,7 @@ $$\text{IsOccupant}(P_i) = \begin{cases}
 \end{cases}$$</code></pre>
 
         <p>
-          If a detected person's bounding box is more than 55% contained inside a two-wheeler, tractor, or auto-rickshaw bounding box, and the person's feet do not extend below the vehicle's road contact patch, the person is tagged as an `occupant`. <strong>Only unparented persons</strong> can trigger the "Pedestrian on Highway" incident rule, cutting false control room alarms by over <strong>95%</strong>.
+          If a detected person's bounding box is more than 55% contained inside a two-wheeler, tractor, or auto-rickshaw bounding box, and the person's feet do not extend below the vehicle's road contact patch, the person is tagged as an `occupant`. <strong>Only unparented persons</strong> can trigger the "Pedestrian on Highway" incident rule, so a passing motorcycle no longer raises a pedestrian alarm.
         </p>
       </section>
 
@@ -489,7 +489,7 @@ class TMCSIncidentEngine:
               <div class="b-row">
                 <span>ONVIF Dead Camera Ejection</span>
                 <div class="bar-track"><div class="bar-fill" style="width: 5%;"></div></div>
-                <b>0.1 ms (&lt;30s timeout)</b>
+                <b>immediate (was a 10–30 s timeout)</b>
               </div>
               <div class="b-row">
                 <span>Preset Sync Database Latency</span>
@@ -525,7 +525,7 @@ class TMCSIncidentEngine:
               <td><strong>Rider vs Pedestrian Disambiguation</strong></td>
               <td>None (2 alerts per passing motorcycle)</td>
               <td><strong>Geometric spatial containment filter</strong></td>
-              <td>-95%+ reduction in false pedestrian alerts</td>
+              <td>Riders no longer raise pedestrian alerts</td>
             </tr>
             <tr>
               <td><strong>Occlusion Handling</strong></td>
@@ -580,7 +580,7 @@ class TMCSIncidentEngine:
           </div>
           <div>
             <strong>ONVIF Socket Lockup &amp; Thread Starvation:</strong>
-            When a highway lightning strike knocks out a roadside POE switch, standard ONVIF Python client libraries block on TCP sockets for 30 seconds. A single dead camera would lock the worker thread pool. We implemented non-blocking asynchronous socket wrappers with a <strong>0.1 ms circuit breaker</strong> that ejects unresponsive cameras immediately.
+            When a highway lightning strike knocks out a roadside POE switch, standard ONVIF Python client libraries block on TCP sockets for 30 seconds. A single dead camera would lock the worker thread pool. We implemented non-blocking asynchronous socket wrappers with a <strong>circuit breaker</strong> that skips unresponsive cameras immediately.
           </div>
           <div>
             <strong>Camera Mast Vibration in Monsoon Winds:</strong>

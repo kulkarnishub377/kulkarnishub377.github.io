@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-labelledby="t">
+  <title id="t">MHADA Pune Explorer: 141K Google clicks in three months</title>
+  <rect width="800" height="450" fill="#0B0B0C"/>
+  <g stroke="#1F2328" stroke-width="1">
+    <path d="M60 110H740M60 190H740M60 270H740M60 350H740"/>
+  </g>
+  <polyline fill="none" stroke="#FF5A1F" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"
+    points="60,348 90,340 120,250 150,232 180,240 210,238 240,214 270,206 300,262 330,280 360,286 390,276 420,280 450,272 480,282 510,270 540,250 570,236 600,206 625,118 650,300 680,340 710,336 740,250"/>
+  <polyline fill="none" stroke="#8A9099" stroke-width="2" stroke-dasharray="6 6"
+    points="60,350 90,346 120,300 150,290 180,296 210,292 240,286 270,282 300,300 330,306 360,304 390,300 420,302 450,298 480,300 510,296 540,286 570,280 600,262 625,170 650,320 680,346 710,344 740,300"/>
+  <text x="60" y="72" fill="#F1EFEA" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="700">141K Google clicks · 3 months</text>
+  <text x="60" y="400" fill="#8A9099" font-family="Consolas, monospace" font-size="18">mhadaexplore.app · clicks (orange) · AI impressions (grey)</text>
+</svg>

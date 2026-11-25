@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-labelledby="t">
+  <title id="t">The same dog: read as person 0.43 at full view, dog 0.85 when cropped</title>
+  <rect width="800" height="450" fill="#0B0B0C"/>
+  <text x="60" y="72" fill="#F1EFEA" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="700">Same dog, two answers</text>
+  <rect x="60" y="110" width="320" height="230" rx="10" fill="#111317" stroke="#2C3138"/>
+  <path d="M60 300 L380 230 M60 340 L380 280" stroke="#2C3138" stroke-width="2"/>
+  <rect x="236" y="246" width="14" height="20" fill="none" stroke="#8A9099" stroke-width="2"/>
+  <text x="200" y="238" fill="#8A9099" font-family="Consolas, monospace" font-size="14">person 0.43</text>
+  <text x="76" y="138" fill="#8A9099" font-family="Consolas, monospace" font-size="14">full view @ 640 px · 14×20 px</text>
+  <rect x="420" y="110" width="320" height="230" rx="10" fill="#111317" stroke="#2C3138"/>
+  <rect x="520" y="170" width="120" height="140" fill="none" stroke="#FF5A1F" stroke-width="3"/>
+  <rect x="520" y="146" width="96" height="22" fill="#FF5A1F"/>
+  <text x="527" y="163" fill="#0B0B0C" font-family="Consolas, monospace" font-size="15" font-weight="700">dog 0.85</text>
+  <text x="436" y="138" fill="#8A9099" font-family="Consolas, monospace" font-size="14">crop @ 640 px</text>
+  <text x="60" y="400" fill="#8A9099" font-family="Consolas, monospace" font-size="18">object size in model-input pixels is what counts</text>
+</svg>

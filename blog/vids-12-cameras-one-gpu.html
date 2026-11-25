@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Twelve cameras, one GPU: the lock that ate 90% of our frame time | Shubham Kulkarni</title>
+  <meta name="description" content="How I scaled VIDS from a Jetson Orin Nano at one gantry to 12 cameras on one RTX 5060 Ti, after profiling showed cameras spent ~90% of their frame time waiting for the GPU lock.">
+  <meta name="keywords" content="VIDS, VIDES, GPU scheduling, TensorRT, RT-DETR, engine pool, RTX 5060 Ti, NVIDIA Jetson, multi-camera video analytics, computer vision, Shubham Kulkarni">
+  <meta name="author" content="Shubham Kulkarni">
+  <meta name="theme-color" content="#EA4B12">
+  <link rel="canonical" href="https://shubhamkulkarni.me/blog/vids-12-cameras-one-gpu.html">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://shubhamkulkarni.me/blog/vids-12-cameras-one-gpu.html">
+  <meta property="og:title" content="Twelve cameras, one GPU: the lock that ate 90% of our frame time">
+  <meta property="og:description" content="How I scaled VIDS from a Jetson Orin Nano at one gantry to 12 cameras on one RTX 5060 Ti, after profiling showed cameras spent ~90% of their frame time waiting for the GPU lock.">
+  <meta property="og:image" content="https://shubhamkulkarni.me/Asset/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Twelve cameras, one GPU: the lock that ate 90% of our frame time">
+  <meta name="twitter:description" content="How I scaled VIDS from a Jetson Orin Nano at one gantry to 12 cameras on one RTX 5060 Ti, after profiling showed cameras spent ~90% of their frame time waiting for the GPU lock.">
+  <meta name="twitter:image" content="https://shubhamkulkarni.me/Asset/og-image.jpg">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Twelve cameras, one GPU: the lock that ate 90% of our frame time",
+  "description": "How I scaled VIDS from a Jetson Orin Nano at one gantry to 12 cameras on one RTX 5060 Ti, after profiling showed cameras spent ~90% of their frame time waiting for the GPU lock.",
+  "image": "https://shubhamkulkarni.me/Asset/og-image.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Shubham Kulkarni",
+    "url": "https://shubhamkulkarni.me/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Shubham Kulkarni",
+    "url": "https://shubhamkulkarni.me/"
+  },
+  "datePublished": "2026-11-25",
+  "dateModified": "2026-11-25",
+  "mainEntityOfPage": "https://shubhamkulkarni.me/blog/vids-12-cameras-one-gpu.html"
+}
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="css/style.css">
+
+  <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') {
+          document.documentElement.setAttribute('data-theme', t);
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+
+  <div class="progress" id="readProgress" aria-hidden="true"></div>
+  <a href="#main" class="skip">Skip to main content</a>
+
+  <nav class="nav" id="mainNav">
+    <div class="wrap nav-inner">
+      <a href="../index.html" class="brand" aria-label="Shubham Kulkarni Homepage">
+        <span class="brand-mark">SK</span>
+        <span class="brand-name">Shubham<em style="color:var(--accent);font-style:normal;">.</em></span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="index.html" class="nav-back"><i class="fas fa-arrow-left"></i><span>All Posts</span></a>
+        <span class="read-badge"><i class="far fa-clock"></i> <span>9 min read</span></span>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark theme">
+          <i class="fas fa-moon i-dark"></i>
+          <i class="fas fa-sun i-light"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="art-header">
+    <div class="wrap-prose">
+      <span class="art-tag"><i class="fas fa-microchip"></i> Production engineering &bull; Arya Omnitalk</span>
+      <h1 class="art-title">Twelve cameras, one GPU: <em>the lock that ate 90%</em> of our frame time</h1>
+      <p class="art-lede">Moving our highway enforcement system from a small Jetson to a GPU server should have been the easy part. Instead, the first 12-camera run showed every camera spending most of its time waiting in line for the GPU. Here is what was wrong and how I fixed it.</p>
+
+      <div class="art-meta">
+        <div class="art-meta-item">
+          <img src="../Asset/avatar-sk.jpg" alt="Shubham Kulkarni" width="38" height="38">
+          <div>
+            <b>Shubham Kulkarni</b>
+            <span>Software Engineer, AI/ML</span>
+          </div>
+        </div>
+        <div class="art-meta-item">
+          <i class="far fa-calendar-alt"></i>
+          <div>
+            <b>Published</b>
+            <span>November 2026</span>
+          </div>
+        </div>
+        <div class="art-meta-item">
+          <i class="fas fa-server"></i>
+          <div>
+            <b>Hardware</b>
+            <span>Jetson Orin Nano → RTX 5060 Ti</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="share-bar">
+        <span>Share:</span>
+        <button class="share-btn" data-platform="linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin"></i></button>
+        <button class="share-btn" data-platform="twitter" title="Share on X"><i class="fab fa-x-twitter"></i></button>
+        <button class="share-btn" data-platform="whatsapp" title="Share via WhatsApp"><i class="fab fa-whatsapp"></i></button>
+        <button class="share-btn copy-link-btn" title="Copy link"><i class="fas fa-link"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap art-layout">
+    <aside class="art-sidebar">
+      <div class="toc-box">
+        <div class="toc-title"><i class="fas fa-list-ul"></i> Contents</div>
+        <nav>
+          <ul class="toc-list">
+            <li><a href="#setup">1. The starting point</a></li>
+            <li><a href="#move">2. Moving to a GPU server</a></li>
+            <li><a href="#numbers">3. What the numbers said</a></li>
+            <li><a href="#pool">4. The fix: an engine pool</a></li>
+            <li><a href="#time">5. Getting time right</a></li>
+            <li><a href="#targets">6. Targets and modes</a></li>
+            <li><a href="#lessons">7. What I took away</a></li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+
+    <main class="prose" id="main">
+      <section id="setup">
+        <h2>1. The starting point</h2>
+        <p>
+          VIDS (VIDES inside the company) is the highway enforcement and incident system I build at Arya Omnitalk. It
+          reads the gantry cameras, detects and tracks every vehicle, reads its plate, measures its speed and checks it
+          for violations and incidents. You can read the full picture in the <a href="../work/vides.html">VIDS case study</a>.
+        </p>
+        <p>
+          It started on an NVIDIA Jetson Orin Nano at each gantry: 3 lane cameras for enforcement and 1 overview camera
+          for incidents. One node runs 7 models: the vehicle detector, a plate detector, PaddleOCR, helmet and
+          seatbelt models, RT-DETR for people, animals and debris, and a pothole model.
+        </p>
+        <p>
+          On a Jetson, GPU memory is shared with the CPU and there's only 8 GB of it. Two TensorRT contexts running at
+          the same moment can run the device out of memory. So from day one, every GPU call went through one global
+          lock: only one model runs at a time. On a single small device, that was the right call.
+        </p>
+        <div class="stat-grid">
+          <div class="stat-card"><span class="stat-num">7</span><span class="stat-lbl">Models on one node</span></div>
+          <div class="stat-card"><span class="stat-num">126 ms</span><span class="stat-lbl">Median detect + track, Orin Nano</span></div>
+          <div class="stat-card"><span class="stat-num">125 ms</span><span class="stat-lbl">Frame budget at 8 fps processing</span></div>
+          <div class="stat-card"><span class="stat-num">12</span><span class="stat-lbl">Cameras on one RTX 5060 Ti</span></div>
+        </div>
+      </section>
+
+      <section id="move">
+        <h2>2. Moving to a GPU server</h2>
+        <p>
+          Some sites need many cameras in one place, and a Jetson per gantry stops making sense there. So we moved those
+          sites to a GPU server with an <strong>RTX 5060 Ti</strong>. How many cameras one box can handle depends
+          entirely on the hardware, so the only honest answer is to test it. The test: <strong>12 cameras at 1080p,
+          25 fps, with every detector switched on</strong>.
+        </p>
+        <p>
+          The code was unchanged. Same pipeline, same global lock, just a much bigger GPU. I expected it to fly.
+        </p>
+      </section>
+
+      <section id="numbers">
+        <h2>3. What the numbers said</h2>
+        <p>
+          It didn't fly. When I measured where each camera's frame time went, about <strong>90% of it was spent waiting
+          for the GPU lock</strong>. The GPU itself wasn't the problem. The queue in front of it was.
+        </p>
+        <p>The cause was in how the overview cameras ran RT-DETR:</p>
+        <ul>
+          <li>Every overview camera loaded <strong>its own</strong> RT-DETR engine, so 12 cameras meant about 12 engines.</li>
+          <li>Each camera ran its RT-DETR pass <strong>inside its own loop</strong>, holding the global lock while it ran.</li>
+          <li>RT-DETR is the heaviest model in the stack. While one camera ran it, every other camera's vehicle
+            detection waited.</li>
+        </ul>
+        <div class="callout">
+          <strong>The real problem:</strong> a design that was correct for one small device (serialise everything) turned
+          into a traffic jam on a big one. The lock was protecting us from something that no longer happened, and costing
+          us almost all of our time.
+        </div>
+      </section>
+
+      <section id="pool">
+        <h2>4. The fix: an engine pool</h2>
+        <p>
+          Instead of one RT-DETR per camera, there is now a small <strong>shared pool</strong> of RT-DETR engines. By
+          default it has one engine per gantry plus a spare, capped at 6. Cameras no longer run RT-DETR themselves. They
+          hand a request to the pool and pick up the answer on a later frame.
+        </p>
+        <div class="pipe-steps">
+          <div class="pipe-step"><div class="p-num">01</div><div><strong>Offer</strong><p>At most a few times a second (4 by default), a camera offers its latest frame to the pool. If an old request from that camera is still waiting, the new one replaces it: newest wins.</p></div></div>
+          <div class="pipe-step"><div class="p-num">02</div><div><strong>Serve fairly</strong><p>Free engines take the next waiting camera in round-robin order. Each camera has at most one request queued, so no camera can starve the others.</p></div></div>
+          <div class="pipe-step"><div class="p-num">03</div><div><strong>Drop stale work</strong><p>A request older than 1 second is dropped and counted. On a highway, an answer about where a person was 2 seconds ago is worse than no answer.</p></div></div>
+          <div class="pipe-step"><div class="p-num">04</div><div><strong>Take</strong><p>On a later frame, the camera picks up its result and updates its own tracker on its own thread. The vehicle loop never waits.</p></div></div>
+        </div>
+        <p>A simplified sketch of the camera side (the real code has more health checks):</p>
+        <div class="code-label">Camera loop, pool mode (simplified)</div>
+        <pre><code>handle = pool.register(camera_id, gantry_code)
+
+while running:
+    frame, ts = grabber.read_latest()
+    vehicles = detect_and_track(frame)          # vehicle loop never waits on RT-DETR
+
+    if presence_active and now() &gt;= next_offer:
+        handle.offer(Request(frame, ts, tiles, vehicle_snapshot(vehicles)))
+        next_offer = now() + 1 / passes_per_sec
+
+    result = handle.take()                      # None if nothing new yet
+    if result:
+        apply_result(presence_tracker, result)  # uses result.capture_ts, not now()
+    elif handle.blind(now(), blind_sec=2.0):
+        status = "failed"                       # freeze presence, never "road is empty"
+</code></pre>
+        <h3>When an engine misbehaves</h3>
+        <ul>
+          <li><strong>Fails to load:</strong> retried after 30, 60, 120, then every 300 seconds. While nothing is loaded, cameras get an explicit "failed" result, not silence.</li>
+          <li><strong>Hangs:</strong> if one prediction runs longer than 10 seconds, the worker is marked hung and a replacement starts.</li>
+          <li><strong>Goes blind:</strong> if a camera gets no answer for 2 seconds, it reports <code>failed</code> and freezes its presence tracking. A detector outage must never look like an empty road.</li>
+          <li><strong>Memory:</strong> the RT-DETR path holds at most 3 frame references per camera (request, in flight, result).</li>
+        </ul>
+      </section>
+
+      <section id="time">
+        <h2>5. Getting time right</h2>
+        <p>
+          Making RT-DETR asynchronous creates a subtle problem: by the time a result arrives, the world has moved on. The
+          incident rules care about time ("a person in the lane for N seconds"), so getting this wrong would quietly
+          break them. Three rules keep it correct:
+        </p>
+        <ol>
+          <li><strong>Presence time is detection time.</strong> Dwell time and the presence clock use the capture time of
+            the frame RT-DETR actually ran on, not the time the result arrived.</li>
+          <li><strong>Geometry uses the same moment.</strong> To tell a rider from a pedestrian, we compare the person
+            with vehicle boxes. Those vehicle boxes come from a snapshot taken when the request was made, so a fast
+            motorcycle that has moved 120 px since then doesn't turn its rider into a "pedestrian".</li>
+          <li><strong>Evidence comes from the result frame.</strong> The photo attached to a pedestrian or animal event is
+            the frame the detection came from, so the box is always on the right spot.</li>
+        </ol>
+        <p>A blind period never adds time to the presence clock when the camera recovers.</p>
+      </section>
+
+      <section id="targets">
+        <h2>6. Targets and modes</h2>
+        <table>
+          <thead><tr><th>Target (RTX host, 12 cameras)</th><th>Why it matters</th></tr></thead>
+          <tbody>
+            <tr><td>Vehicle loop at least 7 fps per camera (5th percentile) with an 8 fps cap</td><td>ANPR and speed need steady frames</td></tr>
+            <tr><td>RT-DETR result age p95 under 800 ms</td><td>Incidents are confirmed on fresh data</td></tr>
+            <tr><td>A dead or hung engine never stops vehicle detection; recovery under 60 s</td><td>Enforcement keeps running</td></tr>
+            <tr><td>Zero cross-camera track mix-ups and zero evidence frame mismatches</td><td>The records are legal evidence</td></tr>
+          </tbody>
+        </table>
+        <p>
+          The pool is a mode, not a rewrite. <code>inline</code> stays the default for Jetson (same behaviour as before),
+          <code>pool</code> is for GPU servers, and <code>legacy</code> keeps the old path for one release in case we need
+          to roll back on site.
+        </p>
+      </section>
+
+      <section id="lessons">
+        <h2>7. What I took away</h2>
+        <ul>
+          <li><strong>Measure where the time goes before buying hardware.</strong> A faster GPU did nothing because the GPU wasn't the bottleneck.</li>
+          <li><strong>Re-check old safety decisions when the platform changes.</strong> The global lock was right for an 8 GB Jetson and wrong for a GPU server.</li>
+          <li><strong>Async work needs explicit timestamps.</strong> Once a result can arrive late, every rule has to know <em>when</em> the result is from.</li>
+          <li><strong>Make failure loud.</strong> "Failed" is a real state. A detector outage must never quietly look like a clear road.</li>
+        </ul>
+        <div class="confidential">
+          <strong>Note:</strong> VIDS is a proprietary Arya Omnitalk system. This post describes the design at a level
+          that's fine to share in public. Sites, customers and code are confidential.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>
+        <strong>Shubham Kulkarni</strong> — Software Engineer, AI/ML
+      </div>
+      <ul>
+        <li><a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/shubhkulk21" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
+        <li><a href="mailto:kulkarnishub377@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a></li>
+        <li><a href="index.html" class="inline-link">&larr; Back to All Posts</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeToggle');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const currentTheme = () => root.getAttribute('data-theme') || (systemDark.matches ? 'dark' : 'light');
+    themeBtn?.addEventListener('click', () => {
+      const next = currentTheme() === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+
+    const progress = document.getElementById('readProgress');
+    window.addEventListener('scroll', () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      if (total > 0) {
+        const pct = Math.min(1, Math.max(0, window.scrollY / total));
+        progress.style.transform = `scaleX(${pct})`;
+      }
+    }, { passive: true });
+
+    document.querySelector('.copy-link-btn')?.addEventListener('click', () => {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const btn = document.querySelector('.copy-link-btn');
+        const original = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check" style="color:var(--ok)"></i>';
+        setTimeout(() => { btn.innerHTML = original; }, 2000);
+      });
+    });
+
+    document.querySelectorAll('.share-btn[data-platform]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const p = btn.dataset.platform;
+        const u = encodeURIComponent(window.location.href);
+        const t = encodeURIComponent(document.title);
+        let url = '';
+        if (p === 'linkedin') url = `https://www.linkedin.com/sharing/share-offsite/?url=${u}`;
+        else if (p === 'twitter') url = `https://twitter.com/intent/tweet?url=${u}&text=${t}`;
+        else if (p === 'whatsapp') url = `https://api.whatsapp.com/send?text=${t}%20${u}`;
+        if (url) window.open(url, '_blank', 'width=600,height=500');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -29,6 +29,25 @@
     <priority>0.95</priority>
   </url>
 
+  <url>
+    <loc>https://shubhamkulkarni.me/blog/vids-12-cameras-one-gpu.html</loc>
+    <lastmod>2026-11-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://shubhamkulkarni.me/blog/dog-that-never-alerted.html</loc>
+    <lastmod>2026-11-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://shubhamkulkarni.me/blog/mhada-explorer-141k-clicks.html</loc>
+    <lastmod>2026-11-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
   <!-- ═══ Category Hub Pages ═══ -->
   <url>
     <loc>https://shubhamkulkarni.me/blog/computer-vision.html</loc>

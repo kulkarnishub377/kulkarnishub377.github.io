@@ -23,7 +23,7 @@
 - **TMCS:** 26 concurrent camera streams on one GPU server; 7 incident rules; 11 object classes; write-once SHA-256 evidence.
 - **Tests:** 2,400+ automated tests across VIDS (2,100+) and TMCS (360).
 - **Vehicle re-identification:** 150,000+ forensic queries a day, under 100 ms per search, 30× faster retrieval with FAISS IVF.
-- **MHADA Pune Explorer (personal product):** 141K Google clicks and 1.56M impressions in 3 months (average position 4.9); 108K visits in 30 days.
+- **MHADA Pune Explorer (personal product):** 141K Google clicks and 1.56M impressions in 3 months (average position 4.9); 238K impressions in Google AI features; 34.8K citations in Microsoft Copilot answers; 108K visits in 30 days.
 
 ## Flagship work (Arya Omnitalk, proprietary)
 
@@ -76,6 +76,9 @@
 
 ## Writing
 
+- [Twelve cameras, one GPU: the lock that ate 90% of our frame time](https://shubhamkulkarni.me/blog/vids-12-cameras-one-gpu.html)
+- [The dog that never raised an alert: debugging a silent miss](https://shubhamkulkarni.me/blog/dog-that-never-alerted.html)
+- [141K Google clicks in three months: building MHADA Pune Explorer](https://shubhamkulkarni.me/blog/mhada-explorer-141k-clicks.html)
 - [TMCS: highway incident detection with PTZ cameras](https://shubhamkulkarni.me/blog/tmcs.html)
 - [AI in traffic management: building VIDES](https://shubhamkulkarni.me/blog/vehicle-detection-system.html)
 - [Building an open-source data annotation platform](https://shubhamkulkarni.me/blog/data-annotation-tool.html)
