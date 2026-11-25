@@ -3,7 +3,7 @@
 
 # TEAM
     Author/Developer: Shubham Kulkarni
-    Title: AI Engineer (Computer Vision & Generative AI)
+    Title: Software Engineer, AI/ML (Computer Vision & Edge AI)
     Company: Arya Omnitalk Wireless Solutions, Pune
     Location: Pune, Maharashtra, India
     LinkedIn: https://www.linkedin.com/in/shubhkulk21/

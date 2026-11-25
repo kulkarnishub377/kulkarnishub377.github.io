@@ -1,5 +1,5 @@
 # Crawl rules for shubhamkulkarni.me
-# Shubham Kulkarni Portfolio — AI Engineer | Computer Vision, GenAI & MLOps
+# Shubham Kulkarni Portfolio — Software Engineer, AI/ML | Computer Vision & Edge AI
 
 User-agent: *
 Allow: /

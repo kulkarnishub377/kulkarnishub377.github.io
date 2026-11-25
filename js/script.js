@@ -91,7 +91,7 @@
   // ── Typewriter ──
   const tw = $('#typewriter');
   const roles = [
-    'AI Engineer @ Arya Omnitalk',
+    'Software Engineer, AI/ML @ Arya Omnitalk',
     'Computer vision for live highways',
     'Multi-object tracking · ByteTrack',
     'RAG & Document AI systems',
@@ -128,6 +128,7 @@
   // ── Contact form → FormSubmit (validated first) ──
   const form = $('#contactForm');
   const note = $('#formNote');
+  if (form) {
   form.addEventListener('submit', e => {
     const fields = ['fname', 'femail', 'fsub', 'fmsg'].map(id => $('#' + id));
     let firstBad = null;
@@ -156,6 +157,7 @@
     const field = e.target.closest('.field');
     if (field) field.classList.remove('invalid');
   });
+  }
 
   const year = $('#year');
   if (year) year.textContent = new Date().getFullYear();

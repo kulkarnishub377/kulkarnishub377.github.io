@@ -438,6 +438,23 @@ em { font-style: italic; }
   font-size: .82rem; color: var(--muted); display: flex; gap: 10px; align-items: baseline; max-width: 60em;
 }
 
+/* ── Flagship summary (home) & case-study pages ── */
+.flag-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.flag-cta .btn-ghost { border-color: var(--line-2); color: var(--ink); }
+.flag-second { margin-top: clamp(56px, 8vw, 96px); padding-top: clamp(40px, 6vw, 64px); border-top: 1px solid var(--line-2); }
+.flag-second .cs-intro { margin-bottom: 8px; }
+.flag-note { font-size: .85rem; color: var(--muted); margin-top: 14px; max-width: 46em; }
+.cs-page .hero-cs { padding: calc(var(--nav-h) + clamp(40px, 7vw, 88px)) 0 clamp(8px, 2vw, 24px); }
+.crumbs { font-family: var(--f-mono); font-size: .75rem; color: var(--muted); margin-bottom: 20px; }
+.crumbs a { color: var(--muted); border-bottom: 1px solid var(--line-2); }
+.crumbs a:hover { color: var(--accent-ink); }
+.cs-next { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
+.story { max-width: 46em; }
+.story p { color: var(--ink-2); margin-bottom: 14px; }
+.story h4 { font-size: 1.05rem; margin: 22px 0 8px; }
+.story ol { padding-left: 1.2em; list-style: decimal; color: var(--ink-2); }
+.story ol li { margin-bottom: 8px; }
+
 /* ── Projects ── */
 .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
 .filter {

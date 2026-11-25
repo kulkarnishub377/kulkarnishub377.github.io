@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>VIDS case study — Shubham Kulkarni</title>
+  <script>
+    document.documentElement.classList.add('js');
+    (function () { try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) { } })();
+  </script>
+  <meta name="description"
+    content="Case study: VIDS (VIDES), an edge AI system for highway enforcement and incident detection. 7 models per node, 16 violation and incident types, ANPR and speed on every vehicle, from a Jetson Orin Nano at one gantry to 12 cameras on one RTX 5060 Ti.">
+  <link rel="canonical" href="https://shubhamkulkarni.me/work/vides.html">
+  <meta name="author" content="Shubham Kulkarni">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#F3F1EB" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0B0B0C" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://shubhamkulkarni.me/work/vides.html">
+  <meta property="og:title" content="VIDS — edge AI for highway enforcement and incidents">
+  <meta property="og:description"
+    content="How I built and scaled VIDS: 7 models per node, ANPR and speed on every vehicle, 16 violation and incident types, from one Jetson to 12 cameras on one GPU.">
+  <meta property="og:image" content="https://shubhamkulkarni.me/Asset/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400..600&family=Instrument+Serif:ital@0;1&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body class="cs-page">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <div class="wrap nav-inner">
+      <a href="../index.html" class="brand" aria-label="Shubham Kulkarni — home">
+        <span class="brand-mark">SK</span>
+        <span class="brand-name">Shubham Kulkarni</span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Primary">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#experience">Experience</a>
+        <a href="../index.html#flagship">Flagship</a>
+        <a href="tmcs.html">TMCS</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle colour theme">
+          <i class="fas fa-moon i-dark" aria-hidden="true"></i>
+          <i class="fas fa-sun i-light" aria-hidden="true"></i>
+        </button>
+        <a class="btn btn-sm btn-solid" href="../Asset/Shubham_Kulkarni_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+        <button class="icon-btn burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false"
+          aria-controls="navLinks">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="sec band hero-cs" aria-labelledby="vides-t">
+      <div class="wrap">
+        <p class="crumbs"><a href="../index.html">Home</a> / <a href="../index.html#flagship">Flagship work</a> / VIDS</p>
+        <header class="sec-head">
+          <p class="sec-idx"><span>Case study</span> Arya Omnitalk · production</p>
+          <h1 id="vides-t" class="sec-title">VIDS — edge AI that logs <em>every vehicle</em> on the highway, not just
+            the violators.</h1>
+        </header>
+
+        <div class="cs-intro">
+          <div>
+            <p class="cs-lead">VIDS (Video Incident Detection System, VIDES inside the company) is the system I build
+              at Arya Omnitalk for highway enforcement and incident monitoring. Each gantry has its own GPU box. It
+              reads the camera streams, detects and tracks every vehicle, reads its number plate, measures its speed,
+              checks it for violations, and stores the result as evidence. The control room gets checked events with
+              photos and video, not raw footage.</p>
+            <p>Most enforcement systems only record violators. VIDS records <strong>every vehicle that passes</strong>,
+              with class, plate, speed and evidence. That gives the road operator full traffic counts and a way to audit
+              toll records, not only a list of fines.</p>
+            <p>The records are used as legal evidence, so the rule on this project is simple: being correct and
+              staying up come before new features.</p>
+          </div>
+          <dl class="cs-kv">
+            <div><dt>Role</dt><dd>Developer of the backend AI service, the operator dashboard and the ATMS data sync
+                service</dd></div>
+            <div><dt>Edge</dt><dd>NVIDIA Jetson Orin Nano / Orin NX at the gantry · TensorRT FP16</dd></div>
+            <div><dt>GPU server</dt><dd>12 cameras with every detector on, on one RTX 5060 Ti</dd></div>
+            <div><dt>Customers</dt><dd>NHAI, highway concessionaires and traffic authorities</dd></div>
+            <div><dt>Status</dt><dd>In production · proprietary</dd></div>
+          </dl>
+        </div>
+
+        <div class="bench">
+          <div class="bench-grid bench-stats">
+            <div class="b-cell"><p class="b-k">Unique vehicles a day</p><p class="b-v">50K<small>+</small></p><p class="b-note">~100 km corridor, a gantry every ~10 km, repeat sightings counted once</p></div>
+            <div class="b-cell"><p class="b-k">ANPR accuracy</p><p class="b-v">90<small>%+</small></p><p class="b-note">plate read correctly, measured in the field</p></div>
+            <div class="b-cell"><p class="b-k">One gantry, 30 days</p><p class="b-v">620K<small>+</small></p><p class="b-note">detections from a single Jetson Orin Nano</p></div>
+            <div class="b-cell"><p class="b-k">Cameras on one GPU</p><p class="b-v">12</p><p class="b-note">RTX 5060 Ti, 1080p, every detector on</p></div>
+            <div class="b-cell"><p class="b-k">Violation &amp; incident types</p><p class="b-v">16</p><p class="b-note">plus ANPR and speed on every vehicle</p></div>
+            <div class="b-cell"><p class="b-k">Models on one node</p><p class="b-v">7</p><p class="b-note">6 TensorRT FP16 engines + PP-OCRv4</p></div>
+            <div class="b-cell"><p class="b-k">Detect + track, Orin Nano</p><p class="b-v">126<small>ms</small></p><p class="b-note">median per frame, 3 ANPR cameras sharing the GPU</p></div>
+            <div class="b-cell"><p class="b-k">Automated tests</p><p class="b-v">2,100<small>+</small></p><p class="b-note">backend, dashboard and sync service</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec band band-next" aria-labelledby="arch-t">
+      <div class="wrap">
+        <div class="arch" aria-label="VIDS architecture">
+          <h2 class="sub-h" id="arch-t">Architecture <span>one node per gantry, or one GPU server for many</span></h2>
+          <p class="pipe-label">Every camera runs the same core. Then the lane cameras do enforcement and the overview
+            camera does incidents.</p>
+          <ol class="pipe-steps p4">
+            <li><span class="ps-n">01</span><b>RTSP → GPU decode</b><small>GStreamer · keeps only the newest frame</small></li>
+            <li class="hot"><span class="ps-n">02</span><b>Vehicle detection</b><small>custom-trained YOLO · TensorRT FP16 · 7 classes</small></li>
+            <li class="hot"><span class="ps-n">03</span><b>Tracking</b><small>ByteTrack · trajectories · speed</small></li>
+            <li><span class="ps-n">04</span><b>Early filtering</b><small>ROI · lane · direction · size · track quality</small></li>
+          </ol>
+          <div class="arch-fork" aria-hidden="true"></div>
+          <div class="arch-split">
+            <div class="lane">
+              <p class="lane-h"><i class="fas fa-id-card" aria-hidden="true"></i> Lane cameras · enforcement</p>
+              <ul class="lane-par">
+                <li><b>ANPR</b><small>plate detector (YOLO) → PP-OCRv4 · plate locks after 2 matching reads</small></li>
+                <li><b>Helmet &amp; triple riding</b><small>two-wheelers only</small></li>
+                <li><b>Seatbelt</b><small>windshield area · cars and larger</small></li>
+                <li><b>Speed &amp; lane rules</b><small>overspeed, slow, wrong lane, wrong way, banned class</small></li>
+              </ul>
+              <div class="lane-out"><b>Detection finalizer</b><small>joins all results for one vehicle → a violation,
+                  or a clean recorded passage</small></div>
+            </div>
+            <div class="lane">
+              <p class="lane-h"><i class="fas fa-binoculars" aria-hidden="true"></i> Overview camera · incidents</p>
+              <ul class="lane-par">
+                <li><b>Trajectory rules</b><small>stopped vehicle · illegal parking · accident · queue</small></li>
+                <li><b>RT-DETR</b><small>pedestrians, animals and debris on the road</small></li>
+                <li><b>Pothole scan</b><small>daylight hours only</small></li>
+                <li><b>Visibility check</b><small>fog or a dirty lens</small></li>
+              </ul>
+              <div class="lane-out"><b>Incident manager</b><small>merges repeat alerts so one incident is one event</small></div>
+            </div>
+          </div>
+          <div class="arch-join" aria-hidden="true"></div>
+          <div class="arch-sink">
+            <div><b>Async DB writer → PostgreSQL</b><small>camera threads never wait on SQL</small></div>
+            <div><b>SSE → Socket.IO → dashboard</b><small>operator verifies or discards, &lt;150 ms after detection</small></div>
+            <div><b>ATMS sync service</b><small>sends every finished detection to the customer's ATMS</small></div>
+          </div>
+        </div>
+
+        <div class="cs-duo" style="margin-top:56px">
+          <div>
+            <h3 class="sub-h">What it detects <span>16 types</span></h3>
+            <ul class="layers">
+              <li><b>Violations</b><span>helmet missing · triple riding · seatbelt missing · overspeed / slow moving · wrong lane · wrong way · banned vehicle class</span></li>
+              <li><b>Incidents</b><span>stopped vehicle · illegal parking · queue · accident · pedestrian on the road · animal on the road · debris · pothole · low visibility</span></li>
+              <li><b>Every vehicle</b><span>class (car, truck, bus, mini bus, auto, bike, tractor), number plate, speed and evidence photo</span></li>
+              <li><b>In progress</b><span>fire and smoke detection</span></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="sub-h">Evidence you can defend <span>it ends up in front of officials</span></h3>
+            <ul class="layers layers-check">
+              <li><b>Nothing is deleted</b><span>a detection only moves through statuses (new, verified, approved, rejected, closed), and a database trigger enforces the allowed steps</span></li>
+              <li><b>Boxes on the right frame</b><span>crops come only from the frame the box was detected in, so the plate box never drifts onto another car</span></li>
+              <li><b>Video clips</b><span>short clips are encoded on their own threads, so the camera loop never waits</span></li>
+              <li><b>A human decides</b><span>every violation goes to an operator with evidence to verify or discard, and discards are kept for audit</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec band band-next" aria-labelledby="hard-t">
+      <div class="wrap">
+        <h2 class="sub-h" id="hard-t">Hard problems, and how I solved them</h2>
+        <div class="hl-grid">
+          <article class="hl">
+            <p class="hl-n">A</p>
+            <h4>No hardware encoder</h4>
+            <p>Streams decode straight into GPU memory. The Orin Nano has no video encoder, so the live preview gets the
+              original H.264 stream passed through instead of re-encoding it.</p>
+          </article>
+          <article class="hl">
+            <p class="hl-n">B</p>
+            <h4>Latency that can't drift</h4>
+            <p>Each camera keeps only its newest frame. If inference slows down, old frames are dropped, not queued, so
+              the system stays close to real time instead of falling minutes behind.</p>
+          </article>
+          <article class="hl">
+            <p class="hl-n">C</p>
+            <h4>Filter first, run models later</h4>
+            <p>Cheap checks (ROI, lane, direction, size, track quality) throw away irrelevant vehicles before any
+              expensive model runs. Models whose rules are switched off stay idle.</p>
+          </article>
+          <article class="hl">
+            <p class="hl-n">D</p>
+            <h4>Plates you can trust</h4>
+            <p>Contrast fix and sharpening before OCR, a penalty for blurry crops, fixes for O/0 and I/1 by position,
+              and a plate is only final after <strong>2 matching reads</strong>.</p>
+          </article>
+          <article class="hl">
+            <p class="hl-n">E</p>
+            <h4>One slow model can't block a record</h4>
+            <p>ANPR, helmet and seatbelt run in parallel worker pools on bounded queues. The finalizer joins their
+              results per vehicle and has a timeout, so a slow model never holds up the record.</p>
+          </article>
+          <article class="hl">
+            <p class="hl-n">F</p>
+            <h4>Seven models, one small GPU</h4>
+            <p>All GPU work goes through one lock so TensorRT contexts never collide on an 8 GB Jetson. RT-DETR runs on
+              a subset of frames and the pothole scan once an hour, which keeps everything inside the memory budget.</p>
+          </article>
+          <article class="hl">
+            <p class="hl-n">G</p>
+            <h4>Three services, no shared code</h4>
+            <p>The AI service, the dashboard and the ATMS sync only talk through the database, an SSE stream and an
+              HTTP control API. Any one of them can be restarted or upgraded on site without touching the others.</p>
+          </article>
+          <article class="hl">
+            <p class="hl-n">H</p>
+            <h4>Speed from one camera</h4>
+            <p>Speed comes from the vehicle's track and a per-camera calibration (homography or a fitted row-to-metres
+              curve). Each camera can use the method that suits its view.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec band band-next" aria-labelledby="scale-t">
+      <div class="wrap">
+        <h2 class="sub-h" id="scale-t">Scaling up: from one gantry to 12 cameras on one GPU</h2>
+        <div class="cs-duo">
+          <div class="story">
+            <p>VIDS started on a Jetson Orin Nano at each gantry: 3 lane cameras and 1 overview camera. Some sites need
+              many cameras in one place, so we moved those to a GPU server with an <strong>RTX 5060 Ti</strong>. How
+              many cameras a box can take depends on the hardware, so I tested it: <strong>12 cameras at 1080p with
+              every detector switched on</strong>.</p>
+            <h4>What broke</h4>
+            <p>The first 12-camera run showed that about <strong>90% of each camera's frame time was spent waiting for
+              the GPU lock</strong>. Every overview camera loaded its own RT-DETR engine (about 12 engines) and ran it
+              inside its own loop, so the cameras kept queuing behind each other.</p>
+            <h4>The fix</h4>
+            <ol>
+              <li>A shared pool of RT-DETR engines (one per gantry plus a spare), instead of one per camera.</li>
+              <li>Cameras hand a request to the pool and pick up the result on a later frame, so they never wait.</li>
+              <li>Each camera keeps only its newest request, and results older than 1 second are dropped, never applied.</li>
+              <li>A hung or crashed engine is replaced automatically, and vehicle detection carries on while it's down.</li>
+            </ol>
+            <p>The target is at least 7 fps per camera at an 8 fps cap on all 12 cameras. The Jetson setup stays as it
+              was.</p>
+          </div>
+          <div class="story">
+            <h4>A field bug: the dog that never raised an alert</h4>
+            <p>On site, a dog stood still in a lane and people walked on the road, and VIDS raised nothing. TMCS,
+              running the same model on the same view, did alert. I reproduced it from the recorded frames and found
+              two causes:</p>
+            <ol>
+              <li><strong>The tracker never started a track for it.</strong> The tracker's default score fusion needs a
+                fairly strong score to start a new track, and it drops a new track after one miss. A dog scoring
+                around 0.4 never got an ID, and VIDS only looks at tracked objects. I shipped a config hotfix the same
+                day, then ported the TMCS tracker, which keeps a weak new track alive for one miss.</li>
+              <li><strong>It was too small for the model.</strong> Squeezing the lane area into a 640 px input shrank the
+                dog to about 14×20 px. On the full view the model read it as a "person" at 0.43; cropped, it was a dog at
+                0.85. Now wide areas are cut into tiles no wider than 960 px and the detections are merged.</li>
+            </ol>
+            <p>Every step that drops a detection is now counted in a per-minute log line, so the next silent miss is
+              visible in the logs instead of only showing up in the field.</p>
+          </div>
+        </div>
+
+        <div class="cs-foot" style="margin-top:56px">
+          <div>
+            <h3 class="sub-h">Why at the edge</h3>
+            <table class="why">
+              <thead><tr><th scope="col"></th><th scope="col">Central / cloud</th><th scope="col">VIDS at the gantry</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Latency</th><td>network round trip before any decision</td><td>decided at the roadside</td></tr>
+                <tr><th scope="row">Bandwidth</th><td>raw video uploaded all day</td><td>events and evidence crops only</td></tr>
+                <tr><th scope="row">Privacy</th><td>raw footage leaves the site</td><td>frames processed on site, only evidence kept</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h3 class="sub-h">Stack</h3>
+            <ul class="tags tags-dark">
+              <li>Python</li><li>Flask</li><li>GStreamer</li><li>OpenCV</li><li>YOLO</li><li>RT-DETR</li>
+              <li>ByteTrack</li><li>PaddleOCR PP-OCRv4</li><li>TensorRT FP16</li><li>CUDA</li><li>Jetson Orin</li>
+              <li>RTX 5060 Ti</li><li>PostgreSQL</li><li>SSE</li><li>Socket.IO</li><li>MediaMTX</li><li>systemd</li><li>pytest</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="confidential"><i class="fas fa-lock" aria-hidden="true"></i> VIDS is a proprietary Arya Omnitalk
+          system. Source code, sites, customers and internal documents are confidential. This page describes the design
+          at a level that's fine to share in public.</p>
+
+        <div class="cs-next">
+          <a class="btn btn-ghost" href="../index.html#flagship"><i class="fas fa-arrow-left" aria-hidden="true"></i> Back to the portfolio</a>
+          <a class="btn btn-solid" href="tmcs.html">Next: TMCS case study <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p>© <span id="year">2026</span> Shubham Kulkarni · Pune, India</p>
+      <ul>
+        <li><a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/shubhkulk21/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a></li>
+        <li><a href="mailto:kulkarnishub377@gmail.com" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a></li>
+        <li><a href="../blog/index.html">Blog</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <button class="btt" id="btt" type="button" aria-label="Back to top"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+  <script src="../js/script.js" defer></script>
+</body>
+
+</html>

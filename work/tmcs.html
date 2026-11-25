@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TMCS case study — Shubham Kulkarni</title>
+  <script>
+    document.documentElement.classList.add('js');
+    (function () { try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) { } })();
+  </script>
+  <meta name="description"
+    content="Case study: TMCS, a highway incident-detection platform that turns existing PTZ cameras into automated incident detectors. 26 concurrent camera streams, 7 incident rules, tamper-evident evidence, 360 automated tests.">
+  <link rel="canonical" href="https://shubhamkulkarni.me/work/tmcs.html">
+  <meta name="author" content="Shubham Kulkarni">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#F3F1EB" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0B0B0C" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://shubhamkulkarni.me/work/tmcs.html">
+  <meta property="og:title" content="TMCS — turning highway cameras into incident detectors">
+  <meta property="og:description"
+    content="26 concurrent camera streams, 7 incident rules, PTZ-aware analytics and tamper-evident evidence for highway control rooms.">
+  <meta property="og:image" content="https://shubhamkulkarni.me/Asset/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400..600&family=Instrument+Serif:ital@0;1&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body class="cs-page">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <div class="wrap nav-inner">
+      <a href="../index.html" class="brand" aria-label="Shubham Kulkarni — home">
+        <span class="brand-mark">SK</span>
+        <span class="brand-name">Shubham Kulkarni</span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Primary">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#experience">Experience</a>
+        <a href="../index.html#flagship">Flagship</a>
+        <a href="vides.html">VIDS</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle colour theme">
+          <i class="fas fa-moon i-dark" aria-hidden="true"></i>
+          <i class="fas fa-sun i-light" aria-hidden="true"></i>
+        </button>
+        <a class="btn btn-sm btn-solid" href="../Asset/Shubham_Kulkarni_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+        <button class="icon-btn burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false"
+          aria-controls="navLinks">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="sec band hero-cs" aria-labelledby="tmcs-t">
+      <div class="wrap">
+        <p class="crumbs"><a href="../index.html">Home</a> / <a href="../index.html#flagship">Flagship work</a> / TMCS</p>
+        <header class="sec-head">
+          <p class="sec-idx"><span>Case study</span> Arya Omnitalk · production</p>
+          <h1 id="tmcs-t" class="sec-title">TMCS — turning the highway cameras already installed into <em>automatic
+              incident detectors.</em></h1>
+        </header>
+
+        <div class="cs-intro">
+          <div>
+            <p class="cs-lead">TMCS (Traffic Monitoring Camera System) watches live PTZ camera feeds along a national
+              highway and raises incidents on its own: a stopped or parked vehicle, a car going the wrong way, a person or
+              an animal on the road, debris, a queue. It follows NHAI's ATMS standards (2023), which put a monitoring
+              camera roughly every kilometre.</p>
+            <p>A control room can't hire one more operator for every new camera. TMCS does the constant watching and
+              hands the operator a short, checked event with evidence, so people only look at what matters. It works with
+              cameras from different vendors, day and night, without replacing anything already on the poles.</p>
+            <a class="btn btn-ghost btn-doc" href="../Asset/TMCS_Client_Solution_Overview.pdf" target="_blank" rel="noopener"><i
+                class="fas fa-file-pdf" aria-hidden="true"></i> Solution overview <span>PDF · 14 pages</span></a>
+          </div>
+          <dl class="cs-kv">
+            <div><dt>Role</dt><dd>Core engineer: vision pipeline, tracking, rule engine, PTZ handling, evidence and access
+                control</dd></div>
+            <div><dt>Domain</dt><dd>Highway ATMS · NHAI ATMS Standards &amp; Specifications (2023)</dd></div>
+            <div><dt>Scale</dt><dd>26 camera streams running at once on one GPU server</dd></div>
+            <div><dt>Stack</dt><dd>FastAPI · asyncpg · PostgreSQL · YOLO + RT-DETR · ByteTrack</dd></div>
+            <div><dt>Status</dt><dd>In production · proprietary</dd></div>
+          </dl>
+        </div>
+
+        <div class="bench">
+          <div class="bench-grid bench-stats">
+            <div class="b-cell"><p class="b-k">Concurrent streams</p><p class="b-v">26</p><p class="b-note">on one GPU server; capacity depends on the hardware</p></div>
+            <div class="b-cell"><p class="b-k">Incident rules</p><p class="b-v">7</p><p class="b-note">time-based, on frame capture timestamps</p></div>
+            <div class="b-cell"><p class="b-k">Object classes</p><p class="b-v">11</p><p class="b-note">vehicles, people, animals, debris</p></div>
+            <div class="b-cell"><p class="b-k">Automated tests</p><p class="b-v">360</p><p class="b-note">unit, integration and failure cases</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec band band-next" aria-labelledby="pipe-t">
+      <div class="wrap">
+        <div class="pipe" aria-label="TMCS processing pipeline">
+          <h2 class="sub-h" id="pipe-t">Camera feed → confirmed incident</h2>
+          <p class="pipe-label">Nothing becomes an alert until every stage agrees.</p>
+          <ol class="pipe-steps">
+            <li><span class="ps-n">01</span><b>Camera · ONVIF</b><small>any vendor, PTZ control</small></li>
+            <li><span class="ps-n">02</span><b>RTSP ingest</b><small>auto-reconnect, newest frame only</small></li>
+            <li><span class="ps-n">03</span><b>Preset check</b><small>zones for the current PTZ position</small></li>
+            <li class="hot"><span class="ps-n">04</span><b>Detection</b><small>YOLO vehicles + RT-DETR people, animals, debris</small></li>
+            <li class="hot"><span class="ps-n">05</span><b>Tracking</b><small>ByteTrack, time-aware Kalman</small></li>
+            <li><span class="ps-n">06</span><b>Rule engine</b><small>7 rules on real time, not frame counts</small></li>
+            <li><span class="ps-n">07</span><b>Incident</b><small>one event per incident, with start and end</small></li>
+            <li><span class="ps-n">08</span><b>Evidence &amp; hand-off</b><small>write-once + SHA-256 · SSE to the control room</small></li>
+          </ol>
+        </div>
+
+        <div class="bench">
+          <h3 class="sub-h">Measured <span>internal engineering numbers</span></h3>
+          <div class="bench-grid">
+            <div class="b-cell b-wide">
+              <p class="b-k">Tracking + rules per frame (model time not included)</p>
+              <div class="b-bars" role="table" aria-label="p50 tracking and rules time by objects per frame">
+                <div class="b-row" role="row"><span role="cell">10 objects</span><i style="--w:14.6%"></i><b role="cell">1.5 ms</b></div>
+                <div class="b-row" role="row"><span role="cell">40 objects</span><i style="--w:51.5%"></i><b role="cell">5.3 ms</b></div>
+                <div class="b-row" role="row"><span role="cell">80 objects</span><i style="--w:100%"></i><b role="cell">10.3 ms</b></div>
+              </div>
+              <p class="b-note">Median, measured on a CPU-only dev machine. It grows roughly in a straight line with the
+                number of objects, so the logic around the models never becomes the bottleneck.</p>
+            </div>
+            <div class="b-cell"><p class="b-k">Loading PTZ presets</p><p class="b-v">2,500 → &lt;10<small>ms</small></p><p class="b-note">one batched SQL upsert instead of one round trip per preset</p></div>
+            <div class="b-cell"><p class="b-k">Track memory</p><p class="b-v">60<small>s</small></p><p class="b-note">a person or animal keeps its ID while a truck passes in front</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec band band-next" aria-labelledby="hard-t">
+      <div class="wrap">
+        <h2 class="sub-h" id="hard-t">Hard problems, and how I solved them</h2>
+        <div class="hl-grid">
+          <article class="hl">
+            <p class="hl-n">A</p>
+            <h4>Two models, each doing its job</h4>
+            <p>A custom-trained YOLO model finds vehicles, and RT-DETR finds people, animals and debris. The detector
+              is stateless and shared by all cameras, and every event records which model versions fired it.</p>
+          </article>
+          <article class="hl">
+            <p class="hl-n">B</p>
+            <h4>Riders aren't pedestrians</h4>
+            <p>A person on a motorbike or in an auto-rickshaw is still a "person" to the model. TMCS links people to the
+              vehicle they're sitting on by geometry, so riders don't raise pedestrian alarms but someone standing next to
+              a vehicle still does.</p>
+          </article>
+          <article class="hl">
+            <p class="hl-n">C</p>
+            <h4>Tracking through occlusion</h4>
+            <p>Weak new tracks survive one missed frame, and people and animals keep their ID for up to 60 s. This is the
+              tracker I later ported into VIDS when it missed a dog standing in a lane.</p>
+          </article>
+          <article class="hl">
+            <p class="hl-n">D</p>
+            <h4>Night and glare</h4>
+            <p>Headlight glare and wet-road reflections look like objects. TMCS tracks scene brightness and filters
+              glare, and raises the bar for new tracks at night. It never assumes night from the clock, because a tunnel is
+              dark at noon.</p>
+          </article>
+          <article class="hl">
+            <p class="hl-n">E</p>
+            <h4>Cameras that move</h4>
+            <p>When an operator moves a PTZ camera, the old zones no longer match the picture. Every move clears the
+              tracks and pauses analytics until the view settles, then loads that preset's zones. The camera returns to its
+              watch position on a timer.</p>
+          </article>
+          <article class="hl">
+            <p class="hl-n">F</p>
+            <h4>Dead cameras fail fast</h4>
+            <p>A camera that drops off the network used to block a worker for 10–30 s. An ONVIF supervisor with a
+              circuit breaker now skips dead cameras right away, and shutdown is clean and predictable.</p>
+          </article>
+          <article class="hl">
+            <p class="hl-n">G</p>
+            <h4>Evidence that can't be edited</h4>
+            <p>Evidence images are written once and get a SHA-256 hash. Boxes and labels are drawn as an overlay on top,
+              never into the original. Each event stores the model, rule and config versions that produced it.</p>
+          </article>
+          <article class="hl">
+            <p class="hl-n">H</p>
+            <h4>Living next to the existing system</h4>
+            <p>TMCS shares the company's main VMS/ATCC database through a device-scoped view instead of a database of its
+              own. Its access control reuses the same users and roles, and a permission change applies on the very next
+              request.</p>
+          </article>
+        </div>
+
+        <div class="cs-duo" style="margin-top:56px">
+          <div>
+            <h3 class="sub-h">7 incident rules <span>11 object classes</span></h3>
+            <ul class="inc">
+              <li class="crit">Stopped vehicle</li><li class="crit">Wrong-way driving</li><li class="crit">Pedestrian on
+                highway</li><li>Animal on road</li><li>Debris</li><li>Queue / congestion</li><li>Parked vehicle</li>
+            </ul>
+            <p class="cls">Car · Motorcycle · Truck · Bus · Mini bus · Auto-rickshaw · Tractor · Bicycle · Pedestrian ·
+              Animal · Road debris</p>
+          </div>
+          <div>
+            <h3 class="sub-h">How changes reach a live highway</h3>
+            <ul class="layers layers-check">
+              <li><b>Tested off the road first</b><span>simulator, recorded footage and shadow mode, so a rule can be tested without a real camera</span></li>
+              <li><b>Config with history</b><span>zones, rules and models go through draft, check, approve and publish, and old versions are kept</span></li>
+              <li><b>Honest status</b><span>"command sent" is never shown as "done", and features degrade gracefully</span></li>
+              <li><b>Secrets out of code</b><span>camera passwords and API tokens never appear in code or logs</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cs-foot" style="margin-top:56px">
+          <div>
+            <h3 class="sub-h">Layers <span>each one owns one job</span></h3>
+            <ol class="layers">
+              <li><b>Device</b><span>ONVIF discovery, credentials, PTZ control</span></li>
+              <li><b>Media</b><span>RTSP ingest, decode, timestamps, reconnect, stream health</span></li>
+              <li><b>Scene</b><span>PTZ preset state, zones, lanes, direction</span></li>
+              <li><b>AI</b><span>detection, tracking, GPU scheduling across cameras</span></li>
+              <li><b>Rules &amp; events</b><span>checks, incident lifecycle, de-duplication, evidence</span></li>
+              <li><b>Integration</b><span>ATMS hand-off, message signs, patrol dispatch</span></li>
+            </ol>
+          </div>
+          <div>
+            <h3 class="sub-h">Stack</h3>
+            <ul class="tags tags-dark">
+              <li>Python 3.11</li><li>FastAPI</li><li>asyncpg</li><li>PostgreSQL</li><li>PyTorch</li><li>YOLO</li>
+              <li>RT-DETR</li><li>TensorRT</li><li>ByteTrack</li><li>OpenCV</li><li>ONVIF</li><li>RTSP</li>
+              <li>MediaMTX</li><li>SSE</li><li>Flask</li><li>pytest</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="confidential"><i class="fas fa-lock" aria-hidden="true"></i> TMCS is a proprietary Arya Omnitalk
+          system. The linked PDF is Arya Omnitalk's client-facing overview. Source code and client details are
+          confidential, and the numbers above are internal engineering measurements.</p>
+
+        <div class="cs-next">
+          <a class="btn btn-ghost" href="vides.html"><i class="fas fa-arrow-left" aria-hidden="true"></i> VIDS case study</a>
+          <a class="btn btn-solid" href="../index.html#projects">More projects <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p>© <span id="year">2026</span> Shubham Kulkarni · Pune, India</p>
+      <ul>
+        <li><a href="https://github.com/kulkarnishub377" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/shubhkulk21/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a></li>
+        <li><a href="mailto:kulkarnishub377@gmail.com" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a></li>
+        <li><a href="../blog/index.html">Blog</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <button class="btt" id="btt" type="button" aria-label="Back to top"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+  <script src="../js/script.js" defer></script>
+</body>
+
+</html>

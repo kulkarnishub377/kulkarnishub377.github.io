@@ -1,109 +1,90 @@
-# Shubham Kulkarni — AI Engineer Portfolio
+# Shubham Kulkarni — Software Engineer, AI/ML
 
-> Shubham Kulkarni is a production AI Engineer with 1+ years of experience at Arya Omnitalk Wireless Solutions (Arvind Group), Pune, where he is a core engineer on VIDES (edge traffic enforcement on NVIDIA Jetson) and TMCS (NHAI ATMS-aligned highway incident detection). He specializes in Computer Vision (YOLOv8, ByteTrack, TensorRT, OSNet), Generative AI (LangGraph, DSPy, Compound AI, Hybrid RAG with FAISS+BM25+RRF), Edge AI deployment (NVIDIA Jetson, ONNX, Rockchip), and MLOps (FastAPI, Docker, Triton, Prometheus). He led his team to AIR 1 (National Champion) at Smart India Hackathon 2023.
+> Shubham Kulkarni is a Software Engineer (AI/ML) at Arya Omnitalk Wireless Solutions (Arvind Group), Pune, India, since August 2025. He is the developer of VIDS (internally VIDES), an edge AI system for highway enforcement and incident detection, and a core engineer on TMCS, an NHAI ATMS-aligned highway incident-detection platform. He works across computer vision (YOLO, RT-DETR, ByteTrack, ANPR), TensorRT inference on NVIDIA Jetson and RTX GPU servers, real-time backend services, and RAG / agent applications. He led his team to AIR 1 (National Champion) at Smart India Hackathon 2023.
 
-## Core Identity & Current Role
+## Profile
 
 - **Name:** Shubham Kulkarni
-- **Role:** AI Engineer (Computer Vision, Generative AI, RAG & Edge AI)
-- **Current Organization:** Arya Omnitalk Wireless Solutions Pvt. Ltd. (Arvind Group), Pune, Maharashtra, India
-- **Joining Date:** 18 August 2025 (1+ years in production)
-- **Location:** Pune, Maharashtra, India
+- **Title:** Software Engineer, AI/ML
+- **Organization:** Arya Omnitalk Wireless Solutions Pvt. Ltd. (Arvind Group), Pune, Maharashtra, India
+- **Since:** August 2025
+- **Education:** B.E. Electronics & Telecommunication, Savitribai Phule Pune University (2025), First Class
 - **Email:** kulkarnishub377@gmail.com
 - **LinkedIn:** https://www.linkedin.com/in/shubhkulk21/
 - **GitHub:** https://github.com/kulkarnishub377
-- **Portfolio Website:** https://shubhamkulkarni.me/
-- **Resume:** https://shubhamkulkarni.me/Asset/Shubham_Kulkarni_Resume.pdf
+- **Portfolio:** https://shubhamkulkarni.me/
+- **Résumé:** https://shubhamkulkarni.me/Asset/Shubham_Kulkarni_Resume.pdf
 
-## Production Impact & Key Metrics
+## Key numbers
 
-- **50K+ Unique Vehicles / Day (~100 km highway corridor with a VIDES gantry every ~10 km; repeat sightings counted once; one gantry alone: 620K+ detections in 30 days, ~20K a day):** VIDES edge traffic-enforcement network on live national highways — ANPR, speed measurement and 14 violation and incident detectors (helmet, triple riding, seatbelt, wrong lane, banned vehicle, wrong-way, stopped vehicle, accident, queue, pedestrian, animal, debris, pothole, low visibility) from 7 models on one NVIDIA Jetson.
-- **126 ms Median Detect + Track / <150 ms Alerts:** 3 ANPR lane cameras (one per lane of the gantry, plus 1 overview camera) at ~7 FPS each on one Jetson Orin Nano (~7 W); SSE → Socket.IO operator alerting.
-- **TMCS Incident Detection:** 7 incident rules, 11 object classes, 1.5 ms p50 tracking + rules latency, SHA-256 write-once evidence, 298+ automated tests.
-- **TensorRT FP16 Edge Inference:** YOLOv8 + ByteTrack on NVIDIA Jetson Orin Nano, ~21 FPS aggregate across the gantry's 3 lane cameras.
-- **150,000+ Queries / Day:** ATMS vehicle forensic re-identification powered by OSNet deep appearance embeddings and FAISS IVF-PQ vector indexing (30× faster than baseline).
-- **90%+ ANPR Accuracy:** Real-time multi-camera detection across 7 vehicle classes with plate voting and cross-camera duplicate suppression.
-- **99.9% Uptime:** Mission-critical highway and enterprise AI services.
-- **AIR 1 National Champion:** Smart India Hackathon 2023 (Team Lead for AI E-Waste Management System).
+- **VIDS:** 50,000+ unique vehicles a day across a ~100 km highway corridor at 90%+ ANPR accuracy; one gantry logged 620,000+ detections in 30 days on a single Jetson Orin Nano.
+- **VIDS:** 7 models per node (6 TensorRT FP16 engines + PaddleOCR PP-OCRv4); ANPR and speed for every vehicle plus 16 violation and incident types.
+- **VIDS scale-up:** 12 cameras with every detector on, on one RTX 5060 Ti GPU server (capacity depends on the hardware); 126 ms median detect-and-track per frame on a Jetson Orin Nano; operator alerts in under 150 ms.
+- **TMCS:** 26 concurrent camera streams on one GPU server; 7 incident rules; 11 object classes; write-once SHA-256 evidence.
+- **Tests:** 2,400+ automated tests across VIDS (2,100+) and TMCS (360).
+- **Vehicle re-identification:** 150,000+ forensic queries a day, under 100 ms per search, 30× faster retrieval with FAISS IVF.
+- **MHADA Pune Explorer (personal product):** 141K Google clicks and 1.56M impressions in 3 months (average position 4.9); 108K visits in 30 days.
 
-## Technical Skills
+## Flagship work (Arya Omnitalk, proprietary)
 
-- **Computer Vision:** YOLOv8, ByteTrack, OpenCV, RTSP Video Streaming, Kalman Filtering, Deep Re-ID (OSNet), PyTorch, TensorFlow, Scikit-learn, MATLAB.
-- **Generative AI & LLMs:** LangGraph, DSPy, Compound AI, Agentic Workflows, Hybrid RAG (FAISS + BM25 + Reciprocal Rank Fusion), vLLM, Ollama, Local LLMs, ChromaDB, Ragas Evals, Prompt Engineering.
-- **Edge AI & Hardware:** NVIDIA Jetson, TensorRT, ONNX Runtime, TensorRT-LLM, Rockchip RK3588, Raspberry Pi, Arduino Mega, PID Control.
-- **MLOps & Infrastructure:** Docker, FastAPI, Triton Inference Server, CI/CD pipelines, Linux/Bash, AWS IoT, Prometheus, Streamlit, Git.
-- **Databases & Vector Stores:** FAISS (IVF-PQ), PostgreSQL, Redis Cache, SQLite WAL, MongoDB, MySQL, MSSQL.
-- **Full Stack & APIs:** Python 3.11+, Django 5.2, Django REST Framework, Flask, pywebview, JavaScript (ES6+), WebSockets, REST APIs, HTML5/CSS3.
+- [VIDS case study](https://shubhamkulkarni.me/work/vides.html): Edge AI for highway enforcement and incidents. RTSP → GPU decode → YOLO (TensorRT FP16) → ByteTrack → ROI filtering → ANPR (plate detector + PP-OCRv4, 2-read consensus), helmet / triple riding, seatbelt, speed, lane rules and incident engines → per-vehicle finalizer → PostgreSQL → SSE / Socket.IO dashboard and an ATMS sync service. Every passing vehicle is recorded, not only violators. Scaled from a Jetson Orin Nano to 12 cameras on one RTX 5060 Ti by replacing per-camera RT-DETR engines with a shared engine pool.
+- [TMCS case study](https://shubhamkulkarni.me/work/tmcs.html): Turns existing highway PTZ cameras into automatic incident detectors aligned with NHAI ATMS Standards (2023). YOLO + RT-DETR, time-based tracking, rider-aware pedestrian logic, night glare filtering, PTZ-aware analytics, write-once SHA-256 evidence. [Solution overview (PDF)](https://shubhamkulkarni.me/Asset/TMCS_Client_Solution_Overview.pdf)
+- [Vehicle Re-Identification & Forensic Search](https://shubhamkulkarni.me/blog/vehicle-re-identification.html): OSNet + ResNet embeddings and FAISS IVF for cross-camera vehicle search (company work).
 
-## Featured Production Systems & Projects
+## Other projects
 
-- [VIDES — Edge Traffic Enforcement Network](https://shubhamkulkarni.me/#vides): ATCC and enforcement on NVIDIA Jetson Orin at every gantry — detection, ByteTrack tracking, ANPR with 2-read OCR consensus, helmet/seatbelt/speed/wrong-way/accident/pedestrian/animal/pothole detection, 50K+ unique vehicles/day across a ~100 km corridor (one gantry: 620K+ in 30 days), 90%+ ANPR accuracy. [Article](https://shubhamkulkarni.me/blog/vehicle-detection-system.html)
-- [TMCS — Highway Incident Detection](https://shubhamkulkarni.me/#tmcs): Turns PTZ highway cameras into automated incident detectors aligned with NHAI ATMS Standards (2023) — dual-model YOLOv8 + RT-DETR, occlusion-resilient tracking, 7 incident rules, court-grade evidence. [Solution overview (PDF)](https://shubhamkulkarni.me/Asset/TMCS_Client_Solution_Overview.pdf)
-- [ATMS Vehicle Forensic Re-Identification](https://shubhamkulkarni.me/blog/vehicle-re-identification.html): In-memory forensic vehicle matching system serving 150K+ daily queries at <100ms latency using OSNet + FAISS IVF-PQ without database overhead.
-- [Open Source Data Annotation Tool for CV](https://github.com/kulkarnishub377/Data_Annotation_Tool): Local-first, privacy-focused alternative to CVAT & Roboflow. End-to-end dataset platform featuring model-assisted auto-annotation (100,000 images in 30 mins on NVIDIA Orin NX 16GB), bbox & polygon segmentation, 5-point dataset health QA dashboard, multi-format inference (.pt, .onnx, .engine), auto splitting, and in-browser model fine-tuning with live SSE logs. [GitHub](https://github.com/kulkarnishub377/Data_Annotation_Tool) | [Case Study](https://shubhamkulkarni.me/blog/data-annotation-tool.html)
-- [OmniSight](https://shubhamkulkarni.me/OmniSight/): Autonomous multi-modal AI incident intelligence fabric ingesting IoT, vision, and audio signals with an Agentic workflow engine. [Case Study](https://shubhamkulkarni.me/blog/omnisight.html) | [GitHub](https://github.com/kulkarnishub377/OmniSight)
-- [DocuAI Studio v3.1](https://shubhamkulkarni.me/blog/docuai-studio-v3-1.html): Production Document AI & Hybrid RAG platform (FAISS + BM25 + RRF) with streaming Q&A, knowledge graphs, and 40+ REST API endpoints. [GitHub](https://github.com/kulkarnishub377/Document-AI---RAG-Pipeline)
-- [CivicMind](https://shubhamkulkarni.me/CivicMind/): Multi-agent smart city decision intelligence platform using Gemini 2.5 orchestration, digital twin simulation, and Explainable AI (XAI). [Case Study](https://shubhamkulkarni.me/blog/civicmind.html) | [GitHub](https://github.com/kulkarnishub377/CivicMind)
-- [KeyFlow AI Typing Studio](https://shubhamkulkarni.me/keyflow-ai-typing/): Local-first adaptive typing trainer with 10 deterministic AI agents, sub-millisecond telemetry, Web Audio DSP synthesis, and 18 MB standalone binary. [Case Study](https://shubhamkulkarni.me/blog/keyflow-ai-typing.html) | [GitHub](https://github.com/kulkarnishub377/keyflow-ai-typing)
-- [Smart Irrigation System](https://shubhamkulkarni.me/JalTantra/): IoT + ML precision agriculture water optimization saving 30% water. University Rank 2, SPPU Startup Olympiad 2025. [Overview](https://shubhamkulkarni.me/blog/smart-irrigation.html) | [Win Story](https://shubhamkulkarni.me/blog/sih-win-2023.html)
-- [Alumni Management Portal](https://shubhamkulkarni.me/Alumni_Management_portal/): Full-stack Django 5.2/DRF role-based platform (164+ commits, 4 dashboards, 50+ REST APIs, JWT auth). [Case Study](https://shubhamkulkarni.me/blog/alumni-portal.html) | [GitHub](https://github.com/kulkarnishub377/Alumni_Management_portal)
-- [Mental Health AI Tracker](https://shubhamkulkarni.me/blog/mental-health-ai.html): NLP sentiment & burnout detection system built during IBM India internship with 90% accuracy.
-- [AI E-Waste Management System](https://shubhamkulkarni.me/e_waste/): Smart bin network with AI device classification and GPS routing reducing collection costs by 40%. AIR 1 winning project, Smart India Hackathon 2023. [Article](https://shubhamkulkarni.me/blog/e-waste-management.html)
+- [MHADA Pune Explorer](https://mhadaexplore.app): Independent English/Marathi guide to the MHADA Pune 2026 housing lottery: scheme finder, draft-list search across 2.68 lakh applications, EMI calculator. Built on Cloudflare Workers with structured data for search.
+- [Data Annotation Studio](https://github.com/kulkarnishub377/Data_Annotation_Tool): Open-source offline labelling tool. YOLO auto-labelling (v8 / 11 / 26), box and polygon labels, 7-check dataset health report, YOLO / COCO export, in-browser training. Auto-labels 100,000 images in 30 minutes on a Jetson Orin NX 16 GB. [Write-up](https://shubhamkulkarni.me/blog/data-annotation-tool.html)
+- [DocuAI Studio v3.1](https://github.com/kulkarnishub377/Document-AI---RAG-Pipeline): Local RAG app with cited answers. Hybrid retrieval (FAISS + BM25 + RRF) with cross-encoder reranking, OCR, knowledge graph, 48 API endpoints, Mistral via Ollama. [Write-up](https://shubhamkulkarni.me/blog/docuai-studio-v3-1.html)
+- [OmniSight](https://github.com/kulkarnishub377/OmniSight): Event-driven multi-modal incident platform with an investigating agent and Qdrant vector memory. [Write-up](https://shubhamkulkarni.me/blog/omnisight.html)
+- [CivicMind](https://github.com/kulkarnishub377/CivicMind): Decision-support tool for city teams with Gemini agents, forecasting and a RAG assistant on Google Cloud. [Write-up](https://shubhamkulkarni.me/blog/civicmind.html)
+- [KeyFlow AI](https://github.com/kulkarnishub377/keyflow-ai-typing): Offline typing coach with 10 rule-based agents, shipped as a ~18 MB Windows app. [Write-up](https://shubhamkulkarni.me/blog/keyflow-ai-typing.html)
+- [Alumni Management Portal](https://github.com/kulkarnishub377/Alumni_Management_portal): Django / DRF platform adopted by the college; 19 models, 50+ REST APIs, 4 dashboards. [Write-up](https://shubhamkulkarni.me/blog/alumni-portal.html)
+- [E-Zero](https://shubhamkulkarni.me/e_waste/): AI e-waste management, AIR 1 at Smart India Hackathon 2023. [Story](https://shubhamkulkarni.me/blog/sih-win-2023.html)
+- [JalTantra](https://shubhamkulkarni.me/JalTantra/): IoT + ML smart irrigation, University Rank 2 at SPPU Startup Olympiad 2025. [Overview](https://shubhamkulkarni.me/blog/smart-irrigation.html)
 
-## Technical Blog & Deep Dives
+## Experience
 
-- [TMCS Highway Incident Detection with PTZ Cameras](https://shubhamkulkarni.me/blog/tmcs.html): Technical deep dive into building NHAI ATMS-aligned incident detection across multi-vendor ONVIF PTZ cameras, dual-model YOLOv8 + RT-DETR TensorRT scheduling, occlusion-resilient tracking, 7 incident rules, and SHA-256 evidence integrity.
-- [Open Source Data Annotation Platform](https://shubhamkulkarni.me/blog/data-annotation-tool.html): Technical deep dive into local-first CV dataset engineering, YOLO-assisted auto-annotation, dataset health QA, and in-browser model training with live SSE logs.
-- [LangGraph Multi-Agent Workflows](https://shubhamkulkarni.me/blog/ai-agent-langgraph.html): Architectural guide to designing cyclical, stateful AI agent networks with human-in-the-loop validation.
-- [Production RAG Pipeline Architecture](https://shubhamkulkarni.me/blog/rag-pipeline.html): Implementing Hybrid Retrieval (Dense Vector + BM25 Sparse + Reciprocal Rank Fusion) and evaluation with Ragas.
-- [Generative AI Engineering Guide](https://shubhamkulkarni.me/blog/generative-ai.html): Full-stack LLM engineering from fine-tuning to compound AI systems and structured outputs.
-- [Computer Vision Hub](https://shubhamkulkarni.me/blog/computer-vision.html): Modern real-time object detection, tracking, TensorRT optimization, and video analytics.
-- [AI & ML Industry Trends](https://shubhamkulkarni.me/blog/ai-ml-trends.html): Critical analysis of frontier models, edge inference, multimodal systems, and MLOps best practices.
-- [Trending AI Languages](https://shubhamkulkarni.me/blog/trending-ai-langs.html): Comparative evaluation of Python, Mojo, Rust, C++, and Julia in production AI.
-- [IoT Connectivity & Edge Systems](https://shubhamkulkarni.me/blog/iot-connectivity.html): Protocols (MQTT, RTSP, WebSockets) and low-latency edge AI integration.
+1. **Software Engineer, AI/ML** (Aug 2025 – Present), Arya Omnitalk Wireless Solutions (Arvind Group), Pune: VIDS, TMCS, vehicle re-identification.
+2. **Data Analytics & GenAI Trainee** (Oct – Dec 2024), AICTE · VOIS for Tech · Vodafone Idea Foundation.
+3. **Campus Ambassador** (Aug 2023 – Aug 2024), GeeksforGeeks.
+4. **AI Intern** (Jun – Aug 2023), IBM India: transformer text classifiers for stress detection, 90% accuracy.
+5. **Computer Vision Intern** (May – Sep 2023), MathWorks: CNN image classification in MATLAB.
 
-## Awards & Recognition
+## Skills
 
-- **🥇 AIR 1 (National Champion) — Smart India Hackathon 2023:** Led 6-member team to #1 national rank among thousands of teams across India (AI E-Waste Management System).
-- **🥈 University Rank 2 — SPPU Startup Olympiad 2025:** Precision Agriculture AI Smart Irrigation System.
-- **🏅 Global Runner-Up — TIAA Global AI Hackathon:** AI Investment Intelligence & Risk Scoring Engine.
+- **Computer vision:** YOLO (v5 / v8 / 11 / 26), RT-DETR, ByteTrack, Kalman filtering, ANPR, PaddleOCR, OSNet / ResNet re-ID, OpenCV
+- **Inference & edge:** TensorRT FP16, ONNX, CUDA, NVIDIA Jetson Orin Nano / NX, RTX GPU servers, GStreamer
+- **Backend & streaming:** Python, FastAPI, Flask, Django, asyncio, RTSP, ONVIF, SSE, Socket.IO, MediaMTX
+- **GenAI:** RAG, hybrid retrieval, reranking, LangChain, LangGraph, Google ADK, FAISS, Qdrant, Ollama, Gemini
+- **Data & ops:** PostgreSQL, Redis, SQLite, Docker, systemd, Linux, pytest, GCP
 
-## Professional Experience
+## Awards
 
-1. **AI Engineer** (Aug 2025 — Present)
-   *Arya Omnitalk Wireless Solutions Pvt. Ltd. (Arvind Group), Pune, India*
-   - VIDES edge enforcement network (14 detectors, 7 models per Jetson, 50K+ unique vehicles/day on a ~100 km corridor, 126 ms median detect + track).
-   - TMCS highway incident detection (NHAI ATMS 2023; 7 rules, 11 classes, SHA-256 evidence, 298+ tests).
-   - Vehicle re-identification (150K+ forensic queries/day, <100 ms FAISS search, 30× faster, 99.9% uptime).
-2. **Data Analytics Trainee** (Oct 2024 — Dec 2024)
-   *AICTE · VOIS for Tech · Vodafone Idea Foundation*
-   - Applied LLMs for agricultural insight pipelines and large-scale data analytics.
-3. **Campus Ambassador** (Aug 2023 — Aug 2024)
-   *GeeksforGeeks, Ahilyanagar*
-   - Led campus developer community and organized hackathons, coding contests, and workshops.
-4. **Artificial Intelligence Intern** (Jun 2023 — Aug 2023)
-   *IBM India Pvt. Ltd.*
-   - Transformer NLP text classification (90% accuracy) and mental health sentiment analysis.
-5. **Computer Vision Intern** (May 2023 — Sep 2023)
-   *MathWorks, Ahilyanagar*
-   - Deep learning & CNN image processing workflows in MATLAB.
-6. **B.E. Electronics & Telecommunication Engineering** (2021 — 2025)
-   *Dr. VVP College of Engineering · Savitribai Phule Pune University (SPPU)*
-   - Core Committee Secretary, SIH 2023 National Champion, deployed live Alumni Portal.
+- **AIR 1 (National Champion), Smart India Hackathon 2023:** team lead, AI e-waste management system.
+- **University Rank 2, SPPU Startup Olympiad 2025:** JalTantra smart irrigation.
+- **Global Runner-Up, TIAA Global AI Hackathon:** AI investment risk scoring.
 
-## Recent Certifications
+## Certifications
 
-- Google Cloud Gen AI Academy APAC 2026 — Cohort 2 (Hack2skill)
+- Google Cloud Gen AI Academy APAC 2026, Cohort 2 (Hack2skill)
 - Deploy Multi-Agent Architectures — Google (2026)
 - Engineer AI Agents with Agent Development Kit (ADK) — Google (2026)
 - Build AI Agents with Enterprise Databases — Google Cloud Skills Boost (2026)
 - Introduction to Machine Learning Concepts — Microsoft (2026)
 - Getting Started with AI on Jetson Nano — NVIDIA DLI (2025)
 
-## Contact & Hire
+## Writing
+
+- [TMCS: highway incident detection with PTZ cameras](https://shubhamkulkarni.me/blog/tmcs.html)
+- [AI in traffic management: building VIDES](https://shubhamkulkarni.me/blog/vehicle-detection-system.html)
+- [Building an open-source data annotation platform](https://shubhamkulkarni.me/blog/data-annotation-tool.html)
+- [Building a production RAG pipeline](https://shubhamkulkarni.me/blog/rag-pipeline.html)
+- [Building an AI agent with LangGraph](https://shubhamkulkarni.me/blog/ai-agent-langgraph.html)
+- [All articles](https://shubhamkulkarni.me/blog/index.html)
+
+## Contact
 
 - **Email:** kulkarnishub377@gmail.com
 - **LinkedIn:** https://www.linkedin.com/in/shubhkulk21/
-- **GitHub:** https://github.com/kulkarnishub377
-- **Phone / WhatsApp:** +91 8308003684
-- **Availability:** Open to Senior AI Engineer roles, Computer Vision / GenAI consulting, and production AI system design.
+- **Availability:** Open to AI/ML and computer vision engineering roles.

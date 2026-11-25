@@ -10,7 +10,7 @@ DOCX_OUT, HTML_OUT = sys.argv[1], sys.argv[2]
 
 # ─────────────────────────── content ───────────────────────────
 NAME = 'SHUBHAM KULKARNI'
-TITLE = 'AI Engineer  |  Computer Vision  ·  Edge AI  ·  Generative AI & RAG  ·  MLOps'
+TITLE = 'Software Engineer, AI/ML  |  Computer Vision  ·  Edge AI  ·  Real-time Systems  ·  RAG'
 CONTACT = [
     [('Pune, Maharashtra, India', None), ('+91 83080 03684', None),
      ('21shubhamkulkarni@gmail.com', 'mailto:21shubhamkulkarni@gmail.com')],
@@ -19,132 +19,127 @@ CONTACT = [
      ('shubhamkulkarni.me', 'https://shubhamkulkarni.me')],
 ]
 SUMMARY = [
-    ('AI Engineer who designs and ships production computer vision and generative AI systems for national highway '
-     'infrastructure. Core engineer on ', False), ('VIDES', True),
-    (', an edge traffic-enforcement network on NVIDIA Jetson (14 detectors, 7 models per node, 50,000+ unique vehicles/day across a ~100 km highway corridor '
-     'at 90%+ ANPR accuracy, 126 ms median detect-and-track), and ', False), ('TMCS', True),
-    (', an NHAI ATMS-aligned incident-detection platform with court-grade evidence. Owns systems end to end — TensorRT '
-     'model optimization, multi-object tracking, real-time streaming, data pipelines, access control and CI/CD — and '
-     'builds RAG, hybrid-search and multi-agent platforms. National Champion (AIR 1), Smart India Hackathon 2023.', False),
+    ('Software engineer who builds and runs production computer vision for national highways. Developer of ', False),
+    ('VIDS', True),
+    (', an edge enforcement and incident system (7 models per node, 16 violation and incident types plus ANPR and speed '
+     'on every vehicle; 50,000+ unique vehicles a day across a ~100 km corridor at 90%+ ANPR accuracy), which I scaled '
+     'from a Jetson Orin Nano to 12 cameras on one RTX 5060 Ti. Core engineer on ', False),
+    ('TMCS', True),
+    (', NHAI ATMS-aligned incident detection running 26 camera streams at once. I own work end to end, from model '
+     'training and TensorRT to tracking, backend services, testing and on-site deployment. I also build RAG and agent '
+     'applications. National Champion (AIR 1), Smart India Hackathon 2023.', False),
 ]
 SKILLS = [
-    ('Computer Vision & Deep Learning',
-     'Object Detection (YOLOv5/v8, RT-DETR), Multi-Object Tracking (ByteTrack, Kalman Filter), Re-Identification '
-     '(OSNet-AIN, ResNet), ANPR & OCR (PaddleOCR PP-OCRv4), OpenCV, PyTorch, TensorFlow, Hugging Face, NLP'),
-    ('Edge AI & Inference Optimization',
-     'NVIDIA Jetson (Orin NX/Nano, Xavier), TensorRT (FP16/INT8), CUDA, ONNX Runtime, GStreamer (nvv4l2decoder), '
-     'Hardware-Accelerated Video Decoding, Model Quantization, Raspberry Pi, Rockchip'),
-    ('Generative AI & Agents',
-     'Retrieval-Augmented Generation (RAG), Hybrid Search (FAISS + BM25 + RRF), LangChain, Multi-Agent Orchestration, '
-     'Google ADK, Model Context Protocol (MCP), Prompt Engineering, Knowledge Graphs, Vector Databases (FAISS, '
-     'ChromaDB), Gemini, Mistral, Ollama'),
-    ('Backend, Streaming & Systems',
-     'Python, FastAPI, Flask, Django/DRF, AsyncIO, asyncpg, REST APIs, Microservices, Event-Driven Architecture, '
-     'Server-Sent Events, WebSockets (Socket.IO), RTSP, ONVIF, MediaMTX, Multithreading & Concurrency'),
-    ('MLOps, Cloud & Data',
-     'Docker, Kubernetes, CI/CD, Git, Linux, systemd, AWS, Microsoft Azure, GCP (Vertex AI), PostgreSQL, Redis, '
-     'MongoDB, MySQL, RBAC, Automated Testing'),
+    ('Core',
+     'Machine Learning, Deep Learning, Computer Vision, Object Detection, Object Tracking, Image Processing, OCR, '
+     'Model Optimization, Model Deployment, Edge AI, Real-time Video Analytics, LLMs, RAG, Data Structures & Algorithms'),
+    ('Languages & Frameworks',
+     'Python, SQL, JavaScript, PyTorch, TensorFlow, OpenCV, scikit-learn, NumPy, Pandas, Hugging Face, LangChain, '
+     'LangGraph, FastAPI, Flask, Django REST Framework'),
+    ('Computer Vision',
+     'YOLO (v5/v8/11/26), RT-DETR, ByteTrack, Kalman Filter, ANPR, PaddleOCR, Re-Identification (OSNet, ResNet), '
+     'Data Annotation, Model Training'),
+    ('Inference & Deployment',
+     'TensorRT, ONNX, CUDA, NVIDIA Jetson, GPU Servers, GStreamer, Docker, Linux, systemd, Git, REST APIs, '
+     'Microservices, Multithreading, asyncio'),
+    ('Data & Streaming',
+     'PostgreSQL, Redis, SQLite, FAISS, Qdrant, Vector Search, RTSP, ONVIF, Server-Sent Events, WebSockets (Socket.IO), '
+     'Google Cloud (Vertex AI, BigQuery), pytest, Unit Testing'),
 ]
 EXPERIENCE = {
-    'title': 'AI Engineer',
+    'title': 'Software Engineer, AI/ML',
     'org': 'Arya Omnitalk Wireless Solutions Pvt. Ltd. (Arvind Group), Pune',
     'dates': 'Aug 2025 – Present',
     'groups': [
-        ('VIDES — Edge Traffic Enforcement & ATCC Network',
-         'NVIDIA Jetson Orin, TensorRT, GStreamer, YOLOv8, RT-DETR, PaddleOCR', [
-            ('Architected the multi-model edge pipeline',
-             'ran 7 models (6 TensorRT FP16 engines + PP-OCRv4) concurrently on one Jetson to deliver 14 detection '
-             'types — helmet, triple riding, seatbelt, wrong lane, banned vehicle, wrong-way, stopped vehicle, accident, queue, pedestrian, '
-             'animal, debris, pothole and low visibility, plus ANPR and speed — with 50,000+ unique vehicles/day across a ~100 km highway corridor (620,000+ in 30 days from a single gantry) at 90%+ ANPR accuracy.'),
-            ('Removed the CPU bottleneck',
-             'built GPU-direct ingestion with GStreamer and nvv4l2decoder plus a tee-based H.264 passthrough (no '
-             're-encode on the encoder-less Orin Nano), sustaining ~7 FPS on each of 3 ANPR lane cameras per gantry with a 126 ms median detect-and-track on one Orin Nano.'
-            ''),
-            ('Designed a fan-out/fan-in decision layer',
-             'parallel ANPR, helmet and seatbelt worker pools on bounded queues, fused per vehicle by a detection '
-             'finalizer with a 20 s timeout, so no single slow model can stall a record.'),
-            ('Automated highway toll auditing',
-             'built the ANPR path — YOLO plate localization, CLAHE preprocessing, Laplacian blur penalties and 2-read '
-             'OCR consensus — logging every vehicle passage with evidence and eliminating manual reporting.'),
-            ('Delivered sub-150 ms operator alerting',
-             'decoupled inference from the UI with an async DB writer and an SSE → Socket.IO relay (exponential-backoff '
-             'reconnect, rolling per-camera cache), with human-in-the-loop verification of every violation.'),
+        ('VIDS (VIDES) — Edge Enforcement & Incident Detection',
+         'Jetson Orin, RTX 5060 Ti, TensorRT, GStreamer, YOLO, RT-DETR, PaddleOCR, PostgreSQL', [
+            ('Built the multi-model pipeline',
+             '7 models (6 TensorRT FP16 engines + PP-OCRv4) on one node, covering ANPR and speed for every vehicle plus '
+             '16 violation and incident types (helmet, triple riding, seatbelt, overspeed, wrong lane, wrong way, '
+             'banned vehicle, stopped vehicle, illegal parking, accident, queue, pedestrian, animal, debris, pothole, '
+             'low visibility). Logs 50,000+ unique vehicles a day across a ~100 km corridor at 90%+ ANPR accuracy.'),
+            ('Scaled it to 12 cameras on one GPU',
+             'took VIDS from a Jetson Orin Nano (3 lane + 1 overview camera, 126 ms median detect-and-track) to 12 '
+             'cameras with every detector on, on one RTX 5060 Ti. Profiling showed ~90% of frame time spent waiting for '
+             'the GPU lock, so I replaced per-camera RT-DETR engines with a shared engine pool with stale-result '
+             'dropping and hung-engine recovery.'),
+            ('Fixed silent misses in the field',
+             'traced a missed animal-on-road alert to tracker score fusion and small objects at a 640 px input; '
+             'shipped a same-day hotfix, then ported a tracker that keeps weak new tracks, tiled wide areas, and added '
+             'per-minute counters for every dropped detection.'),
+            ('Built the ANPR and decision path',
+             'plate detector, PP-OCRv4, blur penalty and 2-read consensus; helmet and seatbelt pipelines in parallel '
+             'worker pools on bounded queues, joined per vehicle by a finalizer with a timeout.'),
+            ('Delivered events and evidence',
+             'async DB writer, SSE to Socket.IO dashboard alerts in under 150 ms, an ATMS sync service that sends every '
+             'finished detection to the customer, and video-clip evidence encoded off the camera threads.'),
         ]),
         ('TMCS — Highway Incident Detection (NHAI ATMS 2023)',
-         'YOLOv8, RT-DETR, ByteTrack, FastAPI, PostgreSQL, ONVIF', [
+         'FastAPI, asyncpg, PostgreSQL, YOLO, RT-DETR, ByteTrack, ONVIF', [
             ('Built the detection and rule engine',
-             'dual-model detection (YOLOv8 + RT-DETR) with ByteTrack and a dt-aware Kalman filter across 7 incident '
-             'rules and 11 object classes; 1.5 ms p50 tracking-and-rules latency (10.3 ms at 80 objects) against a '
-             'p95 ≤ 45 ms inference target.'),
-            ('Cut false alarms at the source',
-             'rider-aware occupant tagging reduced false pedestrian alarms by 95%+; a night-mode glare guard (EMA luma '
-             '+ HSV filtering) and PTZ-preset-aware analytics prevent false events at night and during camera movement.'),
-            ('Hardened the device and data layers',
-             'ONVIF circuit breaker rejects dead cameras in 0.1 ms (vs 10–30 s timeouts); preset sync cut from '
-             '2,500 ms to under 10 ms (−99.6%); TTL caching cut analytics SQL load by 90%+; deterministic shutdown in '
-             'under 0.5 s.'),
-            ('Made evidence court-ready',
-             'write-once evidence with SHA-256 integrity and full model/rule/config version traceability; RBAC with '
-             '36 permissions across 5 role tiers; 298+ automated unit, integration and fault-injection tests.'),
+             'two models (YOLO for vehicles, RT-DETR for people, animals and debris), time-based tracking and 7 incident '
+             'rules over 11 object classes, running 26 camera streams at once on one GPU server.'),
+            ('Cut false alarms',
+             'linked riders to their vehicles so they never raise pedestrian alarms; added a night glare filter and '
+             'PTZ-aware analytics that pause and reload zones whenever a camera moves.'),
+            ('Made it reliable and auditable',
+             'write-once evidence with SHA-256 and model/rule version tracing; ONVIF circuit breaker for dead '
+             'cameras; preset loading cut from 2,500 ms to under 10 ms with one batched upsert; 360 automated tests.'),
         ]),
-        ('Vehicle Re-Identification & Forensic Matching', 'PyTorch, YOLOv5, OSNet-AIN, FAISS IVF, FastAPI, Docker', [
-            ('Owned the forensic search service',
-             'designed a stateless, database-free re-identification microservice using 512-dimensional OSNet-AIN '
-             'embeddings and FAISS IVF indexing — sub-100 ms search across 150,000+ daily forensic queries, 30× '
-             'faster retrieval.'),
-            ('Ran production operations',
-             'CI/CD, heartbeat monitoring and automated recovery kept edge nodes at 99.9% uptime; worked across '
-             'hardware, backend and operations teams from pilot to production.'),
+        ('Vehicle Re-Identification & Forensic Search', 'PyTorch, YOLO, OSNet, FAISS IVF, FastAPI, Docker', [
+            ('Built the search service',
+             'stateless re-ID service with 512-d OSNet embeddings and FAISS IVF indexing: 30× faster retrieval, under '
+             '100 ms per search, 150,000+ queries a day.'),
+        ]),
+        ('Engineering practice', 'pytest, systemd, Linux', [
+            ('Testing and deployment',
+             'wrote and maintain 2,400+ automated tests across VIDS and TMCS; deploy and support systems on Jetson '
+             'devices and Linux GPU servers at customer sites.'),
         ]),
     ],
 }
 EARLIER = [
     ('AI Intern, IBM India (Jun – Aug 2023)',
-     'built transformer-based NLP text classifiers reaching 90% accuracy on production datasets.'),
-    ('AI Intern, MathWorks (May – Sep 2023)',
-     'developed deep learning and image-processing solutions in MATLAB for computer vision use cases.'),
-    ('Data Analytics Trainee, AICTE · VOIS for Tech · Vodafone Idea Foundation (Oct – Dec 2024)',
-     'applied LLMs to agriculture and science analytics pipelines.'),
+     'fine-tuned BERT, DistilBERT and RoBERTa classifiers to detect stress and distress in text, reaching 90% accuracy.'),
+    ('Computer Vision Intern, MathWorks (May – Sep 2023)',
+     'built CNN image-classification and preprocessing workflows in MATLAB for visual inspection.'),
+    ('Data Analytics & GenAI Trainee, AICTE · VOIS for Tech (Oct – Dec 2024)',
+     'Pandas pipelines and LLM-generated irrigation advice from farm sensor data.'),
 ]
 PROJECTS = [
-    ('CivicMind — Smart City Decision Intelligence', 'Gemini 2.5, Vertex AI, FastAPI, Next.js 14, Docker', '2026',
-     ('github.com/kulkarnishub377/CivicMind', 'https://github.com/kulkarnishub377/CivicMind'),
-     ['Multi-agent orchestration platform (4 coordinated agents) with a digital-twin simulator and an Explainable AI '
-      'layer for transparent, risk-based policy recommendations.']),
-    ('OmniSight — Multi-Modal Incident Intelligence', 'FastAPI, Agentic AI, RAG, Vector DB, Docker', '2026',
-     ('github.com/kulkarnishub377/OmniSight', 'https://github.com/kulkarnishub377/OmniSight'),
-     ['Agentic workflow engine that correlates high-velocity IoT, camera and audio signals in real time to validate '
-      'anomalies and generate safety guardrails.']),
-    ('DocuAI Studio v3.1 — Document AI + RAG Platform', 'FastAPI, LangChain, FAISS, Mistral, Ollama',
-     'Mar 2026 – Present',
+    ('Data Annotation Studio — open source', 'Python, Flask, Ultralytics, SQLite, PyInstaller', '2026',
+     ('github.com/kulkarnishub377/Data_Annotation_Tool', 'https://github.com/kulkarnishub377/Data_Annotation_Tool'),
+     ['Offline labelling tool: YOLO auto-labelling (v8/11/26), box and polygon labels, 7-check dataset health report, '
+      'YOLO/COCO export and in-browser training. Auto-labels 100,000 images in 30 minutes on a Jetson Orin NX; 74 tests.']),
+    ('MHADA Pune Explorer — live product', 'JavaScript, Cloudflare Workers, Schema.org', '2026',
+     ('mhadaexplore.app', 'https://mhadaexplore.app'),
+     ['Independent English/Marathi guide to the MHADA Pune 2026 housing lottery: scheme finder, search across 2.68 lakh '
+      'draft-list applications, EMI calculator. 141K Google clicks and 1.56M impressions in 3 months (avg. position '
+      '4.9); 108K visits in the last 30 days.']),
+    ('DocuAI Studio v3.1 — Document AI + RAG', 'FastAPI, LangChain, FAISS, BM25, PaddleOCR, Ollama', '2026',
      ('github.com/kulkarnishub377/Document-AI---RAG-Pipeline', 'https://github.com/kulkarnishub377/Document-AI---RAG-Pipeline'),
-     ['Locally hosted RAG platform (40+ API endpoints) for PDFs, images and web URLs with sub-2 s answers and zero '
-      'external data exposure.',
-      'Hybrid retrieval fusing FAISS dense search with BM25 via Reciprocal Rank Fusion to reduce hallucinations; '
-      'knowledge-graph entity extraction and complexity-based routing between local (Mistral 7B) and cloud LLMs.']),
-    ('JalTantra — Smart Irrigation & AgTech Platform', 'Python, IoT, Computer Vision, ML, GenAI', 'Dec 2024 – May 2025',
-     ('shubhamkulkarni.me/JalTantra', 'https://kulkarnishub377.github.io/JalTantra/'),
-     ['IoT irrigation with predictive ML and CV crop-disease detection, improving water efficiency by 30%; '
-      'multilingual (Hindi, Marathi, English) advisory chatbot. University Rank 2, SPPU Startup Olympiad 2025.']),
-    ('Alumni Management Portal — Officially Adopted by the College', 'Django DRF, PostgreSQL, WebSockets',
-     '2024 – 2025',
+     ['Local RAG app with cited answers: hybrid retrieval (FAISS + BM25 + RRF) with cross-encoder reranking, OCR for '
+      'scanned pages, knowledge-graph view; 48 API endpoints; runs Mistral locally through Ollama.']),
+    ('OmniSight — Multi-Modal Incident Intelligence', 'FastAPI, PostgreSQL, Qdrant, Redis, Prometheus', '2026',
+     ('github.com/kulkarnishub377/OmniSight', 'https://github.com/kulkarnishub377/OmniSight'),
+     ['Event-driven platform that takes camera, IoT, audio and procedure-document signals and runs an agent that '
+      'investigates each event with vector memory; 29 API endpoints.']),
+    ('Alumni Management Portal — adopted by the college', 'Django DRF, PostgreSQL, JWT', '2024 – 2025',
      ('github.com/kulkarnishub377/Alumni_Management_portal', 'https://github.com/kulkarnishub377/Alumni_Management_portal'),
-     ['Role-based platform (19 data models, 50+ REST APIs, 4 dashboards); cut query latency from 3,200 ms to 12 ms '
-      'with composite indexing and resolved JWT-refresh race conditions with a custom WebSocket subscriber queue.']),
+     ['Role-based platform for 500+ alumni (19 models, 50+ REST APIs, 4 dashboards); query time cut from 3,200 ms '
+      'to 12 ms with composite indexes.']),
 ]
 EDUCATION = ('B.E., Electronics & Telecommunication — First Class', 'Savitribai Phule Pune University (SPPU)',
              'Dec 2021 – Mar 2025', 'Dr. Vithalrao Vikhe Patil College of Engineering, Ahilyanagar')
 ACHIEVEMENTS = [
     ('AIR 1 — Smart India Hackathon 2023 (National Champion)',
-     'team lead; built an AI e-waste classification and routing system, selected best nationally.'),
-    ('Runner-Up (Global) — TIAA Global AI Hackathon', 'AI investment-intelligence platform with risk-based scoring.'),
-    ('University Rank 2 — SPPU Startup Olympiad 2025', 'JalTantra precision-agriculture platform.'),
+     'team lead; AI e-waste sorting and collection system.'),
+    ('Runner-Up (Global) — TIAA Global AI Hackathon', 'AI tool for investment risk scoring.'),
+    ('University Rank 2 — SPPU Startup Olympiad 2025', 'JalTantra IoT + ML smart irrigation.'),
     ('Certifications',
      'Google Cloud Gen AI Academy APAC 2026 (Hack2skill) · Deploy Multi-Agent Architectures — Google (2026) · Engineer '
-     'AI Agents with ADK — Google (2026) · Build AI Agents with Enterprise Databases — Google Cloud (2026) · '
-     'Introduction to Machine Learning Concepts — Microsoft (2026) · Getting Started with AI on Jetson Nano — NVIDIA '
-     'DLI (2025) · Career Essentials in Generative AI — Microsoft & LinkedIn · Deep Learning & Statistics Onramp — '
-     'MathWorks'),
+     'AI Agents with ADK — Google (2026) · Build AI Agents with Enterprise Databases — Google Cloud (2026) · Getting '
+     'Started with AI on Jetson Nano — NVIDIA DLI (2025)'),
 ]
 
 # ─────────────────────────── DOCX ───────────────────────────
@@ -162,10 +157,8 @@ for st in ('Normal', 'List Bullet'):
 doc.styles['Normal'].paragraph_format.space_after = Pt(0)
 doc.styles['List Bullet'].paragraph_format.space_after = Pt(1.5)
 cp = doc.core_properties
-cp.title, cp.author = 'Shubham Kulkarni — AI Engineer Resume', 'Shubham Kulkarni'
-cp.keywords = ('AI Engineer, Machine Learning Engineer, Computer Vision, Edge AI, NVIDIA Jetson, TensorRT, YOLOv8, '
-               'RT-DETR, ByteTrack, ANPR, PaddleOCR, RAG, LangChain, FAISS, Multi-Agent, FastAPI, PostgreSQL, Docker, '
-               'Kubernetes, MLOps')
+cp.title, cp.author = 'Shubham Kulkarni — Software Engineer, AI/ML Resume', 'Shubham Kulkarni'
+cp.keywords = ('Software Engineer AI/ML, Machine Learning Engineer, Computer Vision, Edge AI, NVIDIA Jetson, TensorRT, YOLO, RT-DETR, ByteTrack, ANPR, PaddleOCR, RAG, LangChain, FAISS, FastAPI, PostgreSQL, Docker')
 
 
 def run(p, text, bold=False, italic=False, size=None, color=None):
@@ -236,20 +229,18 @@ heading('Professional Summary')
 p = para(align=WD_ALIGN_PARAGRAPH.JUSTIFY)
 for t, bo in SUMMARY: run(p, t, bold=bo)
 
-heading('Core Competencies')
+heading('Skills')
 for label, items in SKILLS:
     p = para(); p.paragraph_format.space_after = Pt(1.5); run(p, label + ': ', bold=True); run(p, items)
 
-heading('Professional Experience')
+heading('Work Experience')
 dated(EXPERIENCE['title'], EXPERIENCE['org'], EXPERIENCE['dates'])
 for name, stack, items in EXPERIENCE['groups']:
     p = para(4, keep=True); p.paragraph_format.space_after = Pt(1)
     run(p, name, bold=True, color=NAVY); run(p, '  |  ' + stack, italic=True, size=9.5, color=GREY)
     for lead, text in items: bullet(lead, text)
-p = para(4, keep=True); p.paragraph_format.space_after = Pt(1); run(p, 'Earlier Experience', bold=True, color=NAVY)
-for lead, text in EARLIER: bullet(lead, text)
 
-heading('Selected Projects')
+heading('Projects')
 for name, stack, dates, (lt, lu), items in PROJECTS:
     dated(name, stack, dates, rest_italic=True, space=4)
     p = para(keep=True); link(p, lt, lu, 9.5)
@@ -282,15 +273,14 @@ def row(lb, rest, dates, it=False):
 
 h2('Professional Summary')
 out.append('<p class="just">' + ''.join(f'<b>{e(t)}</b>' if bo else e(t) for t, bo in SUMMARY) + '</p>')
-h2('Core Competencies')
+h2('Skills')
 out += [f'<p class="skill"><b>{e(l)}:</b> {e(i)}</p>' for l, i in SKILLS]
-h2('Professional Experience')
+h2('Work Experience')
 out.append(row(EXPERIENCE['title'], EXPERIENCE['org'], EXPERIENCE['dates']))
 for name, stack, items in EXPERIENCE['groups']:
     out.append(f'<p class="grp"><b>{e(name)}</b>  <span class="sep">|</span>  <span class="it">{e(stack)}</span></p>')
     out.append('<ul>' + ''.join(li(a, b) for a, b in items) + '</ul>')
-out.append('<p class="grp"><b>Earlier Experience</b></p><ul>' + ''.join(li(a, b) for a, b in EARLIER) + '</ul>')
-h2('Selected Projects')
+h2('Projects')
 for name, stack, dates, (lt, lu), items in PROJECTS:
     out.append('<div class="proj">' + row(name, stack, dates, it=True) +
                f'<p class="plink"><a href="{e(lu)}">{e(lt)}</a></p><ul>' + ''.join(li(None, t) for t in items) +
@@ -328,7 +318,7 @@ li { margin-bottom: 1.6pt; break-inside: avoid; }
 li::marker { color: #1F3A5F; }
 """
 with open(HTML_OUT, 'w', encoding='utf-8') as f:
-    f.write(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Shubham Kulkarni — AI Engineer Resume'
+    f.write(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Shubham Kulkarni — Software Engineer, AI/ML Resume'
             f'</title><meta name="author" content="Shubham Kulkarni"><style>{CSS}</style></head><body>'
             + '\n'.join(out) + '</body></html>')
 print('ok')
